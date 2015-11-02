@@ -1,0 +1,6 @@
+# Créer une base de données : Principe
+# Créer à partir de PGAdmin.
+##
+- créer user agenda
+- créer la base agenda
+- créer la connexion et se connecter en tant qu'agenda

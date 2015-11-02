@@ -1,0 +1,34 @@
+# Commande MySql
+##
+
+# Connection ligne de commande.
+mysql -h localhost -u root -p
+==> saisir le password.
+
+# utilisation/changement d'une base de données.
+use database;
+
+# voir les tables.
+show tables;
+
+# stucture d'une table.
+describe table;
+
+# Dumper une base de données : mysql dump.
+mysqldump -h localhost -u root -p teammanager > teammanager.mysql
+==> Créer un dump versus mysql!
+
+# Importer un dump
+mysqldump -h localhost -u root -p teammanager < teammanager.mysql
+
+# Importer, modifier, supprimer des enregistrements  de la base à partir d'un fichier sql.
+mysql -u teammanager --password=teammanager teammanager < insertCoach.sql
+
+# Lister toutes les bases de données sur un serveur:
+mysqlshow -u teammanager -p
+
+# Lister les tables dans une base de données
+mysqlshow -u teammanager -p teammanager
+
+# Lister la définition d’une table
+mysqlshow -u teammanager -p teammanager coach

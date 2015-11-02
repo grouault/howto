@@ -1,0 +1,10 @@
+# SQLYog
+
+# Dumper 
+IMPORT DATA 
+Recuperation dump : 
+	- clique droit sur la base.
+	- restore from sql dump :
+		==> aller chercher le fichier à récupérer :
+		D:\Services\application\Bugzilla-reports\bugzilla_tma.sql
+		==> exécuter.
