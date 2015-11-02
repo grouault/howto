@@ -1,0 +1,11 @@
+## Variables d'environnment
+%POSTGRE_HOME%\bin
+
+## se connecter avec 
+psql -h localhost -U agenda -p 5432 agenda
+
+## importer des datas SQL
+\i c:/Temp/dumps/resoff/20151028-resof.sql
+
+## List the databases from psql:
+psql \l
