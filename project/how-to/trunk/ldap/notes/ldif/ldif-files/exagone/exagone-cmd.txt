@@ -1,0 +1,10 @@
+# Search
+##
+ldapsearch.exe -D "cn=Manager,dc=exagone,dc=fr" -W -b "dc=exagone,dc=fr"
+
+# Ldap add - Exagone
+##
+ldapadd.exe -D "cn=Manager,dc=exagone,dc=fr" -w secret -x -f d:/devs/HOWTO/ldap/notes/ldif/ldif-files/exagone/init.ldif
+ldapadd.exe -D "cn=Manager,dc=exagone,dc=fr" -w secret -x -f d:/devs/HOWTO/ldap/notes/ldif/ldif-files/exagone/init-1-orgaunit.ldif
+ldapadd.exe -D "cn=Manager,dc=exagone,dc=fr" -w secret -x -f d:/devs/HOWTO/ldap/notes/ldif/ldif-files/exagone/init-2-role.ldif
+ldapadd.exe -D "cn=Manager,dc=exagone,dc=fr" -w secret -x -f d:/devs/HOWTO/ldap/notes/ldif/ldif-files/exagone/init-3-user.ldif

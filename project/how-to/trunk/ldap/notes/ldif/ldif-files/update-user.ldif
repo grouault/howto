@@ -1,0 +1,6 @@
+# LDIF Update : modify add attribute
+##
+dn: cn=denis,ou=people,dc=inria,dc=fr
+changetype: modify
+add: o
+o: GLMff

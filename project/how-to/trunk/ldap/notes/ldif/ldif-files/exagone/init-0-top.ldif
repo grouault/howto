@@ -1,0 +1,12 @@
+# TOP
+dn: dc=exagone,dc=fr
+dc: exagone
+o: exagone.fr LDAP Server
+description: Root entry for exagone.fr. 
+ exagone.fris is my ldap test.
+objectClass: top
+objectclass: dcObject
+objectclass: organization
+
+
+

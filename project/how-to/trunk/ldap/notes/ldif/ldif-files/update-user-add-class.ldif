@@ -1,0 +1,12 @@
+# LDIF Update.
+##
+dn: cn=denis,ou=people,dc=inria,dc=fr
+changetype: modify
+add: objectClass
+objectClass: organizationalPerson
+-
+add: objectClass
+objectClass: person
+-
+add: objectClass
+objectClass: top

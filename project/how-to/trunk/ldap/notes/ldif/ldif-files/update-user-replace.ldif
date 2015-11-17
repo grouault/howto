@@ -1,0 +1,12 @@
+# Modify - replace value attribute.
+##
+dn: cn=denis,ou=people,dc=inria,dc=fr
+changetype: modify
+replace: o
+o: GLMFF
+-
+add: ou
+ou: redaction
+-
+add: uid
+uid: lefinnois

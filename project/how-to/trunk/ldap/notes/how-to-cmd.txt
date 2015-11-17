@@ -1,0 +1,32 @@
+# Windows cmd.
+##
+options:
+-D: spécifier identité sous forme d'un dn
+-W: demander le mot de passe.
+-b: spécifie la racine de l'annuaire à consulter
+-f: spécifie le nom du fichier ldif.
+
+# Ldap search.
+# recherche avec l admin.
+ldapsearch.exe -D "cn=Manager,dc=inria,dc=fr" -W -b "dc=inria, dc=fr" "objectClass=inetOrgPerson" -ZZ 
+ldapsearch.exe -D "cn=Manager,dc=inria,dc=fr" -W -b "dc=inria, dc=fr" "cn=denis"
+
+-- SSL --
+ldapsearch.exe -D "cn=Manager,dc=inria,dc=fr" -W -b "dc=inria, dc=fr" "objectClass=inetOrgPerson" -ZZ -xh 
+ldapsearch.exe -b "cn=Manager,dc=inria,dc=fr" -W -b "dc=inria, dc=fr" "objectClass=inetOrgPerson"
+ldapsearch -b 'dc=martymac,dc=com' -ZZ -xh ldap1.martymac.com
+
+# recherche avec le user denis:
+ldapsearch.exe -D "cn=denis,ou=people,dc=inria,dc=fr" -W -b "dc=inria, dc=fr" "cn=denis"
+
+# Ldap init inria.
+##
+ldapmodify.exe -a -W -D "cn=Manager,dc=inria,dc=fr" -x -f d:/services/INRIA/conf-install/ldap/kit/data.ldif
+ldapmodify.exe -a -W -D "cn=Manager,dc=inria,dc=fr" -x -f d:/services/INRIA/conf-install/ldap/kit/new/insert-test.ldif
+# Exemple pour executer un fichier ldap.
+ldapmodify.exe -a -W -D "cn=Manager,dc=inria,dc=fr" -x -f d:/devs/HOWTO/ldap/notes/ldif/ldif-files/insert-init.ldif -h ASUS-P -p 389
+ldapmodify.exe -a -W -D "cn=Manager,dc=inria,dc=fr" -x -f d:/devs/HOWTO/ldap/notes/ldif/ldif-files/insert.ldif -h ASUS-P -p 389
+# update
+ldapmodify.exe -W -D "cn=Manager,dc=inria,dc=fr" -f d:/devs/HOWTO/ldap/notes/ldif/ldif-files/update-user.ldif
+ldapmodify.exe -W -D "cn=Manager,dc=inria,dc=fr" -f d:/devs/HOWTO/ldap/notes/ldif/ldif-files/update-user-add-class.ldif
+

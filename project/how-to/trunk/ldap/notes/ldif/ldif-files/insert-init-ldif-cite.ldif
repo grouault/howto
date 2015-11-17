@@ -1,0 +1,13 @@
+# Init universcience
+##
+dn: dc=universcience,dc=fr
+changetype: add
+objectClass: dcObject
+objectClass: organization
+dc: universcience
+o: universcience
+
+dn: ou=groups,dc=universcience,dc=fr
+ou: groups
+objectClass: top
+objectClass: organizationalUnit

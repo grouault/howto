@@ -1,0 +1,8 @@
+## FIRST Level hierarchy - people 
+# this is an ENTRY sequence and is preceded by a BLANK line
+dn: cn=Manager,dc=exagone,dc=fr
+cn: Manager
+description: Rootdn
+objectclass: organizationalRole
+
+

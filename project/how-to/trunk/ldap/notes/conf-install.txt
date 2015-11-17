@@ -1,0 +1,17 @@
+# Installation - ldap.
+##
+- Install: c:\OpenLdap\
+
+- ClientTool : c:\OpenLdap\ClientTools\
+
+- Clé : C:\OpenLDAP\secure\certs
+
+# Conf. connexion normal
+##
+Host : ASUS-P
+Port : 389
+Base dn : dc=inria,dc=fr
+Use dn : cn=Manager
+Password : secret
+
+

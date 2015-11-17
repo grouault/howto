@@ -1,0 +1,25 @@
+# urls
+##
+http://www.zytrax.com/books/ldap/ch6/
+http://www.zytrax.com/books/ldap/ch14/
+http://www.openldap.org/doc/admin24/slapdconf2.html
+
+# cmd.
+http://docs.oracle.com/cd/A97630_01/network.920/a96579/comtools.htm#631256
+http://documentation.vizrt.com/ece-install-guide/5.2/ldapadd_not_supported.html
+
+# configure ssl/tls
+http://contribs.martymac.org/samba2.2-Ldap/html/10/
+http://www.zarafa.com/wiki/index.php/Configure_OpenLDAP_with_SSL/TLS
+http://www.openldap.org/lists/openldap-technical/201109/msg00231.html
+http://varrette.gforge.uni.lu/download/polys/Tutorial_LDAP.pdf
+http://www.tbs-certificats.com/openssl-dem-server-cert-thvs.cnf
+http://www.services.parisgeo.cnrs.fr/2011/12/ldap-securise/
+
+
+# Concept
+Data is represented in an LDAP enabled directory as a hierarchy of objects, each of which is called an entry.
+Each Entry is composed of one or more objectClasses
+Each objectClass has a name.
+Each Attribute has a name, usually contains data and is a member of an object class.
+
