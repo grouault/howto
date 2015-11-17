@@ -1,0 +1,4 @@
+# LDIF - Delete user
+## 
+dn: cn=denis,ou=people,dc=inria,dc=fr
+changetype: delete

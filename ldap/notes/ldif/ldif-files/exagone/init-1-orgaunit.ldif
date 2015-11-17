@@ -1,0 +1,21 @@
+# Organizational UNIT
+##
+dn: ou=People,dc=exagone,dc=fr
+ou: People
+description: All people in exagone.fr
+objectClass: top
+objectClass: organizationalUnit
+
+dn: ou=Group,dc=exagone,dc=fr
+ou: Group
+description: All groups in exagone.fr
+objectClass: top
+objectClass: organizationalUnit
+
+dn: ou=Hosts,dc=exagone,dc=fr
+ou: Hosts
+description: All hosts in exagone.fr
+objectClass: top
+objectClass: organizationalUnit
+
+

@@ -1,0 +1,33 @@
+# SSL : Installation.
+##
+D:\devs\tools\logiciel\ldap\windows\open-ssl
+
+# Principe :
+##
+Générer la clé privée :
+openssl.exe genrsa 2048 > fichier-site.key
+
+Générer le CSR (Certificat serveur):
+openssl.exe req -new -key fichier-site.key > fichier-site.csr
+ou cette commande :
+openssl.exe req -new -key fichier-site.key -config "C:\OpenLDAP\openssl.cnf" -out fichier-site.csr
+
+
+==> commande :
+// clé privée :
+openssl genrsa -out serverkey.pem 1024
+// clé publique et commande de certificat :
+openssl.exe req -new -key serverkey.pem -config "C:\OpenLDAP\openssl.cnf" -out serverkey.csr
+
+// certification
+openssl genrsa -out cakey.pem 1024
+openssl req -new -x509 -key cakey.pem -config "C:\OpenLDAP\openssl.cnf" -out cacert.pem -days 365
+openssl x509 -req -in serverkey.csr -out servercert.pem -CA cacert.pem -CAkey cakey.pem -days 365 -CAcreateserial
+
+==> Infos :
+Nom du pays (code ISO a 2 lettres) [FR]:FR
+Nom du departement [Alpes Maritimes]:ile de france
+Nom de la ville [Nice]:paris
+Raison Sociale (nom officiel de l organisation) [Michel Durand SA]:inria.fr
+Nom commercial, service, ou texte libre (optionnel) [Fourni par TBS internet]:inria.fr
+Adresse du site a securiser (FQDN de votre site) [www.monsitessl.fr]:www.inria.fr

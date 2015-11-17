@@ -1,0 +1,8 @@
+dn: dc=inria,dc=fr
+changetype: add
+objectclass: top
+objectclass: dcObject
+objectclass: organization
+o: cbc
+dc: inria
+description: Racine de l'annuaire

@@ -1,0 +1,29 @@
+## FIRST Level hierarchy - people 
+# this is an ENTRY sequence and is preceded by a BLANK line
+dn: ou=people, dc=inria,dc=fr
+ou: people
+description: All people in organisation
+objectClass: organizationalUnit
+
+## SECOND Level hierarchy - people entries 
+# this is an ENTRY sequence and is preceded by a BLANK line
+dn: cn=Joe Schmo,ou=people,dc=inria,dc=fr
+objectclass: inetOrgPerson
+cn: Joe Schmo
+sn: Schmo
+uid: jschmo
+mail: joe@example.com
+mail: j.schmo@example.com
+ou: sales
+
+## SECOND Level hierarchy - people entries 
+# this is an ENTRY sequence and is preceded by a BLANK line
+dn: cn=denis,ou=people,dc=inria,dc=fr
+objectClass: inetOrgPerson
+cn: denis
+sn: bodor
+uid: dbodor
+mail: bodor@example.com
+mail: j.bodor@example.com
+ou: sales
+userPassword: coucou
