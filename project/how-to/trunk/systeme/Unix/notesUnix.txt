@@ -1,0 +1,21 @@
+/***********************/
+/* commande unix       */
+/***********************/
+
+/* connexion au putty */
+
+
+/* connexion au fichier de log */
+cd /soft/was/was6/AppServer/profiles/ProfileServerApplis/logs/ContentServer/
+tail -f SystemOut.log
+tail -f SystemOtail -f SystemOut.logut.log
+ls -artl
+set -o emacs
+vi .bash_profile
+
+
+
+/* scp */
+[root@webdev ContentServer7]# scp /datasan/sites/cite-sciences/mediacs/styles/dajc/StyleDajc.css root@webprep.dmzprive.cite-sciences.fr:/datasan/sites/cite-sciences/mediacs/styles/dajc 
+root@webprep.dmzprive.cite-sciences.fr's password:
+StyleDajc.css    

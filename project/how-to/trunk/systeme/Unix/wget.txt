@@ -1,0 +1,13 @@
+wget
+----
+permet de tester une connexion.
+
+Exemple: wget http://www.google.fr
+
+Exemple de connection à un bulks:
+---------------------------------
+[was6@webprep tmp]$ wget "http://devomkt:8080/bulks/catamed/000198/000198215.xml"
+--16:43:47--  http://devomkt:8080/bulks/catamed/000198/000198215.xml
+           => `000198215.xml'
+Résolution de devomkt... 172.19.79.62
+Connexion vers devomkt|172.19.79.62|:8080...

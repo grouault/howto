@@ -1,0 +1,43 @@
+
+# savoir si le serveur est lancé:
+---------------------------------
+ps -ef | grep -i was
+
+# lance le serveur d'application:
+---------------------------------
+/etc/init.d/was start
+
+
+A voir:
+-------
+id -a
+chown
+chown -vR  webadmin:web qaa.css
+
+Changement d'horodatage d'un fichier:
+-------------------------------------
+touch -t 200712311302 fichier.txt
+touch -t 1067946300  * (4/11/2003)
+touch -t 939120300 * (10/05/1999)
+touch -t 200114362005 *
+touch -t 201214362005 *
+
+Remise de l'horoadatage du fichier:
+-----------------------------------
+touch *
+
+df -k:
+------
+bash-2.03# df -k
+Filesystem            kbytes    used   avail capacity  Mounted on
+/dev/md/dsk/d0       9079661 3096143 5892722    35%    /
+/proc                      0       0       0     0%    /proc
+fd                         0       0       0     0%    /dev/fd
+mnttab                     0       0       0     0%    /etc/mnttab
+/dev/md/dsk/d4       5046030  263896 4731674     6%    /var
+swap                 7822448      24 7822424     1%    /var/run
+swap                 7822464      40 7822424     1%    /tmp
+/dev/md/dsk/d6       20174761 14156849 5816165    71%    /applis
+/dev/md/dsk/d5       20174761 3481586 16491428    18%    /usr/local
+
+

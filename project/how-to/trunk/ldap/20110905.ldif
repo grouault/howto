@@ -1,0 +1,187 @@
+dn: dc=universcience
+dc: universcience
+objectClass: organization
+objectClass: dcObject
+o: universcience
+
+dn:: b3U9UHLDqXNpZGVuY2UsIGRjPXVuaXZlcnNjaWVuY2U=
+l: universcience
+st:: Q2l0w6k=
+ou:: UHLDqXNpZGVuY2U=
+objectClass: organizationalUnit
+description:: UHLDqXNpZGVuY2U=
+
+dn:: b3U9UHLDqXNpZGVuY2UgMSxvdT1QcsOpc2lkZW5jZSwgZGM9dW5pdmVyc2NpZW5jZQ==
+l: RDC
+l: niveau 2
+st:: Q2l0w6k=
+ou:: UHLDqXNpZGVuY2UgMQ==
+description:: UHLDqXNpZGVuY2Ugc3ViIDE=
+objectClass: organizationalUnit
+
+dn:: Y249U2Vyb3Qsb3U9UHLDqXNpZGVuY2UgMSxvdT1QcsOpc2lkZW5jZSwgZGM9dW5pdmVyc2Np
+ ZW5jZQ==
+givenName: Laurend
+sn: Serot
+telephoneNumber: 8113
+userPassword:: SXNhYmVsbGU=
+l: Palais
+roomNumber: 101
+mail: l.serot@universcience.fr
+objectClass: inetOrgPerson
+objectClass: extensibleObject
+cn: Serot
+title: Chef de service
+employeeNumber: 8113
+
+dn:: Y249VVJHRU5DRSBTRUNVUklURSxvdT1QcsOpc2lkZW5jZSAxLG91PVByw6lzaWRlbmNlLCBk
+ Yz11bml2ZXJzY2llbmNl
+telephoneNumber: 7018
+l:: TXVzw6ll
+l: RDC
+roomNumber: 126
+st:: Q2l0w6k=
+objectClass: organizationalRole
+objectClass: extensibleObject
+description:: U2VydmljZSBwcmF0aXF1ZSB1cmdlbmNlIHPDqWN1cml0w6k=
+cn: URGENCE SECURITE
+
+dn:: Y249U2FsbGUgNDA0LG91PVByw6lzaWRlbmNlLCBkYz11bml2ZXJzY2llbmNl
+telephoneNumber: 7416
+l: Monge
+l: RDC
+st:: Q2l0w6k=
+roomNumber: 404
+objectClass: room
+objectClass: extensibleObject
+description:: U2FsbGUgZGUgcsOpdW5pb24=
+cn: Salle 404
+
+dn:: b3U9UHLDqXNpZGVuY2UgMTEsb3U9UHLDqXNpZGVuY2UgMSxvdT1QcsOpc2lkZW5jZSwgZGM9
+ dW5pdmVyc2NpZW5jZQ==
+l: RDC
+st:: Q2l0w6k=
+ou:: UHLDqXNpZGVuY2UgMTE=
+objectClass: organizationalUnit
+description: Presidence 11
+
+dn:: Y249VGFib3VyZXQsb3U9UHLDqXNpZGVuY2UgMTEsb3U9UHLDqXNpZGVuY2UgMSxvdT1QcsOp
+ c2lkZW5jZSwgZGM9dW5pdmVyc2NpZW5jZQ==
+givenName: Julien
+sn: Tabouret
+telephoneNumber: 7448
+userPassword:: SXNhYmVsbGU=
+l: Palais
+roomNumber: 101
+mail: l.serot@universcience.fr
+objectClass: inetOrgPerson
+objectClass: extensibleObject
+title: Chef de projet
+cn: Tabouret
+employeeNumber: 7448
+
+dn:: Y249U2FsbGUgNDAxLG91PVByw6lzaWRlbmNlIDEsb3U9UHLDqXNpZGVuY2UsIGRjPXVuaXZl
+ cnNjaWVuY2U=
+telephoneNumber: 7416
+l: Descartes
+l: RDC
+st:: Q2l0w6k=
+roomNumber: 401
+description:: U2FsbGUgZGUgcsOpdW5pb24=
+objectClass: room
+objectClass: extensibleObject
+cn: Salle 401
+
+dn:: b3U9UGFsYWlzIGRlIGxhIETDqWNvdXZlcnRlLCBkYz11bml2ZXJzY2llbmNl
+l: RDC
+st: Palais
+ou:: UGFsYWlzIGRlIGxhIETDqWNvdXZlcnRl
+objectClass: organizationalUnit
+description: Organisation Pdld
+
+dn:: Y249UGVyaWdhdWxkLG91PVBhbGFpcyBkZSBsYSBEw6ljb3V2ZXJ0ZSwgZGM9dW5pdmVyc2Np
+ ZW5jZQ==
+givenName: Magali
+sn: Perigauld
+telephoneNumber: 8159
+userPassword:: SXNhYmVsbGU=
+l: Palais
+roomNumber: 101
+mail: Magali.Perigauld@universcience.fr
+objectClass: inetOrgPerson
+objectClass: extensibleObject
+title: Chef de projet
+cn: Perigauld
+employeeNumber: 40001234
+
+dn:: Y249SGFpZ25lcsOpLG91PVByw6lzaWRlbmNlLCBkYz11bml2ZXJzY2llbmNl
+givenName: Claudie
+info: test
+sn:: SGFpZ25lcsOp
+telephoneNumber: 7020
+telephoneNumber: 7021
+userPassword:: SXNhYmVsbGU=
+l: Descartes
+l: niveau 4
+roomNumber: 1
+mail: Claudie.HAIGNERE@universcience.fr
+objectClass: inetOrgPerson
+objectClass: extensibleObject
+facsimileTelephoneNumber: 8398
+cn:: SGFpZ25lcsOp
+title:: UHLDqXNpZGVudGU=
+employeeNumber: 8403
+st:: Q2l0w6k=
+
+dn:: b3U9UHLDqXNpZGVuY2UgMixvdT1QcsOpc2lkZW5jZSwgZGM9dW5pdmVyc2NpZW5jZQ==
+l: RDC
+l: niveau 3
+st:: Q2l0w6k=
+ou:: UHLDqXNpZGVuY2UgMg==
+objectClass: organizationalUnit
+description:: dW5lIG9yZ2FuaXNhdGlvbiBjcsOpw6kgcGFyIGp1bml0
+
+dn:: Y249RHVwb250LG91PVByw6lzaWRlbmNlIDEsb3U9UHLDqXNpZGVuY2UsIGRjPXVuaXZlcnNj
+ aWVuY2U=
+mobile: 0624302244
+givenName: Jean
+sn: Dupont
+info: true
+telephoneNumber: 7415
+telephoneNumber: 7411
+l: Monge
+l: niveau 1
+roomNumber: 105b
+mail: jean.dupont@universcience.fr
+objectClass: extensibleObject
+objectClass: inetOrgPerson
+cn: Dupont
+title: Chef de projet
+employeeNumber: 7418
+description:: dW5lIHBlcnNvbm5lIGNyw6nDqSBwYXIganVuaXQ=
+st:: Q2l0w6k=
+
+dn:: Y249U2FsbGUgMTAzLG91PVBhbGFpcyBkZSBsYSBEw6ljb3V2ZXJ0ZSwgZGM9dW5pdmVyc2Np
+ ZW5jZQ==
+telephoneNumber: 7415
+l: Le Grand Palais
+l: niveau 0
+roomNumber: 103
+st: Palais
+objectClass: extensibleObject
+objectClass: room
+description:: dW5lIHNhbGxlIGNyw6nDqSBwYXIganVuaXQ=
+cn: Salle 103
+
+dn:: Y249Q2FudGluZSxvdT1QYWxhaXMgZGUgbGEgRMOpY291dmVydGUsIGRjPXVuaXZlcnNjaWVu
+ Y2U=
+telephoneNumber: 7409
+l: Le Grand Palais
+l: niveau -1
+st: Palais
+roomNumber: 002
+objectClass: extensibleObject
+objectClass: organizationalRole
+description:: dW4gc2VydmljZSBwcmF0aXF1ZSBjcsOpw6kgcGFyIGp1bml0
+cn: Cantine
+

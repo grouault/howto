@@ -1,0 +1,28 @@
+Pour faire un tar :
+------------------
+tar cvf PM_Document.tar PM_Document/*
+ 
+Pour detarrer:
+--------------
+tar xvf PM_Document.tar
+
+Dernier fichier utilisé:
+-----------------------
+ls -lrt
+
+
+selection dans le fichier de logs:
+---------------------------------
+more "fichier" | grep "idCS"
+
+
+Notes
+------
+* dans les logs, quand il y a un "'", mettre un "\'"
+
+
+grep -r gettemplateurl *
+-------------------------
+* permet de savoir pour tous les fichiers sous jascents, ceux contenant la valeur gettemplateurl.
+
+
