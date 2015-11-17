@@ -1,0 +1,123 @@
+dn: dc=universcience
+dc: universcience
+objectClass: organization
+objectClass: dcObject
+o: universcience
+
+dn:: b3U9UHLDqXNpZGVuY2UsIGRjPXVuaXZlcnNjaWVuY2U=
+l: universcience
+st:: Q2l0w6k=
+ou:: UHLDqXNpZGVuY2U=
+objectClass: organizationalUnit
+description:: UHLDqXNpZGVuY2U=
+
+dn:: b3U9UHLDqXNpZGVuY2UgMSxvdT1QcsOpc2lkZW5jZSwgZGM9dW5pdmVyc2NpZW5jZQ==
+l: RDC
+l: niveau 2
+st:: Q2l0w6k=
+ou:: UHLDqXNpZGVuY2UgMQ==
+description:: UHLDqXNpZGVuY2Ugc3ViIDE=
+objectClass: organizationalUnit
+
+dn:: Y249U2Vyb3Qsb3U9UHLDqXNpZGVuY2UgMSxvdT1QcsOpc2lkZW5jZSwgZGM9dW5pdmVyc2Np
+ ZW5jZQ==
+givenName: Laurend
+sn: Serot
+telephoneNumber: 8113
+userPassword:: SXNhYmVsbGU=
+l: Palais
+roomNumber: 101
+mail: l.serot@universcience.fr
+objectClass: inetOrgPerson
+cn: Serot
+title: Chef de service
+employeeNumber: 8113
+
+dn:: Y249VVJHRU5DRSBTRUNVUklURSxvdT1QcsOpc2lkZW5jZSAxLG91PVByw6lzaWRlbmNlLCBk
+ Yz11bml2ZXJzY2llbmNl
+telephoneNumber: 7018
+l:: TXVzw6ll
+l: 018
+st:: Q2l0w6k=
+objectClass: organizationalRole
+description:: U2VydmljZSBwcmF0aXF1ZSB1cmdlbmNlIHPDqWN1cml0w6k=
+cn: URGENCE SECURITE
+
+dn:: Y249U2FsbGUgNDA0LG91PVByw6lzaWRlbmNlLCBkYz11bml2ZXJzY2llbmNl
+telephoneNumber: 7416
+roomNumber: 404
+roomNumber:: Q2l0w6k=
+roomNumber: Monge
+objectClass: room
+description:: U2FsbGUgZGUgcsOpdW5pb24=
+cn: Salle 404
+
+dn:: b3U9UHLDqXNpZGVuY2UgMTEsb3U9UHLDqXNpZGVuY2UgMSxvdT1QcsOpc2lkZW5jZSwgZGM9
+ dW5pdmVyc2NpZW5jZQ==
+l: RDC
+st:: Q2l0w6k=
+ou:: UHLDqXNpZGVuY2UgMTE=
+objectClass: organizationalUnit
+description: Presidence 11
+
+dn:: Y249VGFib3VyZXQsb3U9UHLDqXNpZGVuY2UgMTEsb3U9UHLDqXNpZGVuY2UgMSxvdT1QcsOp
+ c2lkZW5jZSwgZGM9dW5pdmVyc2NpZW5jZQ==
+givenName: Julien
+sn: Tabouret
+telephoneNumber: 7448
+userPassword:: SXNhYmVsbGU=
+l: Palais
+roomNumber: 101
+mail: l.serot@universcience.fr
+objectClass: inetOrgPerson
+title: Chef de projet
+cn: Tabouret
+employeeNumber: 7448
+
+dn:: Y249U2FsbGUgNDAxLG91PVByw6lzaWRlbmNlIDEsb3U9UHLDqXNpZGVuY2UsIGRjPXVuaXZl
+ cnNjaWVuY2U=
+telephoneNumber: 7416
+roomNumber: 401
+roomNumber:: Q2l0w6k=
+roomNumber: Descartes
+description:: U2FsbGUgZGUgcsOpdW5pb24=
+objectClass: room
+cn: Salle 401
+
+dn:: b3U9UGFsYWlzIGRlIGxhIETDqWNvdXZlcnRlLCBkYz11bml2ZXJzY2llbmNl
+l: RDC
+st: Palais
+ou:: UGFsYWlzIGRlIGxhIETDqWNvdXZlcnRl
+objectClass: organizationalUnit
+description: Organisation Pdld
+
+dn:: Y249UGVyaWdhdWxkLG91PVBhbGFpcyBkZSBsYSBEw6ljb3V2ZXJ0ZSwgZGM9dW5pdmVyc2Np
+ ZW5jZQ==
+givenName: Magali
+sn: Perigauld
+telephoneNumber: 8159
+userPassword:: SXNhYmVsbGU=
+l: Palais
+roomNumber: 101
+mail: Magali.Perigauld@universcience.fr
+objectClass: inetOrgPerson
+title: Chef de projet
+cn: Perigauld
+employeeNumber: 40001234
+
+dn:: Y249SGFpZ25lcsOpLG91PVByw6lzaWRlbmNlLCBkYz11bml2ZXJzY2llbmNl
+givenName: Claudie
+sn:: SGFpZ25lcsOp
+telephoneNumber: 7020
+userPassword:: SXNhYmVsbGU=
+l: Descartes
+l: niveau 4
+roomNumber: 1
+mail: Claudie.HAIGNERE@universcience.fr
+objectClass: inetOrgPerson
+facsimileTelephoneNumber: 8398
+cn:: SGFpZ25lcsOp
+title:: UHLDqXNpZGVudGU=
+employeeNumber: 8403
+st:: Q2l0w6k=
+

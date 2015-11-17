@@ -1,0 +1,150 @@
+/* executer le notepad*/
+- demarrer executer: notepad.
+
+/* chemin de recuperation des jars sous websphere */
+/soft/was/was6/AppServer/profiles/ProfileServerApplis/installedApps/webdevServerApplisCell/ContentServer.ear/cs.war/WEB-INF/lib
+
+	* repertoire installedApps: applications installées sur websphere.
+
+/* manip pour récupérer les fichiers sous websphere */
+
+ - Copier les fichiers depuis le répertoire précédent dans un répertoire accessible par ftp ; tmp/gildas.
+ - Récupérer par ftp les fichiers depuis ce répertoire vers mon poste de travail.
+
+	/* opération unix de copie de fichiers. */
+
+
+[sifp@webdev ContentServer]$ pwd
+/soft/was/was6/AppServer/profiles/ProfileServerApplis/logs/ContentServer
+[sifp@webdev ContentServer]$ cd ../../../
+[sifp@webdev profiles]$ ls
+ProfileServerApplis  ProfileServerDmgr
+[sifp@webdev profiles]$ cd ProfileServerApplis/
+[sifp@webdev ProfileServerApplis]$ ls
+bin     configuration  etc         installableApps  installedConnectors  logs        temp     wstemp
+config  dispatcher     firststeps  installedApps    installedFilters     properties  tranlog
+[sifp@webdev ProfileServerApplis]$ cd installedApps/
+[sifp@webdev installedApps]$ ls
+webdevServerApplisCell
+[sifp@webdev installedApps]$ cd webdevServerApplisCell/
+[sifp@webdev webdevServerApplisCell]$ ls
+ContentServer.ear  DocNum_war.ear  reservoir-1_0_war.ear
+[sifp@webdev webdevServerApplisCell]$ cd
+ContentServer.ear/     DocNum_war.ear/        reservoir-1_0_war.ear/
+[sifp@webdev webdevServerApplisCell]$ cd ContentServer.ear/
+[sifp@webdev ContentServer.ear]$ ls
+cs.war  META-INF
+[sifp@webdev ContentServer.ear]$ cd cs.war/WEB-INF/lib/
+[sifp@webdev lib]$ pwd
+/soft/was/was6/AppServer/profiles/ProfileServerApplis/installedApps/webdevServerApplisCell/ContentServer.ear/cs.war/WEB-INF/lib
+[sifp@webdev lib]$ ls -artl
+total 23340
+-rw-r--r--  1 was6 was  352568 oct 29 10:20 xsdlib.jar
+-rw-r--r--  1 was6 was   19255 oct 29 10:20 relaxngDatatype.jar
+-rw-r--r--  1 was6 was  255192 oct 29 10:20 myfaces-api.jar
+-rw-r--r--  1 was6 was   52915 oct 29 10:20 commons-logging-1.1.jar
+-rw-r--r--  1 was6 was  188671 oct 29 10:20 commons-beanutils.jar
+-rw-r--r--  1 was6 was 3873597 oct 29 10:20 adf-faces-impl.jar
+-rw-r--r--  1 was6 was  721303 oct 29 10:20 adf-faces-api.jar
+-rw-r--r--  1 was6 was 2593850 oct 29 10:20 spring.jar
+-rw-r--r--  1 was6 was  133287 oct 29 10:20 saaj-ri.jar
+-rw-r--r--  1 was6 was   15580 oct 29 10:20 saaj-api.jar
+-rw-r--r--  1 was6 was  403597 oct 29 10:20 lucene-core.jar
+-rw-r--r--  1 was6 was   79462 oct 29 10:20 KeyView.jar
+-rw-r--r--  1 was6 was  446847 oct 29 10:20 dom4j.jar
+-rw-r--r--  1 was6 was  279781 oct 29 10:20 commons-httpclient-3.0.1.jar
+-rw-r--r--  1 was6 was  168446 oct 29 10:20 commons-digester.jar
+-rw-r--r--  1 was6 was  559366 oct 29 10:20 commons-collections-3.1.jar
+-rw-r--r--  1 was6 was   46725 oct 29 10:20 commons-codec-1.3.jar
+-rw-r--r--  1 was6 was  302172 oct 29 10:20 CommerceConnector.jar
+-rw-r--r--  1 was6 was   24540 oct 29 10:20 analyticscs.jar
+-rw-r--r--  1 was6 was  247031 oct 29 10:20 adfshare.jar
+-rw-r--r--  1 was6 was  544958 oct 29 10:20 myfaces-impl.jar
+-rw-r--r--  1 was6 was 1171587 oct 29 10:20 jaxrpc-ri.jar
+-rw-r--r--  1 was6 was   29640 oct 29 10:20 jaxrpc-api.jar
+-rw-r--r--  1 was6 was  207723 oct 29 10:20 commons-lang-2.1.jar
+-rw-r--r--  1 was6 was   51028 nov 20 12:10 xmles.jar
+-rw-r--r--  1 was6 was 2293159 nov 20 12:10 xcelerate.jar
+-rw-r--r--  1 was6 was    5621 nov 20 12:10 wl6special.jar
+-rw-r--r--  1 was6 was  106063 nov 20 12:10 sserve.jar
+-rw-r--r--  1 was6 was   36308 nov 20 12:10 sseed.jar
+-rw-r--r--  1 was6 was   97165 nov 20 12:10 MSXML.jar
+-rw-r--r--  1 was6 was   24855 nov 20 12:10 logging.jar
+-rw-r--r--  1 was6 was  167941 nov 20 12:10 ldapjdk.jar
+-rw-r--r--  1 was6 was   91556 nov 20 12:10 ics.jar
+-rw-r--r--  1 was6 was    7033 nov 20 12:10 ftcsntsecurity.jar
+-rw-r--r--  1 was6 was   12638 nov 20 12:10 fck-faces.jar
+-rw-r--r--  1 was6 was   32907 nov 20 12:10 cs-portlet.jar
+-rw-r--r--  1 was6 was 3366418 nov 20 12:10 cs.jar
+-rw-r--r--  1 was6 was   83613 nov 20 12:10 commons-io-1.3.1.jar
+-rw-r--r--  1 was6 was   67849 nov 20 12:10 catalog.jar
+-rw-r--r--  1 was6 was   80773 nov 20 12:10 batch.jar
+-rw-r--r--  1 was6 was  219320 nov 20 12:10 basic.jar
+-rw-r--r--  1 was6 was   28340 nov 20 12:10 assetmaker.jar
+-rw-r--r--  1 was6 was   27299 nov 20 12:10 assetapi.jar
+-rw-r--r--  1 was6 was  776488 nov 20 12:10 alloyui.jar
+-rw-r--r--  1 was6 was   37039 nov 20 12:10 transformer.jar
+-rw-r--r--  1 was6 was   12830 nov 20 12:10 sampleasset.jar
+-rw-r--r--  1 was6 was 1044949 nov 20 12:10 gator.jar
+-rw-r--r--  1 was6 was  143990 nov 20 12:10 framework.jar
+-rw-r--r--  1 was6 was   10104 nov 20 12:10 firstsite-uri.jar
+-rw-r--r--  1 was6 was  171376 nov 20 12:10 directory.jar
+-rw-r--r--  1 was6 was  131422 nov 20 12:10 cs-core.jar
+-rw-r--r--  1 was6 was  120989 nov 20 12:10 cscommerce.jar
+-rw-r--r--  1 was6 was   78092 nov 20 12:10 commercedata.jar
+-rw-r--r--  1 was6 was   86312 nov 20 12:10 assetframework.jar
+-rw-r--r--  1 was6 was  313390 nov 20 12:10 visitor.jar
+-rw-r--r--  1 was6 was    9999 nov 20 12:10 sparksample.jar
+-rw-r--r--  1 was6 was    7163 nov 20 12:10 spark.jar
+-rw-r--r--  1 was6 was   19639 nov 20 12:10 rules.jar
+-rw-r--r--  1 was6 was    6709 nov 20 12:10 portal.jar
+-rw-r--r--  1 was6 was   27759 nov 20 12:10 lucene-search.jar
+-rw-r--r--  1 was6 was   62151 nov 20 12:10 icutilities.jar
+-rw-r--r--  1 was6 was   83216 nov 20 12:10 gatorbulk.jar
+-rw-r--r--  1 was6 was   26209 nov 20 12:10 flame.jar
+-rw-r--r--  1 was6 was   27545 nov 20 12:10 firstsite-filter.jar
+-rw-r--r--  1 was6 was     903 nov 20 12:10 fake-faces.jar
+-rw-r--r--  1 was6 was  112341 nov 20 12:10 commons-el.jar
+-rw-r--r--  1 was6 was   76210 nov 20 12:10 assetapi-impl.jar
+-rw-r--r--  1 was6 was  652395 nov 20 12:10 adfui.jar
+drwxr-xr-x  5 was6 was    4096 nov 20 12:20 ..
+drwxr-xr-x  2 was6 was    4096 nov 20 12:20 .
+[sifp@webdev lib]$ vi toto
+[sifp@webdev lib]$ cp adfui.jar /tmp
+[sifp@webdev lib]$ cd /tmp
+[sifp@webdev tmp]$ ls
+adfui.jar      docs      heapdump.20080110.093539.31605.phd  javasharedresources  linux         mapping-root   setup.sh
+COPYRIGHT.txt  fwcs-tmp  hsperfdata_oracle                   license.txt          logo-new.gif  readme1st.txt  titi.gif
+[sifp@webdev tmp]$ cd /datasan/
+[sifp@webdev datasan]$ ls
+ContentServer7  ContentServer7.Backup  lost+found  mysql  sites
+[sifp@webdev datasan]$ cd ContentServer7
+[sifp@webdev ContentServer7]$ ls
+adfui.jar           catalogmover.sh          fck-faces.jar         gator.ini          portal.jar                          Tags
+alloyui.jar         CommerceConnector        firstsite-filter.jar  gator.jar          presentationobject.dtd              transact.ini
+assetapi-impl.jar   CommerceConnector.jar    firstsite-uri.jar     ics.jar            propeditor-descriptions.properties  transformer.jar
+assetapi.jar        commercedata.jar         flame.jar             icutilities.jar    propeditor.sh                       visitor.ini
+asset.dtd           commons-el.jar           framework.jar         Installation       propertybackup                      visitor.jar
+assetframework.ini  commons-io-1.3.1.jar     ftcsntsecurity.jar    language.ini       ruleset.dtd                         wl6special.jar
+assetframework.jar  commons-logging-1.1.jar  futuretense           ldapjdk.jar        rules.jar                           xcelerate.jar
+assetmaker.jar      cscommerce.jar           futuretense_cs        licenses           sampleasset.jar                     xmles.jar
+basic.jar           cs-core.jar              futuretense_cs.dtd    logging.ini        Shared                              xmltemp
+batch.ini           cs.jar                   futuretense.ini       logging.jar        spark.jar
+batch.jar           cs-portlet.jar           futuretense.txt       lucene-search.jar  sparksample.jar
+bin                 directory.jar            futuretense_xcel.ini  ms.ini             sseed.jar
+catalog.ini         dir.ini                  FWLicense.xml         MSXML.jar          sserve.jar
+catalog.jar         fake-faces.jar           gatorbulk.jar         ominstallinfo      Sun
+[sifp@webdev ContentServer7]$ cd /tmp
+[sifp@webdev tmp]$ ls
+adfui.jar      docs      heapdump.20080110.093539.31605.phd  javasharedresources  linux         mapping-root   setup.sh
+COPYRIGHT.txt  fwcs-tmp  hsperfdata_oracle                   license.txt          logo-new.gif  readme1st.txt  titi.gif
+[sifp@webdev tmp]$ rm -f adfui.jar
+[sifp@webdev tmp]$ ls
+COPYRIGHT.txt  fwcs-tmp                            hsperfdata_oracle    license.txt  logo-new.gif  readme1st.txt  titi.gif
+docs           heapdump.20080110.093539.31605.phd  javasharedresources  linux        mapping-root  setup.sh
+[sifp@webdev tmp]$ logwas
+[sifp@webdev ContentServer]$ ls
+ContentServer.pid  native_stderr.log  native_stdout.log  SystemErr.log  SystemOut_08.01.17_17.48.06.log  SystemOut.log
+[sifp@webdev ContentServer]$
+
+

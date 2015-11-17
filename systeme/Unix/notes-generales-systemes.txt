@@ -1,0 +1,20 @@
+/******************/
+/* administration */
+/******************/
+was6admin
+
+0- sous putty: tapez top pour voir les processus en excès de mémoire.
+
+1- application Server
+	application ContentServer stop - start
+
+2- refaire le test top sous putty.
+
+3- si autant de mémoire, arrêter le serveur d'application
+	Servers
+
+
+Sous putty: df- h : datasan contient content server -2%
+		    dataora : contient un stockage des requêtes (il les réécrits quand elle sont modifiés)
+
+Commentaires: processus parfois long.
