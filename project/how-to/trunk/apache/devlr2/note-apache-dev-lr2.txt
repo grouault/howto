@@ -1,0 +1,15 @@
+# Modification Apache.
+##
+
+# service apache
+##
+/etc/init.d/tomcat status/start/stop
+
+# https devlr2
+##
+Pour que l'application soit accessible en https, il faut 
+1- faire la redirection au niveau d'apache : fichier ssl_portail-apache2.conf
+/etc/httpd/conf.d/ssl_portail-apache2.conf
+2- redammarer le service httpd en root
+/etc/init.d/httpd start
+
