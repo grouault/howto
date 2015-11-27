@@ -1,0 +1,14 @@
+# Client oracle
+##
+
+1- Important le serveur doit ouvrir le port 1521.
+Pour cela, le firewall doit laissé ce port ouvert. Ne pas oublier que pour communiquer les applications utilisent des portes/ports.
+==> Modifier le port 1521 du part-feu.
+
+2- Installation du client oracle.
+a- télécharger les sources sur le site d'oracle.
+b- déclarer les variables d'environnement: 
+	- ORACLE_CLIENT : chemin vers les sources dezippées.
+	- TNS_ADMIN : chemin vers le fichier tnsnames.ora.
+==> Lancé toad ; la connection doit être effective.
+

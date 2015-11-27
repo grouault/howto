@@ -1,0 +1,17 @@
+# Exemple de tnsnames
+##
+ORCL=
+  (DESCRIPTION=
+    (ADDRESS=
+      (PROTOCOL=TCP)
+      (HOST=192.168.0.1)
+      (PORT=1521)
+    )
+    (CONNECT_DATA=
+      (SERVER=dedicated)
+      (SERVICE_NAME=orcl.gildas.fr)
+    )
+  )
+  
+orcl : identifiant system SID / ORACLE_SID
+oracle.gildas.fr ==> nom global de la base de données ==> reste à définir.
