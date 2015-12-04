@@ -1,0 +1,11 @@
+		## DEBUG
+		<div>
+			className = $className<br/>
+			structure.name = $structure.name<br/>
+        </div>s
+	
+https://www.liferay.com/fr/community/wiki/-/wiki/Main/Access+Objects+from+Velocity	
+		
+#set ($serviceContext = $portal.getClass().forName("com.liferay.portal.service.ServiceContextThreadLocal").getServiceContext())
+#set ($httpServletRequest = $serviceContext.getRequest())
+#set ($articleId =$paramUtil.get($httpServletRequest, 'id'))

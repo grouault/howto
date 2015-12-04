@@ -1,0 +1,61 @@
+#
+##
+1- Définir les profiles.
+2- Filter les ressources de l'application Web :
+- Ficher de conf. contenus dans la Webapp
+==> plugin maven.war
+https://maven.apache.org/plugins/maven-war-plugin/war-mojo.html#filters
+
+# Définir les profiles
+##
+<profiles>
+	<profile>
+		<id>localhost</id>
+		<activation>
+			<activeByDefault>true</activeByDefault>
+			<property>
+				<name>envConfig</name>
+				<value>localhost</value>
+			</property>
+		</activation>
+		<properties>
+			<envConfig>localhost</envConfig>
+		</properties>
+	</profile>
+	<profile>
+		<id>developpement</id>
+		<activation>
+			<property>
+				<name>envConfig</name>
+				<value>developpement</value>
+			</property>
+		</activation>
+		<properties>
+			<envConfig>developpement</envConfig>
+		</properties>
+	</profile>
+	<profile>
+		<id>preproduction</id>
+		<activation>
+			<property>
+				<name>envConfig</name>
+				<value>preproduction</value>
+			</property>
+		</activation>
+		<properties>
+			<envConfig>preproduction</envConfig>
+		</properties>
+	</profile>
+	<profile>
+		<id>production</id>
+		<activation>
+			<property>
+				<name>envConfig</name>
+				<value>production</value>
+			</property>
+		</activation>
+		<properties>
+			<envConfig>production</envConfig>
+		</properties>
+	</profile>
+</profiles>

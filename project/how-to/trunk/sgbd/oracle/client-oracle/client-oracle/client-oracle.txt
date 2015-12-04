@@ -1,0 +1,12 @@
+Installation Steps:
+
+1. Download the appropriate Instant Client packages for your platform. All installations REQUIRE the Basic or Basic Lite package.
+
+2. Unzip the packages into a single directory such as "instantclient".
+
+3. Set the library loading path in your environment to the directory in Step 2 ("instantclient"). 
+On many UNIX platforms, LD_LIBRARY_PATH is the appropriate environment variable. On Windows, PATH should be used.
+==> mettre le package, dans la variable d'environnement : PATH
+==> créer le folder : "tnsnames" contenant le fichier tnsnames.ora. 
+
+4. Start your application and enjoy.

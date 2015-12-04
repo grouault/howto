@@ -1,0 +1,7 @@
+#set ($portletSetupShowBordersDefault = $theme_settings.getProperty("portlet-setup-show-borders-default"))
+#set ($journalArticleLocalService = $serviceLocator.findService("com.liferay.portlet.journal.service.JournalArticleLocalService"))
+#set ($headerArticleId = $theme_settings.getProperty("header-article-id"))
+#set ($sidebarArticleId = $theme_settings.getProperty("sidebar-article-id"))
+#set ($footerArticleId = $theme_settings.getProperty("footer-article-id"))
+#set ($headerContent = $journalContentUtil.getContent($group_id, $headerArticleId, null, "$locale", $theme_display))
+#set ($footerContent = $journalContentUtil.getContent($group_id, $footerArticleId, null, "$locale", $theme_display))
