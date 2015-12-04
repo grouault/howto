@@ -1,0 +1,112 @@
+login as: was6
+was6@webprep.dmzprive.cite-sciences.fr's password:
+Last login: Wed Aug 12 11:21:37 2009 from pc-00059598.citepro.                                                                                               cite-sciences.fr
+[was6@webprep ~]$ bash
+[was6@webprep ~]$ su - oracle
+Password:
+su: Mot de passe incorrect.
+[was6@webprep ~]$ su - oracle
+Password:
+[oracle@webprep ~]$ ls
+agenda10g.dmp  dead.letter  env_emrep  erreur3.log  log-imp2.log  log-imp.log  sactu
+agenda.dmp     env_db       env_oms    erreur.log   log-imp3.log  oracle       sqlnet.log
+[oracle@webprep ~]$ env_db
+-bash: env_db: command not found
+[oracle@webprep ~]$ ./env_db
+-bash: ./env_db: Permission non accordée
+[oracle@webprep ~]$ ls -ltr
+total 24893
+-rw-r--r--  1 oracle oinstall  5625856 nov 21  2007 agenda.dmp
+-rw-r--r--  1 oracle oinstall     2747 nov 21  2007 erreur.log
+-rw-r--r--  1 oracle oinstall      490 nov 21  2007 log-imp2.log
+-rw-r--r--  1 oracle oinstall 13692424 nov 21  2007 log-imp3.log
+-rw-r--r--  1 oracle oinstall        0 nov 21  2007 erreur3.log
+-rw-r--r--  1 root   root      5627904 nov 22  2007 agenda10g.dmp
+-rw-r--r--  1 oracle oinstall     9601 nov 22  2007 log-imp.log
+-rw-r--r--  1 oracle oinstall      245 nov 22  2007 env_emrep
+-rw-r--r--  1 oracle oinstall      245 nov 22  2007 env_oms
+-rw-r--r--  1 oracle oinstall      245 oct 13  2008 env_db
+drwxr-xr-x  2 oracle oinstall     1024 avr 10 17:15 sactu
+-rw-r--r--  1 oracle oinstall    15586 avr 20 11:09 sqlnet.log
+drwxr-xr-x  2 oracle oinstall     1024 jun 10 15:21 oracle
+-rw-------  1 oracle oinstall   400772 aoû 12 05:53 dead.letter
+[oracle@webprep ~]$ .
+./  ../
+[oracle@webprep ~]$ bash
+[oracle@webprep ~]$ ls
+agenda10g.dmp  dead.letter  env_emrep  erreur3.log  log-imp2.log  log-imp.log  sactu
+agenda.dmp     env_db       env_oms    erreur.log   log-imp3.log  oracle       sqlnet.log
+[oracle@webprep ~]$ en
+enable    enc2xs    enscript  env       envsubst
+[oracle@webprep ~]$ env
+env       envsubst
+[oracle@webprep ~]$ source env_db
+[oracle@webprep ~]$ sqlplus CS7/CS7
+
+SQL*Plus: Release 10.2.0.3.0 - Production on Mer. Août 12 16:27:17 2009
+
+Copyright (c) 1982, 2006, Oracle.  All Rights Reserved.
+
+
+Connecté à :
+Oracle Database 10g Release 10.2.0.3.0 - 64bit Production
+
+SQL> CREATE TABLE CS7.CSI_DAJC_ANNONCE
+(
+  ID          NUMBER(38),
+  ANNEE       NUMBER,
+  NUMANNONCE  NUMBER
+)  2    3    4    5    6
+SQL> ;
+  1  CREATE TABLE CS7.CSI_DAJC_ANNONCE
+  2  (
+  3    ID          NUMBER(38),
+  4    ANNEE       NUMBER,
+  5*   NUMANNONCE  NUMBER
+SQL> ;
+  1  CREATE TABLE CS7.CSI_DAJC_ANNONCE
+  2  (
+  3    ID          NUMBER(38),
+  4    ANNEE       NUMBER,
+  5*   NUMANNONCE  NUMBER
+SQL>
+SQL> select * from CS7.CSI_DAJC_ANNONCE
+  2  ;
+select * from CS7.CSI_DAJC_ANNONCE
+                  *
+ERREUR à la ligne 1 :
+ORA-00942: Table ou vue inexistante
+
+
+SQL> select * from CSI_DAJC_ANNONCE;
+select * from CSI_DAJC_ANNONCE
+              *
+ERREUR à la ligne 1 :
+ORA-00942: Table ou vue inexistante
+
+
+SQL> CREATE TABLE CS7.CSI_DAJC_ANNONCE
+(
+  ID          NUMBER(38),
+  ANNEE       NUMBER,
+  NUMANNONCE  NUMBER);
+)
+*
+ERREUR à la ligne 5 :
+ORA-00904:  : identificateur non valide
+
+
+SQL>  CREATE TABLE CS7.CSI_DAJC_ANNONCE
+(
+  ID          NUMBER(38),
+  ANNEE       NUMBER,
+  NUMANNONCE  NUMBER);
+SQL> select * from  CS7.CSI_DAJC_ANNONCE
+  2  ;
+select * from  CS7.CSI_DAJC_ANNONCE
+                   *
+ERREUR à la ligne 1 :
+ORA-00942: Table ou vue inexistante
+
+
+SQL>

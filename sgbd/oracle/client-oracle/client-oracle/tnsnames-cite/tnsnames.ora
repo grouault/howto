@@ -1,0 +1,182 @@
+ALEPH=
+  (DESCRIPTION=
+    (ADDRESS=
+      (PROTOCOL=TCP)
+      (HOST=aleph.citepro.cite-sciences.fr)
+      (PORT=1521)
+    )
+    (CONNECT_DATA=
+      (SERVICE_NAME=aleph0)
+    )
+  )
+
+
+CELORA.CITE-SCIENCES.FR=
+  (DESCRIPTION=
+    (ADDRESS=
+      (PROTOCOL=TCP)
+      (HOST=scel-ora.cite-sciences.fr)
+      (PORT=1623)
+    )
+    (CONNECT_DATA=
+      (SERVICE_NAME=inter1)
+    )
+  )
+
+
+DEVOMKT=
+  (DESCRIPTION=
+    (ADDRESS=
+      (PROTOCOL=TCP)
+      (HOST=devomkt.citepro.cite-sciences.fr)
+      (PORT=1623)
+    )
+    (CONNECT_DATA=
+      (SERVICE_NAME=dev1)
+    )
+  )
+
+
+DEVWEBI=
+  (DESCRIPTION=
+    (ADDRESS=
+      (PROTOCOL=TCP)
+      (HOST=intradyn.citepro.cite-sciences.fr)
+      (PORT=1623)
+    )
+    (CONNECT_DATA=
+      (SERVICE_NAME=intra1)
+    )
+  )
+
+
+HERACLES=
+  (DESCRIPTION=
+    (ADDRESS=
+      (PROTOCOL=TCP)
+      (HOST=heracles.citenet.cite-sciences.fr)
+      (PORT=1521)
+    )
+    (CONNECT_DATA=
+      (SERVICE_NAME=was.citenet)
+    )
+  )
+
+
+INTRADYN=
+  (DESCRIPTION=
+    (ADDRESS=
+      (PROTOCOL=TCP)
+      (HOST=intradyn.citepro.cite-sciences.fr)
+      (PORT=1623)
+    )
+    (CONNECT_DATA=
+      (SERVICE_NAME=intra1)
+    )
+  )
+
+
+MAILDIFF=
+  (DESCRIPTION=
+    (ADDRESS=
+      (PROTOCOL=TCP)
+      (HOST=maildiff.cite-sciences.fr)
+      (PORT=1623)
+    )
+    (CONNECT_DATA=
+      (SERVICE_NAME=xe)
+    )
+  )
+
+
+SCEL-DB=
+  (DESCRIPTION=
+    (ADDRESS=
+      (PROTOCOL=TCP)
+      (HOST=scel-db.cite-sciences.fr)
+      (PORT=1623)
+    )
+    (CONNECT_DATA=
+      (SERVICE_NAME=inter1)
+    )
+  )
+
+
+VMBSISRV1=
+  (DESCRIPTION=
+    (ADDRESS=
+      (PROTOCOL=TCP)
+      (HOST=bsisrv.citenet.cite-sciences.fr)
+      (PORT=1521)
+    )
+    (CONNECT_DATA=
+      (SERVICE_NAME=XE)
+    )
+  )
+
+
+VMINTRADYN2=
+  (DESCRIPTION=
+    (ADDRESS=
+      (PROTOCOL=TCP)
+      (HOST=vmintradyn2.citepro.cite-sciences.fr)
+      (PORT=1521)
+    )
+    (CONNECT_DATA=
+      (SERVICE_NAME=intra2.citepro.cite-sciences.fr)
+    )
+  )
+
+
+WASRAC1=
+  (DESCRIPTION=
+    (ADDRESS=
+      (PROTOCOL=TCP)
+      (HOST=localhost)
+      (PORT=1521)
+    )
+    (CONNECT_DATA=
+      (SERVER=dedicated)
+      (SID=RACCSI1)
+    )
+  )
+
+
+WASRAC2=
+  (DESCRIPTION=
+    (ADDRESS=
+      (PROTOCOL=TCP)
+      (HOST=localhost)
+      (PORT=1521)
+    )
+    (CONNECT_DATA=
+      (SERVER=dedicated)
+      (SID=RACCSI2)
+    )
+  )
+
+
+WEBDEV=
+  (DESCRIPTION=
+    (ADDRESS=
+      (PROTOCOL=TCP)
+      (HOST=webdev.citepro.cite-sciences.fr)
+      (PORT=1522)
+    )
+    (CONNECT_DATA=
+      (SERVICE_NAME=webdev1)
+    )
+  )
+
+
+WEBPREP=
+  (DESCRIPTION=
+    (ADDRESS=
+      (PROTOCOL=TCP)
+      (HOST=localhost)
+      (PORT=1522)
+    )
+    (CONNECT_DATA=
+      (SERVICE_NAME=webprep1.dmzprive.cite-sciences.fr)
+    )
+  )

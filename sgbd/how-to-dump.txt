@@ -1,0 +1,44 @@
+ •	Se connecter sur wasrac1 avec le compte was6 et se positionner dans folder /databackup/oracle/dumps/ACS
+•	Choisir le dump intéressant , le copier en renommant (enlever les / dans le nom) dans le folder /tmp
+•	Se positionner dans /tmp
+•	Décompression du fichier « .gz » : gunzip mon_fichier.gz
+•	Transférer le fichier sur webprep dans « /tmp » pour pouvoir le récupérer de là-bas :  scp ACS-2011_07_04_09_30_01.dmp was6@webprep.dmzprive.cite-sciences.fr:/tmp
+•	Le récupérer avec FTP sur un poste Windows
+
+•	Nettoyer la base de DEV :  en supprimant, 
+      les tables, l
+	  les séquences et ne pas oublier de supprimer les éléments de la corbeille « Recycle BIN »
+•	Procéder à l’import : 
+o	se placer dans le folder d’installation d’Oracle Client  F:\oracle\product\10.2.0\client_1\BIN
+o	lancer la commande d’import : imp login_schema/mdp_schema@nom_tns_de_la_base  file=C:\temp\dump\acs\20090708\mon_fichier.dmp FULL=Y
+
+# Dump TDB.
+##
+Sur vmintradyn:
+---------------
+Récupération du dump : /databackup/oracle/oradump/TDB
+gunzip TDB-2011_11_03_16\:00\:01.dmp.gz
+mv TDB-2011_11_03_16\:00\:01.dmp TDB-2011_11_03_16_00_01.dmp
+--> récupération par ftp.
+
+Import:
+-------
+Se positionner au niveau du folder : D:\oracle\product\10.2.0\client_1\client_1\BIN
+Pour info, tnsname :  D:\oracle\product\10.2.0\client_1\NETWORK\ADMIN
+imp tdb/tdb@webdev file=D:\Services\application\tdb\tmp\dump\TDB-2011_11_03_16_00_01.dmp FULL=Y
+
+# Dump FicheExp.
+##
+Récupération du dump sur intradybn2 : /databackup/oracle/oradump/FICHEEXP
+Transféré le dump dans tmp en remplacant les ":" par "_".
+	cp FICHEEXP-2012_11_12_12\:00\:01.dmp.gz /tmp/FICHEEXP-2012_11_12_12_00_01.dmp.gz
+Dézipper le fichier :
+	gunzip FICHEEXP-2012_11_12_12_00_01.dmp.gz
+Dans la table active :
+- Suppression des : tables, views, séquences
+cmd : Lancer la commande d'imports :
+imp ficheexp/ficheexp@webdev file=FICHEEXP-2012_11_12_12_00_01.dmp full=y
+
+
+
+

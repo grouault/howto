@@ -1,0 +1,35 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+#parse ($init)
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<title>$the_title - $company_name</title>
+		$theme.include($top_head_include)
+	</head>
+    <body>
+    	$theme.include($top_messages_include)
+    	<div id="page">
+	    	<div id="header">$headerContent</div>
+	    	<hr />
+	    	<div id="content">
+				#if ($selectable)
+					$theme.include($content_include)
+				#else
+					$portletDisplay.recycle()
+					$portletDisplay.setTitle($the_title)
+					$theme.wrapPortlet("$full_templates_path/portlet.vm", $content_include)
+				#end
+			</div>
+			<hr />
+			<div id="sidebar">
+				$velocityPortletPreferences.setValue("portlet-setup-show-borders", $portletSetupShowBordersDefault)
+				$velocityPortletPreferences.setValue("group-id", "$group_id")
+				$velocityPortletPreferences.setValue("article-id", "$sidebarArticleId")
+				$theme.runtime("56_INSTANCE_c2d3", "", $velocityPortletPreferences.toString())
+				#set ($VOID = $velocityPortletPreferences.reset())
+			</div>
+			<hr />
+			<div id="footer">$footerContent</div>
+		</div>
+        $theme.include($bottom_include)
+    </body>
+</html>
