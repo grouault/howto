@@ -37,6 +37,7 @@ Dézipper le fichier :
 Dans la table active :
 - Suppression des : tables, views, séquences
 cmd : Lancer la commande d'imports :
+Avec le user Oracle :
 imp ficheexp/ficheexp@webdev file=FICHEEXP-2012_11_12_12_00_01.dmp full=y
 
 
