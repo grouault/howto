@@ -1,0 +1,159 @@
+# Suppression relatif au localisation.
+##
+
+# En edition.
+##
+
+- EditerFicheExploitationAction.java
+------------------------------------
+methode reset:
+	- appel à la couche de persistance et à FicheExploitationMapper:
+	
+			//Code à supprimer.
+			LocalisationMapper localisationMapper = new LocalisationMapper();
+			Set localisationsHibernate = ficheExploitationHibernate.getCodeLocalisations();
+			List localisations = new ArrayList();
+			for (Iterator iter = localisationsHibernate.iterator(); iter.hasNext();) {
+				HRefLocalisation localisationHibernate = (HRefLocalisation) iter.next();
+				Localisation localisation = (Localisation) localisationMapper
+				.BDDToMetier(localisationHibernate);
+				localisations.add(localisation);
+			}		
+			ficheExploitation.setLocalisations(localisations);
+
+
+	- récupération de l'objet métier pour mise dans le form
+	
+			//Code à suupprimer
+			List lieuxList = ficheExploitation.getLocalisations();
+			String lieux = "";
+			for (Iterator iter = lieuxList.iterator(); iter.hasNext();) {
+				Localisation lieu = (Localisation) iter.next();
+				lieu = AdminFactory.getInstance().getLocalisation(lieu.getId());
+				//récupération des visas
+				Hibernate.initialize(lieu.getVisasComplementaires());
+				List visas = lieu.getVisasComplementaires();				
+				for (Iterator it = visas.iterator(); it.hasNext();) {					
+					HUtilisateur husert = (HUtilisateur) it.next();
+					Utilisateur user = AdminFactory.getInstance().getUtilisateur(husert.getNumsequtr());
+					//vérification que l'utilisateur n'est pas deja présent dans le visas
+					boolean present = false;
+					for(Iterator iterator = visasCpl.iterator() ; iterator.hasNext();) {
+						Option option = (Option) iterator.next();						
+						//on a l'option, on vas vérifier si l'utilisateur est deja présent
+						if (option.getValue().equals(user.getId().toString())) {
+							//l'utilisateur est deja présent
+							option.setText(option.getText() + ";lieu=" + lieu.getId().toString());
+							present = true;
+							break;
+						}						
+					} if (! present) {
+						//aucuen option n'a été trouvée, on crée une nouvelle
+						visasCpl.add(new Option(user.getId().toString(), "lieu=" + lieu.getId().toString()));
+					}
+				}
+				lieux = lieux + lieu.getId().toString() + ";";
+			}
+			this.setLieu(lieux);	
+	
+	
+# En sauvegarde.
+##	
+
+- SauvgarderFicheExploitationAction.java
+----------------------------------------
+1- Modification de l'action
+
+	  //Code à supprimer.
+		String lieuxAsString = editerFicheExploitationForm.getLieu();
+		StringTokenizer lieuxAsTok = new StringTokenizer(lieuxAsString, ";");
+		List lieux = new ArrayList();
+		while (lieuxAsTok.hasMoreTokens()) {
+			String idLieuAsString = (String) lieuxAsTok.nextToken();
+			Integer idLieu = Integer.valueOf(idLieuAsString);
+			Localisation lieu = AdminFactory.getInstance().getLocalisation(
+					idLieu);
+			lieux.add(lieu);
+		}
+		ficheExploitation.setLocalisations(lieux);	
+		
+2- Modification de la couche hibernate: AdminFicheExploitation.saveOrUpdate();
+
+		//Code à supprimer
+		Set codeLocalisations = ficheExploitationHibernate.getCodeLocalisations();
+
+		if (codeLocalisations != null) {
+			while (codeLocalisations.iterator().hasNext()) {
+				HRefLocalisation codeLocalisation = (HRefLocalisation) codeLocalisations.iterator().next();
+				codeLocalisations.remove(codeLocalisation);
+			}
+		} else {
+			codeLocalisations = new HashSet();
+		}
+
+		sessionHibernate.flush();
+
+		List localisations = ficheExploitation.getLocalisations();
+		for (Iterator iter = localisations.iterator(); iter.hasNext();) {
+			Localisation localisation = (Localisation) iter.next();
+
+			HRefLocalisation localisationHibernate = (HRefLocalisation) sessionHibernate.get(HRefLocalisation.class, localisation.getId());
+			codeLocalisations.add(localisationHibernate);
+		}
+		ficheExploitationHibernate.setCodeLocalisations(codeLocalisations);		
+		
+
+# En Consultation
+##
+
+- Modification au niveau de l'action: DetailFicheAction.
+
+		//code à supprimer
+		List localisations = ficheExploitation.getLocalisations();
+		List localistationsBean = new ArrayList();
+		for (Iterator iter = localisations.iterator(); iter.hasNext();) {
+			Localisation localisation = (Localisation) iter.next();
+			localistationsBean.add(localisation.getTitre());
+		}
+		ficheExploitationBean.setLieu(localistationsBean);
+			
+			
+Note: Suppression en couche métier est lié au niveau du mapper.
+			Récupération de la localisation hibernate et mise dans l'objet métier.			
+			
+# Jsp
+##			
+
+Ecran de consultation:
+----------------------			
+			
+- Modification de la jsp: exploitation3_1_detail.jsp
+		<tr>
+			<th><csi:Title key="formfiche.titre.lieu.geographique" /></th>
+			<td><logic:iterate id="l" name="fiche" property="lieu">
+				<bean:write name="l" />
+				<br>
+			</logic:iterate></td>
+		</tr>
+  
+  
+- Modification de la jsp d'édition:
+-----------------------------------
+  exploitation3_2_editer.jsp
+  
+    <tr>
+		<th><csi:Title 	key="formfiche.titre.lieu.geographique" 
+						mandatory="true" /></th>
+		<td>
+			<csi:SelectLieu size="6" 
+						name="EditerFicheExploitationForm" 
+						property="lieu" 
+						preAddJS="getVisasComplementaires('document.forms.EditerFicheExploitationForm','lieuLieu','visasComplementaires','lieu')"
+						preSuppJS="deleteVisasComplementaire('document.forms.EditerFicheExploitationForm','lieu','visasComplementaires','lieu')"
+						suppJS="deleteLieu"
+						addJS="addLieu"
+						/>
+		</td>
+    </tr>  
+  
+  

@@ -1,0 +1,21 @@
+# Action de modification d'une fiche DT.
+##
+
+- Une fiche DT peut être modifier:
+
+1- on peut modifier la fiche quand cette dernière vient d'être créer.
+
+
+
+
+2- on lance la fiche, puis on la modifie.
+
+	Modifier la fiche signifie que toutes les personnes doivent revoir la fiche et donc le workflow doit être réinitialiser.
+	- La fiche passe donc dans la table des FicheDT_Valide avec un nouvelle id ; les données sont sauvegardées.
+	- Dans la table FicheDT, l'id est de la fiche est conservée; seul son idProcessInstance est modifié.
+
+	 Au final les nouvelles actions possibles sont:
+	 	- Annuler
+	 	- Annuler/Remplacer
+	 	-	Lancer
+	 	- Modifier

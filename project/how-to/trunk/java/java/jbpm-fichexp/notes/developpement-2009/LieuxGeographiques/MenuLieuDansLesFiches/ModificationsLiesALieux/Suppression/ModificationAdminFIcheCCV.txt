@@ -1,0 +1,34 @@
+# Modification AdminFicheCCV
+##
+
+	private HFicheExpCcvValide createFicheExploitationCCVValide(Session sessionHibernate, FicheCCV ficheCCV,String statut)
+---------------------------------------
+Code supprimé:
+
+		List localisations = ficheCCV.getLocalisations();
+		Set localisationsHib = new HashSet();
+		for (Iterator iter = localisations.iterator(); iter.hasNext();) {
+			Localisation localisation = (Localisation) iter.next();
+			HLocalisationValideFicheCcv localisationValideFicheCcv = new HLocalisationValideFicheCcv();
+			localisationValideFicheCcv.setLibelleLocalisationValide(localisation.getTitre());
+			localisationValideFicheCcv.setFicheExpCcvValide(ficheExpCcvValideHib);
+			localisationsHib.add(localisationValideFicheCcv);
+		}
+		ficheExpCcvValideHib.setLocalisations(localisationsHib);
+		
+		
+public Integer createFicheReservationAnnule(Session sessionHibernate, FicheReservation ficheReservation)		
+-------------------------------
+Code supprimé:
+		List localisations = ficheCCV.getLocalisations();
+		Set localisationsHib = new HashSet();
+		for (Iterator iter = localisations.iterator(); iter.hasNext();) {
+			Localisation localisation = (Localisation) iter.next();
+			HLocalisationAnnuleFicheCcv localisationAnnulerFicheCcv = new HLocalisationAnnuleFicheCcv();
+			localisationAnnulerFicheCcv
+					.setLibelleLocalisationValide(localisation.getTitre());
+			localisationAnnulerFicheCcv
+					.setFicheExpCcvAnnule(ficheExpCcvAnnule);
+			localisationsHib.add(localisationAnnulerFicheCcv);
+		}
+		ficheExpCcvAnnule.setLocalisations(localisationsHib);

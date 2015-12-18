@@ -1,0 +1,20 @@
+# Modification de ListeRapport
+##
+
+
+CodeSupprimer.
+			/*
+			List localisationList = fiche.getLocalisations();
+			String localisation = "";
+			boolean first = true;
+			for (Iterator iterator = localisationList.iterator(); iterator.hasNext();) {
+				Localisation localisation2 = (Localisation) iterator.next();
+				if(first){
+					localisation = localisation2.getTitre();
+					first = false;
+				}else{
+					localisation = localisation+ "<br>"+ localisation2.getTitre();
+				}
+			}
+			rapportBean.setLocalisation(localisation);
+			*/

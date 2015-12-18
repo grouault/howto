@@ -1,0 +1,28 @@
+
+# HQL
+select ti 
+from org.jbpm.taskmgmt.exe.TaskInstance as ti 
+where ti.actorId = :actorId   
+	and ti.end is not null   
+	and ti.name not like '%refus%'  
+	and ti.name like '%prevalidationdeg%'   
+	and ti.isCancelled = false
+	
+# SQL
+==> parameter : actorId
+select taskinstan0_.ID_ as ID1_26_, taskinstan0_.NAME_ as NAME2_26_, taskinstan0_.DESCRIPTION_ as DESCRIPT3_26_, taskinstan0_.ACTORID_ as ACTORID4_26_, taskinstan0_.CREATE_ as CREATE5_26_, taskinstan0_.START_ as START6_26_, taskinstan0_.END_ as END7_26_, taskinstan0_.DUEDATE_ as DUEDATE8_26_, taskinstan0_.PRIORITY_ as PRIORITY9_26_, taskinstan0_.ISCANCELLED_ as ISCANCE10_26_, taskinstan0_.ISSIGNALLING_ as ISSIGNA11_26_, taskinstan0_.ISBLOCKING_ as ISBLOCKING12_26_, taskinstan0_.TASK_ as TASK13_26_, taskinstan0_.TOKEN_ as TOKEN14_26_, taskinstan0_.SWIMLANINSTANCE_ as SWIMLAN15_26_, taskinstan0_.TASKMGMTINSTANCE_ as TASKMGM16_26_ 
+from JBPM_TASKINSTANCE taskinstan0_ 
+where taskinstan0_.ACTORID_=? 
+	and (taskinstan0_.END_ is not null) 
+	and (taskinstan0_.NAME_ not like '%refus%') 
+	and (taskinstan0_.NAME_ like '%prevalidationdeg%') 
+	and taskinstan0_.ISCANCELLED_=0
+
+=>	SQL with parameteres : substitution
+select taskinstan0_.ID_ as ID1_26_, taskinstan0_.NAME_ as NAME2_26_, taskinstan0_.DESCRIPTION_ as DESCRIPT3_26_, taskinstan0_.ACTORID_ as ACTORID4_26_, taskinstan0_.CREATE_ as CREATE5_26_, taskinstan0_.START_ as START6_26_, taskinstan0_.END_ as END7_26_, taskinstan0_.DUEDATE_ as DUEDATE8_26_, taskinstan0_.PRIORITY_ as PRIORITY9_26_, taskinstan0_.ISCANCELLED_ as ISCANCE10_26_, taskinstan0_.ISSIGNALLING_ as ISSIGNA11_26_, taskinstan0_.ISBLOCKING_ as ISBLOCKING12_26_, taskinstan0_.TASK_ as TASK13_26_, taskinstan0_.TOKEN_ as TOKEN14_26_, taskinstan0_.SWIMLANINSTANCE_ as SWIMLAN15_26_, taskinstan0_.TASKMGMTINSTANCE_ as TASKMGM16_26_ 
+from JBPM_TASKINSTANCE taskinstan0_ 
+where taskinstan0_.ACTORID_=553 
+	and (taskinstan0_.END_ is not null) 
+	and (taskinstan0_.NAME_ not like '%refus%') 
+	and (taskinstan0_.NAME_ like '%prevalidationdeg%') 
+	and taskinstan0_.ISCANCELLED_=0	

@@ -1,0 +1,20 @@
+# Mise en place des fiches prévalidées.
+##
+
+- Les fiches prévalidées sont mises en place pour la vue exploitant.
+
+Il convient pour d'utiliser le workflow:
+		ficheCriteria.setType(Fiche.FICHE_EXPLOITATION);
+		List fiches = AdminFactory.getInstance().getListeFichePreValide(utilisateur, ficheCriteria);
+		return transformToStrutsObjet(fiches);
+
+et non la méthode directe de sélection en base:
+		Cette méthode permet simplement de sélectionnée les fiches prévalidées du chef de projet.
+
+		criteria.setIdChefProjet(utilisateur.getId());
+		criteria.addIdStatut(WKFConstants.ETAT_PREVALIDEE);
+		List fichesExploitation = AdminFactory.getInstance().getFichesExploitationList(criteria);
+		return transformToStrutsObjet(fichesExploitation);
+		
+		
+--> comment via le workflow, on ressort les fiches prévalidées (?)

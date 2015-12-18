@@ -1,0 +1,16 @@
+# Modification de TransformerFicheReservationAction
+##	
+	
+	--> action struts: non testé
+	
+	
+		//editerFicheExploitationForm.setLieu(((Localisation)ficheReservation.getLocalisations().get(0)).getId().toString());
+		/*
+		List localisationList = ficheReservation.getLocalisations();
+		String localisations = "";
+		for (Iterator iter = localisationList.iterator(); iter.hasNext();) {
+			Localisation localisation = (Localisation) iter.next();
+			localisations += localisation.getId().toString()+";";
+		}
+		editerFicheExploitationForm.setLieu(localisations);
+		*/

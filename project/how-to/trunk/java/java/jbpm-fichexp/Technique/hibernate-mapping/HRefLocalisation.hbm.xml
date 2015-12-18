@@ -1,0 +1,66 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+
+<hibernate-mapping package="com.citedessciences.bdd.beans">
+	<class name="HRefLocalisation" table="REF_LOCALISATION" >
+		<id
+			name="Id"
+			type="integer"
+			column="CODE_LOCALISATION"
+		>
+			<generator class="sequence">
+	    		<param name="sequence">REFERENCE_SEQ</param>
+    		</generator>
+		</id>
+
+		<property
+			name="LibelleLocalisation"
+			column="LIBELLE_LOCALISATION"
+			type="string"
+			not-null="false"
+			length="50"
+		/>
+		<property
+			name="Actif"
+			column="ACTIF"
+			type="integer"
+			not-null="false"
+			length="22"
+		/>
+		<many-to-one
+			name="RefCodeLocalisation"
+			column="REF_CODE_LOCALISATION"
+			class="HRefLocalisation"
+			not-null="false"
+		>
+		</many-to-one>
+		<many-to-one
+			name="CodeNiveau"
+			column="CODE_NIVEAU"
+			class="HNiveauLocalisation"
+			not-null="true"
+		>
+		</many-to-one>
+		
+		<set name="RefLocalisations" inverse="true">
+			<key column="CODE_LOCALISATION"/>
+			<one-to-many class="HRefLocalisation"/>
+		</set>
+
+		<set name="VisaCplLocalisation" inverse="true" cascade="save-update">
+			<key column="CODE_LOCALISATION"/>
+			<one-to-many class="HVisaCplLocalisation"/>
+		</set>
+
+		<many-to-one
+			name="idQuadrant"
+			column="ID_QUADRANT"
+			class="HRefQuadrant"
+			not-null="true"
+		>
+		</many-to-one	
+
+	</class>	
+</hibernate-mapping>

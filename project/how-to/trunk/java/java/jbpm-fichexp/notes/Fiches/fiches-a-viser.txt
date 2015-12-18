@@ -1,0 +1,11 @@
+select ti 
+from org.jbpm.taskmgmt.exe.TaskInstance as ti, 
+	org.jbpm.graph.exe.Token as t 
+where t.id = ti.token   
+	and t.end is null   
+	and ti.actorId = :actorId   
+	and ti.name not like '%refus%'   
+	and ti.name not like '%reprisexistant%'   
+	and ti.name not like '%creationfiche%'   
+	and ti.end is null   
+	and ti.isCancelled = false

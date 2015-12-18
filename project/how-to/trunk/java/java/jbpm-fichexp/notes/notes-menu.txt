@@ -1,0 +1,112 @@
+# Menu.xml
+##
+Fiche Archivees : role 14 - home
+Fiche Annuleees : role 14 - home
+
+# Menu du chef de projet
+##
+
+# Onglet : Mes tâches.
+Fiches à viser : FicheATraiter ==> fiche à valider
+				 recuperation des fiches liés à une tache (wkflw) non terminé.
+		# Requete.
+		private static final String findNotEndedTaskInstances = "select ti "
+			+ "from org.jbpm.taskmgmt.exe.TaskInstance as ti, "
+			+ "org.jbpm.graph.exe.Token as t " + "where t.id = ti.token "
+			+ "  and t.end is null " + "  and ti.end is null "
+			+ "  and ti.name not like '%refus%' "
+			+ "  and ti.name not like '%reprisexistant%' "
+			+ "  and ti.name not like '%creationfiche%' "
+			+ "  and ti.isCancelled = false " + " order by ti.actorId";
+					
+Fiches visées : FichePalaisTraites ==> recherche de la liste des taches terminés pour un acteur donné.
+		Fiches que la personne à viser : getEndedTaskInstanceList
+		# Requete:
+		private static final String findEndedTaskInstancesByActorId = "select ti "
+			+ "from org.jbpm.taskmgmt.exe.TaskInstance as ti "
+			+ "where ti.actorId = :actorId " + "  and ti.end is not null "
+			+ "  and ti.name not like '%refus%' "
+			+ "  and ti.isCancelled = false";
+
+Fiches refusées : FichePalaisRefusees par un utilisateur
+			- Fiches refusees par le CP : getDeniedTaskInstanceList
+			- recuperation des tâches refusees par un utilisateur donne.
+			adminfactory.getListeFicheRefuse
+			adminWorkflow.getDeniedTaskInstanceList(jbpmSession, utilisateur);
+			# Requete : 
+			String findDeniedProcessByChefProjetId = "select pi "
+					+ "from org.jbpm.graph.exe.ProcessInstance as pi, "
+					+ "org.jbpm.graph.exe.Token as t, "
+					+ "org.jbpm.taskmgmt.exe.TaskInstance as ti "
+					+ "where pi.id = t.processInstance "
+					+ "  and ti.token = t.id " + "  and ti.actorId = :actorId "
+					+ "  and ti.end is not null " + "  and ti.dueDate is null "
+					+ "  and ti.name like '%refus%' "
+					+ "  and ti.isCancelled = false ";
+			actorId ==> id du rôle recupere du user ou id du user	
+			
+Fiche à valider : FichePalaisATraiter.do. ==> getListeFicheAValider	
+			==> 1- Récupère les tâches non terminées pour un user.
+				2- recupération des processinstance des tâches.
+				3- recupération des fiches : getFichePalaisByIdProcess.
+			Une taskinstance est associé à un user / actorid.
+			List newTaskInstanceList = adminWorkflow.getNotEndedTaskInstanceList(jbpmSession, utilisateur);
+			# Requete.
+			private static final String findNotEndedTaskInstancesByActorId = "select ti "
+				+ "from org.jbpm.taskmgmt.exe.TaskInstance as ti, "
+				+ "org.jbpm.graph.exe.Token as t "
+				+ "where t.id = ti.token "
+				+ "  and t.end is null "
+				+ "  and ti.actorId = :actorId "
+				+ "  and ti.name not like '%refus%' "
+				+ "  and ti.name not like '%reprisexistant%' "
+				+ "  and ti.name not like '%creationfiche%' "
+				+ "  and ti.end is null " + "  and ti.isCancelled = false";
+			
+Fiches Validees : ListeFicheTraitees ==> FichesPalaisTraitees.do ==> getListeFicheValide
+			==> recherche la liste des taches validees par le user.
+			List grantedTaskInstanceList = adminWorkflow.getEndedTaskInstanceList(jbpmSession, utilisateur);
+			# Requete
+			private static final String findEndedTaskInstancesByActorId = "select ti "
+					+ "from org.jbpm.taskmgmt.exe.TaskInstance as ti "
+					+ "where ti.actorId = :actorId " + "  and ti.end is not null "
+					+ "  and ti.name not like '%refus%' "
+					+ "  and ti.isCancelled = false";			
+			
+# Onglet : Palais 
+Dans ce menu, on trouve les fiches lancées par le chef de projet.
+Les sous-menus présents sont :
+Toutes : toutes les fiches créés, lancées, ... par le chef de projet
+Créés: toutes les fiches créés par le chef de projet
+		==> statut créé.
+Lancées : toutes les fiches lancées par le chef de projet
+		==> statut lancée.
+Validées : toutes les fiches validées
+		==> statut validé.
+Refusées : FichePalaisRefuseesCP 
+		toutes les fiches créés par le chef de projet qui ont été refusées.
+		==> lié à taskinstance : getDeniedProcessInstanceListChefProjet 
+		# Requete
+		String findDeniedProcessByChefProjetId = "select pi "
+					+ "from org.jbpm.graph.exe.ProcessInstance as pi, "
+					+ "org.jbpm.graph.exe.Token as t, "
+					+ "org.jbpm.taskmgmt.exe.TaskInstance as ti "
+					+ "where pi.id = t.processInstance "
+					+ "  and ti.token = t.id "
+					+ "  and ti.end is not null "
+					+ "  and ti.dueDate is null "
+					+ "  and ti.name like '%refus%' "
+					+ "  and ti.isCancelled = false"
+					+ "  and pi in "
+					+ "  (select pi.id "
+					+ "  from org.jbpm.graph.exe.ProcessInstance as pi, "
+					+ "  org.jbpm.graph.exe.Token as t, "
+					+ "  org.jbpm.context.exe.variableinstance.StringInstance as v "
+					+ "  where t.parent is null "
+					+ "  and t.processInstance = pi.id "
+					+ "  and t.end is null " + "  and t.id = v.token "
+					+ "  and v.name = 'chef_projet_id' "
+					+ "  and v.value = :actorId )";		
+		
+# Menu de l'admin.
+##

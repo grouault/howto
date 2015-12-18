@@ -1,0 +1,50 @@
+# Modification lié à l'agenda
+##
+
+# AdminAgenda
+#############
+
+getListeFicheByDatesAndTypeFiche()
+----------------------------------
+Dans cette méthode, on appelle les méthodes de services qui permettent de ramener la liste des fiches.
+Forcément, il y a les méthodes de mises à jour des lieux:
+	ficheReservation.setLocalisations(new AdminFicheReservation().getLieuxList(sessionHibernate,ficheReservation));
+
+Création de la méthode getLieuxList dans AdminFiche  :
+					protected List getLieuxList(Session sessionHibernate, Fiche fiche)
+					
+					en remplacement de
+					
+					protected List getLocalisationList(Session sessionHibernate, Fiche fiche)
+					
+Au final: suppression (attention, pour les trois fiches.)			
+					ficheReservation
+							.setLocalisations(new AdminFicheReservation()
+									.getLieuxList(sessionHibernate,
+											ficheReservation));
+remplacé par:
+						ficheReservation.setLieux(new AdminFicheReservation()
+					.getLieuxList(sessionHibernate,
+							ficheReservation)
+						
+						
+# Modification de AgendaSectBean.java
+##						
+
+public void createAgendaEv(Fiche fiche, Date debutAgenda, Date finAgenda)
+-------------------------------------------------------------------------
+Cette méthode crée les événements d'une fiche:
+	- on reçoit maintenant des RefLieu et non des Localiations, il convient de faire la modif:
+		//Localisation localisation = (Localisation) iterator.next();
+		remplacé par RefLieu lieuRef = (RefLieu) iterator.next();
+		
+		//localisationEv += localisation.getTitre() + " / ";
+		remplacé par localisationEv += lieuRef.getLibelleLieu();
+		
+
+Elément supprimé.		
+- recupération d'une liste de lieux et non d'une liste de localisation.
+//List localisationList = fiche.getLocalisations();
+//String localisationEv = "";
+//localisationEv += lieuRef.getLibelleLieu();
+

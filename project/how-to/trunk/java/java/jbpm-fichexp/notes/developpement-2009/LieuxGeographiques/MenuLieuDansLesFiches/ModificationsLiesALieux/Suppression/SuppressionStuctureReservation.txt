@@ -1,0 +1,40 @@
+# Suppression relatif à Fiche Réservation
+##
+
+Structure:
+----------
+Bean: 
+
+
+Mapping:
+		<set name="CodeLocalisations" table="FICHERES_LOCALISATION" lazy="true">
+			<key column="NUMSEQFICRES"/>
+			<many-to-many column="CODE_LOCALISATION" class="HRefLocalisation"/>
+		</set>
+
+
+form:
+
+
+entity:
+
+
+# 1- suppression du bean persistant.
+##
+
+Erreur dans les éléménts suivants:
+----------------------------------
+- AlerteMapper:
+			/**
+			Suppression du code suivant
+			Set codeLocalisations = ficheReservation.getCodeLocalisations();
+			List localisations = new ArrayList();
+			for (Iterator iterator = codeLocalisations.iterator(); iterator
+					.hasNext();) {
+				HRefLocalisation refLocalisation = (HRefLocalisation) iterator.next();
+				Localisation localisation = new Localisation();
+				localisation.setId(refLocalisation.getId());
+				localisations.add(localisation);
+			}
+			ficheReservationMetier.setLocalisations(localisations);
+			*/

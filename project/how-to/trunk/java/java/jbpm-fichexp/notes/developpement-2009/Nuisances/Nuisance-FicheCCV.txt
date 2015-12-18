@@ -1,0 +1,78 @@
+# Workflow
+##
+
+Consulter une fiche CCV
+-----------------------
+		<action path="/DetailFicheCCV" 
+			type="com.citedessciences.struts.actions.DetailFicheCCVAction" 
+			name="EditerFicheCCVForm" 
+			scope="request" 
+			validate="false">
+			<forward name="success" path=".ccv4_1" />
+		</action>
+		
+		
+	<definition name=".ccv4_1" extends=".main">
+		<put name="title" value="title.ccv4_1" />
+		<put name="titreContent" value="titreContent.ccv4_1" />	
+		<put name="content" value="/jsp/ccv/ccv4_1_detail.jsp" />
+		<put name="boutons" value="/jsp/ccv/ccv_detail_fiche_bouton.jsp" />
+	</definition>		
+	
+	
+	jsp:
+	----
+	<logic:notEmpty name="fiche" property="nuisances">
+		 <tr>
+	    	<th>
+	    		<csi:Title key="formfiche.nuisances" />
+	    	</th>
+	    	<td>
+	    		<logic:iterate id="n" name="fiche" property="nuisances">
+					<bean:write name="n" /> <br>
+				</logic:iterate>
+	    	</td>
+	    </tr>
+	 </logic:notEmpty>
+    
+ 
+Editer une fiche CCV
+---------------------
+    <action path="/EditerFicheCCV" 
+			type="com.citedessciences.struts.actions.EditerFicheCCVAction" 
+			name="EditerFicheCCVForm" 
+			scope="request" 
+			validate="false">
+			<forward name="success" path=".ccv4_1_6" />
+		</action>
+	<definition name=".ccv4_1_6" extends=".main">
+		<put name="title" value="title.ccv4_1_6" />
+		<put name="titreContent" value="titreContent.ccv4_1_6" />
+		<put name="content" value="/jsp/ccv/ccv4_2_editer.jsp" />
+		<put name="boutons" value="/jsp/ccv/ccv4_1_6_bouton.jsp" />
+	</definition>
+	
+	jsp:
+	----
+	Ajout du taglib:
+	    <tr>
+    	<th>
+    		<csi:Title key="formfiche.nuisances" />
+    	</th>
+    	<td>
+    		<csi:MultiSelectNuisances name="EditerFicheExploitationForm" property="nuisances" size="6" multiple="true"></csi:MultiSelectNuisances>
+    	</td>
+    </tr>	
+    
+    
+Sauvegarder une fiche CCV
+---------------------
+		<action path="/SauvFicheCCV" 
+				type="com.citedessciences.struts.actions.SauvgarderFicheCCVAction" 
+				input="/EditerFicheCCV.do" 
+				name="EditerFicheCCVForm" 
+				validate="true" 
+				scope="request">
+			<forward name="alertes" path="/ListeAlerteCreationFicheCCV.do" />
+			<forward name="update" path="/DetailFicheCCV.do" redirect="true" />
+		</action>    

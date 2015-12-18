@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+
+<hibernate-mapping package="com.citedessciences.bdd.beans">
+	<class
+		name="HRoleUtilisateur"
+		table="ROLE_UTILISATEUR"
+	>
+		<composite-id name="Id" class="HRoleUtilisateurPK">
+			<key-many-to-one
+				name="CodeRole"
+				class="HRefRole"
+				column="CODE_ROLE"
+			/>
+			<key-many-to-one
+				name="Numsequtr"
+				class="HUtilisateur"
+				column="NUMSEQUTR"
+			/>
+		</composite-id>
+
+		<property
+			name="Actif"
+			column="ACTIF"
+			type="integer"
+			not-null="true"
+			length="22"
+		/>
+
+
+	</class>	
+</hibernate-mapping>

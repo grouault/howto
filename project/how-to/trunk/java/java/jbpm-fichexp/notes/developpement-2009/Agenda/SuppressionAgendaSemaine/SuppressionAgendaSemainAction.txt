@@ -1,0 +1,451 @@
+# Suppression Agenda Semaine Action
+###################################
+		
+
+# Suppression de l'action AgendaSemaineAction.java
+##
+
+Struts-config: //suppression.
+--------------
+		<!--  Agenda Semaine -->	
+		<action path="/AgendaSemaine" 
+				type="com.citedessciences.struts.actions.AgendaSemaineAction"
+				name="AgendaPublicForm"
+				parameter="methodToCall"
+				scope="request">
+			<forward name="success" path=".agendaSemaine6_2" />
+			<forward name="error" path=".error_500_public" />			
+		</action>
+		
+		
+tiles-defs: //supprimer
+----------
+	<definition name=".agendaSemaine6_2" extends=".mainAgendaSemaine">
+		<put name="title" value="title.agendaSemaine6_2" />
+		<put name="action" value="/AgendaSemaine" />
+		<put name="titreContent" value="titreContent.agendaSemaine6_2" />
+		<put name="boutons" value="/jsp/agenda/agendaSemaine6_2_bouton.jsp" />
+		<put name="content" value="/jsp/agenda/agendaSemaine6_2_contenu.jsp" />
+	</definition>
+	
+	
+Suppression de ApplicationResources.properties:
+-----------------------------------------------
+title.agendaSemaine6_2=Fiche exploitation : Agenda de la semaine
+titreContent.agendaSemaine6_2=Agenda de la semaine	
+	
+jsp: //supprimer.
+----
+/jsp/agenda/agendaSemaine6_2_bouton.jsp
+/jsp/agenda/agendaSemaine6_2_contenu.jsp
+
+
+
+# AdminFactory - suppression.
+##
+	public List getListeFicheValideByDatesAndTypeFiche(String dateDebut,
+			String dateFin) {
+		JbpmSession jbpmSession = null;
+		List ficheListToReturn = null;
+		try {
+			jbpmSession = openJBPMSession();
+			Session sessionHibernate = jbpmSession.getSession();
+			ficheListToReturn = adminAgenda
+					.getListeFicheValideByDatesAndTypeFiche(sessionHibernate,
+							dateDebut, dateFin);
+		} catch (Exception e) {
+			RessourceFrontReader.getInstance().logError(e, new Throwable());
+		} finally {
+			closeJBPMSession(jbpmSession);
+		}
+		return ficheListToReturn;
+	}
+
+
+# AdminAgenda - suppression
+##			
+
+	/**
+	 * Récupération de la liste des fiches validées en fonction des dates de
+	 * début / fin et du type de fiche
+	 * 
+	 * @param sessionHibernate
+	 * @param dateDebut
+	 * @param dateFin
+	 * @param typeFiche
+	 * @return Liste d'objet Fiche
+	 */         
+	public List getListeFicheValideByDatesAndTypeFiche(
+			Session sessionHibernate, String dateDebut, String dateFin)
+			throws Exception {
+
+		String QUERY = "";
+
+		String QUERY_UNION = " union all ";
+
+		String QUERY_FICHE_RES_WKF = "select "
+				+ Fiche.FICHE_RESERVATION
+				+ ", fiche.numseqficres as idfiche, fiche.TITRE_COURT, d.date_debut, d.date_fin, type_ope.LIBELLE_TYPE_OPERATION, fiche.statut, type_ope.CODE_TYPE_OPERATION,"
+				+ "  DEBUT_FIN.date_fin_derniere_occurence, "
+				+ "  DEBUT_FIN.date_debut_premiere_occurence	   "				
+				+ " from fiche_reservation fiche, ficheres_date resdate, ref_type_operation type_ope,date_evenement d, "
+				+ " 	   ( "
+				+"	SELECT   fiche_reservation.numseqficres AS id_fiche,"
+				+"	         MAX (date_evenement.date_fin) AS date_fin_derniere_occurence,"
+				+"	         MIN (date_evenement.date_debut) AS date_debut_premiere_occurence"
+				+"	    FROM fiche_reservation, ficheres_date, date_evenement"
+				+"	   WHERE fiche_reservation.numseqficres = ficheres_date.idfiche"
+				+"	     AND ficheres_date.iddate = date_evenement.numseqdate"
+				+"	GROUP BY fiche_reservation.numseqficres	  "
+				+"   )  DEBUT_FIN "						
+				+ " where fiche.NUMSEQFICRES = resdate.IDFICHE"
+				+ " and debut_fin.id_fiche = idfiche "						
+				+ " and resdate.IDDATE = d.NUMSEQDATE"
+				+ " and fiche.statut != '"
+				+ WKFConstants.ETAT_HISTORIQUE
+				+ "'"
+				+ " and (fiche.statut = '"
+				+ WKFConstants.ETAT_VALIDEEDEG
+				+ "'"
+				+ " or fiche.statut = '"
+				+ WKFConstants.ETAT_ARCHIVEE
+				+ "'"
+				+ " or fiche.statut = '"
+				+ WKFConstants.ETAT_CLASSEE
+				+ "')"
+				+ " and fiche.CODE_TYPE_OPERATION = type_ope.CODE_TYPE_OPERATION"
+				+ " and (d.DATE_DEBUT between TO_DATE('"
+				+ dateDebut
+				+ "','DD/MM/YYYY') and TO_DATE('"
+				+ dateFin
+				+ "','DD/MM/YYYY') or d.DATE_FIN between TO_DATE('"
+				+ dateDebut
+				+ "','DD/MM/YYYY') and TO_DATE('"
+				+ dateFin
+				+ "','DD/MM/YYYY') or TO_DATE('"
+				+ dateDebut
+				+ "','DD/MM/YYYY') between d.DATE_DEBUT and d.DATE_FIN or TO_DATE('"
+				+ dateFin
+				+ "','DD/MM/YYYY') between d.DATE_DEBUT and d.DATE_FIN)";
+
+		String QUERY_FICHE_EXP_WKF = "select "
+				+ Fiche.FICHE_EXPLOITATION
+				+ ", fiche.numseqficexp as idfiche, fiche.TITRE_COURT, d.date_debut, d.date_fin, type_ope.LIBELLE_TYPE_OPERATION, fiche.statut, type_ope.CODE_TYPE_OPERATION,"
+				+ "  DEBUT_FIN.date_fin_derniere_occurence, "
+				+ "  DEBUT_FIN.date_debut_premiere_occurence	   "					
+				+ " from fiche_exploitation fiche, ficheexp_date resdate, ref_type_operation type_ope,date_evenement d,"
+				+ " 	   ( "
+				+ "			SELECT   fiche_exploitation.numseqficexp AS id_fiche,"
+				+ "	         MAX (date_evenement.date_fin) AS date_fin_derniere_occurence,"
+				+ "	         MIN (date_evenement.date_debut) AS date_debut_premiere_occurence"
+				+ "	    FROM fiche_exploitation, ficheexp_date, date_evenement"
+				+ "	   WHERE fiche_exploitation.numseqficexp = ficheexp_date.idfiche"
+				+ "	     AND ficheexp_date.iddate = date_evenement.numseqdate"
+				+ "	GROUP BY fiche_exploitation.numseqficexp "
+				+ "   )  DEBUT_FIN "				
+				+ " where fiche.NUMSEQFICEXP = resdate.IDFICHE"
+				+ " and debut_fin.id_fiche = idfiche "						
+				+ " and d.NUMSEQDATE = resdate.IDDATE"
+				+ " and fiche.statut != '"
+				+ WKFConstants.ETAT_HISTORIQUE
+				+ "'"
+				+ " and (fiche.statut = '"
+				+ WKFConstants.ETAT_VALIDEEDEG
+				+ "'"
+				+ " or fiche.statut = '"
+				+ WKFConstants.ETAT_ARCHIVEE
+				+ "'"
+				+ " or fiche.statut = '"
+				+ WKFConstants.ETAT_CLASSEE
+				+ "')"
+				+ " and fiche.CODE_TYPE_OPERATION = type_ope.CODE_TYPE_OPERATION"
+				+ " and (d.DATE_DEBUT between TO_DATE('"
+				+ dateDebut
+				+ "','DD/MM/YYYY') and TO_DATE('"
+				+ dateFin
+				+ "','DD/MM/YYYY') or d.DATE_FIN between TO_DATE('"
+				+ dateDebut
+				+ "','DD/MM/YYYY') and TO_DATE('"
+				+ dateFin
+				+ "','DD/MM/YYYY') or TO_DATE('"
+				+ dateDebut
+				+ "','DD/MM/YYYY') between d.DATE_DEBUT and d.DATE_FIN or TO_DATE('"
+				+ dateFin
+				+ "','DD/MM/YYYY') between d.DATE_DEBUT and d.DATE_FIN)";
+
+		String QUERY_FICHE_EXP_VAL = "select "
+				+ Fiche.FICHE_EXPLOITATION
+				+ ","
+				+ " fiche.idficexpval as idfiche, fiche.TITRE_COURT, d.date_debut, d.date_fin, type_ope.LIBELLE_TYPE_OPERATION_VALIDE, fiche.statut, -1,"
+				+ "  DEBUT_FIN.date_fin_derniere_occurence, "
+				+ "  DEBUT_FIN.date_debut_premiere_occurence	   "				
+				+ " from fiche_exploitation_valide fiche, ficheexp_date_valide resdate, type_operation_valide type_ope, date_evenement_valide d,"
+				+ " 	   ( "
+				+ " SELECT   fiche_exploitation_valide.idficexpval AS id_fiche,"
+				+ " MAX (date_evenement_valide.date_fin) AS date_fin_derniere_occurence,"
+				+ " MIN (date_evenement_valide.date_debut) AS date_debut_premiere_occurence"
+				+ "         FROM fiche_exploitation_valide, ficheexp_date_valide, date_evenement_valide"
+				+ "        WHERE fiche_exploitation_valide.idficexpval = ficheexp_date_valide.idfiche"
+				+ "          AND ficheexp_date_valide.iddate = date_evenement_valide.iddate_evt_valide"
+				+ "     GROUP BY fiche_exploitation_valide.idficexpval"
+				+"   )  DEBUT_FIN "
+				+ " where fiche.IDFICEXPVAL = resdate.IDFICHE and d.IDDATE_EVT_VALIDE = resdate.IDDATE"
+				+ " and debut_fin.id_fiche = idfiche "						
+				+ " and fiche.statut != '"
+				+ WKFConstants.ETAT_HISTORIQUE
+				+ "'"
+				+ " and (fiche.statut = '"
+				+ WKFConstants.ETAT_VALIDEEDEG
+				+ "'"
+				+ " or fiche.statut = '"
+				+ WKFConstants.ETAT_ARCHIVEE
+				+ "'"
+				+ " or fiche.statut = '"
+				+ WKFConstants.ETAT_CLASSEE
+				+ "')"
+				+ " and fiche.CODE_TYPE_OPERATION_VALIDE = type_ope.CODE_TYPE_OPERATION_VALIDE"
+				+ " and (d.DATE_DEBUT between TO_DATE('"
+				+ dateDebut
+				+ "','DD/MM/YYYY') and TO_DATE('"
+				+ dateFin
+				+ "','DD/MM/YYYY') or d.DATE_FIN between TO_DATE('"
+				+ dateDebut
+				+ "','DD/MM/YYYY') and TO_DATE('"
+				+ dateFin
+				+ "','DD/MM/YYYY') or TO_DATE('"
+				+ dateDebut
+				+ "','DD/MM/YYYY') between d.DATE_DEBUT and d.DATE_FIN or TO_DATE('"
+				+ dateFin
+				+ "','DD/MM/YYYY') between d.DATE_DEBUT and d.DATE_FIN)";
+
+		String QUERY_FICHE_CCV_WKF = "select "
+				+ Fiche.FICHE_CCV
+				+ ", fiche.numseqficexpccv as idfiche, fiche.TITRE_COURT, d.date_debut, d.date_fin, type_ope.LIBELLE_TYPE_OPERATION, fiche.statut, type_ope.CODE_TYPE_OPERATION,"
+				+ "  DEBUT_FIN.date_fin_derniere_occurence, "
+				+ "  DEBUT_FIN.date_debut_premiere_occurence	   "					
+				+ " from fiche_exploitation_ccv fiche, ficheccv_date resdate, ref_type_operation type_ope, date_evenement d,"
+				+ " 	   ( "
+				+ "			SELECT   fiche_exploitation_ccv.numseqficexpccv AS id_fiche, "
+				+ "	         MAX (date_evenement.date_fin) AS date_fin_derniere_occurence, "
+				+ "	         MIN (date_evenement.date_debut) AS date_debut_premiere_occurence"
+				+ "	    FROM fiche_exploitation_ccv, ficheccv_date, date_evenement"
+				+ "	   WHERE fiche_exploitation_ccv.numseqficexpccv = ficheccv_date.idfiche"
+				+ "	     AND ficheccv_date.iddate = date_evenement.numseqdate"
+				+ "	GROUP BY fiche_exploitation_ccv.numseqficexpccv"
+				+"   )  DEBUT_FIN "						
+				+ " where fiche.NUMSEQFICEXPCCV = resdate.IDFICHE"
+				+ " and debut_fin.id_fiche = idfiche "						
+				+ " and d.NUMSEQDATE = resdate.IDDATE"
+				+ " and fiche.statut != '"
+				+ WKFConstants.ETAT_HISTORIQUE
+				+ "'"
+				+ " and (fiche.statut = '"
+				+ WKFConstants.ETAT_VALIDEEDEG
+				+ "'"
+				+ " or fiche.statut = '"
+				+ WKFConstants.ETAT_ARCHIVEE
+				+ "'"
+				+ " or fiche.statut = '"
+				+ WKFConstants.ETAT_CLASSEE
+				+ "')"
+				+ " and fiche.CODE_TYPE_OPERATION = type_ope.CODE_TYPE_OPERATION"
+				+ " and (d.DATE_DEBUT between TO_DATE('"
+				+ dateDebut
+				+ "','DD/MM/YYYY') and TO_DATE('"
+				+ dateFin
+				+ "','DD/MM/YYYY') or d.DATE_FIN between TO_DATE('"
+				+ dateDebut
+				+ "','DD/MM/YYYY') and TO_DATE('"
+				+ dateFin
+				+ "','DD/MM/YYYY') or TO_DATE('"
+				+ dateDebut
+				+ "','DD/MM/YYYY') between d.DATE_DEBUT and d.DATE_FIN or TO_DATE('"
+				+ dateFin
+				+ "','DD/MM/YYYY') between d.DATE_DEBUT and d.DATE_FIN)";
+
+		String QUERY_FICHE_CCV_VAL = "select "
+				+ Fiche.FICHE_CCV
+				+ ", fiche.numseqficexpccvval as idfiche, fiche.TITRE_COURT, d.date_debut, d.date_fin, type_ope.LIBELLE_TYPE_OPERATION_VALIDE, fiche.statut,-1, "
+				+ " DEBUT_FIN.date_fin_derniere_occurence, "
+				+ " DEBUT_FIN.date_debut_premiere_occurence	   "				
+				+ " from fiche_exp_ccv_valide fiche, ficheccv_date_valide resdate, type_operation_valide type_ope, date_evenement_valide d, "
+				+ " 	   ( "
+				+ "			SELECT   fiche_exp_ccv_valide.numseqficexpccvval AS id_fiche, "
+                + "             MAX (date_evenement_valide.date_fin) AS date_fin_derniere_occurence, "
+                + "             MIN (date_evenement_valide.date_debut) AS date_debut_premiere_occurence"
+                + "      FROM fiche_exp_ccv_valide, ficheccv_date_valide, date_evenement_valide"
+                + "      WHERE fiche_exp_ccv_valide.numseqficexpccvval = ficheccv_date_valide.idfiche"
+                + "        AND ficheccv_date_valide.iddate = date_evenement_valide.iddate_evt_valide"
+                + "  GROUP BY fiche_exp_ccv_valide.numseqficexpccvval"
+				+"   )  DEBUT_FIN "							
+				+ " where fiche.NUMSEQFICEXPCCVVAL = resdate.IDFICHE"
+				+ " and debut_fin.id_fiche = idfiche "						
+				+ " and d.IDDATE_EVT_VALIDE = resdate.IDDATE"
+				+ " and fiche.statut != '"
+				+ WKFConstants.ETAT_HISTORIQUE
+				+ "'"
+				+ " and (fiche.statut = '"
+				+ WKFConstants.ETAT_VALIDEEDEG
+				+ "'"
+				+ " or fiche.statut = '"
+				+ WKFConstants.ETAT_ARCHIVEE
+				+ "'"
+				+ " or fiche.statut = '"
+				+ WKFConstants.ETAT_CLASSEE
+				+ "')"
+				+ " and fiche.CODE_TYPE_OPERATION_VALIDE = type_ope.CODE_TYPE_OPERATION_VALIDE"
+				+ " and (d.DATE_DEBUT between TO_DATE('"
+				+ dateDebut
+				+ "','DD/MM/YYYY') and TO_DATE('"
+				+ dateFin
+				+ "','DD/MM/YYYY') or d.DATE_FIN between TO_DATE('"
+				+ dateDebut
+				+ "','DD/MM/YYYY') and TO_DATE('"
+				+ dateFin
+				+ "','DD/MM/YYYY') or TO_DATE('"
+				+ dateDebut
+				+ "','DD/MM/YYYY') between d.DATE_DEBUT and d.DATE_FIN or TO_DATE('"
+				+ dateFin
+				+ "','DD/MM/YYYY') between d.DATE_DEBUT and d.DATE_FIN)";
+
+		QUERY = QUERY_FICHE_RES_WKF + QUERY_UNION + QUERY_FICHE_EXP_WKF
+				+ QUERY_UNION + QUERY_FICHE_EXP_VAL + QUERY_UNION
+				+ QUERY_FICHE_CCV_WKF + QUERY_UNION + QUERY_FICHE_CCV_VAL;
+
+		AdminTypeOperation adminTypeOperation = new AdminTypeOperation();
+		List refTypeOperations = adminTypeOperation
+				.getTypesOperationsWithoutHierarchy(sessionHibernate);
+		Hashtable typeOperationById = new Hashtable();
+		for (Iterator iter = refTypeOperations.iterator(); iter.hasNext();) {
+			TypeOperation refTypeOperation = (TypeOperation) iter.next();
+			typeOperationById.put(refTypeOperation.getId(), refTypeOperation);
+		}
+
+		Connection connection = null;
+		Statement statement = null;
+		ResultSet resultSet = null;
+		List ficheListToReturn = new ArrayList();
+		try {
+			connection = sessionHibernate.connection();
+			statement = connection.createStatement();
+			resultSet = statement.executeQuery(QUERY);
+
+			while (resultSet.next()) {
+				BigDecimal type = resultSet.getBigDecimal(1);
+				BigDecimal idFiche = resultSet.getBigDecimal(2);
+				String titreCourt = resultSet.getString(3);
+				java.util.Date debut = resultSet.getDate(4);
+				java.util.Date fin = resultSet.getDate(5);
+				String operation = resultSet.getString(6);
+				String statut = resultSet.getString(7);
+				int codeTypeAsInt = resultSet.getInt(8);
+				java.util.Date finDerniereOccurence = resultSet.getDate(9);
+				java.util.Date debutPremiereOccurence = resultSet.getDate(10);				
+				Integer codeTye = new Integer(codeTypeAsInt);
+
+				if (type.intValue() == Fiche.FICHE_RESERVATION) {
+					FicheReservation ficheReservation = new FicheReservation();
+					ficheReservation.setId(new Integer(idFiche.intValue()));
+					ficheReservation.setTitreCourt(titreCourt);
+
+					
+					ficheReservation
+							.setLocalisations(new AdminFicheReservation()
+									.getLocalisationList(sessionHibernate,
+											ficheReservation));
+					
+
+					List dateEvenementList = new ArrayList();
+					DateEvenement dateEvenement = new DateEvenement();
+					dateEvenement.setDateDebut(DateUtil
+							.convertDateToCalendar(debut));
+					dateEvenement.setDateFin(DateUtil
+							.convertDateToCalendar(fin));
+					dateEvenementList.add(dateEvenement);
+					
+					ficheReservation.setDateEvenementList(dateEvenementList);
+					
+					ficheReservation.setDebutPremiereOccurence(debutPremiereOccurence);
+					ficheReservation.setFinDerniereOccurence(finDerniereOccurence);							
+
+					TypeOperation typeOperation = getTypeOperation(operation,
+							codeTye, typeOperationById);
+					ficheReservation.setTypeOperation(typeOperation);
+
+					ficheReservation.setStatut(statut);
+
+					ficheListToReturn.add(ficheReservation);
+				} else if (type.intValue() == Fiche.FICHE_EXPLOITATION) {
+					FicheExploitation ficheExploitation = new FicheExploitation();
+					ficheExploitation.setId(new Integer(idFiche.intValue()));
+					ficheExploitation.setTitreCourt(titreCourt);
+
+					List dateEvenementList = new ArrayList();
+					DateEvenement dateEvenement = new DateEvenement();
+					dateEvenement.setDateDebut(DateUtil
+							.convertDateToCalendar(debut));
+					dateEvenement.setDateFin(DateUtil
+							.convertDateToCalendar(fin));
+					dateEvenementList.add(dateEvenement);
+					
+					ficheExploitation.setDateEvenementList(dateEvenementList);
+					
+					ficheExploitation.setDebutPremiereOccurence(debutPremiereOccurence);
+					ficheExploitation.setFinDerniereOccurence(finDerniereOccurence);							
+
+					ficheExploitation
+							.setLocalisations(new AdminFicheExploitation()
+									.getLocalisationList(sessionHibernate,
+											ficheExploitation));
+
+					TypeOperation typeOperation = getTypeOperation(operation,
+							codeTye, typeOperationById);
+					ficheExploitation.setTypeOperation(typeOperation);
+
+					ficheExploitation.setStatut(statut);
+
+					ficheListToReturn.add(ficheExploitation);
+				} else if (type.intValue() == Fiche.FICHE_CCV) {
+					FicheCCV ficheCCV = new FicheCCV();
+					ficheCCV.setId(new Integer(idFiche.intValue()));
+					ficheCCV.setTitreCourt(titreCourt);
+
+					List dateEvenementList = new ArrayList();
+					DateEvenement dateEvenement = new DateEvenement();
+					dateEvenement.setDateDebut(DateUtil
+							.convertDateToCalendar(debut));
+					dateEvenement.setDateFin(DateUtil
+							.convertDateToCalendar(fin));
+					dateEvenementList.add(dateEvenement);
+					ficheCCV.setDateEvenementList(dateEvenementList);
+
+					ficheCCV.setDebutPremiereOccurence(debutPremiereOccurence);
+					ficheCCV.setFinDerniereOccurence(finDerniereOccurence);							
+					
+					
+					ficheCCV.setLocalisations(new AdminFicheExploitationCCV()
+							.getLocalisationList(sessionHibernate, ficheCCV));
+
+					TypeOperation typeOperation = getTypeOperation(operation,
+							codeTye, typeOperationById);
+					ficheCCV.setTypeOperation(typeOperation);
+
+					ficheCCV.setStatut(statut);
+
+					ficheListToReturn.add(ficheCCV);
+				}
+			}
+		} catch (Exception e) {
+			RessourceFrontReader.getInstance().logError(e, new Throwable());
+			throw e;
+		} finally {
+			resultSet.close();
+			statement.close();
+			connection.close();
+		}
+		return ficheListToReturn;
+
+	}
+			
+			
+					

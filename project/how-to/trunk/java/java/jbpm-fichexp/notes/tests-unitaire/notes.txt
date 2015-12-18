@@ -1,0 +1,1 @@
+Pour les test-unitaires, il convient de mettre dans le classpath, les jars du fichier test-libs.

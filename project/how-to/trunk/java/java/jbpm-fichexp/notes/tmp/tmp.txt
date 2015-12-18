@@ -1,0 +1,5 @@
+139292
+
+Todo :
+DetailFicheAction ==> getFichePalais
+	==> transforme un form en bean.

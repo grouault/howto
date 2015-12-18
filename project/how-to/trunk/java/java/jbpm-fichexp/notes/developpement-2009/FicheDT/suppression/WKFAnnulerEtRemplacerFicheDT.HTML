@@ -1,0 +1,40 @@
+	public Integer WKFAnnulerEtRemplaceFicheCCV(FicheCCV ficheCCV) {
+		JbpmSession jbpmSession = null;
+		Integer idFiche = null;
+		try {
+			jbpmSession = openJBPMSession();
+			Session sessionHibernate = jbpmSession.getSession();
+			beginJBPMTransaction(jbpmSession);
+
+			FicheCCV ficheToCancel = ficheCCV.getFicheCCVAnnulee();
+			if (ficheToCancel != null) {
+				adminFicheExploitationCCV.delete(ficheToCancel.getId(),
+						sessionHibernate);
+				Integer idFicheAnnulee = adminFicheExploitationCCV
+						.createFicheExploitationCCVAnnule(sessionHibernate,
+								ficheToCancel);
+				ficheToCancel.setId(idFicheAnnulee);
+				adminWorkflow.deleteProcessInstance(jbpmSession, ficheToCancel
+						.getIdProcessInstance());
+
+				UID uid = new UID();
+				ficheCCV.setReference(uid.toString());
+
+				long idProcessInstance = adminWorkflow.WKFCreationFicheExploitationCCV(
+						jbpmSession, ficheCCV);
+				ficheCCV.setIdProcessInstance(idProcessInstance);
+
+				ficheCCV.setStatut(WKFConstants.ETAT_CREE);
+				ficheCCV.setId(null);
+				idFiche = adminFicheExploitationCCV.saveOrUpdate(ficheCCV,
+						sessionHibernate);
+			}
+			commitJBPMTransaction(jbpmSession);
+		} catch (Exception e) {
+			rollbackJBPMTransaction(jbpmSession);
+			RessourceFrontReader.getInstance().logError(e, new Throwable());
+		} finally {
+			closeJBPMSession(jbpmSession);
+		}
+		return idFiche;
+	}

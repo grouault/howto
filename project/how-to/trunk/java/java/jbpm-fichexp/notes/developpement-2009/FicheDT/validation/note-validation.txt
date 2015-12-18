@@ -1,0 +1,94 @@
+# Validation d'un fiche.
+##
+
+Les étapes à respecter pour une validation du workflow de validation sont les suivantes:
+1- Un chef de projet créer une fiche puis la lance.
+2- Une fois lancée, la fiche va chez l'administrateur qui valide ou refuse la fiche.
+3- Selon l'opération de l'administrateur, la fiche doit changer d'état.
+				--> si validé, état = validé.
+				--> si refusé, état = refusé.
+				
+				
+# Pour tester...
+##
+- Prendre le user Abadi qui est un chef de projet par exemple.
+		--> Créer et lancer une fiche avec le user.
+	
+- Choisir une personne qui est administratreur ;
+		--> Vérifier que la fiche précedemment lancée est à valider, au niveau de l'écran d'accueil et de l'encart
+				Fiche à valider.
+	
+	
+# FicheDT - Validation Finale.
+##
+- Sélectionner une fiche ; séléctionner l'étape du workflow: ValidationFinale.
+	L'action sélectionnée est la suivante: ExcecuteAction.java
+	-->task: taskvalidationdeg
+	
+	La première étape est d'arriver sur la vue: écran de confirmation de la validation.
+	<definition name=".validationFinaleFicheDt" extends=".main">
+		<put name="title" value="title.validation.finale.fichedt" />
+		<put name="titreContent" value="titreContent.validation.finale.fichedt" />
+		<put name="content" value="/jsp/dt/validation_finale.jsp" />
+		<put name="boutons" value="/jsp/dt/validation_action_bouton.jsp" />
+	</definition>	
+	
+	
+	Ensuite sur le formulaire, on écrit un commentaire puis on valides vers l'action suivante:
+		<action path="/ValiderDTAction"
+				type="com.citedessciences.struts.actions.ValiderDTAction"
+				name="ExcecuteActionForm"
+				validate="false"
+				scope="request">
+			<forward name="success" path="/EndActionDT.do" />
+		</action>
+	
+	
+	
+
+Dans ApplicationResources.properties:
+-------------------------------------	
+title.validation.finale.fichedt=Fiche décalaration de travaux : Action réalisée
+titreContent.validation.finale.fichedt=Action réalisée	
+	
+	
+# FicheDT - Refus Validation finale
+##	
+- Sélectionner une fiche ; séléctionner l'étape du workflow: ValidationFinale.
+	L'action sélectionnée est la suivante: ExcecuteAction.java
+	-->task: refuser
+	
+	La première étape est d'arriver sur un formulaire de saisie d'un commentaire pour 
+	le refus de validation.	
+	
+	--> au niveau de l'action/gestion de la vue:
+		<forward name="taskrefuser" path=".refusValidationFinaleFicheDt" />
+		
+		<definition name=".refusValidationFinaleFicheDt" extends=".main">
+			<put name="title" value="title.refus.validation.finale.fichedt" />
+			<put name="titreContent" value="titreContent.refus.validation.finale.fichedt" />
+			<put name="content" value="/jsp/dt/refus_validation_finale.jsp" />
+			<put name="boutons" value="/jsp/dt/refus_validation_finale_bouton.jsp" />
+		</definition>			
+	
+		ApplicationRessource.properties:
+		--------------------------------	
+		title.refus.validation.finale.fichedt=Fiche exploitation : Refuser
+		titreContent.refus.validation.finale.fichedt=Refuser		
+		
+	
+	
+# Affichage dans la vue.
+##
+
+
+		// mise à jour des informations de la vue avec updateFicheWidthWorkflowInformation
+		
+				--> appelé dans les méthodes: AdminFactory.getFicheDTById();
+
+
+		//Au niveau de l'action dans DetailFicheAction.
+		fiche --> ficheCCV
+		
+		// Valideur
+		ficheBean.setValideur(getActeurBean(fiche.getValidationDEG(), p_request));

@@ -1,0 +1,50 @@
+# Notes Taches d'archivage.
+##
+
+# Principe :
+Dans l'onglet admin, il est possible :
+- de lancer la tâche d'archivagee ==> lance la tâche.
+- de lancer la planification : lance un thread, qui s'occupe alors de lancer la tâche.
+Le parametrage des tâches se fait dans un fichier xml ; pour ajouter une tache, il faut ajouter les infos aux fichiers xml.
+
+# Classe centrale : SchedulerAction
+==> ScheduleClass.launchClass
+
+# Jar
+se base sur un jar, qui gére des taches dans un ficher xml : ==> spiderscheduler.xml
+Configuration d'une tache dans ce fichier:
+- une classe
+- une méthode de lancement.
+- une heure de lancement
+- un timeout
+	
+# lancement des tâches.
+- comment s'opére le lancement (?)
+==> il faut le faire par la tâche d'admin.
+1- : lancer la tache en elle-même
+2- : lancer le thread qui est programmé pour lancer la tâche a une heure donnée.
+
+# Classes mise en jeu.
+==> le lancement se fait par l'appel d'une url qui lance la tache d'archivage.
+com.citedessciences.process.Tache
+	==> Definition des url:
+	Ex : protected static String URL_ARCHIVAGE_FICHE_PALAIS = "Taches/ArchiverFichePalais.do"; 
+	==> methode launchTache() : ouvre une url sur la tache a lancer.
+	Tache.launchTache(Tache.URL_ARCHIVAGE_FICHE_EXP);
+	
+AchivierFichePalais.do
+	com.citedessciences.struts.actions.taches.ArchiverFichePalaisAction
+	==> ArchiveFichesPalaisFinies
+	
+com.citedessciences.process : ArchiveFichesPalaisFinies
+
+# requete de recuperation des fiches palais a archiver
+##
+select fp.num_seq_ficpalais 
+from FICHE_PALAIS fp	
+where fp.num_seq_ficpalais not in (
+select fpd.idfiche
+from fiche_palais_date fpd join date_evenement de on fpd.iddate = de.numseqdate
+where de.date_fin > TO_DATE('06/11/2012','DD/MM/YYYY')
+)
+and fp.statut in ('validee');

@@ -1,0 +1,11 @@
+# Fiches classées.
+##
+Le classement d'une fiche a pour objectif la modification d'une fiche validée.
+Le classement d'une fiche concerne les fiches:
+- Fiche Palais
+- Fiche Exploitation
+- Fiche Exploitation CCV
+
+# Fiche classées et alertes.
+- Une fiche classée ne peut généré une alerte si elle est en conflit avec une autre fiche.
+- Quand une fiche est classée, il convient de lever les alertes liées à cette fiche.

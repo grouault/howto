@@ -1,0 +1,90 @@
+######################################
+# Processus du workflow de réservation
+######################################
+
+Processus joué avec la fiche suivante:
+CP: Abadi Emma
+idfiche: 69587
+
+
+1- Création fiche par le chef de projet:
+----------------------------------------
+Abadi est chef de projet:
+	--> il créé sa fiche et la lance.
+	
+2- Validation ou Refus par l'exploitant:
+----------------------------------------
+L'exploitant voit la fiche tombée dans sa barquette. Ce dernier peut alors validé ou refusé.
+S'il valide la fiche est va dans un état prévalidée.
+Elle tombe alors dans la barquette des directeurs: Chef de département et directeur.
+
+
+3- Validation ou refus par le chef de département.
+--------------------------------------------------
+Après validation de l'exploitant, ce dernier doit valider ou refuser la fiche en y ajoutant un commentaire.
+S'il valide et que le directeur a validé la fiche, la fiche rentre dans l'état émise, sinon la fiche reste dans l'état prévalidée.
+
+4- Validation ou refus par le directeur.
+----------------------------------------
+Après validation de l'exploitant, ce dernier doit valider ou refuser la fiche.
+S'il valide et que le chef de projet a validé la fiche, la fiche rentre dans l'état émise, sinon la fiche reste dans l'état prévalidée.
+
+
+5- Valildation par les viseurs.
+-------------------------------
+Pour viser une fiche, donc pour que les viseurs la voient, cette dernière doit être à émise.
+
+Après validation, les par le directeur et le chef de département, la fiche tombe dans la barquertte des viseurs.
+Ces derniers ont alors la possibilité de refuser.
+S'il refuse un historique du refus est sauvegarder en base.
+Note: les viseurs n'ont que la possiblité de viser ou refuser.
+Une fois que tous les viseurs obligatoires ont visées: la fiche reste à l'état émise.
+
+
+6- Une fois que tous les viseurs ont visées (?)
+-----------------------------------------------
+La fiche passe-t-elle dans l'état visée? Si non, à quelle moment passe-t-elle dans l'état émise.
+La fiche passe dans l'état visée quans tous les viseurs (obligatoires et complémentaires ont visé la fiche)
+La fiche doit alors être validé par l'exploitant finale.
+Pour le chef de projet, quel sont alors les étapes encore disponible dans le workflow(?)
+		--> toujours la possibilité d'annuler/annuler-remplacer/modifier.
+
+7- Validation finale par l'exploitant
+-------------------------------------
+Question: qu'est-ce la validation en cellule (?) : deux personnes en conflit, l'exploitant les convoque et procède à une validation en cellule.
+
+Une fois que tous les viseurs ont visés, l'exploitant à la possibilité de procéder à une finale.
+Cette étaps apparaît effectivement dans son workflow.
+	S'il procéde à la validation final:
+		- conséquence pour l'état de la fiche:
+						La fiche passe dans l'état validée.
+		- conséquence pour le workflow de la fiche chez le chef de projet:
+						Ce dernier peut alors annuler/annuler-remplacer/Tansformer en fiche d'exploitation.
+		- conséquence dans le workfow pour un viseur, chef de projet, directeur et exploitant:
+			exploitant: aucune étape dans le workflow.
+			Chef de département: aucune étape dans le workflow.
+			directeur: aucune étape dans le workflow.
+			viseur: aucune étape dans le workflow.
+
+Question : A ce stade la fiche au niveau de la base de données:
+	- je pense que la fiche est toujours dans la table des fiches de reservation avec le statut validée.
+
+			
+8- Transformation en fiche d'exploitation par le chef de projet
+---------------------------------------------------------------
+
+On entre sur le formulaire de création d'une fiche d'exploitation avec tous les champs renseignés.
+Il faut à ce stage sauvegarder la fiche avec la possibilité de faire des modifications.
+
+La fiche de réservation qui était dans l'état validé passe dans un état archivé.
+La fiche change de table: reservation --> reservation_valide
+		L'état de la fiche dans la table des validées est alors "archivées".
+L'exploitant peut alors consulter la fiche dans son menu Fiche_Archivées. Le statut de la fiche est alors "transformée".
+Il y a un delta entre la base et le workflow.
+
+
+
+# Questions
+##
+Que se passe-t-il si le chef de projet modifie la fiche et que des viseurs ont acceptés (?)
+	--> il faut tester.

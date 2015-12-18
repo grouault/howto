@@ -1,0 +1,30 @@
+# Fiche en cours
+##
+
+Dans cette rubrique pour les fiches DT, on va trouver les fiches lancées.
+Cela se paramètre en ajoutant des critères ;
+	on utilise la méthdode: getFicheDT(FicheCriteria ficheCriteria)
+	
+# Paramétrage
+##
+
+<form-bean name="ListeFicheDTVisaInfoEnCoursForm" type="com.citedessciences.struts.forms.ListForm" />
+
+<action path="/FicheDTVisaInfoEnCours" 
+		type="com.citedessciences.struts.actions.ListeFicheDTVisaInfoEnCoursAction"
+		name="ListeFicheDTVisaInfoEnCoursForm"				
+		scope="session">
+	<forward name="success" path=".listeFicheDtInfoVisaEnCours" />
+</action>
+
+<!-- liste des fiches archivée : côté admin -->
+<definition name=".listeFicheDtInfoVisaEnCours" extends=".listficheDT">
+	<put name="title" value="title.dt.visa.encours" />
+	<put name="titreContent" value="titreContent.dt.visa.encours" />
+</definition>
+
+ApplicationRessources:
+----------------------
+title.dt.visa.encours=Toutes les fiches de déclaration de travaux en cours.
+titreContent.dt.visa.encours=Toutes les fiches en cours.
+	

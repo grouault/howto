@@ -1,0 +1,279 @@
+# Gestion des Nuisances sur les fiches de réservations.
+##
+
+# Notes:
+##
+L'objet métier, FicheRéservation hérite de l'objet Fiche.
+L'objet métier contient une liste de nuisances comme une fiche réservation contient une liste de visas-complémentaires.
+
+
+Le taglib utilise la class option qui permet d'alimenter le select.
+Cette classe prend en paramètre: value, text, styleClass.
+Elle a deux contstructeurs: un en public, l'autre en protected (?)
+
+# Création d'un objet métier intermédiaire: FicheNuisible.
+##
+Cet objet hérite de fiche.
+Attribut ajouté: une liste de nuisance qui est la liste des nuisances potentielles de la fiche.
+
+
+# Mise à jour de la base.
+##
+
+# Bean de fiche de réservations.
+##
+Création d'un Set de Nuisance.
+
+# Mapping hibernate
+##
+<set name="nuisances" table="FICHE_NUISANCE_RES" lazy="true">
+
+   <key>
+      <column name="ID_FICHE"/>
+      <column name="TYPE_FICHE"/>
+  </key>
+
+	<many-to-many column="ID_TYPE_NUISANCE" class="HRefTypeNuisance"/>
+</set>
+
+# Création d'une entité Nuisance.
+##
+implements Serializable.
+
+# Création d'un mapper: NuisanceMapper.
+##
+A analyser: implements MappingInterface.
+
+# Mettre à jour le form : EditerFicheReservationForm
+##
+Ajout du champ: String nuisances;
+
+# Modifier l'objet métier: FicheReservation.java package(entity)
+##
+Cette class hérite de FicheNuisible.
+
+
+# jsp d'édition
+##
+/jsp/reservation/reservation2_2_editer.jsp
+
+# Création d'un TagLib
+##
+MultiSelectNuisances
+<csi:MultiSelectNuisances size="8" 
+							property="nuisances" 
+							name="EditerFicheReservationForm"
+							multiple="true"
+							roleId="2"
+							preSuppJS="checkBesoinSpecifique('document.forms.EditerFicheReservationForm','visasComplementaires')"
+			/>
+			
+			
+# MultiSelectNuisance.
+##
+- voir code:
+getLeftOptions.
+getRightOptions.
+			
+			
+# EditerFicheReservationForm 
+##			
+- Quand on édite la fiche, il convient de récupérer les données de la liste
+de l'objet métier pour les mettre dans le champs du form nuisance, qui vient
+alimenter le champ Hidden.
+
+List nuisances = ficheReservation.getNuisances();
+String nuisancesCompToSet = "";
+if(nuisances!=null && !nuisances.isEmpty()){
+	for (Iterator iterator = nuisances.iterator(); iterator
+			.hasNext();) {
+		RefTypeNuisance nuisance = (RefTypeNuisance) iterator.next();
+		nuisancesCompToSet += nuisance.getIdTypeNuisance() + ";";
+	}
+}
+this.setNuisances(nuisancesCompToSet);
+
+
+Danger: il faut mettre à jour le FicheReservationMapper (?).
+------------------------------------------------------------
+			// prises en compte des nuisances.
+			NuisanceMapper nuisanceMapper = new NuisanceMapper();
+			Set nuisancesHibernate = ficheReservationHibernate.getNuisances();
+			List nuisancesMetier = new ArrayList();
+			for (Iterator iterator = nuisancesHibernate.iterator(); iterator
+					.hasNext();) {
+				HRefTypeNuisance nuisanceHibernate = (HRefTypeNuisance) iterator.next();
+				RefTypeNuisance nuisanceMetier  = (RefTypeNuisance)nuisanceMapper.BDDToMetier(nuisanceHibernate);
+				nuisancesMetier.add(nuisanceMetier);
+			}
+			ficheReservation.setNuisances(nuisancesMetier);
+
+
+Ensuite dans la vue, il faut afficher dans le select de droite
+la correspondance du champ hihhen (!!! et oui.)
+---------------------------------------------------------------
+--> Se passe dans le MultiSelect je pense.
+Implémenter: le getRightOptions()!
+
+	protected Option[] getRightOptions() {
+		Option[] optionsToReturn = null;
+		String[] nuisancesAsTab = this.getValue().split(";");
+		if (nuisancesAsTab!=null && nuisancesAsTab.length>0){
+			TreeMap nuisancesToReturnAsList = new TreeMap();
+			for (int i = 0; i < nuisancesAsTab.length; i++) {
+				String nuisanceId = nuisancesAsTab[i];
+				if (nuisanceId!=null && !"".equals(nuisanceId)) {
+					RefTypeNuisance nuisanceMetier = (RefTypeNuisance)AdminFactory.getInstance().getNuisance(new Integer(nuisanceId));
+					Option option = new Option(nuisanceMetier.getIdTypeNuisance().toString(), nuisanceMetier.getLibelle());
+					nuisancesToReturnAsList.put(option.getText(), option);
+				}
+			}
+			//PointTechnique: transformer un treeMap en tableau d'option
+			optionsToReturn  = (Option[])nuisancesToReturnAsList.values().toArray(new Option[nuisancesToReturnAsList.size()]);
+		}
+		return optionsToReturn;
+	}
+
+
+
+			
+# SauvgarderFicheReservation
+## 
+On récupère la liste des nuisances sous forme de tokens "12;13;14;45".
+//-- mise à jour des nuisances --
+String nuisancesAsString = editerFicheReservationForm.getNuisances();
+String[] nuisancesAsTab = nuisancesAsString.split(";");
+List nuisances = null;
+if (nuisancesAsTab!=null && nuisancesAsTab.length>0) {
+	nuisances = new ArrayList();
+	for (int i = 0; i < nuisancesAsTab.length; i++) {
+		String idNuisance = nuisancesAsTab[i];
+		if (idNuisance!=null && !"".equals(idNuisance)) {
+			//récupération de l'objet nuisances sous sa forme métier.
+			RefTypeNuisance nuisance = AdminFactory.getInstance().getNuisance(new Integer(idNuisance));
+			//ajout de la nuisance à la liste.
+			nuisances.add(nuisance);
+		}
+	}
+}
+ficheReservation.setNuisances(nuisances);
+
+# Mise à jour du service: AdminFicheReservation SaveOrUpdate.
+##
+		//
+		//mise à jour des nuisances:
+		//
+		Set nuisancesHibernate = ficheReservationHibernate.getNuisances();
+		//suppression des nuisances hibernate s'il en existe.
+		if (nuisancesHibernate!=null && !nuisancesHibernate.isEmpty()) {
+			while (nuisancesHibernate.iterator().hasNext()) {
+				HRefTypeNuisance nuisanceHibernate = (HRefTypeNuisance) nuisancesHibernate.iterator().next();
+				nuisancesHibernate.remove(nuisanceHibernate);
+			}
+		}
+		else{
+			nuisancesHibernate = new HashSet();
+		}
+		
+		//on met à jour l'objet en base.
+		sessionHibernate.flush();
+		
+		//on ajoute les nouvelles nuisances à l'objet.
+		List nuisancesMetier = ficheReservation.getNuisances();
+		if (nuisancesMetier!=null && !nuisancesMetier.isEmpty()) {
+			for (Iterator iterator = nuisancesMetier.iterator(); iterator
+					.hasNext();) {
+				RefTypeNuisance nuisanceMetier = (RefTypeNuisance) iterator.next();
+				HRefTypeNuisance nuisanceHibernate = (HRefTypeNuisance)sessionHibernate.get(HRefTypeNuisance.class, nuisanceMetier.getIdTypeNuisance());
+				nuisancesHibernate.add(nuisanceHibernate);
+			}
+		}
+		//on met à jour les nuisances dans la fiche de réservation.
+		ficheReservationHibernate.setNuisances(nuisancesHibernate);
+
+
+#################################################
+# Mise à jour du formulaire en mode consultation.
+#################################################
+
+Mise à jour du modèle Struts: 
+-----------------------------
+package com.citedessciences.struts.beans
+FicheReservationBean qui hérite de FicheBean.
+
+# Action
+########
+De même les actions de consultation sont conçues avec une structure particulière
+DetailFicheRéservationAction.java qui hérite de DetailFicheAction.java
+DétailFicheAction.java
+
+Ces actions permettent de mettre à jour le beanStuts qui est passé à la vue.
+Pour récupérer l'id qui permet de mettre à jour le beanStruts, on récupère 
+l'attribut (fiche) mis en session.
+
+
+Il convient de mettre à jour l'action: DétailFicheAction.java
+Pour la prise en compte des nuisances:
+--------------------------------------
+			// prise en compte des nuisances.
+			List nuisances = ficheReservation.getNuisances();
+			List nuisancesBean = new ArrayList();
+			for (Iterator iterator = nuisances.iterator(); iterator
+					.hasNext();) {
+				RefTypeNuisance nuisanceMetier = (RefTypeNuisance) iterator.next();
+				nuisancesBean.add(nuisanceMetier.getLibelle());
+			}
+			Collections.sort(nuisancesBean);
+			ficheReservationBean.setNuisances(nuisancesBean);
+			
+			
+JSP: réservation2_1_detail.jsp
+------------------------------
+    <tr>
+    	<th><csi:Title key="formfiche.nuisances" /></th>
+    	<td>  
+    	    <logic:iterate id="n" name="fiche" property="nuisances">
+			<bean:write name="n" /> <br>
+		</logic:iterate>
+    	</td>
+    </tr>
+    
+    
+###################
+# Page d'impression
+###################
+http://localhost:8080/fichexp/FicheFrame.do?idFiche=69167
+<action path="/FicheFrame"
+	type="com.citedessciences.struts.actions.FicheFrameAction"
+	scope="request">
+	<forward name="success" path="/jsp/common/ficheframe.jsp" />
+</action>
+
+--> dirige vers une frame:
+<frameset rows="40,*" border="1">
+	<frame name="bouton" src="BoutonFrameFiche.do?idFiche=<%= request.getParameter("idFiche") %>&public=<%= request.getParameter("public") %>">
+	<frame name="content" src="Fiche.do?idFiche=<%= request.getParameter("idFiche") %>&public=<%= request.getParameter("public") %>">
+</frameset>
+
+//nouvelle action
+-----------------
+<action path="/Fiche"
+		type="com.citedessciences.struts.actions.FicheAction"
+		scope="request">
+	<forward name="success" path="/jsp/common/fiche.jsp" />
+</action>
+
+Code à mettre dans FicheAction:
+-------------------------------
+C'est le même principe que précédemment.
+L'action met à jour le bean qui est mis en SetAttribute().
+
+		List nuisances = ficheReservation.getNuisances();
+		List nuisancesBean = new ArrayList();
+		for (Iterator iterator = nuisances.iterator(); iterator
+				.hasNext();) {
+			RefTypeNuisance nuisanceMetier = (RefTypeNuisance) iterator.next();
+			nuisancesBean.add(nuisanceMetier.getLibelle());
+		}
+		Collections.sort(nuisancesBean);
+		ficheReservationBean.setNuisances(nuisancesBean);

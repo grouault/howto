@@ -1,0 +1,39 @@
+###
+# Workflow
+###
+	
+		<action path="/ExcecuteCCVAction"
+				type="com.citedessciences.struts.actions.ExcecuteCCVAction"
+				name="ExcecuteActionForm"
+				validate="false"
+				scope="request">
+			<forward name="taskcreationfiche" path="/EndActionCCV.do" />
+			<forward name="tasksupprimer" path="/EndActionCCV.do" />
+			<forward name="taskreprisexistant" path="/EndActionCCV.do" />
+			<forward name="taskmodifier" path="/EditerFicheCCV.do" />
+			<forward name="taskclasser" path="/EndActionCCV.do" />
+			<forward name="taskannuler" path="/EndActionCCV.do" />
+			<forward name="taskrefuser" path=".ccvrefuser4_1_1" />
+			<forward name="taskannulerremplacer" path="/AnnulerRemplacerFicheCCV.do" />
+			<forward name="taskarchiver" path=".ccv4_1_1" />
+			<forward name="taskvalidationdeg" path=".ccv4_1_1" />
+			<forward name="taskvalidationcellule" path=".ccv4_1_1" />
+		</action>	
+		
+		
+		Action:
+		-------
+		ExcecuteCCVAction qui hérite de ExcecuteAction
+				
+					if(WKFConstants.FAKE_TASK_SUPPRIMER.equals(action)) {
+							AdminFactory.getInstance().deleteFiche(fiche);
+					}
+					
+	
+		<action path="/EndActionCCV"
+				type="com.citedessciences.struts.actions.EndAction"
+				name="ExcecuteActionForm"
+				validate="false"
+				scope="request">
+			<forward name="success" path="/DetailFicheCCV.do" />
+		</action>

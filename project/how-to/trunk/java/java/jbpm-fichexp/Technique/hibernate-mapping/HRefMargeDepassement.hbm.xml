@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+
+<hibernate-mapping package="com.citedessciences.bdd.beans">
+	<class name="HRefMargeDepassement" table="REF_MARGE_DEPASSEMENT">
+	
+		<id name="idMarge" type="integer" column="ID_MARGE">
+			<generator class="assigned" />
+		</id>
+		
+		<property name="borneInf" type="integer" column="BORNE_INF" />
+		<property name="borneSup" type="integer" column="BORNE_SUP" />
+		<property name="niveauAlerte" type="string" column="NIVEAU_ALERTE" />
+		
+	</class>	
+</hibernate-mapping>

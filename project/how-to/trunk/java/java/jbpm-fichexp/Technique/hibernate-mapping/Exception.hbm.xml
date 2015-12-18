@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+
+<hibernate-mapping package="com.citedessciences.bdd.beans">
+	<class name="Exception" table="EXCEPTION">
+		
+		<id name="id" type="integer" columnn="ID_EXCEPTION">
+			<generator class="sequence">
+	    		<param name="sequence">EXCEPTION_SEQ</param>
+    		</generator>
+		</id>
+		
+		<property name="distance" type="long"  column="DISTANCE" />
+		
+		<many-to-one
+			name="idQuadrant1"
+			class="com.citedessciences.bdd.beans.HRefQuadrant"
+			column="ID_QUADRANT1" 
+			not-null="true" >
+		</many-to-one>
+	
+		<many-to-one
+			name="idQuadrant2"
+			class="com.citedessciences.bdd.beans.HRefQuadrant"
+			column="ID_QUADRANT2"
+			not-null="true">
+		</many-to-one>
+	
+	</class>
+</hibernate-mapping>

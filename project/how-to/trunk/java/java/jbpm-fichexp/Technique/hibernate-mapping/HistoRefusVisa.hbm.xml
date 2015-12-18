@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+
+<hibernate-mapping package="com.citedessciences.bdd.beans">
+	<class name="HHistoRefusVisa" table="HISTO_REFUS_VISA">
+		
+		<id name="idRefus" type="integer" column="ID_REFUS">
+			<generator class="sequence">
+				<param name="sequence">HISTO_REFUS_VISA_SEQ</param>
+			</generator>
+		<id>
+
+		<property name="motifRefus" type="string" column="MOTIF_REFUS" />
+		<property name="dateREFUS" type="date" column="DATE_REFUS" />
+		
+		<many-to-one
+			name="idUtilisateur"
+			class="com.citedessciences.bdd.beans.HUtilisateur"
+			column="ID_UTILISATEUR"
+		</many-to-one>
+		
+		<many-to-one
+			name="idFiche"
+			class="com.citedessciences.bdd.beans.HFicheReservation"
+			column="ID_FICHE"
+		</many-to-one>		
+		
+	</class>	
+</hibernate-mapping
+

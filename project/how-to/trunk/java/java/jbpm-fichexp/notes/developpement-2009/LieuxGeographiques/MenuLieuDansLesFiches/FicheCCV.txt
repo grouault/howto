@@ -1,0 +1,25 @@
+# Lieu dans FicheExploitationCCV
+#############################
+
+Structure:
+----------
+- Création de la table d'association: FICHE_LIEU_CCV
+- Création des bean:
+				HFicheCCVLieu.java
+				HFicheCCVLieuPK.java
+- Création du fichier de mapping:
+				HFicheCCVLieu.hbm
+				
+Mise à jour des objets:
+-----------------------
+HFicheExploitationCCV: 
+		private java.util.Set codeLocalisations;
+		--> private java.util.Set lieuxGeo;
+		
+FicheCCV hérite de FicheNuisible qui hérite de Fiche:
+		private List localisations;
+		--> private List lieux;
+		
+Form: EditerFicheExploitationForm:
+		String lieu;
+		--> private String lieuxGeo;

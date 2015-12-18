@@ -1,0 +1,95 @@
+# Notes
+##
+
+# Mapping :
+Eléments mis en jeu dans le mapping :
+New : 
+- HFichePalaisValidee
+- HRefLieuValideFichePalais
+- HNuisanceValideFichePalais
+
+Old :
+- HRefTypeOperationValide
+- HDateEvenementValide
+- HRefBesoinSpecifiqueValide
+
+##
+# Annuler une fiche.
+##
+# Annulation d'une fiche
+L'annulation d'une fiche créée mais non lancée est supprimée sans sauvegarde dans la table des annulées.
+L'annulation d'une fiche créée et lancée est transférée dans la table des fiches annulées.
+Au niveau des onglets:
+Aller dans le sous-menu, "Annulées" ==> remonte la liste des fiches annulées.
+
+
+# Annuler et remplacer.
+Le fait d'annuler et remplacer une fiche palais, transfère la fiches dans la tables des annulées.
+==> la nouvelle garde en référence l'id de la fiche annulée : Pourquoi (?)
+Principe :
+taskAnnulerRemplacer ==> AnnulerRemplacerFichePalaisAction
+Met le champ suivant à jour : palaisForm.setFicheAnnuleeRemplacante(beanPalais.getId());
+==> Formulaire de modification ==> Sauvegarde
+  1- SauvgarderFichePalaisAction ==> this.getFichePalais : 
+		fichePalais.setFichePalaisAnnulee(fichePalaisAnnulee); ==> 2 instances de la meme fiche 
+		FichePalais a en reference FichePalaisAnnule qui est FichePalais.
+  WKFAnnulerEtRemplacerFichePalais 
+	==> transfère de la fiche (FichePalaisAnnule) dans la tables des annulees : mise à jour de l'id FichePalaisAnnulee avec l'id de la fiche.
+	- Pas besoin de mettre à jour le champs : idFichePalaisAnnulee, car FichePalais a en reference FichePalaisAnnule.
+  ==> on met l'id de FichePalais à null et sauvegarde de la nouvelle fiche.
+	
+
+##
+# Modifier une fiche.
+##
+# modifier une fiche non lancée.
+- Suppression du ProcessInstance courant.
+- Création d'un nouvel ProcessInstance.
+# modifier une fiche lancée
+- une nouvelle version de la fiche est créée.
+- L'ancienne version est sauvegardée dans la tables des fiches validées avec l'état "Historique".
+
+##
+# Modifier une fiche palais quand la fiche est lancée. 
+##
+==> permet de garder l'historique d'une fiche, si le user utilise la fonction et que la fiche a été au préalable lancée.
+==> mais va dans la table des fiches validees.
+- la fiche est mise à jour : 
+	- meme id
+	- process instance different
+	- le numéro de version de la fiche est mise à jour.
+- la fiche courante "qui devient historique" est transférée dans la table des validées avec le statut : Historique.
+  Une nouvelle fiche validée est créée. Elle est associée, à la fiche courante via l'attribut "référence". 	
+  La fiche a aussi en association, l'id de la fiche palais en référence.
+
+##  
+# Archivage des fiches validées
+##
+- Tâche d'archivage : AdminFactory.WKFArchiverFiche
+- récupére les fiches validées dont la date de fin est supérieur à la date du jour.
+- transfèrent les fiches dans tables des validées avec le statut archivées.	
+
+##
+# Validation Cellule
+##
+- AdminFiche.saveOrUpdateFicheAValiderCellule
+==> Cette fonction n'est pas appélé.
+La validation cellule peut-être opéré par un admin qui a les droits.
+Met la fiche dans un état émise initialement dans un état validé.
+	
+# Classée une fiche.
+##	
+Une fiche palais une fois le workflow terminé, est à l'état validé.
+Toutefois, si une modification est à apporter, il est possible de classer la fiche.
+En classant, la fiche, cette dernière est au statut classé.
+Elle peut alors être : 
+- modifier : dans ce cas, une version de la fiche est mis dans la table FICHE_VALIDE avec le statut Historique.
+			 la fiche garde le même identifiant, et est augmenté d'une version.
+- annuler : - la fiche est supprimer de la table FICHE_PALAIS
+            - une entrée est créée dans la table FICHE_PALAIS_ANNULEE
+- annuler/remplacer : 
+			- la fiche est supprimée de la table FICHE_PALAIS et son workflow supprimé
+			- une entrée est créée dans la table FICHE_PALAIS_ANNULEE
+			- une nouvelle fiche est créée, nouvel id, nouvelle référence, nouveau workfow
+A noter qu'une fiche classée ne doit pas avoir d'impacts sur les alertes.
+

@@ -1,0 +1,17 @@
+# A tester
+##
+
+- méthode qui permet de retourner le plafond de propagation:
+	getPlafondPropagation(Integer intensite)
+	
+- fonction de test de la nullité des lieux.
+
+- fonction de récupération des exceptions entre deux lieux
+
+- fonction de test de la nullité des coordonnées.
+
+- checker le degré d'alerte relevé:
+	--> relation one-to-one dans le mapping.
+	--> fonction getMargeDepassement.
+		
+- Tester la fonction alertes nuisance.	

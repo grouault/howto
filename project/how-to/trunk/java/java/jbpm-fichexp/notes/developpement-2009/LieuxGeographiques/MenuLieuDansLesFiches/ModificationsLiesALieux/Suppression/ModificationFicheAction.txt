@@ -1,0 +1,42 @@
+# correctif FicheAction
+##
+
+
+		/*
+		List localisations = ficheReservation.getLocalisations();
+		List localistationsBean = new ArrayList();
+		for (Iterator iter = localisations.iterator(); iter.hasNext();) {
+			Localisation localisation = (Localisation) iter.next();
+			localistationsBean.add(localisation.getHierarchy());
+		}
+		ficheReservationBean.setLieu(localistationsBean);
+		*/		
+		
+		/*
+		List localisations = ficheExploitation.getLocalisations();
+		List localistationsBean = new ArrayList();
+		for (Iterator iter = localisations.iterator(); iter.hasNext();) {
+			Localisation localisation = (Localisation) iter.next();
+			localistationsBean.add(localisation.getHierarchy());
+		}
+		ficheExploitationBean.setLieu(localistationsBean);
+		*/		
+
+		/*
+		List localisations = ficheCCV.getLocalisations();
+		List localisationsBean = new ArrayList();
+		for (Iterator iter = localisations.iterator(); iter.hasNext();) {
+			Localisation localisation = (Localisation) iter.next();
+			localisationsBean.add(localisation.getHierarchy());
+		}
+		ficheCCVBean.setLieu(localisationsBean);
+		*/
+
+
+http://localhost:8080/fichexp/Fiche.do?idFiche=69294
+
+//FicheExp
+http://localhost:8080/fichexp/Fiche.do?idFiche=69250
+
+//FicheRes
+http://localhost:8080/fichexp/Fiche.do?idFiche=69228

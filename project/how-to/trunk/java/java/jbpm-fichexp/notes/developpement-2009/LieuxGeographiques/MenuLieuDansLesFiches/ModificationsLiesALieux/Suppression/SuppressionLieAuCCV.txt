@@ -1,0 +1,145 @@
+
+
+# En edition.
+##
+- EditerFicheCCVAction.java
+------------------------------------
+methode reset:
+	- appel à la couche de persistance et à FicheExploitationCCVMapper:
+				/**
+			 * a supprimer
+	        LocalisationMapper localisationMapper = new LocalisationMapper();
+			Set localisationsHibernate = ficheExploitationCcv.getCodeLocalisations();
+			List localisations = new ArrayList();
+			for (Iterator iter = localisationsHibernate.iterator(); iter.hasNext();) {
+				HRefLocalisation localisationHibernate = (HRefLocalisation) iter.next();
+				Localisation localisation = (Localisation) localisationMapper
+				.BDDToMetier(localisationHibernate);
+				localisations.add(localisation);
+			}		
+			ficheCCV.setLocalisations(localisations);
+			*/
+
+			Dans le form
+			------------
+			/**
+			* a supprimer
+			List lieuxList = ficheCCV.getLocalisations();
+			String lieux = "";
+			for (Iterator iter = lieuxList.iterator(); iter.hasNext();) {
+				Localisation lieu = (Localisation) iter.next();
+				lieux = lieux+lieu.getId().toString()+";";
+			}
+			this.setLieu(lieux);
+			*/
+
+
+# En sauvegarde.
+##	
+
+1- Modification de l'action
+		/**
+		 * A supprimer
+		 
+		// Lieu
+		String lieuxAsString = editerFicheCCVForm
+		.getLieu();
+		StringTokenizer lieuxAsTok = new StringTokenizer(
+				lieuxAsString, ";");
+		List lieux = new ArrayList();
+		while (lieuxAsTok.hasMoreTokens()) {
+			String idLieuAsString = (String) lieuxAsTok
+					.nextToken();
+			Integer idLieu = Integer.valueOf(idLieuAsString);
+			Localisation lieu = AdminFactory.getInstance().getLocalisation(idLieu);
+			lieux.add(lieu);
+		}
+		ficheCCV.setLocalisations(lieux);
+		*/
+
+
+2- Modification de la couche hibernate: AdminFicheExploitation.saveOrUpdate();
+    /**
+     * A supprimer
+		Set codeLocalisations = ficheExploitationCcv.getCodeLocalisations();
+		
+		if (codeLocalisations != null) {
+			while (codeLocalisations.iterator().hasNext()) {
+				HRefLocalisation codeLocalisation = (HRefLocalisation) codeLocalisations.iterator().next();
+				codeLocalisations.remove(codeLocalisation);
+			}
+		} else {
+			codeLocalisations = new HashSet();
+		}
+
+		sessionHibernate.flush();
+
+		List localisations = ficheCCV.getLocalisations();
+		for (Iterator iter = localisations.iterator(); iter.hasNext();) {
+			Localisation localisation = (Localisation) iter.next();
+
+			HRefLocalisation localisationHibernate = (HRefLocalisation) sessionHibernate.get(HRefLocalisation.class,localisation.getId());
+			codeLocalisations.add(localisationHibernate);
+		}
+		ficheExploitationCcv.setCodeLocalisations(codeLocalisations);
+		*/
+
+
+
+# En Consultation
+##
+
+			DetailFicheAction getFicheCCV ():
+			
+			/**
+			 * A supprimer
+			List localisations = ficheCCV.getLocalisations();
+			List localistationsBean = new ArrayList();
+			for (Iterator iter = localisations.iterator(); iter.hasNext();) {
+				Localisation localisation = (Localisation) iter.next();
+				localistationsBean.add(localisation.getTitre());
+			}
+			ficheCCVBean.setLieu(localistationsBean);
+			*/
+
+
+# Jsp
+##			
+
+Ecran de consultation:
+----------------------			
+	-	 ccv4_1_detail.jsp
+	
+    <tr>
+		<th><csi:Title 	key="formfiche.titre.lieu.geographique"/></th>
+		<td>
+	    <logic:iterate id="l" name="fiche" property="lieu">
+				<bean:write name="l" /> <br>
+			</logic:iterate>
+		</td>
+    </tr>
+ 
+- Modification de la jsp d'édition:
+-----------------------------------
+		ccv4_2_editer.jsp
+
+    <tr>
+		<th><csi:Title 	key="formfiche.titre.lieu.geographique" 
+						mandatory="true" /></th>
+		<td>
+			<csi:SelectLieu size="6" 
+						name="EditerFicheCCVForm" 
+						property="lieu" 
+						suppJS="deleteLieu"
+						addJS="addLieu"
+						/>
+		<% 	//<csi:MultiSelectLieu size="8" 
+			//					name="EditerFicheCCVForm" 
+			//					property="lieu"
+			//					suppJS="supprimerLieu"
+			//					addJS="ajouterLieu" 
+			//					/>
+		%>
+		</td>
+    </tr>
+

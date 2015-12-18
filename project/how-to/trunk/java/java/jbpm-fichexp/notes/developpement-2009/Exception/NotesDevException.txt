@@ -1,0 +1,157 @@
+	
+	
+	<definition name=".admin1_0" extends=".main">
+		<put name="title" value="title.admin1_0" />
+		<put name="titreContent" value="titreContent.admin1_0" />
+		<put name="content" value="/jsp/admin/admin5_1_0_contenu.jsp" />
+		<put name="boutons" value="/jsp/admin/admin5_1_0_bouton.jsp" />
+	</definition>
+	
+	
+		<action path="/EditerUser" 
+				type="com.citedessciences.struts.actions.EditerUserAction" 
+				name="UserForm" 
+				scope="request" 
+				validate="false">
+			<forward name="success" path=".admin1_1" />
+		</action>
+		
+
+		<action path="/SauvUser" type="com.citedessciences.struts.actions.SauvgarderUserAction" name="UserForm" input="/EditerUser.do" validate="true" scope="request">
+			<forward name="success" path="/Users.do" redirect="true" />
+		</action>
+		
+		
+# HRefQuadrant.java
+##
+Création de l'entité:
+---------------------
+ - RefQuadrant.java
+ 
+ 
+<action path="/EditerException" 
+		type="com.citedessciences.struts.actions.EditerExceptionAction" 
+		name="ExceptionForm" 
+		scope="request" 
+		validate="false">
+	<forward name="success" path=".adminException" />
+</action> 
+
+
+
+#######################################################################
+# Developpement relatif à l'affichage du tableau listant les exceptions.
+#######################################################################
+url d'apel
+----------
+url d'appel dans le menu d'administration:
+Exceptions.do
+	
+Actions:
+--------
+<action path="/Exceptions" 
+		type="com.citedessciences.struts.actions.ListeExceptionsAction" 
+		name="ListExceptionsForm" 
+		validate="false" 
+		scope="session">
+	<forward name="success" path=".adminException1_0" />
+</action>
+
+ActionForm
+----------
+ListeExceptionForm
+<form-bean name="ListExceptionsForm" type="com.citedessciences.struts.forms.ListForm" />
+
+
+tiles-definitions.xml
+---------------------
+<definition name=".adminException1_0" extends=".main">
+	<put name="title" value="title.adminException1_0" />
+	<put name="titreContent" value="titreContent.adminException1_0" />
+	<put name="content" value="/jsp/admin/adminException_1_0_contenu.jsp" />
+	<put name="boutons" value="/jsp/admin/adminException_1_0_bouton.jsp" />
+</definition>	
+
+
+Jsp:
+----
+1- adminException_1_0_contenu.jsp
+2- adminException_1_0_bouton.jsp
+
+
+#######################################################################
+# Developpement relatif au formulaire de ajout/modification d'une exception
+#######################################################################
+url d'apel
+----------
+url d'appel dans le formulaire listant les exceptions:
+EditerException.do
+
+Actions:
+--------
+<action path="/EditerException" 
+		type="com.citedessciences.struts.actions.EditerExceptionAction" 
+		name="ExceptionForm" 
+		scope="request" 
+		validate="false">
+	<forward name="success" path=".adminException1_1" />
+</action> 
+
+tiles-definitions.xml
+---------------------
+<definition name=".adminException1_1" extends=".main">
+	<put name="title" value="title.adminException1_1" />
+	<put name="titreContent" value="titreContent.adminException1_1" />
+	<put name="content" value="/jsp/admin/adminException_1_1_contenu.jsp" />
+	<put name="boutons" value="/jsp/admin/adminException_1_1_bouton.jsp" />
+</definition>	
+
+Jsp:
+----
+1- adminException_1_1_contenu.jsp
+2- adminException_1_1_bouton.jsp
+
+
+		# Sauvegarde du formulaire:
+		##
+		url: /SaveException.do
+		
+		Actions:
+		--------
+		Pas bon!
+		<action path="/SaveException" 
+				type="com.citedessciences.struts.actions.SauvgarderExceptionAction" 
+				name="ExceptionForm" 
+				scope="request" 
+				validate="false">
+			<forward name="success" path=".adminException1_0" />
+		</action> 
+		
+		<action path="/SaveException" 
+				type="com.citedessciences.struts.actions.SauvgarderExceptionAction" 
+				name="ExceptionForm" 
+				input="/EditerException.do" 
+				validate="true" 
+				scope="request">
+			<forward name="success" path="/Exceptions.do" redirect="true" />
+		</action>		
+		
+		
+    Notes pour le binding:
+    ----------------------
+    ExceptionForm prend en parametre 2 quadrants qui sont dans le formualire des id, et pour l'objetForm des objets quadrants.
+			La syntaxe a respecté est donc la suivante:
+			<html:select name="ExceptionForm" property="idQuadrant2.id">
+				<html:optionsCollection name="lvbsQuadrant" />
+			</html:select>
+		  De cette manière on vient peupler l'id de l'objet quadrant.
+		  Pour cela, il convient que l'ActionForm "ExceptionForm", ait dans un constructeur initialiser les objets à null pour 
+		  pouvoir fair un setter dessus.
+		  
+		Notes sur l'enregistrement en base:
+		-----------------------------------
+		L'objet métier se voit affcter un id avec valeur 0, dans l'action à sa création.
+		Problème: cela empêche l'enregistrement du bean en base.
+		Solution: checker si id n'est pas null et pas égale à 0 sinon le mettre à nulle		
+		
+		

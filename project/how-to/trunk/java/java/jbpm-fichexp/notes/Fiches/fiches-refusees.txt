@@ -1,0 +1,23 @@
+#HQL
+Select pi 
+from org.jbpm.graph.exe.ProcessInstance as pi, 
+	org.jbpm.graph.exe.Token as t, 
+	org.jbpm.taskmgmt.exe.TaskInstance as ti 
+where pi.id = t.processInstance   
+	and ti.token = t.id   
+	and ti.actorId = :actorId   
+	and ti.end is not null   
+	and ti.dueDate is null   
+	and ti.name like '%refus%'   
+	and ti.isCancelled = false
+
+# SQL
+select processins0_.ID_ as ID1_20_, processins0_.START_ as START2_20_, processins0_.END_ as END3_20_, processins0_.PROCESSDEFINITION_ as PROCESSD4_20_, processins0_.ROOTTOKEN_ as ROOTTOKEN5_20_, processins0_.SUPERPROCESSTOKEN_ as SUPERPRO6_20_ 
+from JBPM_PROCESSINSTANCE processins0_, JBPM_TOKEN token1_, JBPM_TASKINSTANCE taskinstan2_ 
+where processins0_.ID_=token1_.PROCESSINSTANCE_ and 
+	taskinstan2_.TOKEN_=token1_.ID_ and 
+	taskinstan2_.ACTORID_=? 
+	and (taskinstan2_.END_ is not null) 
+	and (taskinstan2_.DUEDATE_ is null) 
+	and (taskinstan2_.NAME_ like '%refus%') 
+	and taskinstan2_.ISCANCELLED_=0

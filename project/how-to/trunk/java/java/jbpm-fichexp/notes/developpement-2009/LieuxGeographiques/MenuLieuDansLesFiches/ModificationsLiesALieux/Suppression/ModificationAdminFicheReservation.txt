@@ -1,0 +1,34 @@
+# Modification AdminFicheReservation
+##
+
+private HFicheReservationValide createFicheReservationValide(Session sessionHibernate, FicheReservation ficheReservation,String statut
+---------------------------------------
+Code supprimé:
+
+		List localisations = ficheReservation.getLocalisations();
+		Set localisationsHib = new HashSet();
+		for (Iterator iter = localisations.iterator(); iter.hasNext();) {
+			Localisation localisation = (Localisation) iter.next();
+			HLocalisationValideFicheRes localisationValideFicheRes = new HLocalisationValideFicheRes();
+			localisationValideFicheRes.setLibelleLocalisationValide(localisation.getTitre());
+			localisationValideFicheRes.setFicheReservationValide(ficheReservationHibernate);
+			localisationsHib.add(localisationValideFicheRes);
+		}
+		ficheReservationHibernate.setLocalisations(localisationsHib);
+		
+		
+public Integer createFicheReservationAnnule(Session sessionHibernate, FicheReservation ficheReservation)		
+-------------------------------
+Code supprimé:
+		List localisations = ficheReservation.getLocalisations();
+		Set localisationsHib = new HashSet();
+		for (Iterator iter = localisations.iterator(); iter.hasNext();) {
+			Localisation localisation = (Localisation) iter.next();
+			HLocalisationAnnuleFicheRes localisationAnnuleFicheRes = new HLocalisationAnnuleFicheRes();
+			localisationAnnuleFicheRes
+					.setLibelleLocalisationValide(localisation.getTitre());
+			localisationAnnuleFicheRes
+					.setFicheReservationAnnule(ficheReservationAnnule);
+			localisationsHib.add(localisationAnnuleFicheRes);
+		}
+		ficheReservationAnnule.setLocalisations(localisationsHib);

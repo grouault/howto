@@ -1,0 +1,77 @@
+# Développement relatif au lieu.
+###############################
+
+#################################################
+# Existant - qui est a remplacé mais non supprimé
+#################################################
+action:
+-------
+<action path="/Lieux" 
+	type="com.citedessciences.struts.actions.ListeLieuGeoAction" 
+	scope="request">
+	<forward name="success" path=".admin2_0" />
+</action>
+
+Pour le taglib: les classes utiles sont:
+- LieuTag.java (com.citedessciences.struts.taglibs)
+- RessourceFrontReader (com.citedessciences.struts.util)
+
+
+#######################################################################
+# Developpement relatif à l'affichage initial.
+#######################################################################
+url d'apel
+----------
+url d'appel dans le menu d'administration:
+LieuxGeo.do
+--> Modification de Menu.xml.
+--> Redéfinition de tous les éléments, comme cela on peut revenir en arrière
+simplement en changeant l'url dans le menu.xml.
+
+Dans les menus, les modifications sont faites dans les rôles:
+- role: 5, 11 et 13.
+
+
+Actions:
+--------
+<action path="/LieuxGeo" 
+		type="com.citedessciences.struts.actions.ListeLieuxGeoAction2" 
+		scope="request">
+	<forward name="success" path=".adminLieuxGeo1_0" />
+</action>
+
+ActionForm
+----------
+Pas d'action-form mais simplement une liste des lieux alimentées dans la vue.
+
+tiles-definitions.xml
+---------------------
+<definition name=".adminLieuxGeo1_0" extends=".main">
+	<put name="title" value="title.adminLieuxGeo1_0" />
+	<put name="titreContent" value="titreContent.adminLieuxGeo1_0" />
+	<put name="content" value="/jsp/admin/adminLieuxGeo_1_0_contenu.jsp" />
+	<put name="boutons" value="/jsp/admin/adminLieuxGeo_1_0_bouton.jsp" />
+</definition>	
+
+ApplicationRessources.properties:
+---------------------------------
+title.adminLieuxGeo1_0=Tous les lieux
+titreContent.adminLieuxGeo1_0=Liste des lieux
+
+################################
+# Modification du modéle de données
+################################
+- Création de la table lieu.
+- Création du bean HRefLieu.java
+- Création du bean entity: RefLieu.java
+- Création du bean struts-form: LieuGeoForm.java
+- Création du mapping: HRefLieu.hbm.xml
+- Création d'une séquence pour les lieux (LIEUX_SEQ)
+
+###############
+# Création du service.
+###############
+- AdminLieux.java
+- Création de l'entity RefLieu.
+- Création de la méthode: getLieuxActifs(); dans AdminFactory.java
+- Création de l'objet mapping: LieuMapper

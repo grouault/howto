@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+
+<hibernate-mapping package="com.citedessciences.bdd.beans">
+	<class name="HRefBatiment" table="REF_BATIMENT">
+	
+		<id name="id" type="integer" column="ID_BATIMENT">
+			<generator class="assigned"/>
+		</id>	
+	
+		<property name="libelle" type="string" column="LIBELLE" not-null="false" length="50"/>
+		<property name="distanceNiveaux" type="long" column="DISTANCE_NIVEAUX" />
+	
+	</class>
+</hibernate-mapping>

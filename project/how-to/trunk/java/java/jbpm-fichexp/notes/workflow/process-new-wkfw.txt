@@ -1,0 +1,8 @@
+# Process Workflow
+##
+Au moment de la création d'une fiche, la méthode "getProcessDefinition" est appelé.
+Cette méthode permet de détecter si un nouveau processus "Process Definition" est à créer.
+Pour ce faire :
+- clé dans le fichier de propriété : common.properties
+-- fichepalais.version = 7
+Cette clé est comparée à la clé en base de données dans la table : JBPM_PROCESS_DEFINITION

@@ -1,0 +1,41 @@
+# Gestion des lieux
+##
+
+Auparavant les lieux avaient un code niveau selon leur classification espace, super-espace...
+Il était alors possible d'affecter une fiche à n'importe quel lieu.
+
+Mainteant un lieu est affecté à un quadrant et une fiche peut-être affecté à un lieu uniquement.
+
+Auparavant, une fiche pouvait être affecté à un bâtiment (super-espace) mais aujourd'hui ce n'est plus le cas,
+sauf si le bâtiment est défini en tant que lieu.
+
+Visas-complémentaires:
+----------------------
+A la création d'un lieu, il est possible de lui affecter des visas complémentaires.
+Auparavant les viseurs ne pouvaient être défini que sur des lieux de niveau 3.
+Aujourd'hui, les viseurs peuvent être défini pour n'importe quel lieu mais pas pour un quadrant, niveau ou bâtiment.
+
+Simplement, pour ne pas perdre l'existant et garder la fonctionnalité des fiches qui ont un lieu de nivau 1,2,
+il convient de migrer le codeNiveau et de laisser ces lieux actifs.
+
+Actuellement quand on crée un lieu, on lui affecte un code niveau 3.
+Dans l'affichage des lieux, onglet d'administration --> on affiche que les lieux de niveau 3.
+Dans l'affichage des lieux dans les fiches: 
+	- la sélection se fait de manière hiérarchique, à partir des bâtiments.
+							--> au final, seul les lieux de niveau 3 apparaîtront.
+
+Hypothèse:
+----------
+Si on doit permettre des visas complémentaires sur les quadrants, niveau et bâtiment:
+	- créer un écran d'administration:
+		- création quadrant:2
+		- création niveau: 1
+		- création bâtiment: 0
+		--> possibilité d'associer des visas complémentaires sur ces entités.
+		
+		--> affichage au niveau de cet écran d'administration: code niveau 0,1 et 2.
+		--> affichage au niveau des fiches:
+				--> Ce serait le même affichage, mais en javascript, possibilité de sélectonner:	
+					- un bâtiment
+					- un niveau
+					- un quadrant

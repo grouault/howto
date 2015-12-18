@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+
+<hibernate-mapping package="com.citedessciences.bdd.beans">
+	<class name="HRefPlafondPropagation" table="REF_PLAFOND_PROPAGATION">
+		
+			<id name="intensiteNuisance" type="integer" column="INTENSITE_NUISANCE">
+				<generator class="assigned" />
+			</id>
+		
+			<property name="plafond" type="integer" column="PLAFOND" />
+		
+	</class>	
+</hibernate-mapping>

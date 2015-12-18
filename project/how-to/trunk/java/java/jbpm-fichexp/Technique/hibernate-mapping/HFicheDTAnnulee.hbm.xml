@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+
+<hibernate-mapping package="com.citedessciences.bdd.beans">
+	<class name="HFicheDTAnnulee" table="FICHE_DT_ANNULE">
+		
+		<id name="id" type="integer" column="ID_FICHE_DT_ANN">
+			<generator class="sequence">
+				<param name="sequence">FICHE_SEQ</param>
+			</generator>
+		</id>
+		
+		<property name="titre" column="TITRE" type="string" not-null="false" length="50"/>		
+		<property name="titreCourt" column="TITRE_COURT" type="string" not-null="false" length="50"/>
+		<property name="resume" column="RESUME" type="string" not-null="false" length="100" />
+		<property name="deroulement" column="DEROULEMENT" type="string" not-null="false" length="100" />
+		
+		<property name="dateCreation" column="DATE_CREATION" type="java.util.Date" not-null="false" length="7"/>
+		<property name="dateArchivage" column="DATE_ARCHIVAGE" type="java.util.Date" not-null="false" length="7"/>		
+		
+		<many-to-one
+				name="numSeqFicDT"
+				column="NUM_SEQ_FICHED"
+				class="HFicheDT"
+		>
+		</many-to-one>
+		
+		<many-to-one
+			name="idChefProjet"
+			column="ID_CHEF_PROJET"
+			class="HUtilisateur"
+			not-null="true"
+		>
+		</many-to-one>		
+		
+		<many-to-one
+			name="codeTypeOperationAnnule"
+			column="CODE_TYPE_OPERATION_ANNULE"
+			class="HRefTypeOperationAnnule"
+			not-null="true"
+		>
+		</many-to-one>		
+		
+		
+	</class>	
+</hibernate-mapping>

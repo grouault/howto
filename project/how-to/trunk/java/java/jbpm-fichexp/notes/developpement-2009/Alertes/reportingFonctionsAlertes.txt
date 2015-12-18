@@ -1,0 +1,31 @@
+# Reporting des fonctions des alertes:
+##
+
+- get
+- getAlertes
+- saveOrUpdate
+
+
+Transposition de la méthode getAlertes:
+---------------------------------------
+Impact sur les autres classes:
+- AdminFactory:
+	-------------
+	public List getAlertes(AlerteCriteria criteria);
+	private List getAlertesFiche(Fiche fiche, Session sessionHibernate) throws Exception;
+	
+	
+Transposition de la méthode get:
+---------------------------------------
+Impact sur les autres classes:
+- AdminFactory:
+	-------------	
+	public Alerte getAlerte(Integer id) {}
+	
+	
+Transposition de la méthode saveOrUpdate:
+-----------------------------------------
+Impact sur les autres classes:
+- AdminFactory:
+	-------------		
+	public boolean saveOrUpdateAlerte(Alerte alerte) {}

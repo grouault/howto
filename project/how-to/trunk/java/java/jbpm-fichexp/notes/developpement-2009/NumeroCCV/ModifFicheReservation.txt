@@ -1,0 +1,88 @@
+# Ajout du numéro CCV
+###"
+
+- Modification de la base.
+- Modification du bean HFicheReservation
+- Modification du fichier hbm correspondant.
+
+- Modification du form:
+	EditerFicheReservationForm: ajout d'un champ de type string permettant l'affichage des données dans le form.
+	
+jsp - formulaire d'édition
+--------------------------
+reservation2-2_editer.jsp
+
+    <tr>
+		<th><csi:Title 	key="formfiche.titre.numeroCCV" 
+						mandatory="false" /></th>
+		<td><csi:Text 	property="numeroCCV" 
+						name="EditerFicheReservationForm" styleClass="longfield"/></td>
+    </tr>
+    
+    
+Action d'édition: EditerFicheReservationAction
+----------------    
+Base sur un form qui doit être alimenter par un bean metier, lui même alimenter par un bean base.
+
+Dans le bean form, code à poser dans la méthode reset();
+				//-- evols 2009: prise en compte du champ CCV
+				this.setNumeroCCV(ficheReservation.getNumeroCCV()
+			
+			Note: ce form est alimenter par un bean métier.
+			
+			Ce bean métier est alimenté au début de la méthode reset() par un appel au bean hibernate:
+			FicheReservation ficheReservation = AdminFactory.getInstance().getFicheReservationById(this.getId());
+			--> this étant le bean form.
+			
+			
+Dans l'appel base: le bean hibernate est mise à jour.
+	Pour la transformation en bean métier, il convient de mettre à jour le mapper: FicheReservationMapper:
+	
+	
+Action de sauvegarde: SauvegarderFicheReservationAction
+---------------------
+Cette action est basé sur le form: EditerFicheReservationForm.
+Base sur le bean du form qui vient alimenter un bean métier venant aliementer un bean persistant qui va être 
+sauvegarder en base.
+Code à ajouter dans l'action:
+				
+						//-- evols 2009: mise à jour du numéro CCV
+						ficheReservation.setNumeroCCV(editerFicheReservationForm.getNumeroCCV());
+						
+Ensuite, appel au code d'insertion en base de l'objet métier dans la classe: AdminFicheReservation.saveOrUpdate
+Code à ajouter:		
+		//evols2009: mise à jour du numéro CCV.
+		ficheReservationHibernate.setNumeroCCV(ficheReservation.getNumeroCCV());
+		
+
+##
+# Consultation de la fiche de réservation
+##
+
+Mise à jour du modèle:
+----------------------
+Mise à jour de FicheReservationBean: il convient de lui ajouter le champ NumeroCCV.
+		
+Action qui permet de consulter le numéro CCV: DetailFicheReservationAction extends DetailFicheAction
+---------------------------------------------
+Dans cette action un bean FicheReservationBean est mise à jour à partir d'un bean métier qui est alimenter par un bean de la base.
+Cela se passe dans la méthode suivante:
+	FicheReservationBean ficheReservationBean = getFicheReservation(editerFicheReservationForm,req);
+					--> Méthode dans DetailFicheAction
+
+Pas de mise à jour spécifique pour la couche hibernate: notamment le mapper. Cela a été fait précédement.
+
+Mise à jour de la jsp: reservation2_1_detail.jsp.
+-------------------------------------------------
+
+
+# Page d'impression
+##
+
+- Mettre à jour l'action: FicheAction.
+		Idem : un bean est passé à la vue. Il faut mettre à jour le bean avec un objet métier mis à jour par la base.
+		com.citedessciences.struts.actions --> FicheAction.
+		
+		
+- mise à jour de la jsp:
+			jsp/common/fiche.jsp

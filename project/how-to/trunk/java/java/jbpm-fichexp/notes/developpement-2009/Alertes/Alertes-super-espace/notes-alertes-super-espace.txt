@@ -1,0 +1,32 @@
+# Alerte super Espace
+##
+
+
+Mise en commentaire dans les fichiers réservaton et exploitation.
+
+
+
+
+Suppression du fichier hbm
+--------------------------
+
+# Fiche reservation
+##
+		<property
+			name="AlerteSuperEspace"
+			column="ALERTE_SUPER_ESPACE"
+			type="integer"
+			not-null="false"
+			length="22"
+		/>
+		
+# Fiche exploitation
+##		
+		
+		<property
+			name="AlerteSuperEspace"
+			column="ALERTE_SUPER_ESPACE"
+			type="integer"
+			not-null="false"
+			length="22"
+		/>		

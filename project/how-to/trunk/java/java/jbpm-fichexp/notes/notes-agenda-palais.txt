@@ -1,0 +1,49 @@
+# note-agenda-palais.
+##
+
+# nouvel onglet :
+<tab key="tab.agenda.palais" action="Agenda.do?methodToCall=init&amp;site=2" default="home.agenda"/>
+
+
+# script - old
+		<csi:Script scriptName="jquery-timepicker.js"/>	
+
+	<csi:Script scriptName="jquery-1.8.2.min.js"/>
+	<csi:Script scriptName="jquery-ui.min.js"/>	
+
+# requete de recuperation des fiches palais pour l'agena.
+String QUERY_FICHE_EXP_WKF = "select "
+		+ Fiche.FICHE_EXPLOITATION
+		+ ", fiche.numseqficexp as idfiche, fiche.TITRE_COURT, d.date_debut, d.date_fin, type_ope.LIBELLE_TYPE_OPERATION, fiche.statut,type_ope.CODE_TYPE_OPERATION"
+		+ ",   DEBUT_FIN.date_fin_derniere_occurence, "
+		+ "   DEBUT_FIN.date_debut_premiere_occurence	   "				
+		+ " from fiche_exploitation fiche, ficheexp_date resdate, ref_type_operation type_ope,date_evenement d,"
+		+ " 	   ( "
+		+ "			SELECT   fiche_exploitation.numseqficexp AS id_fiche,"
+		+ "	         MAX (date_evenement.date_fin) AS date_fin_derniere_occurence,"
+		+ "	         MIN (date_evenement.date_debut) AS date_debut_premiere_occurence"
+		+ "	    FROM fiche_exploitation, ficheexp_date, date_evenement"
+		+ "	   WHERE fiche_exploitation.numseqficexp = ficheexp_date.idfiche"
+		+ "	     AND ficheexp_date.iddate = date_evenement.numseqdate"
+		+ "	GROUP BY fiche_exploitation.numseqficexp "
+		+ "   )  DEBUT_FIN "
+		+ " where fiche.NUMSEQFICEXP = resdate.IDFICHE"
+		+ " and d.NUMSEQDATE = resdate.IDDATE"
+		+ " and fiche.statut != '"
+		+ WKFConstants.ETAT_HISTORIQUE
+		+ "'"
+		+ " and fiche.CODE_TYPE_OPERATION = type_ope.CODE_TYPE_OPERATION"
+		+ " and debut_fin.id_fiche = idfiche "				
+		+ " and (d.DATE_DEBUT between TO_DATE('"
+		+ dateDebut
+		+ "','DD/MM/YYYY HH24:MI') and TO_DATE('"
+		+ dateFin
+		+ "','DD/MM/YYYY HH24:MI') or d.DATE_FIN between TO_DATE('"
+		+ dateDebut
+		+ "','DD/MM/YYYY HH24:MI') and TO_DATE('"
+		+ dateFin
+		+ "','DD/MM/YYYY HH24:MI') or TO_DATE('"
+		+ dateDebut
+		+ "','DD/MM/YYYY HH24:MI') between d.DATE_DEBUT and d.DATE_FIN or TO_DATE('"
+		+ dateFin
+		+ "','DD/MM/YYYY HH24:MI') between d.DATE_DEBUT and d.DATE_FIN)";

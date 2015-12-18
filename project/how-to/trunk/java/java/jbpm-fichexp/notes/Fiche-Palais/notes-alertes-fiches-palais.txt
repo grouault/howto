@@ -1,0 +1,15 @@
+# Alerte Fiche-palais.
+##
+
+On lève une alerte si les fiches sont sur :
+- le même niveau
+- le même lieu.
+- le même créneau horaire.
+
+# Algo.
+##
+- récupération des datesevenemnts qui chevauchent les date-evenements de la fiche palais.
+- pour chaque date-evenement : recupération de la fiche ==> fiche simultanée.
+- test si la fiche est une fiche palais.
+- si c'est une fiche palais, on teste si la fiche est sur le même lieu.
+- si oui, on lève une alerte.

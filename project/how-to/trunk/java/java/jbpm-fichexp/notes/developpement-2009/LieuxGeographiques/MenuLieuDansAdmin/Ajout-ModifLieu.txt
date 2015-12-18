@@ -1,0 +1,71 @@
+##################
+# Ajout d'un lieu
+#################
+
+
+#########################################
+# Affichage du formulaire d'ajout du lieu
+#########################################
+Initialement, on va afficher un formulaire d'ajout, qui:
+1- ne prend pas de paramètre dans le cas de la création
+2- qui prend l'id du lieu à modifier en cas de modification.
+
+url: FormLieuGeo.do?idLieu=2058
+
+Action:
+-------
+FormLieuGeoAction
+
+
+Struts-config.xml
+-----------------
+<action path="/FormLieuGeo" 
+		type="com.citedessciences.struts.actions.FormLieuGeoAction">
+	<forward name="success" path=".adminLieuGeo_1_1" />
+</action> 
+
+Tile-defs.xml
+-------------
+<definition name=".adminLieuGeo_1_1" path="/jsp/admin/adminLieuGeo_1_1_contenu.jsp" />
+
+Jsp:
+----
+Admin: adminLieuGeo_1_1_contenu.jsp
+
+
+constante pour la jsp:
+form.lieu.libelle=Libellé du lieu:
+
+
+##############################
+# Action d'ajout/modif du lieu
+##############################
+url
+---
+action du formulaire d'affichage du lieu:
+/EditerLieuGeo
+
+action-struts
+-------------
+EditerLieuGeoAction
+
+Struts-config.xml
+-----------------
+<action path="/EditerLieuGeo" 
+		type="com.citedessciences.struts.actions.EditerLieuGeoAction" 
+		name="LieuGeoForm" 
+		scope="request" 
+		validate="false">
+	<forward name="success" path="/.adminLieuGeo_1_2" />
+</action> 
+
+Tile-defs.xml
+-------------
+<definition name=".adminLieuGeo_1_2" path="/jsp/admin/adminLieuGeo_1_2_contenu.jsp" />
+
+jsp:
+----
+adminLieuGeo_1_2_contenu.jsp
+	--> jsp qui reload la page parente.
+
+

@@ -1,0 +1,47 @@
+# ListeFiche 
+##
+
+--> Basées sur les fiches d'exploitation.
+
+1- Toutes les fiches:
+---------------------
+		if(utilisateur.getReprise().equals(Boolean.FALSE)){
+			criteria.setIdChefProjet(utilisateur.getId());
+			criteria.addIdStatut(WKFConstants.ETAT_CREE);
+			criteria.addIdStatut(WKFConstants.ETAT_LANCEE);
+			criteria.addIdStatut(WKFConstants.ETAT_VALIDEEHIERARCHIE);
+			criteria.addIdStatut(WKFConstants.ETAT_PREVALIDEE);
+			criteria.addIdStatut(WKFConstants.ETAT_EMISE);
+			criteria.addIdStatut(WKFConstants.ETAT_VISEE);
+			criteria.addIdStatut(WKFConstants.ETAT_VALIDEEDEG);
+		}else{
+			List statut = new ArrayList();
+			statut.add(WKFConstants.ETAT_CREE);
+			criteria.setIdStatut(statut);
+		}
+		
+2- Créées:
+----------
+		criteria.setType(Fiche.FICHE_EXPLOITATION);
+		criteria.setIdChefProjet(utilisateur.getId());
+		criteria.addIdStatut(WKFConstants.ETAT_CREE);
+		
+3- Lancées:
+-----------
+		criteria.setType(Fiche.FICHE_EXPLOITATION);
+		criteria.setIdChefProjet(utilisateur.getId());
+		criteria.addIdStatut(WKFConstants.ETAT_LANCEE);
+		criteria.addIdStatut(WKFConstants.ETAT_VALIDEEHIERARCHIE);
+		criteria.addIdStatut(WKFConstants.ETAT_PREVALIDEE);
+		criteria.addIdStatut(WKFConstants.ETAT_EMISE);
+		criteria.addIdStatut(WKFConstants.ETAT_VISEE);
+		
+4- Validées:
+------------
+		criteria.setType(Fiche.FICHE_EXPLOITATION);
+		criteria.setIdChefProjet(utilisateur.getId());
+		criteria.addIdStatut(WKFConstants.ETAT_VALIDEEDEG);		
+		
+5- Refusées:
+------------
+		ficheCriteria.setType(Fiche.FICHE_EXPLOITATION); (?)

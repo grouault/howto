@@ -1,0 +1,35 @@
+# voir AdminFichePalais : saveOrUpdateDocJoints
+##
+
+Principe:
+- Les docs joints sont stockés sur le serveur.
+- Dans le sgbd, se trouve le nom du fichier.
+	- le chemin du fichier est stocké sur le serveur.
+- la suppression ne purge pas les éléments physiques.
+
+# Suppression des docs joints :
+- il faut que l'attribut : documentToDelete du bean "entity" contienne des données.
+Les documents sont alors supprimées ==> de la base mais pas physiquement.	
+
+# Chemin de stockage des fichiers.
+##
+# chemin de stockage locale.
+D:\temp\ficheexploitation\docsjoints
+# Webdev:
+http://webdev.citepro.cite-sciences.fr/ficheexp/docs/
+/datasan/sites/cite-sciences/ficheexp/docs
+
+# Suppression : code obsolète.
+##  
+/*
+if (docsJoints != null && !docsJoints.isEmpty()) {
+	for (Iterator iterator = docsJoints.iterator(); iterator.hasNext();) {
+		HDocumentJoint hDocumentJoint = (HDocumentJoint) iterator.next();
+		docsJoints.remove(hDocumentJoint);
+	}
+	
+} else {
+	docsJoints = new HashSet<HDocumentJoint>();
+}
+session.flush();
+*/

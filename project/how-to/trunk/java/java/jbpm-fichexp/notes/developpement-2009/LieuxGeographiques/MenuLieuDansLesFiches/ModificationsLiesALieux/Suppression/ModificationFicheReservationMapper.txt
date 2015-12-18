@@ -1,0 +1,48 @@
+# FicheExploitationCCVMapper
+##
+
+
+BDDAnnuleToMetier()
+-------------------
+Remplacement du code localisation par Lieux.
+
+			/*
+			Set localisationsHibernate = ficheReservationHibernate
+					.getLocalisations();
+			List localisations = new ArrayList();
+			for (Iterator iter = localisationsHibernate.iterator(); iter
+					.hasNext();) {
+				HLocalisationAnnuleFicheRes localisationHibernate = (HLocalisationAnnuleFicheRes) iter
+						.next();
+				Localisation localisation = new Localisation();
+				localisation.setTitre(localisationHibernate
+						.getLibelleLocalisationValide());
+				localisation.setId(localisation.getId());
+				localisations.add(localisation);
+			}
+			ficheReservation.setLocalisations(localisations);
+			*/
+			
+			
+			
+BDDArchiveToMetier			
+
+	--> Correspondrait aux fiches validés.
+
+			/*
+			Set localisationsHibernate = ficheReservationHibernate
+					.getLocalisations();
+			List localisations = new ArrayList();
+			for (Iterator iter = localisationsHibernate.iterator(); iter
+					.hasNext();) {
+				HLocalisationValideFicheRes localisationHibernate = (HLocalisationValideFicheRes) iter
+						.next();
+				Localisation localisation = new Localisation();
+				localisation.setTitre(localisationHibernate
+						.getLibelleLocalisationValide());
+				localisation.setId(localisation.getId());
+				localisations.add(localisation);
+			}
+			ficheReservation.setLocalisations(localisations);
+			*/
+
