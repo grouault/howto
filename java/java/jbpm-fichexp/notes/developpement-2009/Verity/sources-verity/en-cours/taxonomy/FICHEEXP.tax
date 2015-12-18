@@ -1,0 +1,38 @@
+category: Root
+Name: Root
+Created: 03-07-2006 14:38:14
+Modified: 03-07-2006 14:38:14
+
+category: FicheReservation
+Name: Fiche Reservation
+ClassifyRule: FE_FICHE_TYPE <matches> 0
+Created: 03-07-2006 14:38:14
+Modified: 03-07-2006 14:39:43
+primary-parent: Root
+
+category: FicheExploitation
+Name: Fiche Exploitation
+ClassifyRule: FE_FICHE_TYPE <matches> 1
+Created: 03-07-2006 14:38:14
+Modified: 03-07-2006 14:39:43
+primary-parent: Root
+
+category: FicheExploitationCCV
+Name: Fiche Exploitation CCV
+ClassifyRule: FE_FICHE_TYPE <matches> 2
+Created: 03-07-2006 14:38:14
+Modified: 03-07-2006 14:39:43
+primary-parent: Root
+
+category: FicheDT
+Name: Fiche DT
+ClassifyRule: FE_FICHE_TYPE <matches> 3
+Created: 03-07-2006 14:38:14
+Modified: 03-07-2006 14:39:43
+primary-parent: Root
+
+category: Unused
+Name: Unused Categories
+Created: 03-07-2006 14:38:14
+Modified: 03-07-2006 14:38:14
+

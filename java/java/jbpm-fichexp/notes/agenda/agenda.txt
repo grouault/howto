@@ -1,0 +1,87 @@
+# Modification de l'agenda
+##
+
+Notes
+-----
+L'action appelée est AgendaTabAction qui hérite de AgendaAction.
+on récupère un bean: AgendaBean qui vient alimenter la vue: méthode transformToStruts(..). 
+Dans cette méthode,
+1- on recupère 
+	- la liste des evenemnt exceptionnels.
+	- la liste des astreintes.
+	- la liste des infos importantes (obs)
+	- la liste des fiches.
+	
+2- Chaque liste est ensuite traites pour venir aliementees les sections.
+	==> chaque section est constituée d'un groupe de une ou plusieurs lignes.
+	la méthode, section.createAgendaEv(...) de la classe: AgendaSectBean permet d'alimenter des beans AgendaEvBean qui sont
+	les éléménts unitaires présentées dans la vue.
+
+==> Le bean AgendaEvBean se voit affecter l'attribut StatutType ==> infos sur le status de la fiche quand l evenement est de type fiche.
+	infos : [valeur en base, valeur en props]
+
+Model :
+-------
+AgendaBean : 
+	- listeFiches[Fiche]
+	- listeSections[AgendaSectBean]
+	
+AgendaSectBean : 
+	- LigneAgendaList extends ArrayList
+		- contient des [LignesAgendaBean] ==> Les lignes contiennent les evènements.
+	- evenements[HashMap] ==> Evenements exceptionnels
+	- debut(date)
+	- fin(debut)
+	- libelle : Chantier,
+	- HTMLTitleStyle
+	
+LigneAgendaBean : 
+	- jours : tab[8] [Jour de la semaine : Calendar.DAY_OF_WEEK]
+	- evenements : List[AgendaEvtBean]
+		
+AgendaEvtBean : 
+	- regroupe les informations de l'evenement 
+		- type : type de l'évènement : Fiche, info. importante, event exceptionnel, astreinte.
+		- statut : quand l'évènement est de type fiche.
+
+Pdf - impression :
+------------------
+Appel de l'élément : AgendaTabAction.imprimer().
+ - ==> appel de la methode Process
+	1-  recuperation de AgendaEvtBean a partir de LigneAgenda.
+	2-  Appelle de la fonction getCellule(AgendaEvtBean, ...)
+	3-  Appelle de la fonction getPdfColorCell(AgendaEvtBean)
+		==> recupère en fonction du type de l evenement et du statut de la fiche si l'évènement est de type fiche.
+			la couleur a positionner sur la cellule dans le fichier de properties.
+		Appelle d'une méthode métier : evntBean.getPdfCellColor();
+url:
+----
+Agenda.do
+
+Action
+------
+	<!--  Agenda -->
+	<action path="/Agenda" 
+			type="com.citedessciences.struts.actions.AgendaTabAction" 
+			name="AgendaForm" 
+			scope="session"
+			validate="true" 
+			parameter="methodToCall"
+			input=".agenda6_1"
+			>
+		<forward name="success" path=".agenda6_1" />
+		<forward name="success_no_tiles" path=".agenda6_1_no_tiles" />
+	</action>
+		
+Tiles-defs
+----------
+	<definition name=".agenda6_1" extends=".mainAgenda">
+		<put name="title" value="title.agenda6_1" />
+		<put name="action" value="/Agenda" />
+		<put name="titreContent" value="titreContent.agenda6_1" />
+		<put name="boutons" value="/jsp/agenda/agenda6_1_bouton.jsp" />
+		<put name="content" value="/jsp/agenda/agenda6_1_contenu.jsp" />
+	</definition>
+	
+	
+

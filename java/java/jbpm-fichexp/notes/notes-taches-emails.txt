@@ -1,0 +1,33 @@
+# Urls
+##
+http://localhost:8080/fichexp/Taches/GenererMail.un
+
+# Mise à jour des mails en base.
+-- mise a jour d'un user
+update Utilisateur
+Set email = 'gildas.rouault@cite-sciences.fr'
+where numsequtr = 566;
+commit;
+-- mise a jour de tous les users.
+update Utilisateur
+set email = 'gildas.rouault@cite-sciences.fr';
+commit;
+
+# Prise en compte des FichePalais dans la gestion des mails.
+- addTachesATraiter : --> recuperation des fiches pour les tâches à traiter.
+					  ==> fiches recuperer à partir des taches, par user :
+					  findNotEndedTaskInstancesWithCreationFiche
+					  
+- affFichesAnnulees : --> recupertion des fiches annulées
+					  récupère les fiches annulées de la veille.
+					  
+- addVisasInfos : --> ok.	
+				  
+- alertes : --> prise en comptes des alertes palais.
+		    recupération des alertes en cours, dans la tables des alertes.
+			Pour chaque alerte, on met à jour les fiches concernées : alerte.getFichesConcernées
+			Une alerte persistente a des listes de fiches associées : 
+				Set<FichePalais>, Set<FicheExploiation> ...
+			==> table de jointure : alerte_fiche_palais.
+
+- refus : ok, pris en compte.

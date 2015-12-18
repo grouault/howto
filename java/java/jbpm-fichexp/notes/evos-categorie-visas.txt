@@ -1,0 +1,24 @@
+
+Pour le premier point :
+-----------------------
+Le fait, que le viseur obligatoire n'apparaisse pas vient du fait qu'aucune catégorie n'est associé à l'utilisateur.
+Du coup, la solution retenue est de créer une catégorie Palais. Cette catégorie est à associer aux users au moment de l'attribution du rôle.
+
+En base : création d'une nouvelle catégorie, et mise à jour de la table d'association : CATEGORIE_ROLE pour associer
+la nouvelle catégorie au rôle viseur palais.
+# Ajouter une catégorie Palais.
+REF_CATEGORIE_VISA : 26 Palais 1
+CATEGORIE_ROLE     : 26-21 ==> role viseur palais (REF_ROLE)
+
+
+Pour le second point :
+----------------------
+Ce n'est pas un but. Voir la table Role_Utilisateur.
+Le fait d'ajouter un rôle à un utilisateur, le rend persistant avec un état actif.
+Le fait de supprimer un rôle à un utilisateur, le rend persistant avec un état incatif.
+Le fait qu'il apparaisse en rouge signifie alors que le rôle est inactif.
+
+L'application est mise à jour et déployée sur webdev.
+
+# Modification des scripts.
+taglibscripts.js

@@ -1,0 +1,35 @@
+#######################
+# Suppresion d'un Lieux
+#######################
+- Le formulaire d'affichage des lieux est branché par défaut sur l'action se suppression d'un lieu.
+
+Bouton Supprimer:
+-----------------
+ Brancher sur la méthode javascript: supprimerLieu(){}
+ Cette méthode permet de:
+ 	- checker si un lieu est sélectionné
+ 	- si oui on submit le form par défaut.
+ 	
+ActionForm
+----------
+L'actionForm surlequel est branché le formulaire est LieuGeoForm(?)
+
+Url
+---
+L'action du formulaire est /SuppLieuGeo.do brancher sur l'action: 
+
+Action: 
+-------
+SupprimerLieuGeoAction
+
+Struts-config.xml
+-----------------
+<form-bean name="LieuGeoForm" type="com.citedessciences.struts.forms.LieuGeoForm" />
+
+<action path="/SuppLieuGeo" 
+		type="com.citedessciences.struts.actions.SupprimerLieuGeoAction" 
+		name="LieuGeoForm" 
+		scope="request" 
+		validate="false">
+	<forward name="success" path="/LieuxGeo.do" />
+</action> 

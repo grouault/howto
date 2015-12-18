@@ -1,0 +1,26 @@
+Chef dpt: 
+---------
+516 : BOSQ Marie-Francoise (Chef de dpt)
+553 : PERSENOT (Admin)
+546 : BLANC Jean-Yves (Directeur)(Blanc)
+
+
+Visas obligatoires - Fiche de réservation cité :
+------------------------------------------------
+3340 : (I) Vauge Anne-Cécile (Vauge)
+562  : Durier Patrice (Durier)
+9460 : Runjanlly Sayed (Runjanally1)
+8880 : Sauret Patrick (Sauret1)
+568  : (I) CARPENTIER Claire (Carpentier1) 
+508  : (I) LOISEAU Valerie (Loiseau)
+567  : (I) ROSSET Thierry (Rosset)
+569  : (I) ROZENCWAJG Valerie (Rozencwajg)
+8940 : Cervera Aline (Cervera1)
+4260 : (I) BRETON Jean-Louis (Breton2)
+8380 : (I) KAZMIERZAK Isabelle (Kazmierzak)
+6280 : (I) LANGLUME Pierre-emmanuel (Langlume1)
+ 566 : (I) MAINTENANT Michel (Maintenant)
+ 
+Select statut
+from fiche_reservation
+where numseqficres = '163008'

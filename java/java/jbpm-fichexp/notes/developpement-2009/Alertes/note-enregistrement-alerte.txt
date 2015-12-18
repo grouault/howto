@@ -1,0 +1,42 @@
+# Enregistrement des alertes.
+##
+- Lors de l'enregistrement des alertes, il convient de mettre à jour 
+les fiches concernées par l'alerte et de les faire persister dans les tables :
+- alerte_fiche_dt
+- alerte_fiche_exploitation
+- alerte_fiche_reservation
+
+Quand l'algorithme créer des alertes il met à jour l'objet des fiches concernées.
+Ensuite, lors de la phase d'enregistrement de la fiche, les alertes associées sont enregistrées.
+Il convient d'ajoute ici la prise en compte des fiches DT si ces dernières doivent être 
+		associé à la fiche.
+		
+- Les éléments suivants ont donc été modifié:
+
+AdminFicheReservation : l.334
+-----------------------------
+package com.citedessciences.businesslogic.administration
+		HashSet setFicheDT = new HashSet();
+		....
+	 else if(fiche instanceof FicheDT){
+								HFicheDT ficheDtHibernate = (HFicheDT)sessionHibernate.get(HFicheDT.class, ((FicheDT)fiche).getId());
+								setFicheDt.add(ficheDtHibernate);
+							}		
+							
+		...
+		alerteHibernate.setFicheDts(setFicheDt);
+			
+		alerteHibernate.setObjet(alerte.getObjet());
+		sessionHibernate.saveOrUpdate(alerteHibernate);
+		
+
+Les même modification ont été faites sur les 3 autre services d'administration des autres fiches.
+Principe:
+---------
+A une alerte est associé une ou plusieurs fiches. 
+Cela se caractérise par un set d'alertes pour chaque type de fiche, associé au bean alertes et mappé via le fichier de mapping.
+
+# Mise à jour du alerte mapper
+##
+--> en effet ce dernier est chargé de mettre les fiches métier concernées en fiche persitantes concernées
+et vice-versa.

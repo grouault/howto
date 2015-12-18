@@ -1,0 +1,25 @@
+# Mise à jour du menu
+##
+
+Role1
+-----
+<sousSection key="home.fiche.refusees.dt" action="FicheDTRefusees.do"/>
+
+Role5
+-----
+<sousSection key="home.fiche.refusees.dt" action="FicheDTRefusees.do"/>
+
+Rôle13: administrateur-valideur
+------
+<sousSection key="home.fiche.refusees.dt" action="FicheDTRefusees.do"/>
+<sousSection key="home.fiche.validees.dt" action="FicheDTTraitees.do"/>
+
+
+Rôle14: 
+-------
+<sousSection key="home.fiche.archivees.visa.dt" action="FicheDTVisaArchivees.do"/>
+		--> dans la section: home.fiche.visainfovalidee
+<sousSection key="home.fiche.visainfoannulee.dt" action="FicheDTVisaInfoAnnulee.do"/>		
+		--> dans la section: home.fiche.visainfoannulee
+<sousSection key="home.fiche.visainfoencours.dt" action="FicheDTVisaInfoEnCours.do"/>
+		--> dans la section: home.fiche.visainfoencours

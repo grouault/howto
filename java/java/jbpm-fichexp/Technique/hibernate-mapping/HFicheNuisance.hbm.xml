@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+
+<hibernate-mapping package="com.citedessciences.bdd.beans">
+	<class name="HFicheNuisance" table="FICHE_NUISANCE">
+		<composite-id name="id" class="HFicheNuisancePK">
+			<key-many-to-one
+				name="idFiche"
+				class="integer"
+				column="ID_FICHE"
+			/>
+			<key-many-to-one
+				name="typeFiche"
+				class="string"
+				column="TYPE_FICHE"
+			/>
+			<key-many-to-one
+				name="idTypeNuisance"
+				class="HRefTypeNuisance"
+				column="ID_TYPE_NUISANCE"
+			/>			
+		</composite-id>
+	</class>	
+</hibernate-mapping>

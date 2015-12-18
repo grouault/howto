@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+
+<hibernate-mapping package="com.citedessciences.bdd.beans">
+	<class name="HRefQuadrant" table="REF_QUADRANT">
+		
+		<id name="id" type="integer" column="ID_QUADRANT">
+			<generator class="assigned" />
+		</id>	
+		
+		<property name="libelle" type="string" column="LIBELLE" not-null="false" length="50" />
+		<property name="coordX"  type="integer" column="COORD_X" not-null="true" />
+		<property name="coordY"  type="integer" column="COORD_Y" not-null="true"  />
+		
+		<!-- plusieurs cadrants par niveau -->
+		<many-to-one
+			name="idNiveau"
+			column="ID_NIVEAU"
+			class="com.citedessciences.bdd.beans.HRefNiveau"
+			not-null="true">		
+		</many-to-one>
+
+	
+	</class>
+</hibernate-mapping>

@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+
+<hibernate-mapping package="com.citedessciences.bdd.beans">
+	<class name="HistoCommentaireFiche" table="HISTO_COMMENTAIRE_FICHE">
+		
+		<id name="idCommentaire" type="integer" column="ID_COMMENTAIRE" >
+			<generator class="sequence">
+				<param name="sequence"></param>
+			</generator>
+		</id>
+		
+		<property name="commentaire" type="string" column="COMMENTAIRE" />
+		<property name="dateCommentaire" type="date" column="DATE_COMMENTAIRE" />	
+		<property name="status" type="string" column="STATUT" />
+		
+		<many-to-one
+			name="idUtilisateur"
+			class="HUtilisateur"
+			column="ID_UTILISATEUR">
+		<many-to-one>
+			
+		<many-to-one
+			name="idFiche"
+			class="HFicheExploitation"
+			column="ID_FICHE">
+		<many-to-one
+				
+	</class>	
+</hibernate-mapping

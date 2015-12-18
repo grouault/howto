@@ -1,0 +1,41 @@
+# Notes-generales.
+##
+- Chainage des taches.
+TaskPrevalidation => <forward name="taskprevalidationdeg" path=".prevalidationFichePalais" />
+	==> commentaires : /ValiderPalaisAction ==> /EndActionPalais.do ==> /EndActionPalais ==> DetailFichePalais.
+
+- Couleur du viseur :
+	- getFichePalais : UpdateWithWkfowInformation
+	==> par le user, on recupère ses taskInstances ==> on regarde si la taskinstance à une date de fin.	
+	
+# UserUtils - DetailFicheAction
+##
+DetailFicheAction : classe parente de chaque action permettant de présenter le detail d'une fiche.
+	Cette classe permet de transformer les bean entity en bean de pésentation.
+	Une classe utilitaire aurait pu être créer : 
+		- getFichePalais(form, request);
+		- getFicheExploitation(form, request);
+Pour FichePalais 
+	==> utilisation du mapper et de la classe UserUtils.
+Pour les autres fiches, le mapper n'est pas utilise et la transformation se fait dans cette classe :
+	==> pb pour la réutilisation.
+
+# shema de modification.
+
+# recupération des actions pour les présenter au niveau du form.
+WorkflowAction-Tag : récupération des actions.
+	==> récupère les actions à partir du ProcessInstance.
+	==> mise dans le contexte de l'entity : fichePalaisEntity.
+
+# Page de synthese :
+Modelisation : vue reçoit : TaskDescriptionBean
+- TaskBean generalTask
+- TaskBean standardTask
+- TaskBean chefProjetTask
+- TaskBean viseurInfoTask		
+
+# Comparator.
+Mapping : HDateComparator.
+
+# Visas-complémentaires :
+- taches : récupération dans les tâches.

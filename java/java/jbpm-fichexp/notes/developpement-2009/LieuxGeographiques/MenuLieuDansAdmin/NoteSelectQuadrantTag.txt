@@ -1,0 +1,141 @@
+# Problème rencontré pour le tag
+###		
+
+1- Dans le form, on travaille sur un objet quadrant.
+Pour le this.getValue(), dans le form, property doit être positionné sur l'id.
+
+2- addSelectBatiment
+		- non utilisation du onChange (?)
+
+3- couleur des options: méthode getBatiment
+		
+		<csi:SelectLieu size="6" 
+						name="EditerFicheReservationForm" 
+						property="lieu" 
+						preAddJS="getVisasComplementaires('document.forms.EditerFicheReservationForm','lieuLieu','visasComplementaires','lieu')"
+						preSuppJS="deleteVisasComplementaire('document.forms.EditerFicheReservationForm','lieu','visasComplementaires','lieu')"
+						suppJS="deleteLieu"
+						addJS="addLieu"
+						/>
+						
+						
+						
+# Création du service GetAllBatiment
+##
+ Méthode faisant partir du service :AdministrationLieux
+ 
+
+# Création des actions ajax:
+##
+GetNiveau:
+----------
+Cette action permet de récupérer un idBatiment et pour cet id de batiment, récupérer la liste de ces niveaux.
+La liste des niveaux obtenus est alors transformée en un flux xml pour être transmis au formulaire.
+
+GetQuadrant:
+------------
+Cette action permet de récupérer la liste des quadrants correspondant à un niveau.
+La liste des quadrants est obtenus et transfromé en un flux xml pour être transmis au formulaire.
+Note: le flux est filtré si lors de la requête du forumlaire le paramètre: quadselect est passé.
+Ce paramètre correspond au quadrant qui est déjà sélectionné. Effectivement si une persson clique sur le select
+du niveau2 cela va afficher les quadrant du niveau2 dans le select des quadrant. Mais si un des quadrants
+de ce niveau est déjà sélectionné, il ne faut pas l'afficher.
+La solution est alors de passé l'id du quadrant sélectionner. La valeuer de l'id des quadrants de la liste ramenée 
+de la base est alors comparé a celle du quadrant sélectionné et transmis à l'action (cela se passe dans l'action).
+Si la comparaison est positive, le quadrant n'est pas ajouté à la liste transmise à la vue.
+
+
+# Fonction js 
+##
+filtreSelectNiveau(batiment, niveau, quadrant, select
+filtreSelectBatiment(batiment, niveau, quadrant)
+supprimerQuadrant(niveau, quadrant, Select)
+ajouterQuadrant(Quadrant, Select)
+validerLieuGeoForm(form, select)
+
+
+# Mise en place de l'iframe.
+##
+
+
+# Mise à jour des classes pour les selects
+##
+--> il faut les externalise dans un properties. Pour l'instant, elles sont dans les actions ajax en dur.
+quadrant-batiment
+quadrant-niveau
+quadrant-quadrant
+
+# EditerLieuGeoAction
+##
+Pour l'instant le champ actif est toujours mis à 1.
+Voir si mettre en place un binding sur actif et idQuadrant.
+
+
+# Fonctionnement du tag.
+##
+
+GetValue:
+---------
+Le tag est basé sur la propriété quadrant.id et binder sur cette propriété.
+Dans la méthode getValue, la valeur ramnené est cette valeur.
+Il faut donc bien vérifier que le quadrant n'est pas une valeur null, car le code utilisé
+via tagutil fait une résolution de type quadrant.get(id). Cela génère un NullPointer si
+quadrant est null.
+
+Cette méthode permet de récuper les valeurs de l'attribut property.
+Ces données sont passées via le form transmis par l'action qui retransmet les valeurs.
+
+
+Option[] getRightOptions()
+--------------------------
+Cette méthode permet de positionner les options du menus droits.
+On récupère les données dans "value", on appelle la base pour remplir les options du select.
+Question: comment fait-on quand on utilise pas de taglib(?)
+
+	"onClick=\"javascript:@addjs@(" + DOC + "," + DOC + ");\">@boutonAjouter@</a>" +
+	
+	
+	
+		var nbSelect = Select.elements.length;
+	alert ("nbSelect =" + nbSelect);
+	
+	for(var i=0; i<nbSelect; i++){
+		alert("name = " + Select.elements[i].name);
+	}
+	
+	
+		if(isPreJSValidationOk){
+		var nbList = list.length;
+		var nbSelect = select.length;
+		var i = 0;
+		alert("avant while")
+		while(i < nbList){
+			if(list[i].selected){
+				select[nbSelect] = new Option(list[i].text,list[i].value);
+				if(list[i].className == 'inactif'){
+					select[nbSelect].className = 'inactif';
+				}else {
+					select[nbSelect].className = list[i].className;
+				}
+				list[i] = null;
+				i--;
+				nbList--;
+				nbSelect++;
+			}
+			i++;
+		}
+		alert("après while");
+		updateHidden(hidden,select);
+		
+		
+		
+
+		
+				var idLieu = form.idLieu.value;
+		alert("idLieu = " + idLieu);
+		
+			<html:hidden property="actif">
+		<logic:notEmpty name="lieuStruts" property="actif">
+			<bean:message name="lieuStruts" property="actif"/>
+		</logic:notEmpty>
+	</html:hidden>

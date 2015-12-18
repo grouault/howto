@@ -1,0 +1,133 @@
+# Lieu dans FicheReservation
+##
+
+Structure:
+----------
+- Création de la table d'association: FICHERES_LIEU
+- Création des bean:
+				HFicheResLieu.java
+				HFicheResLieuP.java
+- Création du fichier de mapping:
+				HFicheResLieu.hbm
+				
+				
+Suppresssion du code de mise à jour de la table localisation,
+dans le process de sauvegarde d'une fiche de réservation.
+------------------------------------------------------------- 
+
+Mise à jour des objets:
+-----------------------
+Bean Persistant: HFicheReservation: suppression des données suivantes:
+	public static String PROP_CODE_LOCALISATION = "CodeLocalisations";
+	private java.util.Set codeLocalisations; (getter/Setter);
+	
+Bean Metier: Fiche: 
+	private List localisations; (attention: impact toute les fiches!)
+	
+Vue: EditerFicheReservationForm
+	String lieu; (getter/setter)
+	
+
+EditerFicheReservationAction
+----------------------------
+id de la fiche --> remplissage du form	
+
+	EditerFicheReservationForm.reset:
+	---------------------------------
+			List lieuxList = ficheReservation.getLocalisations();
+			String lieux = "";
+			for (Iterator iter = lieuxList.iterator(); iter.hasNext();) {
+				Localisation lieu = (Localisation) iter.next();
+				lieu = AdminFactory.getInstance().getLocalisation(lieu.getId());
+				//récupération des visas
+				Hibernate.initialize(lieu.getVisasComplementaires());
+				List visas = lieu.getVisasComplementaires();				
+				for (Iterator it = visas.iterator(); it.hasNext();) {					
+					HUtilisateur husert = (HUtilisateur) it.next();
+					Utilisateur user = AdminFactory.getInstance().getUtilisateur(husert.getNumsequtr());
+					//vérification que l'utilisateur n'est pas deja présent dans le visas
+					boolean present = false;
+					for(Iterator iterator = visasCpl.iterator() ; iterator.hasNext();) {
+						Option option = (Option) iterator.next();						
+						//on a l'option, on vas vérifier si l'utilisateur est deja présent
+						if (option.getValue().equals(user.getId().toString())) {
+							//l'utilisateur est deja présent
+							option.setText(option.getText() + ";lieu=" + lieu.getId().toString());
+							present = true;
+							break;
+						}						
+					} if (! present) {
+						//aucuen option n'a été trouvée, on crée une nouvelle
+						visasCpl.add(new Option(user.getId().toString(), "lieu=" + lieu.getId().toString()));
+					}
+				}
+				lieux = lieux+lieu.getId().toString()+";";
+			}
+			this.setLieu(lieux);		
+		
+		
+	
+SauvegarderFicheReservationAction: form --> bean metier
+-------------------------------------------------------
+		// Code supprimé: Lieu
+		String lieuxAsString = editerFicheReservationForm
+		.getLieu();
+		StringTokenizer lieuxAsTok = new StringTokenizer(
+				lieuxAsString, ";");
+		List lieux = new ArrayList();
+		while (lieuxAsTok.hasMoreTokens()) {
+			String idLieuAsString = (String) lieuxAsTok
+					.nextToken();
+			Integer idLieu = Integer.valueOf(idLieuAsString);
+			Localisation lieu = AdminFactory.getInstance().getLocalisation(idLieu);
+			lieux.add(lieu);
+		}
+		ficheReservation.setLocalisations(lieux);
+		
+AdminFicheReservation.java: objet metier --> objet Hibernate
+------------------------------------------------------------
+		Set codeLocalisations = ficheReservationHibernate
+				.getCodeLocalisations();
+
+		if (codeLocalisations != null) {
+			while (codeLocalisations.iterator().hasNext()) {
+				HRefLocalisation codeLocalisation = (HRefLocalisation) codeLocalisations
+						.iterator().next();
+				codeLocalisations.remove(codeLocalisation);
+			}
+		} else {
+			codeLocalisations = new HashSet();
+		}
+
+		sessionHibernate.flush();
+
+		List localisations = ficheReservation.getLocalisations();
+		for (Iterator iter = localisations.iterator(); iter.hasNext();) {
+			Localisation localisation = (Localisation) iter.next();
+
+			HRefLocalisation localisationHibernate = (HRefLocalisation) sessionHibernate
+					.get(HRefLocalisation.class, localisation.getId());
+			codeLocalisations.add(localisationHibernate);
+		}
+		ficheReservationHibernate.setCodeLocalisations(codeLocalisations);
+		
+		
+##
+# Mise à jour du formulaire en mode de consultation
+#####################################################
+
+DetailFicheReservationAction extends DetailFicheAction
+
+1- Dans DetailFicheAction.
+
+	a: recuperation de l'id de la fiche à afficher.
+			-> appel de l'element couche service pour charger l'élément à partir de la base de données.
+				 et obtenir un élément métier.
+	
+	b: recupération de l'élement métier et mise à jour du bean de présentation.
+
+2- Appel de l'élement permettant de récupérer l'objet métier: AdminFactory.getFicheReservationById(Integer id);
+		--> AdminFicheReservation.getFicheReservation
+				--> ficheToReturn = (FicheReservation) ficheReservationMapper
+					.BDDToMetier(ficheHibernate, false, sessionHibernate);
+		

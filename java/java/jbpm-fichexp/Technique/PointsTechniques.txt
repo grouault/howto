@@ -1,0 +1,33 @@
+# Points-technique à faire
+##
+
+- Hibernate : Criteria
+-----------------------
+		Code à checker:
+		---------------
+		Criteria crit = sessionHibernate.createCriteria(new HRefLieu().getClass());
+		crit.add(Expression.eq(HRefLieu.PROP_ACTIF, actif));
+		crit.addOrder(Order.asc(HRefLieu.PROP_LIBELLE_LIEU));
+		List lieuxList = mapper.BDDToMetier(crit.list());
+		
+		
+- LabelValueBean et Struts:
+---------------------------
+Faire un objet métier qui étend la classe: LabelValueBean
+pour utiliser via une collection struts
+	public String getValue();
+	public String getLabel();
+	
+	
+- Récupération à partir du fichier de propriété ApplicationResources:
+---------------------------------------------------------------------
+Dans le taglib:
+---------------
+	public String getMessage(String key, PageContext pageContext) {
+		Object object = pageContext.getRequest().getAttribute("org.apache.struts.action.MESSAGE");
+		PropertyMessageResources messageResources = (PropertyMessageResources) object;
+		return messageResources.getMessage(key);
+	}
+	
+Dans une action:
+----------------

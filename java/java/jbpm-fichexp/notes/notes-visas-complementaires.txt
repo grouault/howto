@@ -1,0 +1,24 @@
+# Notes Visas complémentaires
+##
+
+# Visas Complémantaire
+##
+Les visas complémentaires sont enregistrées au moment de la persistence d'une fiche.
+Dans le formulaire :
+- soit associé directement à la fiche.
+- soit associé via l'association des lieux.
+
+* Comment sont-ils persistés? Comment sont-il reliés à la fiche?
+
+* Comment associer des visas complémentaires à un lieu :
+Table : VISA_CPL_LIEUGEO ==> Tables d'association des visas complémentaires au lieu.
+
+
+# Application
+##
+Consulter un lieu
+ - FormLieuGeoAction
+ - LieuGeoForm ==> reset.
+
+Sauvegarder un lieu
+ - EditerLieuGeo

@@ -1,0 +1,52 @@
+# Requête sur les dates qui checkent:
+##
+
+Date des évènements en sql:
+
+(SELECT * 
+FROM DATE_EVENEMENT
+WHERE DATE_DEBUT>='15/12/2009'
+INTERSECT
+SELECT * 
+FROM DATE_EVENEMENT
+WHERE DATE_DEBUT<='25/12/2009')
+UNION
+(SELECT * 
+FROM DATE_EVENEMENT
+WHERE DATE_FIN>='15/12/2009'
+INTERSECT
+SELECT * 
+FROM DATE_EVENEMENT
+WHERE DATE_FIN<='25/12/2009')
+UNION(SELECT * 
+FROM DATE_EVENEMENT
+WHERE DATE_DEBUT<='15/12/2009'
+INTERSECT
+SELECT * 
+FROM DATE_EVENEMENT
+WHERE DATE_FIN>='25/12/2009')
+
+
+Equivalent hibernate:
+			Date dateDebut = dateEvenement.getDateDebut().getTime();
+			Date dateFin = dateEvenement.getDateFin().getTime();
+			Criteria crit = sessionHibernate
+					.createCriteria(HDateEvenement.class);
+
+			Criterion dateDebutCriterion = Expression.and(Expression.le(
+					HDateEvenement.PROP_DATEDEBUT, dateDebut), Expression.ge(
+					HDateEvenement.PROP_DATEFIN, dateDebut));
+			Criterion dateFinCriterion = Expression.and(Expression.le(
+					HDateEvenement.PROP_DATEDEBUT, dateFin), Expression.ge(
+					HDateEvenement.PROP_DATEFIN, dateFin));
+			Criterion dateOutSide = Expression.and(Expression.ge(
+					HDateEvenement.PROP_DATEDEBUT, dateDebut), Expression.le(
+					HDateEvenement.PROP_DATEFIN, dateFin));
+
+			Criterion orCriterion = Expression.or(dateDebutCriterion,
+					dateFinCriterion);
+			orCriterion = Expression.or(orCriterion, dateOutSide);
+
+			crit.add(orCriterion);
+			//récupération des dates chevauchante pour la date évènement en cours de la fiche.
+			List datesEvements = crit.list();

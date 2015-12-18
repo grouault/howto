@@ -1,0 +1,25 @@
+# Suppression relatif  à FicheCCV
+##
+
+Structure:
+----------
+Bean: 
+
+
+Mapping:
+	<set name="CodeLocalisations" table="FICHECCV_LOCALISATION" lazy="false">
+		<key column="NUMSEQFICCCV"/>
+		<many-to-many column="CODE_LOCALISATION" class="HRefLocalisation"/>
+	</set>
+
+
+form:
+
+
+entity:
+
+
+# 1- suppression du bean persistant.
+##
+
+RAS.

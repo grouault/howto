@@ -1,0 +1,85 @@
+# Workflow. - Palais.
+##
+Workflow : agit en parallèle de la base.
+Le statut dans la table "fiche-palais" doit être mise à jour.
+
+Etat de la fiche :
+- Créer : par le CP ou admin.
+- Lancer : par le CP.
+- Prévalidée : par l'admin.
+- Emise : validé par le chef de département et le directeur.
+- Visée : Par les viseurs obligatoires et complémentaires.
+- Validée : Par l'admin.
+
+# Task spéficique au workflow.
+##
+- validationvisacomplementaire
+- validationvisacomplementairerefus
+
+##
+# Principe : TaskNode : 
+##
+Task:
+-----
+A chaque taskNode :
+- un ou plusieurs users sont assignée : swimlane.
+- une ou plusieurs tâches sont proposées aux users : ex : validation ou validationrefus.
+
+Event: 
+------
+A un tasknode, peuvent-être associé des events, qui permettent de déclencher des actions au moment ou l'event intervient.
+ex-1 : 
+<event type="task-end">
+	<action name="SignalCreation" class="com.citedessciences.businesslogic.workflow.action.SignalCreationHandler"/>
+</event>
+Cette action intervenant à la fin du task-node va déclencer la transtion.
+
+ex-2 :
+<event type="node-enter">
+ <action name="PreValidationEnterAction" class="com.citedessciences.businesslogic.workflow.action.ChangeStatutActionHandler">
+	<statut>lancee</statut>
+ </action>
+</event>
+Cette action permet le changement de la fiche en entrée de la tâche.
+
+ex-3:
+<event type="node-leave">
+ <action name="PreValidationLeaveAction" class="com.citedessciences.businesslogic.workflow.action.ChangeStatutActionHandler">
+	<statut>prevalidee</statut>
+ </action>
+</event>
+Cette action permet le changement de la fiche en quittant la tâche.
+
+Transition - Signal : 
+---------------------
+Une transition se caractérise par un changement de tasknode.
+Un signal se déclenche, est intercepter par la transition qui chemine vers le tasknode cible :
+ex :
+<transition name="lancer" to="taskprevalidationdeg"></transition>
+Le signal permettant la transition est le signal "lancer"
+
+Fork :
+------
+Permet l'aiguillage vers deux "TaskNodes".
+
+# API
+##
+ProcessDefinition : ==> workflow
+ProcesInstance : un processinstance est associe à un process defintion "FichePalais".
+
+# Application
+##
+Actions déclenchées sur le select box.
+Ces actions ont récupérées au niveau du ProcessInstance.
+Les actions sont les suivantes :
+- taskcreationfiche ==> /EndActionPalais.do
+- taskmodifier ==> /EditerFichePalais.do
+- tasksupprimer ==> /EndActionPalais.do
+- taskannuler ==> /EndActionPalais.do
+- taskannulerremplacer ==> /AnnulerRemplacerPalais.do
+- taskvalidationdeg ==> .validationFinaleFichePalais
+- taskrefuser ==> .refusValidationFinaleFichePalais
+
+# Remarque workflow
+##
+- Une valideur DEF Admin peut prevalidé une fiche qui a été refusé.

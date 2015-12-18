@@ -1,0 +1,33 @@
+# Fiches à confirmer
+##
+Liste des fiches à confirmer par le chef de projet.
+==> Concerne les fiches de réservation.
+Le fiche de réservation est à confirmer ou à transformer en fiche d'exploitation (par le CP) 
+quand la fiche est dans le statut validée ==> cad validée par les viseurs et l'exploitation.
+
+# Requête
+select this_.NUMSEQFICRES as NUMSEQFI1_78_1_, this_.REFERENCE as REFERENCE78_1_, this_.TITRE as TITRE78_1_, this_.TITRE_COURT as TITRE4_78_1_, this_.DESCRIPTION as DESCRIPT5_78_1_, this_.DATE_CREATION as DATE6_78_1_, this_.TOP_TRAITEMENT_ALERTE as TOP7_78_1_, this_.ID_PROCESS_INSTANCE as ID8_78_1_, this_.IDFICRESANN as IDFICRES9_78_1_, this_.NUMSEQFILDSC as NUMSEQF10_78_1_, this_.CODE_TYPE_OPERATION as CODE11_78_1_, this_.ID_CHEF_PROJET as ID12_78_1_, this_.STATUT as STATUT78_1_, this_.DATE_CONFIRMATION as DATE14_78_1_, this_.EMAIL_ENVOYE as EMAIL15_78_1_, this_.NUMERO_CCV as NUMERO16_78_1_, this_.DATE_COMMENTAIRE as DATE17_78_1_, this_.COMMENTAIRE as COMMENT18_78_1_, chefprojet1_.NUMSEQUTR as NUMSEQUTR113_0_, chefprojet1_.LOGIN as LOGIN113_0_, chefprojet1_.NOM as NOM113_0_, chefprojet1_.PRENOM as PRENOM113_0_, chefprojet1_.EMAIL as EMAIL113_0_, chefprojet1_.TEL as TEL113_0_, chefprojet1_.SECTEUR as SECTEUR113_0_, chefprojet1_.ACTIF as ACTIF113_0_, chefprojet1_.DIRECTEUR_NOT_REQUIRED as DIRECTEUR9_113_0_, chefprojet1_.CHEF_DEPT_NOT_REQUIRED as CHEF10_113_0_ from FICHE_RESERVATION this_, UTILISATEUR chefprojet1_ 
+where this_.ID_CHEF_PROJET=chefprojet1_.NUMSEQUTR 
+	and chefprojet1_.NUMSEQUTR=? 
+	and this_.STATUT in (?) 
+	and this_.DATE_CONFIRMATION<? 
+	and this_.DATE_CONFIRMATION>? 
+	and this_.TITRE<>? 
+order by this_.DATE_CREATION desc;
+==>
+Remplacer les valeurs :
+numsequtr = 553
+statut = validee
+2015-12-08 10:23:49
+2015-11-24 10:23:49
+binding '#annulee#' to parameter: 5
+
+select this_.NUMSEQFICRES as NUMSEQFI1_78_1_, this_.REFERENCE as REFERENCE78_1_, this_.TITRE as TITRE78_1_, this_.TITRE_COURT as TITRE4_78_1_, this_.DESCRIPTION as DESCRIPT5_78_1_, this_.DATE_CREATION as DATE6_78_1_, this_.TOP_TRAITEMENT_ALERTE as TOP7_78_1_, this_.ID_PROCESS_INSTANCE as ID8_78_1_, this_.IDFICRESANN as IDFICRES9_78_1_, this_.NUMSEQFILDSC as NUMSEQF10_78_1_, this_.CODE_TYPE_OPERATION as CODE11_78_1_, this_.ID_CHEF_PROJET as ID12_78_1_, this_.STATUT as STATUT78_1_, this_.DATE_CONFIRMATION as DATE14_78_1_, this_.EMAIL_ENVOYE as EMAIL15_78_1_, this_.NUMERO_CCV as NUMERO16_78_1_, this_.DATE_COMMENTAIRE as DATE17_78_1_, this_.COMMENTAIRE as COMMENT18_78_1_, chefprojet1_.NUMSEQUTR as NUMSEQUTR113_0_, chefprojet1_.LOGIN as LOGIN113_0_, chefprojet1_.NOM as NOM113_0_, chefprojet1_.PRENOM as PRENOM113_0_, chefprojet1_.EMAIL as EMAIL113_0_, chefprojet1_.TEL as TEL113_0_, chefprojet1_.SECTEUR as SECTEUR113_0_, chefprojet1_.ACTIF as ACTIF113_0_, chefprojet1_.DIRECTEUR_NOT_REQUIRED as DIRECTEUR9_113_0_, chefprojet1_.CHEF_DEPT_NOT_REQUIRED as CHEF10_113_0_ 
+from FICHE_RESERVATION this_, UTILISATEUR chefprojet1_ 
+where this_.ID_CHEF_PROJET=chefprojet1_.NUMSEQUTR 
+    and chefprojet1_.NUMSEQUTR=503
+    and this_.STATUT in ('validee') 
+    and this_.DATE_CONFIRMATION<TO_DATE('2015-12-08 10:23:49', 'YYYY-MM-DD HH:MI:SS')
+    and this_.DATE_CONFIRMATION>TO_DATE('2015-11-24 10:23:49', 'YYYY-MM-DD HH:MI:SS')
+    and this_.TITRE<>'#annulee#'
+order by this_.DATE_CREATION desc;

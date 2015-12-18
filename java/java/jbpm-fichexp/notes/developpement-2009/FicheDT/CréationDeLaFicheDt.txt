@@ -1,0 +1,68 @@
+# Création de la fiche de réservation.
+##		
+		
+	<action path="/CreerFicheDT" 
+		type="com.citedessciences.struts.actions.CreerFicheDTAction" 
+		name="EditerFicheDTForm" 
+		scope="request" 
+		validate="false">
+		<forward name="success" path=".editerFicheDT" />
+	</action>
+		
+	<definition name=".editerFicheDT" extends=".main">
+		<put name="title" value="title." />
+		<put name="titreContent" value="titreContent.editer.ficheDT" />	
+		<put name="boutons" value="/jsp/dt/editer_bouton.jsp" />
+		<put name="content" value="/jsp/dt/editer_content.jsp" />
+	</definition>		
+	
+	editer_bouton.jsp --> affiche les boutons de sauvegarde et de retour.
+	
+	
+	
+	<action path="/SauvFicheDT" 
+			type="com.citedessciences.struts.actions.SauvgarderFicheDTAction" 
+			input="/EditerFicheDT.do" 
+			name="EditerFicheReservationForm" 
+			validate="true" 
+			scope="request">
+		<forward name="update" path="/DetailFicheDT.do" redirect="true" />
+	</action>		
+	
+	<!-- TODO: positionnement des alertes -->	
+	<forward name="alertes" path="/ListeAlerteCreationFicheR.do" />	
+	
+	
+	<!-- Action DetailFicheDT.do -->
+	<action path="/DetailFicheDT" 
+		type="com.citedessciences.struts.actions.DetailFicheDTAction" 
+		name="EditerFicheCCVForm" 
+		scope="request" 
+		validate="false">
+		<forward name="success" path=".detailFicheDT" />
+	</action>	
+	
+	<definition name=".detailFicheDT" extends=".main">
+		<put name="title" value="title.detail.ficheDT" />
+		<put name="titreContent" value="titreContent.detail.ficheDT" />	
+		<put name="content" value="/jsp/dt/detail_fiche.jsp" />
+		<put name="boutons" value="/jsp/dt/detail_fiche_bouton.jsp" />
+	</definition>	
+	
+	titreContent.detail.ficheDT=Détail d'une fiche de déclaration de travaux.
+	titreContent.detail.ficheDT=Détail d'une fiche de déclaration de travaux.
+	
+	
+		<action path="/EditerFicheDT" 
+			type="com.citedessciences.struts.actions.EditerFicheDTAction" 
+			name="EditerFicheReservationForm" 
+			scope="request" 
+			validate="false">
+			<forward name="success" path=".editerFicheDT" />
+		</action>		
+		
+
+
+	
+	
+		

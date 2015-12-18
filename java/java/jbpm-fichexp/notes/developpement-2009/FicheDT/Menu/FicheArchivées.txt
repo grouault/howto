@@ -1,0 +1,68 @@
+# Fiches archivées.
+##
+
+Notes: la lites des arcvhivées est obtenu en passant le critères: WKFConstants.ETAT_ARCHIVEE
+
+				private List initFichesDTValidees(FicheCriteria ficheCriteria, Utilisateur utilisateur) {
+						ficheCriteria.addIdStatut(WKFConstants.ETAT_ARCHIVEE);
+						List fichesDT = AdminFactory.getInstance().getFichesDTArchive(ficheCriteria);
+						return transformToStrutsObjet(fichesDT);
+					}
+					
+				la méthode de recherche emploi hibernate et la méthode scroll().
+				Table de recheche : tables: HFicheDTValide
+									//positionnement du crit avec HFicheDTValide.
+									Criteria crit = session.createCriteria(HFicheDTValide.class);
+
+Pour l'administrateur-viseur:
+-----------------------------
+	1- Création de l'action: ListeFicheDTVisaInfoValideeAction
+	
+	
+	
+	Création d'un form:
+	-------------------
+	<form-bean name="ListeFicheDTVisaArchiveeForm" type="com.citedessciences.struts.forms.ListForm" />
+	
+	Création de l'action:
+	---------------------
+		<action path="/FicheDTVisaArchive" 
+				type="com.citedessciences.struts.actions.ListeFicheDTVisaArchiveeAction"
+				name="ListeFicheDTVisaArchiveeForm"				
+				scope="session">
+			<forward name="success" path=".listeFicheDtVisaArchive" />
+		</action>		
+	
+	
+	<!-- liste des fiches archivée : côté admin -->
+	<definition name=".dtValidees" extends=".listeFicheDtVisaArchive">
+		<put name="title" value="title.dt.visa.validees" />
+		<put name="titreContent" value="titreContent.dt.visa.validees" />
+	</definition>	
+	
+	ApplicationRessources:
+	----------------------
+	title.dt.visa.validees=Toutes les fiches de déclaration de travaux archivées.
+	titreContent.dt.visa.validees=Toutes les fiches archivées.
+	
+	
+	
+# Fiches annulées
+##
+
+Pour l'administrateur-viseur:
+-----------------------------
+	1- Création de l'action: ListeFicheDTVisaInfoAnnuleeAction
+	
+	Création d'un form:
+	-------------------
+	<form-bean name="ListeFicheDTVisaInfoAnnuleeForm" type="com.citedessciences.struts.forms.ListForm" />	
+	
+	Création de l'action:
+	---------------------
+	<action path="/FicheDTVisaInfoAnnulee" 
+			type="com.citedessciences.struts.actions.ListeFicheCCVVisaInfoAnnuleeAction"
+			name="ListeFicheCCVVisaInfoAnnuleeForm"				
+			scope="session">
+		<forward name="success" path=".reservation3_0traitees" />
+	</action>	

@@ -1,0 +1,48 @@
+# Lieu et visa complémentaire.
+##
+
+Un lieu est associé à un ou plusieurs viseurs.
+Quand on ajoute un lieu à la fiche, tous les viseurs du lieu doivent être associé à la fiche.
+
+En terme de mapping:
+--------------------
+Le fichier HRefLocalisation.hbm contient un mapping vers un set de viseurs:
+		<set name="VisaCplLocalisation" inverse="true" cascade="save-update">
+			<key column="CODE_LOCALISATION"/>
+			<one-to-many class="HVisaCplLocalisation"/>
+		</set>
+		
+Classe: HVisaCplLocalisation:
+-----------------------------
+	- associé à la table association VISA_CPL_LOCALISATION.
+	table de lien entre une localisation et un utilisateur.
+	
+Travail à faire:
+================
+1- Le mapping de cette table de lien pour les localisations portent sur la table HRefLocalisation.
+Cette dernière doit porter sur la table HRefLieu.
+
+2- Créer dans la table HRefLieu, une liste de viseurs.
+public static String PROP_REF_VISAS = "HVisaCplLocalisation";
+private Set VisaCplLocalisation = new HashSet();
+
+3- Sur le même modèle que HVisaCplLocalisation, création du tryptique:
+HVisaCplLieuGeo.java
+HVisaCplLieuGeo.hbm
+Création de la table.
+			<key-many-to-one
+				name="idLieu"
+				class="HRefLieu"
+				column="ID_LIEU"
+			/>
+			
+
+
+
+bouton d'ajout:
+---------------
+getVisasComplementaires('document.forms.EditerFicheReservationForm','lieuLieu','visasComplementaires','lieu')
+lieu : hidden.
+lieulieu: dernier select.
+
+

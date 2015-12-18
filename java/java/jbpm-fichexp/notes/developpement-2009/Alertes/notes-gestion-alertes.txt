@@ -1,0 +1,93 @@
+# Algorithme de gestion des alertes.
+##
+Principe:
+---------
+Deux tests d'alerte sont à faire.
+Le premier consiste à vérifier si les manifestations se déroulent sur le même lieu.
+Le second consiste à vérifier si les manifestations sont nuisible l'une envers l'autre:
+	- il convient dans ce cas de vérifier que la fiche en cours de saisie n'est pas nuisible pour les fiches simultanées.
+	- il convient également de vérifier que les fiches simultanées ne sont pas nuisibles pour la fiche en cours de saisie.
+	
+
+Lancement de l'algorithme:
+--------------------------
+L'algorithmze est initialisé par la fonction calculateAlertes, cette dernière se trouvant dans la classe d'administration
+des alertes:
+classe: AdminAlertes
+package: package com.citedessciences.businesslogic.administration
+
+La fonction calculateAlertes est appelé au moment de la sauvegarde d'une fiche:
+	- en mode création.
+	- en mode modification.
+
+
+# CalculateAlerte:
+##################
+Cette méthode renvoie la liste des alertes relevées entre les la fiche en création et les fiches simultanées.
+Structurellement les actions de la méthode sont les suivantes:
+1- récupération des dates de déroulement de la manifestation en cours de saisie et à partir de ces dates, récupération
+des manifestation simultanées.
+Techniquement:
+--------------
+On récupère les dateEvenements la fiche en cours de saisie et on récupère les dates évnèment qui chevauchent. A partir des dates
+evènements, on récupère la fiche qui va bien.
+
+2- Pacours des dates evènement de la fiche ; parcours des dates evenements simultanées. On récupère la fiche simultanée associé.
+On calcule alors les deux types d'alertes potentielles par les deux méthodes suivantes:
+- calculateAlertesGeographiques
+- calculateAlertesNuisances 
+
+# CalculateAlertesNuisances
+###########################
+private void calculateAlertesNuisances(Fiche fiche, Fiche ficheSimultanee, List alertes, Date[] tabDates){}
+- Cette méthode permet de calculer les alertes entre deux fiches liés aux nuisances que peut occasionnée la fiche sur la fiche
+simultanée.
+
+
+Structurellement les actions de la méthode sont les suivantes:
+--------------------------------------------------------------
+1- La fiche simultanée ne doit pas être une fiche de déclaration de travaux; cette fiche n'étant pas sensibles aux alertes de nuisances.
+
+2- Si la condition précédente est vérifiée, on récupère les nuisances engendrées par la fiche, et on ne garde que la nuisance de plus 
+forte intensité ; le traitement sera opérrée à partir de cette nuisance:
+
+3- Récupération du plafond de propagation de la nuisance
+
+4- si ce dernier n'est pas null, on va faire le test de la nuisance entre chaque lieur de la fiche et chaque lieu de la fiche 
+simultanée.
+
+	a- la première étape consiste à calculer la distance entre les lieux, notamment entre les quadrants des lieux.
+		 Avant ce calcul, il faut vérifier qu'il n'existe pas un paramétrage exceptionnel entre les lieux auquel cas le calcul n'a pas lieux,
+		 mais la distance entre les lieux est récupérée directement dans la table des exceptions.
+		 Si aucune exception n'est récupérée, avant de faire le calcul il faut vérifier que les lieux appartiennent bien au même 
+		 bâtiment.
+		 
+	b- si la distance calculer est supérieur à -1, on calcule alors la marge de dépassement.
+	
+	c- si la marge de dépassement est supérieur à -1, une alerte sera alors levée.	 
+
+
+# Paramétrage des données.
+##
+- Plafond de propagation: renseignées les valeurs en base.
+
+- S'assurer qu'il y a une correspondance entre les tables:
+	Ref_Type_Nuisance : définition de l'intensité de la nuisance
+		type nuisance son: --> intensité: 100
+	
+	et Ref_Plafond_Propagation
+		associé un plafond de propagation pour l'intensité de la nuisance.
+			intensité de la nuisance 100: --> plafond de propagation: 
+
+
+
+# Notes techniques
+------------------
+##
+1- Dans AdminFactory: 
+		création de: 
+			private AdminAlertes adminAlertes = null;
+			
+		
+TODO:
+ - Dans AdminFactory: retirer tout le code relatif à AdminAlerte.

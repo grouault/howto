@@ -1,0 +1,32 @@
+# Fiches annulées.
+##
+
+
+- Création dans AdminFactory de la méthode: 
+			public List getListeFichesDTAnnule(FicheCriteria ficheCriteria)
+			
+	--> Cette méthode fait la recherche dans la table des FichesDt annulées et par critères.
+			--> à priori pas de critères car renvoie toute la liste des fiches annulées.
+			
+# Paramétrage
+##
+
+<form-bean name="ListeFicheDTVisaInfoAnnuleeForm" type="com.citedessciences.struts.forms.ListForm" />
+
+<action path="/FicheDTVisaInfoAnnulee" 
+		type="com.citedessciences.struts.actions.ListeFicheDTVisaInfoAnnuleeAction"
+		name="ListeFicheDTVisaInfoAnnuleeForm"				
+		scope="session">
+	<forward name="success" path=".listeFicheDtInfoVisaAnnulee" />
+</action>
+
+<!-- liste des fiches archivée : côté admin -->
+<definition name=".listeFicheDtInfoVisaAnnulee" extends=".listficheDT">
+	<put name="title" value="title.dt.visa.annulees" />
+	<put name="titreContent" value="titreContent.dt.visa.annulees" />
+</definition>
+
+ApplicationRessources:
+----------------------
+title.dt.visa.annulees=Toutes les fiches de déclaration de travaux annulées.
+titreContent.dt.visa.annulees=Toutes les fiches annulées.

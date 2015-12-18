@@ -1,0 +1,39 @@
+# Notes - modifications
+##
+
+
+Modification du Service: AdminAgenda
+------------------------------------
+Etablissement des requêtes de récupération des fiches DT.
+	- fiche du workflow.
+	- fiche validées.
+
+
+Prise en compte du lien impression dans l'agenda:
+-------------------------------------------------
+Méthode modifier pour prise en compte de l'impressin des fiches DT: 
+	package: com.citedessciences.businesslogic.impression
+	classe: ImpressionFicheBean
+	méthode: processPdf()
+	
+	
+# Page d'impression de la fiche
+##
+	package com.citedessciences.businesslogic.impression
+	classe: ImpressionFicheBean
+	méthode: processFicheContent()
+	
+	- Modifications effectuées:
+	
+# Faire du pdf
+##
+- itext: traitement séquentiel.
+- fop: les données sont formattées xml/xslt - Les données sont montées initialemen en mémoire 
+  pour être traité transformée par la suite via fop en xml.
+  
+  
+# Au niveau de la vue:
+##
+On distingue deux vues:
+- 1 vue pour l'agenda normal
+- 1 vue pour l'agenda public

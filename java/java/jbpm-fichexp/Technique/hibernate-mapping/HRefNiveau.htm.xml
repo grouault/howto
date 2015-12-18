@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+
+<hibernate-mapping package="com.citedessciences.bdd.beans">
+	<class name="HRefNiveau" table="REF_NIVEAU">
+	
+		<id name="id" type="integer" column="ID_NIVEAU">
+			<generator class="assigned"/>
+		</id>	
+	
+		<property name="libelle" type="string" column="LIBELLE" not-null="false" length="50"/>
+		<property name="etage" type="integer" column="ETAGE" />
+		<property name="distanceQuadrant" type="long" column="DISTANCE_QUAD" />
+		<property name="nbQuadrant" type="integer" column="NB_QADRANT" />
+		
+		<!-- un niveau pour un batiment -->
+		<property name="batiment" type="com.citedessciences.bdd.beans.HRefBatiment" column="idBatiment" />
+		ou 	
+		<!-- plusieurs batiments pour un niveau -->
+		<many-to-one 
+			name="batiment" 
+			column="ID_BATIMENT" 
+			class="com.citedessciences.bdd.beans.HRefBatiment"
+			not-null="true">
+		</many-to-one> 	
+	
+		<one-to-many> --> si je veux la liste des niveaux pour le batiment.
+		<one-to-one> --> possible.
+	
+	</class>
+</hibernate-mapping>

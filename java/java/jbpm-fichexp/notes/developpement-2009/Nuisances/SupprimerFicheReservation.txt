@@ -1,0 +1,87 @@
+##
+# Suppression d'une fiche de réservation.
+##
+
+		<!--  Action -->
+		<action path="/ExcecuteRAction"
+				type="com.citedessciences.struts.actions.ExcecuteRAction"
+				name="ExcecuteActionForm"
+				validate="false"
+				scope="request">
+			<forward name="taskcreationfiche" path="/EndAction.do" />
+			<forward name="tasksupprimer" path="/EndAction.do" />
+			<forward name="taskreprisexistant" path="/EndAction.do" />
+			<forward name="taskmodifier" path="/EditerFicheReservation.do" />
+			<forward name="taskannuler" path="/EndAction.do" />
+			<forward name="taskrefuser" path=".reservationrefuser2_1_1" />
+			<forward name="taskcreerficheexp" path="/TransformerFicheReservation.do" />
+			<forward name="taskannulerremplacer" path="/AnnulerRemplacerFicheReservation.do" />
+			<forward name="taskarchiver" path=".reservation2_1_1" />
+			<forward name="taskvalidationdirecteur" path=".reservation2_1_1" />
+			<forward name="taskvalidationchefdepartement" path=".reservation2_1_1" />
+			<forward name="taskprevalidationdeg" path=".reservation2_1_1" />
+			<forward name="taskvalidationdeg" path=".reservation2_1_1" />
+			<forward name="taskvalidationcellule" path=".reservation2_1_1" />
+			<forward name="taskvalidationvisaobligatoire" path=".reservation2_1_1" />
+			<forward name="taskvalidationvisacomplementaire" path=".reservation2_1_1" />
+			<forward name="taskconfirmer" path="/EndAction.do" />
+		</action>
+		
+		
+		Action:
+		ExcecuteRAction --> ExcecuteAction:
+		-----------------------------------
+		if(WKFConstants.FAKE_TASK_SUPPRIMER.equals(action)) {
+					AdminFactory.getInstance().deleteFiche(fiche);
+		}
+									
+									---> 			if (fiche instanceof FicheReservation) {
+															FicheReservation ficheReservation = (FicheReservation) fiche;
+															adminFicheReservation.delete(ficheReservation.getId(),
+																	sessionHibernate);
+														}
+		
+		
+												-->
+														public void delete(Integer id, Session sessionHibernate) throws Exception {
+																HFicheReservation ficheReservation = new HFicheReservation();
+																ficheReservation = (HFicheReservation) sessionHibernate.get(
+																		HFicheReservation.class, id);
+																if (ficheReservation != null) {
+																	Set alertesAsSet = ficheReservation.getALERTEs();
+																	if (alertesAsSet != null) {
+																		while (alertesAsSet.iterator().hasNext()) {
+																			HAlerte alerte = (HAlerte) alertesAsSet.iterator().next();
+																			alertesAsSet.remove(alerte);
+																			sessionHibernate.delete(alerte);
+																		}
+																	}
+														
+																	Set filDiscussionAsSet = ficheReservation.getFilDiscussions();
+																	if (filDiscussionAsSet != null) {
+																		while (filDiscussionAsSet.iterator().hasNext()) {
+																			HFilDiscussion filDiscussion = (HFilDiscussion) filDiscussionAsSet
+																					.iterator().next();
+																			Set messages = filDiscussion.getMESSAGESet();
+																			while (messages.iterator().hasNext()) {
+																				HMessage message = (HMessage) messages.iterator()
+																						.next();
+																				messages.remove(message);
+																				sessionHibernate.delete(message);
+																			}
+																			filDiscussionAsSet.remove(filDiscussion);
+																			sessionHibernate.delete(filDiscussion);
+																		}
+																	}
+														
+																	sessionHibernate.delete(ficheReservation);
+																}
+															}
+		
+		<action path="/EndAction"
+				type="com.citedessciences.struts.actions.EndAction"
+				name="ExcecuteActionForm"
+				validate="false"
+				scope="request">
+			<forward name="success" path="/DetailFicheReservation.do" />
+		</action>		

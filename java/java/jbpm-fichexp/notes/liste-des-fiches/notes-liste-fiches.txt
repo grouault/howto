@@ -1,0 +1,82 @@
+# Principe evos
+##
+1- Faire en sorte que les colonnes soient cliquables
+---- Chef de projet 
+---- Date de début de l'opération
+
+2- Rendre possible la validation JavaScript
+
+3- Traitement Serveur
+---- Prendre en compte les paramètres
+---- faire que la recherche prend en comtpe ces paramètres 
+
+# Processus
+##
+Dans la vue, affichage de la liste.
+Les colonnes sont cliquables: le clique met dans le context "html/javascript", les variables:
+- form.sort
+- form.direction
+Ces deux données sont postées dans l'action
+
+# Fiche Exploitation
+
+Liste des fiches - bouton des tri(s) :
+--------------------------------------
+Pour le tri, les boutons liens valident un formulaire ; javascript : form.submit
+Ce formulaire est dessiné avec le taglib <csi:pager ...> en passant les paramètres :
+- sort.actionName
+- sort.lastPage
+
+# Processus de recherche
+##
+Au niveau de l'action (filtre et sans filtre) :
+--> la même action est déclencher :
+-- récuépration du filtre : filterCriteria
+-- fonction de recherche qui prend en compte le critère de filtre
+La recherche se fait avec les critères de filtres.
+
+Chef de Projet
+Recherche Hibernate avec les critères de filtres :
+--------------------------------------------------
+Les critères hibernate sont gérés via des critérias mis à jour avec les criterias de la request
+==> Tri Chef de Projet ==> utilisation d'un alias : crit.addOrder( cp.Nom )
+
+Date évènement :
+----------------
+Tri côté Controller : Date évènement n'est pas un champ de fiche palais.
+Fiche Palais ==> à une liste d'évènement.
+
+# Présentation :
+##
+Les critères de recherhce sont mis dans le mav, au niveau de l'action. 
+req.setAttribute("sort",ficheCriteria); Exemple ==> ListeFichePalaisATraiterAction hérite de 'ListeFiche'.
+- mise dans le contexte de presentation : sort = ficheCriteria
+- ficheCriteria : liste des clés=valeurs
+==> Critère rempli avec les infos de l'action :
+Création d'un formulaire de validation :
+<table class="pager">
+<tr>
+	<form name="ListeFichePalaisATraiterForm" method="post" action="/fichexp/FichePalaisATraiter.do">
+	<input type="hidden" name="sort" value="">
+	<input type="hidden" name="direction" value="">
+	<input type="hidden" name="page" value="0">
+	</form>
+</tr>
+</table>
+
+# Modification des vues
+Principe :
+Vues : modifier les jsp pour transmettre les valeurs.
+Controller : 
+ - assurer la transmission des valeurs
+ - faire le tri pour la date de début d'évènement
+ 
+Manager : prise en compte du tri
+
+# Modification Manager 
+AdminFactoryget.ListeFicheAValider(utilisateur, ficheCriteria) 
+==> Manager générique qui aiguille vers ctrller spécifique.
+
+
+
+

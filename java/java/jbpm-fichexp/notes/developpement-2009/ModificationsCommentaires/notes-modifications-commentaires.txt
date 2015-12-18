@@ -1,0 +1,49 @@
+# Modification sur les commentaires.
+##
+
+Principe:
+---------
+Permettre la saisie de commentaire dès qu'une fiche est à l'état émise.
+Note: il s'agit de faire apparaître le bouton commentaire.
+Ce dernier permet d'ajouter un commentaire sur la fiche, sans que la fiche en soit pour autant modifier 
+et ne soit reinitialisée dans le workflow.
+
+L'ajout d'un commentaire nécessite par ailleurs l'envoi d'un email aux utilisateurs concernés.
+Cela nécessite la mise en place d'une autre modification lié à l'envoi d'email.
+
+Mettre une fiche à l'état émise:
+--------------------------------
+- 1: une fiche doit être créée par un chef de projet - se connecter avec un chef de projet.
+- 2: le chef de projet lance sa fiche
+- 3: l'exploitation valide la fiche
+- 4: le chef de département valide la fiche
+- 5: le directeur ou direceur adjoint valide la fiche.
+
+--> la fiche est alors dans un état l'état "émise": statut émise en base.
+ Les fiches émises apparaissent dans la rubrique des fiches lancées.
+ 
+ 
+Modèle de données:
+------------------
+Création d'une tables: HISTO_COMMENTAIRE_FICHE
+L'attribut statut vaut à sa création "non-traité". 
+Lorsque l'email est envoyé, ce dernier passe à la valeur "traité".
+
+
+Traitements effectués:
+----------------------
+- Modification de DetailFicheExploitationAction.
+- Modification de SauvgarderCommentaireFicheEAction
+
+#  Modification de la tâche d'envoi des mails.
+##
+Principe:
+Tout commentaire supplémentaire ajouté à une fiche doit être lu par les utilisateurs
+en relation avec cette fiche. Pour cela, un mail est envoyé à ces derniers.
+
+	package com.citedessciences.process
+	Classe modifiée: GenerateMail
+	Méthode: launch() --> ajout de la méthode addFichesModificationCommentaires(usersContentMail);
+	
+En fin de tâche, le status du commentaire est mis à "traiter" pour qu'il ne soit pas traiter lors
+de la prochaine tâche de maintenance des mails.

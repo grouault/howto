@@ -1,0 +1,23 @@
+##
+# Numéro de version
+##
+
+Récupérer les fiches qui ont 
+ - la même référence
+ - la fiche a le statut à historique.
+ 
+
+			FicheCriteria ficheCriteria = new FicheCriteria();
+			ficheCriteria.addIdStatut(WKFConstants.ETAT_HISTORIQUE);
+			ficheCriteria.setReference(ficheExploitationBean.getReference());
+			
+			List fiches = AdminFactory.getInstance()
+			.getFichesExploitationArchive(ficheCriteria);
+
+			ficheExploitationBean.getHistorique().addAll(fiches);
+			//mise en place du numero de version de la fiche
+			if (fiches != null) {
+				ficheExploitationBean.setNumeroVersion(fiches.size() +1);
+			} else {
+				ficheExploitationBean.setNumeroVersion(1);
+			}

@@ -1,0 +1,9 @@
+# Organisation du menu
+##
+
+Les menu est à deux niveau:
+- le premier niveau est paramétré avec le fichier xml: tab.xml
+	- permet d'afficher les onglet qui doivent être afficher selon le rôle attribué au user loggué.
+	
+- le second niveau est paramétré avec menu.xml
+	- permet d'afficher les menus des onglets selon les rôles attribués au user loggué.

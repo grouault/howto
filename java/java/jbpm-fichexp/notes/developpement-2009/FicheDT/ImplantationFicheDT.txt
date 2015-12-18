@@ -1,0 +1,85 @@
+# Implantaion de la fiche DT
+##
+
+
+ApplicationRessources.properties
+--------------------------------
+tab.ccv=CV
+
+
+Tab.xml
+-------
+nouvel entrée pour le rôle 4.
+	<tab key="tab.dt" action="FicheDTToutes.do" default="dt.toutes" />
+	
+Il reste à paramétrer les actions
+
+
+Clique sur le menu dT
+---------------------
+	#Existant.
+	##
+	<action path="/FicheRToutes" 
+				type="com.citedessciences.struts.actions.ListeFicheRToutesAction" 
+				name="ListeFicheRToutesForm" 
+				scope="request">
+			<forward name="success" path=".reservation2_0toutes" />
+		</action>
+		
+	<definition name=".reservation2_0toutes" extends=".listfiche2_0">
+		<put name="title" value="title.reservation2_0toutes" />
+		<put name="titreContent" value="titreContent.reservation2_0toutes" />	
+		<!-- put name="boutons" value="/jsp/reservation/reservation2_0_listes_toutes_boutons.jsp"/-->
+	</definition>		
+	
+	<definition name=".listfiche2_0" extends=".main">
+		<put name="content" value="/jsp/reservation/liste_fiche.jsp" />
+		<!--put name="boutons" value="/jsp/common/liste_fiche_bouton.jsp"/-->
+		<put name="boutons" value="/jsp/reservation/reservation2_0_listes_toutes_boutons.jsp" />
+	</definition>	
+	
+	title.reservation2_0toutesadmincellule=Fiche exploitation : Toutes les fiches réservations
+titreContent.reservation2_0toutesadmincellule=Toutes les fiches réservations
+	
+	
+	# Réalisé.
+	##
+	
+		<!-- Lister toutes les fiches DT -->		
+		<action path="/FicheDTToutes" 
+				type="com.citedessciences.struts.actions.ListeFicheDTToutesAction" 
+				scope="request">
+			<forward name="success" path=".dtToutes" />
+		</action>	
+	
+		--> Reste le form à préciser.
+	
+	<definition name=".dtToutes" extends=".listficheDT">
+		<put name="title" value="title.dt.toutes" />
+		<put name="titreContent" value="titreContent.dt.toutes" />
+	</definition>	
+	
+	<definition name=".listficheDT" extends=".main">
+		<put name="boutons" value="/jsp/dt/liste_fiches_dt_boutons.jsp" />
+		<put name="content" value="/jsp/dt/liste_fiches_dt_content.jsp" />
+	</definition>
+	
+	
+title.dt.creee=Fiche Déclaration de Travaux: Toutes les fiches créées.
+titreContent.dt.creees=Toutes les fiches créées.
+title.dt.lancees=Fiche Déclaration de Travaux: Toutes les fiches lancées.
+titreContent.dt.lancees=Toutes les fiches lancées.
+title.dt.validees=Fiche Déclaration de Travaux: Toutes les fiches validées.
+titreContent.dt.validees=Toutes les fiches validées.
+title.dt.refusees=Fiche Déclaration de Travaux: Toutes les fiches refusées.
+titreContent.dt.refusees=Toutes les fiches refusées.
+
+
+# TODO
+##
+
+- Onglet: Mes tâches.
+
+- dans ListeFicheRToutesActions:
+	Positionner, le code suivant est à positionner, il est en bug.
+	<td align="right"><csi:Pager action="${sort.actionName}" lastPage="${sort.lastPage}"/></td>

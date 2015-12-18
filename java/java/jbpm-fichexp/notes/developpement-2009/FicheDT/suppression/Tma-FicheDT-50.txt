@@ -1,0 +1,170 @@
+# Action de suppression d'une fiche DT
+##
+
+Remarque: une fiche quand elle est créé est associé à un workflow: ID_PROCESS_INSTANCE.
+Ce dernier n'a pas vocation à évoluer ... (?)
+
+
+1- on peut supprimer une fiche DT quand celle-ci vient d'être créer et qu'elle n'est pas lancée.
+		Action possible quand une fiche est créé:
+						- lancer
+						- modifier
+						- supprimer
+						
+	--> la tâche de suppression entraîne la suppression physique de la base.
+	
+2- on lance la fiche.
+	 Les actions possibles sont alors les suivantes:
+	 	- annuler
+	 	- annuler/remplacer
+	 	
+	--> annuler: - la fiche est supprimée de la table FicheDT
+							 - la fiche est supprimée du workflow	
+							 - la fiche est ajoutée dans FicheDT-annuléé
+							 
+	--> annuler/remplacer:
+							 * étape 1:
+							 - la fiche est supprimée de la table FicheDT
+							 - la fiche est mise dans FicheDT-annule
+							 
+							 * étape 2:
+							 - une nouvelle fiche est créé avec un nouvel id.
+							 - un nouveau id_process_instance est créé.
+							 - la fiche a en référence l'id de la fiche annulée.
+							 
+							--> Après cette étape, on se retrouve dans l'étape initiale du workflow:
+									les possibilités sont: lancer, modifier ou supprimer.
+			
+			Question : quelle différence avec la modification d'une fiche?
+			--> Dans le cas de la modification d'une fiche, seul un nouvel idProcessInstance
+					est regénéré.
+					Si la fiche a en référence l'id du fiche annulé, ce dernier est conservé.
+					Les états possibles sont alors les suivants:
+						- Annuler
+						- Annuler/Remplacer
+						- Lancer
+						- Modifier
+						
+3- on modifie la fiche:
+	 Les actions possibles sont:
+	 	- Annuler
+	 	-	Lancer
+	 	- Modifier
+	 	--> Annuler/Remplacer n'est pas disponible comme pour les fiches CCV.						
+						
+						
+# Tâche d'annulation de la fiche quand cette dernière est lancée
+##			
+Dans AdminFactory.WKFAnnulerFiche(Fiche fiche)
+			
+else if (fiche instanceof FicheDT) {
+				FicheDT ficheDT = (FicheDT)fiche;
+				adminFicheDT.delete(ficheDT.getId(), sessionHibernate);
+				adminFicheDT.createFicheDtAnnule(sessionHibernate, ficheDT);
+			}
+--> La tâche delete s'occupe de supprimer les données de la fiche DT en base.		
+On doit supprimer physiquement les données de la base et des tables associées.
+	- dates
+	- nuisances.
+
+--> Question: qu'en est-il des lieux?
+	Les lieux sont supprimés mais pas de la même manière.
+
+Le code est le suivant:
+    public void delete(Integer id, Session session) throws Exception {
+			HFicheDT toDelete = new HFicheDT();
+			toDelete = (HFicheDT) session.get(HFicheDT.class, id);
+			Set eventDates = toDelete.getDateEvenement();
+			if (eventDates != null) {
+				while (eventDates.iterator().hasNext()) {
+					HDateEvenement dateEvenementHibernate = (HDateEvenement) eventDates.iterator().next();
+					eventDates.remove(dateEvenementHibernate);
+					session.delete(dateEvenementHibernate);
+				}
+			}
+				
+			Set hAlertes = toDelete.getALERTEs();
+			if(hAlertes != null){
+				while (hAlertes.iterator().hasNext()) {
+					HAlerte hAlerte = (HAlerte) hAlertes.iterator().next();
+					hAlertes.remove(hAlerte);
+					session.delete(hAlerte);
+				}			
+			}
+			
+			session.delete(toDelete);
+    }
+	
+
+						
+# Développement de la tâche annuler/remplacer
+##
+Cette tâche diffère des précédentes. Elle passe ExcecuteDTAction, mais aucun traitement n'y est appliqué.
+Le traitement est alors redirigé vers une action spécifique:
+	<forward name="taskannulerremplacer" path="/AnnulerRemplacerDT.do" />
+	
+Cette tâche ne fait que remplir de form destiné à être présenté sur la vue.
+Cependant, deux champs sont renseignés:
+			editerFicheDTForm.setFicheAnnuleeRemplacante(ficheDTBean.getId());
+			editerFicheDTForm.setDocumentsFromFicheDT(editerFicheDTForm.getDocuments());
+
+Cela permet de remplir un champ Hidden au niveau du formulaire de modification qui est alors présenté.
+
+A la validation de ce formlaire, la nouvelle action va tenir compte de ce champ. Si ce dernier contient un valeur,
+le traitement opéré est différent -> la fiche est alors annulée et remplacée.
+
+
+Pour permettre cela: 
+	- FicheDT doit avoir un attribut: 
+				private FicheDT ficheDTAnnulee;
+				
+	- EditerFicheDTForm:
+				Integer ficheAnnuleeRemplacante;
+
+Création:
+---------
+Création de l'action: AnnulerRemplacerFicheDTAction.
+
+	<action path="/AnnulerRemplacerFicheReservation" 
+		type="com.citedessciences.struts.actions.AnnulerRemplacerFicheDTAction" 
+		name="EditerFicheDTForm" 
+		scope="request" 
+		validate="false">
+		<forward name="success" path=".editerFicheDT" />
+	</action>
+	
+	
+	
+	
+	
+	
+Action de sauvegarde de	la fiche:
+---------------------------------
+1- on récupère le form.
+2- on alimente un nouveau bean avec les données du form.
+
+	on crée un bean ficheDTannuler associé à l'objet à sauvegarder.
+		//est-ce une fiche à annuler(?)
+		Integer idFicheDtAnnulee = ficheDtForm.getFicheAnnuleeRemplacante(); 
+		if (idFicheDtAnnulee!=null && !(idFicheDtAnnulee.equals(new Integer(0)))) {
+			FicheDT ficheDTAnnulee  = AdminFactory.getInstance().getFicheDTAnnuleById(ficheDtForm.getId());
+			ficheDtMetier.setFicheDTAnnulee(ficheDTAnnulee);
+		}
+		
+		//Ensuite, on sauvegarde ou annule ou remplace en passant la référence de l'objet métier.
+		if(ficheDtMetier.getFicheDTAnnulee() == null){
+			idFiche = AdminFactory.getInstance().saveOrUpdateFicheDT(ficheDtMetier);
+		}else{
+			idFiche = AdminFactory.getInstance().WKFAnnulerEtRemplacerFicheDT(ficheDtMetier);
+		}	
+						
+	
+WKFAnnulerEtRemplacerFicheDT(ficheDtMetier)
+-------------------------------------------			
+Cette méthode permet à partir de la référence:
+	- de créer un nouveau bean devant être sauvegarde dans la base annulé.
+	- modifié l'objet, accroché à la référence pour en créer un nouveau.			
+						
+					
+							 
+	 	

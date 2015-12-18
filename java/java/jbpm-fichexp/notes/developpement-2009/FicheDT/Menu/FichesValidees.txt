@@ -1,0 +1,37 @@
+# Fiches validées
+##
+
+On trouve dans cette rubrique au niveau de l'onglet MesTâches (Admin-viseur),
+	la liste des fiches validées.
+
+	--> Il semble que la requête soit en erreur:
+	select ti 
+	from org.jbpm.taskmgmt.exe.TaskInstance as ti 
+	where ti.actorId = :actorId   
+	and ti.end is not null   
+	and ti.name not like '%refus%'   
+	and ti.isCancelled = false
+		
+	--> Cela renvoie la liste des fiches lancées et validées.
+
+# Liste des fiches validées
+##
+<action path="/FicheDTTraitees" 
+		type="com.citedessciences.struts.actions.ListeFicheDTTraiteesAction"
+		name="ListeFicheDTTraiteesForm"				
+		scope="session">
+	<forward name="success" path=".dtValidees" />
+</action>
+
+<form-bean name="ListeFicheDTTraiteesForm" type="com.citedessciences.struts.forms.ListForm" />
+
+<!-- parametrage du titre de la vue affichant toutes les fiches DT lancées-->
+<definition name=".dtValidees" extends=".listficheDT">
+	<put name="title" value="title.dt.validees" />
+	<put name="titreContent" value="titreContent.dt.validees" />
+</definition>
+
+ApplicationRessoure
+-------------------
+title.dt.validees=Fiche de déclaration de travausx: Toules les fiches validées
+titreContent.dt.validees=Toutes les fiches validées

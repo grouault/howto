@@ -1,0 +1,84 @@
+# Ajout de l'écran de consultation des alertes
+##
+
+--> Cet écran est généré après la création d'une fiche DT pour indiquer les nuisances
+qu'elle ocasionne sur les autres fiches.
+struts-config
+-------------
+forward au niveau de l'action: /SauvFicheDT
+	<forward name="alertes" path="/ListeAlerteCreationFicheDT.do" />
+
+Création d'un form-bean:
+	<form-bean name="ListeAlerteCreationFicheDTForm" type="com.citedessciences.struts.forms.ListForm" />	
+
+
+	<action path="/ListeAlerteCreationFicheDT" 
+			type="com.citedessciences.struts.actions.ListeAlerteCreationFicheDTAction" 
+			name="ListeAlerteCreationFicheDTForm" 
+			validate="false" 
+			scope="request">
+		<forward name="success" path=".creation_ficheDT_alertes" />
+	</action>
+
+tiles-defs:
+----------
+<definition name=".creation_ficheDT_alertes" extends=".main">
+	<put name="title" value="title.creation_ficheDT_alertes" />
+	<put name="titreContent" value="titreContent.creation_ficheDT_alertes" />	
+	<put name="boutons" value="/jsp/dt/alerte_creation_fiche_bouton.jsp" />
+	<put name="content" value="/jsp/common/liste_alertes.jsp" />
+</definition>
+
+
+application-properties:
+-----------------------
+title.creation_ficheDT_alertes=Fiche exploitation : Liste des alertes engendrées par la fiche DT en cours de création
+titreContent.creation_ficheDT_alertes=Liste des alertes engendrées la fiche DT en cours de création
+
+
+
+# Lien de confirmation des alertes
+##
+		<action path="/ConfirmerFicheDT" 
+			type="com.citedessciences.struts.actions.DetailFicheDTAction" 
+			name="ConfirmerFicheDTForm" 
+			scope="request" 
+			validate="false">
+			<forward name="success" path=".detailFicheDT" />
+		</action>
+		
+		<form-bean name="ConfirmerFicheDTForm" type="com.citedessciences.struts.forms.EditerFicheDTForm" />		
+
+
+
+
+
+# Ecran de listing des alertes.
+##
+
+Struts-config:
+--------------
+<action path="/ListeAlerteFicheDT" 
+		type="com.citedessciences.struts.actions.ListeAlerteFicheDTAction" 
+		name="ListeAlerteFicheDTForm" 
+		validate="false" 
+		scope="session">
+	<forward name="success" path=".ficheDtListeAlertes" />
+</action>
+
+<form-bean name="ListeAlerteFicheDTForm" type="com.citedessciences.struts.forms.ListForm" />
+		
+Tiles-defs:
+-----------
+<definition name=".ficheDtListeAlertes" extends=".main">
+	<put name="title" value="title.alerte.fiche.dt" />
+	<put name="titreContent" value="titreContent.alerte.fiche.dt" />	
+	<put name="boutons" value="/jsp/dt/detail_fiche_bouton.jsp" />	
+	<put name="content" value="/jsp/common/liste_alertes.jsp" />
+</definition>
+
+
+# ApplicationRessources
+##
+title.alerte.fiche.dt=Fiche DT : Alertes liées à la fiche DT
+titreContent.alerte.fiche.dt=Fiche DT : Alertes liées à la fiche DT

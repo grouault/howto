@@ -1,0 +1,68 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+
+<hibernate-mapping package="com.citedessciences.bdd.beans">
+	<class name="HFicheDT" table="FICHE_DT">
+	
+		<id name="id" type="integer" column="NUM_SEQ_FICHEDT">
+			<generator class="sequence">
+				<param name="sequence"></param>
+			</generator>
+		</id>
+		
+		<property name="titre" column="TITRE" type="string" not-null="false" length="50"/>		
+		<property name="titreCourt" column="TITRE_COURT" type="string" not-null="false" length="50"/>
+		<property name="resume" column="RESUME" type="string" not-null="false" length="100" />
+		<property name="deroulement" column="DEROULEMENT" type="string" not-null="false" length="100" />
+		
+		<property name="dateCreation" column="DATE_CREATION" type="java.util.Date" not-null="false" length="7"/>
+		<property name="dateArchivage" column="DATE_ARCHIVAGE" type="java.util.Date" not-null="false" length="7"/>
+	
+		<many-to-one
+			name="codeTypeOperation"
+			column="CODE_TYPE_OPERATION"
+			class="HRefTypeOperation"
+			not-null="true"
+		>
+		</many-to-one>
+		
+		<many-to-one
+			name="idChefProjet"
+			column="ID_CHEF_PROJET"
+			class="HUtilisateur"
+			not-null="true"
+		>
+		</many-to-one>
+		
+		<many-to-one
+			name="idFicheDTAnnulee"
+			column="ID_FICHE_DT_ANN"
+			class="HFicheDTAnnulee"
+			not-null="false"
+		>
+		</many-to-one>		
+	
+		<set name="ficheDTAnnules" inverse="true">
+			<key column="NUM_SEQ_FICHEDT"/>
+			<one-to-many class="HFicheDTAnnulee"/>
+		</set>	
+		
+		<set name="dateEvenement" lazy="true" table="FICHEDT_DATE" cascade="delete" >
+			<key column="IDFICHE"  />
+			<many-to-many column="IDDATE" class="HDateEvenement" />
+		</set>
+		
+		<set name="codeLocalisations" table="FICHEDT_LOCALISATION" lazy="false">
+			<key column="IDFICHE"/>
+			<many-to-many column="CODE_LOCALISATION" class="HRefLocalisation"/>
+		</set>
+	
+		<set name="codeNuisances" table="FICHE_NUISANCE_DT" lazy="false">
+			<key column="IDFICHE">
+			<many-to-many column="ID_TYPE_NUISANCE" class="HRefTypeNuisance"/>
+		</set> 
+	
+	</class>	
+</hibernate-mapping>

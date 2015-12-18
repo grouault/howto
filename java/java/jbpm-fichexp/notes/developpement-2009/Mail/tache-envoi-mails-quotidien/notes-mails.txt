@@ -1,0 +1,58 @@
+# Génération de mail
+##
+
+Opération d'envois:
+-------------------
+
+		url de test: http://localhost:8080/fichexp/Taches/GenererMail.do
+
+		Action à lancer:
+		----------------
+	 	<action path="/Taches/GenererMail"
+				type="com.citedessciences.struts.actions.taches.GenererMailAction">
+		</action>
+
+		GenerateMail.launch();
+						package: com.citedessciences.struts.actions.taches
+						classe: GenererMailAction
+
+		lanuch() --> addTachesATraiter(usersContentMail, jbpmSession);
+						package:
+						classe:
+						méthode:
+
+		addTachesATraiter --> content = addTaskContent(tasks);
+		
+		#
+		# Prise en compte des fiches DT.
+		#
+		- Principe de l'envoid des mails:
+			1- on récupère les la liste des tâches non terminées en terme de workflow.
+			2- on fait une map (hashttable) dont la clé est un id d'un user et associé la liste des tâches du user.
+			3- on parcours la liste des tâches du user.
+					--> pour chaque tâche on récupère la nature de la fiche: (méthode: addTaskContent)
+							Fiche fiche = getFiches(taskInstance);
+							On génère alors le contenu du mail.
+							Dans cette méthode, on itère sur toutes les tâches, donc le contenu du mail, est le compte
+							rendu de toutes les tâches du user.
+							
+							Dans la méthode de retour - addTachesATraiter: 
+					--> on créer un nouvel objet: UserMailInfo(userId, content)
+					--> on ajout ce nouvel objet dans la liste: userContentMail
+					
+		==> Pour la prise en compte des fiche DT:
+			- il a fallu modidier la tâche : GetFiche();
+					- pour les fiches de type 3: on fait appel à la méthode:			
+					ficheToReturn = AdminFactory.getInstance().getFicheDT(idProcessInstance);
+
+
+		--> Cette tâche de mail: ramène les fiches qui sont prises dans un processus 
+		de workflow.
+
+# Pour filtrer les données retournées. 
+##	
+
+- GenerateMail.sendAllMail:	Supprimer le filtre 749
+- GenerateMail.addTachesATraiter: supprimer le filtre 749
+- AdminWorkflow.findNotEndedTaskInstancesWithCreationFiche: supprimer le fitre 749 de la requête
+						

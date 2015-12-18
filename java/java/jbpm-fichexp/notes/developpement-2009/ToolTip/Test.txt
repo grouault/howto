@@ -1,0 +1,21 @@
+# Test avec 
+## 
+wz_tootip.js
+
+<csi:Script scriptName="wz_tooltip.js"/>
+<html:link href="#" onmouseover="Tip('${visa.histoRefus}')" onmouseout="UnTip()"><bean:message key="missage.fiche.historefus"/></html:link>
+
+
+# Test avec ToolTip ContentServer.
+##
+generic.jsp:
+------------
+<csi:Script scriptName="ToolTip.js"/>
+
+<logic:notEmpty name="visa" property="histoRefus">
+	<div class="tooltip" id="reponse_<bean:write name="visa" property="id"/>" style="position:absolute; visibility: hidden;">
+				<div class="content">content toottip ceci est avec echappement ' et avec retour à la ligne.</div>
+	</div>
+	<a id="question_<bean:write name="visa" property="id"/>" href="javascript:;" onmouseover="javascript:showToolTip('<bean:write name="visa" property="id"/>', '150','50');return(false);" onmouseout="javascript:hideToolTip('<bean:write name="visa" property="id"/>'); return(false);"><bean:message key="missage.fiche.historefus"/></a>
+</logic:notEmpty>
+

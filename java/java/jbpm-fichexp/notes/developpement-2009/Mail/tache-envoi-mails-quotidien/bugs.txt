@@ -1,0 +1,68 @@
+# 1257. - 1 heure.
+##
+Il s'agit de problèmes d'encodage dans certains fichiers .java : 
+- SauvegarderAlerteAction (com.citedessciences.struts.actions)
+- GenerateMail (com.citedessciences.process)
+
+# 1268 - 1 heure.
+##
+La même clé est utilisé pour un affichge "html" dans du HTML:
+- formulaire de création d'une fiche de réservation, exploitation...
+- mais aussi dans les "alertes javascripts"
+==> Correction : création d'une seconde clé.
+Modification de validation.xml
+Modification de ApplicationResources.properties avec ajout de la clé suivante : fformfiche.titre.lieu.geographique.alert.js
+
+# 1361 - 3heures.
+##
+La correction est effectuée.
+Si l'enregisterment échoue, le user est redirigé vers la page de formulaire avec un message générale lui indiquant 
+que l'opération échoue en base.
+Les attributs sont tronqués suivant leur longueur acceptable en base. Cela était déjà fait pour certains d'entre eux.
+
+Les fichiers modifiés sont les suivants:
+- SauvgarderUserAction
+- AdminFactory ==> commitJBPMTransaction
+- ApplicationResources.properties
+- strutsConfig.xml
+
+Test fait avec : 
+- Service-civique
+- Service-visiteurs
+
+# 1387 - 1heure
+##
+La correction est effecutée.
+L'écrant impacté est l'écran d'administration des lieux.
+Fichier ajouter:
+fiche-exp.js
+
+# 1390
+## 
+formfiche.titre.resume.alert.js
+==> doublon d'un autre bug
+==> Création de la classe : TextUtils.java
+==> Sauvegarde de SauvgarderFicheReservationAction
+
+
+Dans le controller "SauvgarderFicheReservationAction", je reçois de l'ISO. 
+Mise en place de la méthode :
+- TextUtils.getInstance().substituteCharsIsoToUtf
+==> suppression de TextHelper.getInstance().substituteChars
+
+# 1391
+##
+==> Suppression du code suivant
+			<field property="manifestation" depends="required">
+				<arg0 key="formfiche.titre.type.manifestation"/>
+			</field>
+==> Modification de "SauvgarderFicheDTAction".
+
+# 1392
+##
+- La correction est effectuée par mise à jour du fichier:
+AgendaSectBean ( com.citedessciences.struts.beans)
+La correction sera visible au prochain déploiement.
+
+
+

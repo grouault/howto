@@ -1,0 +1,67 @@
+# Impression d'un fiche via l'agenda.
+##
+
+Action: ImpressionFicheAction
+			--> création ImpressionFicheBean.
+			Tout se passe dans ce bean: imp.process.pdf.
+			
+# Modifs effectués.
+##
+Création de la méthode: getHierarchy dans RefLieu.java.
+
+
+
+# Travail inutile:
+##
+
+AdminFactory (obsolète):
+----------------------
+
+	/**
+	 * retourne la hiérarchie d'un lieu à partir de son id.
+	 * Batiment/Niveau/Quadrant (LieuGeo)
+	 * @param idLieu
+	 * @return
+	 */
+	public String getHierarchy(Integer idLieu){
+		String strHierarchy = null;
+		JbpmSession jbpmSession = null;
+		try {
+			jbpmSession = openJBPMSession();
+			Session sessionHibernate = jbpmSession.getSession();
+			beginJBPMTransaction(jbpmSession);
+			strHierarchy = adminLieux.getHierarchy(sessionHibernate, idLieu);
+			commitJBPMTransaction(jbpmSession);
+		} catch (Exception e) {
+			rollbackJBPMTransaction(jbpmSession);
+			RessourceFrontReader.getInstance().logError(e, new Throwable());
+		} finally {
+			closeJBPMSession(jbpmSession);
+		}
+		return strHierarchy;
+	}
+
+
+
+AdminLieux (obsolète):
+----------------------
+
+	/**
+	 * retourne sous format littérale la hierarchie d'un lieu
+	 * Batiment/Niveau/Quadrant (Lieu)
+	 * @param sessionHibernate
+	 * @param idLieu
+	 * @return
+	 */
+	public String getHierarchy(Session sessionHibernate, Integer idLieu){
+		String strHierarchy = null;
+		if (idLieu!=null) {
+			HRefLieu lieuHibernate = (HRefLieu)sessionHibernate.get(HRefLieu.class, idLieu);
+			HRefQuadrant quadrantHibernate = (HRefQuadrant)lieuHibernate.getQuadrant();
+			HRefNiveau niveauHibernate = (HRefNiveau)quadrantHibernate.getIdNiveau();
+			HRefBatiment batimentHibernate = (HRefBatiment)niveauHibernate.getBatiment();
+			strHierarchy = batimentHibernate.getLibelle() + " / " + niveauHibernate.getLibelle() + " / " +
+							quadrantHibernate.getLibelle() + " (" + lieuHibernate.getLibelleLieu() + ") ";	
+		}
+		return strHierarchy;
+	}

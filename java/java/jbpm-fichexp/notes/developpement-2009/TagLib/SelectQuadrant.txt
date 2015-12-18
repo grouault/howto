@@ -1,0 +1,8 @@
+################
+# TagLib
+###############
+
+# Existant
+#####
+SelectLieuTag.java : (com.citedessciences.struts.taglibs)
+RessourceFrontReader.java (com.citedessciences.struts.util)
