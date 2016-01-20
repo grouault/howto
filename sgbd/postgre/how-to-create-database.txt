@@ -1,6 +1,26 @@
 # Créer une base de données : Principe
 # Créer à partir de PGAdmin.
 ##
-- créer user agenda
+- créer user agenda	
+	# Create à User
+	PGAdmin :
+	---------
+	1- se connecter en admin
+	2- aller sur Role de connexion
+	3- ajouter le rôle
+	
 - créer la base agenda
+	# Creer une base
+	PGAdmin :
+	---------
+	1- se connecter en admin
+	2- se positionner sur Base de données
+	3- ajouter une nouvelle Base de données	
+	
 - créer la connexion et se connecter en tant qu'agenda
+	# Creer une base
+	PGAdmin :
+	---------
+	1- se connecter en admin
+	2- se positionner sur Base de données
+	3- ajouter une nouvelle Base de données	

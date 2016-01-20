@@ -1,0 +1,2 @@
+# Get Path Properties
+getClass().getClassLoader().getResource("reservoir.properties")

@@ -1,0 +1,9 @@
+# how-to-conf-settings
+
+# Environnement
+La conf. suit l'environnement du gars qui est loggué.
+Il tient compte du settings.xml définit au niveau du compte du user 
+Exemple : C:\Users\Rouault1\.m2
+
+# Eclipse
+Définir le maven settings dans les confs.
