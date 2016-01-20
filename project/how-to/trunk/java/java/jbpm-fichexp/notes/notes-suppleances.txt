@@ -1,0 +1,14 @@
+# Note Suppléance
+##
+
+			// suppression des liens de suppleance vers les utilisateurs pour qui cet utilisateur (id) est suppleant.
+			Utilisateur utilisateur = adminUtilisateur.get(id, sessionHibernate);
+			List<Suppleant> suppleantsFrom = getSuppleantsFrom
+			
+	public void delete(Suppleant suppleant, Session sessionHibernate) throws Exception{
+		this.delete(suppleant.getId(), sessionHibernate);
+		String message = "[Suppleant] : Suppresion du suppleant [" + suppleant.getNom() + "] "
+				+ "lors de l'inactivation du compte de l'utilisateur [" + suppleant.getNom() + "(" + suppleant.getId() + ")]";
+		logger.logInfo("generic", new Object[]{message}, new Throwable());
+		
+	}			
