@@ -1,6 +1,9 @@
 mvn -X clean install -s C:\devs\tools\maven-3.0.3\conf\settings-lr-new.xml  
 
-mvn clean -Dliferay.version=6.2.3
+# option
+verion : -Dliferay.version=6.2.3
+test   : -Dmaven.test.skip=true / -DskipTests
+
 
 # estim-search-engine / search-engine-core
 mvn clean package -Dliferay.version=6.2.3 -DskipTests
