@@ -15,3 +15,20 @@ Copier un fichier distant:
 --------------------------
 De la même façon je peux copier un fichier d’un serveur distant sur ma machine locale.
 scp user@serveurdistant:/chemin/fichierdistant
+
+
+# Exemple :
+##
+# SCP : récupérer les fichiers depuis webdev
+scp was6@webdev.citepro.cite-sciences.fr:/tmp/estim/hook-project/estim-discussion-hook-6.1.1.1.war .
+# portail
+scp liferay@vm-estim-devlr2:/data/svn-trunk/estim-portail-portlet/estim-portail-portlet/target/estim-portail-portlet-1.0.war .
+# annuaire
+scp liferay@vm-estim-devlr2:/data/svn-trunk/estim-annuaire-portlet/estim-annuaire-portlet/target/estim-annuaire-portlet-1.0.war .
+# ressources
+scp liferay@vm-estim-devlr2:/data/svn-trunk/estim-ressources-portlet/estim-ressources-portlet/target/estim-ressources-portlet-1.0.war .
+# contacts
+scp liferay@vm-estim-devlr2:/data/svn-trunk/estim-contacts-portlet/estim-contacts-portlet/target/estim-contacts-portlet-trunk-SNAPSHOT.war .
+
+##
+svn co http://vm-estim-devlr1.citepro.cite-sciences.fr/svn/ESTIM/ESTIM-UTILS/trunk/ estim-utils-lib
