@@ -1,9 +1,9 @@
 # Modification du service
 ##
-
 Pour qu'une application soit prise en compte par les filtres CAS, il est nécessaire de déclarer l'application en tant que Service
 au niveau de l'applcation CAS.
 ==> https://vm-estim-devlr2.citepro.cite-sciences.fr/cas/services/manage.html
+
 Ensuite il faut définir un service pour l'application choisie :
 Exemple: resoff:
 Nom : https reso
