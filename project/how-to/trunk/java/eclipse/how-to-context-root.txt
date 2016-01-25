@@ -1,0 +1,4 @@
+# Contexte Applicatif
+##
+Eclipse : 
+WebProjectSettings ==> définir le ContextRoot

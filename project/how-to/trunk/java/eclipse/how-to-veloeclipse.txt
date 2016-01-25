@@ -1,0 +1,11 @@
+# Eclipse 4.4
+1- 
+You can install support for 2.0 style plugins using Help > Install New Software.
+Select the 'Eclipse Project Updates' site (http://download.eclipse.org/eclipse/updates/4.4).
+You will find 'Eclipse 2.0 Style Plugin Support' in the 'Eclipse Tests, Examples and Extras' section.
+Install it.
+2- After, simply install Veloeclipse or other old "2.0 style" plugin
+http://veloeclipse.googlecode.com/svn/trunk/update/
+
+# Eclipse 3.3
+https://code.google.com/p/veloeclipse/
