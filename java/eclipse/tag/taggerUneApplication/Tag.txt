@@ -1,0 +1,15 @@
+Faire un tag:
+
+Note: un tag est une image de l'application à un moment donné. Il permet ainsi de revenir à une version antérieure
+de l'application à tout moment.
+Un tag se réalise à partir de la version trunk. 
+
+Réalistion d'un tag:
+ -1 : dans la vue SVN repository
+ -2 : se positionner sur la branche trunk (version courante).
+ -3 : clique droit: Branch/tag
+	svn://devomkt/BibNumBatch/trunk
+	--> Modifier en svn://devomkt/BibNumBatch/tags
+	--> Mettre un commentaire
+	--> Valider: le tag est créé.
+	

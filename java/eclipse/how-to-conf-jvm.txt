@@ -1,0 +1,10 @@
+# url :
+http://www.jmdoudoux.fr/java/dej/chap-jvm.htm
+
+# JVM : size
+-Xms<size> : set initial Java heap size
+-Xmx<size> : set maximum Java heap size
+
+# CONF : eclipse ==> test
+-Xms256m 
+-Xmx512m

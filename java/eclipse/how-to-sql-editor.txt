@@ -1,0 +1,6 @@
+# How to manage database.
+Eclipse LUNA :
+--------------
+http://dowload.eclipse.org/releases/luna
+==> Activer l'option suivante :
+Database Development ==> Data Tools Platform Enablement Extender SDK

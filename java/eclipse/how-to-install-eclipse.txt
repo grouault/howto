@@ -1,0 +1,4 @@
+# ganymede-helios-indigo
+subclipse (svn) :  http://subclipse.tigris.org/update_1.6.x
+maven : http://m2eclipse.sonatype.org/sites/m2e/
+m2e-extras (subclipse) : http://m2eclipse.sonatype.org/sites/m2e-extras/
