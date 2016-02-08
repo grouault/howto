@@ -1,0 +1,84 @@
+https://vm-estim-devlr2.citepro.cite-sciences.fr/documents/20182/0/Chef+de+service+DSI+2/2640df4d-c243-4f6d-9624-b51f17bb9d13?version=1.3
+
+https://vm-estim-devlr2.citepro.cite-sciences.fr/documents/20182/2640df4d-c243-4f6d-9624-b51f17bb9d13?version=1.3
+
+<liferay-ui:icon
+	image='<%= "../file_system/small/" + conversion %>'
+	label="<%= true %>"
+	message="<%= StringUtil.toUpperCase(conversion) %>"
+	url='<%= DLUtil.getPreviewURL(fileEntry, fileVersion, themeDisplay, "&targetExtension=" + conversion) %>'
+/>
+
+# Document / Structure / DfFileEntry
+http://liferayiseasy.blogspot.fr/2015/07/save-document-with-metadata-in-document.html
+
+# Regexp
+concat('test','test2') as url
+concat('/documents/', dlfe.title) as url
+concat('/documents/', dlfe.repositoryid, '/', dlfe.folderid, '/', dlfe.title) as url
+
+concat('/documents/', dlfe.repositoryid, '/', dlfe.folderid, '/', regexp_replace(dlfe.title, '[\s*'']', '+','g')) as url
+
+regexp_replace(dlfe.title, '[\s*'']', '+','g'),	 
+
+regexp_replace(dlfe.title, '[\s*]', '+','g')
+
+--
+-- Recuperer le XML des metadatas d'un FileEntry
+SELECT *
+FROM dlfileentry d
+	JOIN dlfileentrymetadata d1 ON d.fileentryid = d1.fileentryid AND d.fileentrytypeid = d1.fileentrytypeid
+	
+where 
+	d.fileentryid='194325' 
+	AND d.fileentrytypeid ='98034';
+
+fiche de poste :
+ --> structure, 
+ --> fileEntrytype
+
+ --
+-- Recuperer les FileEntryType ==> fiche de poste
+SELECT *
+ FROM dlfileentrytype dlfetype
+ WHERE dlfetype.name LIKE '%D-Fiche de Poste%';	
+
+--
+-- Recuperer ddStructure ==> fiche de poste
+SELECT *
+FROM ddmstructure d
+WHERE d.name like '%D-Fiche de Poste%'	
+	
+	
+SELECT dlfe.fileentryid, dlfe.version, dlfe.title, dlfetype."name",dlfemtd.ddmstorageid, ddmc."xml", dlfemtd.fileversionid, dlfemtd.ddmstructureid
+FROM dlfileentry dlfe
+	JOIN dlfileentrytype dlfetype ON dlfe.fileentrytypeid = dlfetype.fileentrytypeid
+	JOIN dlfolder dlf ON dlfe.folderid = dlf.folderid
+	JOIN dlfileentrymetadata dlfemtd ON dlfe.fileentryid = dlfemtd.fileentryid 
+		AND dlfe.fileentrytypeid = dlfemtd.fileentrytypeid	
+	JOIN dlfileversion dlfv ON dlfe.version=dlfv.version
+		AND dlfv.fileversionid = dlfemtd.fileversionid
+	JOIN ddmcontent ddmc ON dlfemtd.ddmstorageid = ddmc.contentid
+where 
+	dlfe.fileentryid='194325' 
+	AND dlfe.fileentrytypeid ='98034'
+		AND dlfemtd.ddmstructureid = '98035';
+	
+--
+--	
+SELECT d.fileentryid, d.uuid_, d.version, dm.ddmstorageid, dc."xml", dm.fileversionid, dm.uuid_, dm.ddmstructureid
+FROM dlfileentry d
+	JOIN dlfileentrymetadata dm ON d.fileentryid = dm.fileentryid 
+		AND d.fileentrytypeid = dm.fileentrytypeid	
+	JOIN ddmcontent dc ON dm.ddmstorageid = dc.contentid
+	JOIN dlfileversion dlfv ON d.version=dlfv.version
+		AND dlfv.fileversionid = dm.fileversionid
+where 
+	d.fileentryid='194325' 
+	AND d.fileentrytypeid ='98034'
+	AND dm.ddmstructureid = '98035';
+	
+	
+select d.version 
+FROM dlfileentry d 
+WHERE d.fileentryid=194325;	

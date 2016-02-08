@@ -1,0 +1,48 @@
+f/types_d_evenement/typ_evt_expo_vis
+f/types_d_evenement/typ_evt_renc_deb
+f/types_d_evenement/typ_evt_anim_ate
+f/types_d_evenement/typ_evt_spec_viv
+
+DynamicQuery dynamicQuery = DynamicQueryFactoryUtil.forClass(AssetVocabulary.class)
+	.add(PropertyFactoryUtil.forName("name").eq(vocabularyName));
+List<AssetVocabulary> assetVocabularies = AssetVocabularyLocalServiceUtil.dynamicQuery(dynamicQuery);
+
+## Chargement de la classe vocabulaire et récupération d'un vocabulaire
+#set ($vocLocalService = $serviceLocator.findService("com.liferay.portlet.asset.service.AssetVocabularyLocalService"))
+#set ($idVocabularyTypeEvent = $propsUtil.get("estim.vocabulary.type.evenement.id"))
+#set ( $vocabulary = $vocLocalService.getVocabulary($idVocabularyTypeEvent) )
+ 
+##
+# Chargement d'un vocabulaire et dynamic query pour récupérer par son nom.
+##
+#set ($assetVocabularyClass = $portal.getClass().forName("com.liferay.portlet.asset.model.AssetVocabulary"))
+#set ($dqfu = $portal.getClass().forName("com.liferay.portal.kernel.dao.orm.DynamicQueryFactoryUtil")) 
+#set ($propertyFU = $portal.getClass().forName("com.liferay.portal.kernel.dao.orm.PropertyFactoryUtil"))
+## set ($portalClassLoaderUtil = $serviceLocator.findService("com.liferay.portal.kernel.util.PortalClassLoaderUtil"))
+#set ( $q = $dqfu.forClass($assetVocabularyClass) )
+## set ( $q1 = $dqfu.forClass($assetVocabularyClass, $portalClassLoaderUtil.getClassLoader()) )
+#set ( $V = $q.add($propertyFU.forName("name").eq("Type d'évènement")) ) 
+
+##
+# Itération sur collection liste.
+##
+#if ($eventTypes)
+	<ul>
+	#foreach( $eventType in $eventTypes )
+		## chargement de la property code.
+		#set ($propertyCode = $propertyLocalService..getCategoryProperty($eventType.getCategoryId(), "code"))
+		#set ($searchFacet = "f/categorie_d_evenement/" + $stringUtil.lowerCase($propertyCode))
+		<li><a href='#getNavigationLink("evenements", "f/categorie_d_evenement/cat_evt_pro")'>$eventType.name</a></li>
+	#end
+	</ul>
+#end
+
+##
+# StringUtil
+##
+## Cast to String
+#set ( $companyId = $getterUtil.getString($themeDisplay.getCompanyId()) )
+#set ( $groupId = $stringUtil.valueOf($themeDisplay.getScopeGroupId()) )	
+
+## Replace
+#set ($returnValue = $stringUtil.replace($replaceUrl, $oldValue, $newValue))
