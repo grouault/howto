@@ -1,0 +1,51 @@
+# Entries :
+Dans un template on accède aux données remontées par la configuration de l'ADT, via la variable : entries.
+==> Correspond à des AssetEntry (Liferay)
+#foreach ($entry in $entries)
+	size: $entries.size()<br/>
+	#foreach ($entry in $entries)
+		#set ($renderer = $entry.getAssetRenderer() )
+		#set ($className = $renderer.getClassName() )
+	#end
+#end
+
+# how-to access type and structure
+-----------------------------------
+#set ($dlFileEntryType = $fileEntryTypeService.getFileEntryType($fileEntryTypeId))
+#set ($ddmStructure = $dlFileEntryType.getDDMStructures().get(0))
+
+# how-to access : field of structure or type
+------------------------------------------------------------------------------------------
+#set ($fieldsMap = $fileEntry.getFieldsMap($fileEntry.getFileVersion().getFileVersionId()))
+#set ($fields = $fieldsMap.get($ddmStructure.getStructureKey()))
+##date: $dateTool.format("dd/MM/yyyy", $fields.get("DateCandidature").getValue())
+#set ($direction = $fields.get("Direction").getRenderedValue($locale))
+
+#
+##
+	<div class="documents">
+	<ul>
+	#foreach ($entry in $entries)
+		#set ($renderer = $entry.getAssetRenderer() )
+		#set ($className = $renderer.getClassName() )
+		#set ($fileEntry = "")
+		#if( $className == "com.liferay.portlet.documentlibrary.model.DLFileEntry" )
+			#set ($fileEntry = $fileService.fetchDLFileEntry($entry.getClassPK()))
+			#set ($fileEntryTypeId = $fileEntry.getFileEntryTypeId())
+			#set ($dlFileEntryType = $fileEntryTypeService.getFileEntryType($fileEntryTypeId))
+			#set ($ddmStructure = $dlFileEntryType.getDDMStructures().get(0))
+			#if ($ddmStructure.getName($locale) == "Fiche de Poste")
+				#set ($urlEncodedTitle = $httpUtil.encodeURL($htmlUtil.unescape($fileEntry.getTitle())))
+				#set ($fieldsMap = $fileEntry.getFieldsMap($fileEntry.getFileVersion().getFileVersionId()))
+				#set ($fields = $fieldsMap.get($ddmStructure.getStructureKey()))
+				##date: $dateTool.format("dd/MM/yyyy", $fields.get("DateCandidature").getValue())
+				#set ($direction = $fields.get("Direction").getRenderedValue($locale))
+				<li class="titre">
+					<a href="/web/accueil/liste-des-documents/-/asset_publisher/id/$fileEntry.getFileEntryId()">$fileEntry.getTitle() ($direction)</a>
+					<a href="/documents/$groupId/$fileEntry.getFolder().getFolderId()/$urlEncodedTitle/$fileEntry.getUuid()" target="_blank">Télécharger</a>
+				</li>
+			#end
+		#end
+	#end
+	</ul>
+	</div>
