@@ -15,3 +15,5 @@ out += "Votre demande demande de congé est accepté.<br/>";
 out += "Nombre de jour : " + request.getDayCount() + "<br/>";
 out += "Cordialement";
 return out;
+
+// recuperation des acteurs
