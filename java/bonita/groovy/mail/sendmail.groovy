@@ -1,22 +1,3 @@
-# notes
-
-# BDM : Business Data Model
-Le modèle métier est une entité associé au workflow. Elle permet de stocker les infos pertinentes relatives au workflow.
-
-# contract
-Un contrat permet de capter en amont les données devant être fournies et validées pour peupler le modèle métier.
-L'onglet Data du Pool permet de définir le mapping entre le contrat et le modèle métier.
-
-Les différents contrats :
-- instanciation processus
-==> execution/contract : définir le contrat - variable
-==> data/pool variable : définir le modèle métier et mapping avec les données du contrat
-	==> customiser default value.
-- tâche humaine
-==> execution/contract : définir le contrat - variable
-==> execution/operation : définir les opération au moment où la tâche s'opère / mapping avec le modèle métier.
-
-
 'Bonjour\n' +
 'Votre demande demande de congé est accespté\n' +
 'Nombre de jour : ' + request.getDayCount() + '\n' +
