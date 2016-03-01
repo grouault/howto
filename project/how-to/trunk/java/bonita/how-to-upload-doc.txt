@@ -1,0 +1,44 @@
+# Notes
+Le document est directement associé au workflow.
+On ne passe pas par l'objet métier.
+
+Instanciation form : 
+- Créer le document à associer au worklow.
+- initialiser le document par contract.
+
+# Intégration FileUpload
+../API/formFileUpload
+
+formInput.docNdfContract
+
+formOutput.myDocumentContract
+formOutput ==> JSon
+==> { "myDocumentContract": null } 
+
+
+http://link
+Text : Download: {{context.myDocument_ref.fileName}} ==> Download: {{context.docNdf_ref.fileName}}
+URL ==> "/bonita/portal/" + context.myDocument_ref.url==> "/bonita/portal/" + context.docNdf_ref.url
+Frame ==> Current frame (_self)
+
+http://localhost:8080/bonita/portal/resource/taskInstance/Pool/1.5/ValiderDemande/content/%22/bonita/portal/%22%20+%20context.docNdf_ref.url
+
+# Parametrage studio
+Data/Document ==> Créé un document au niveau du workflow
+A declaration of document store by Bonita BPM Engine attached to DemoUploadFile process instances.
+
+# Opération de mises à jour
+##
+import org.bonitasoft.engine.bpm.contract.FileInputValue
+import org.bonitasoft.engine.bpm.document.Document
+import org.bonitasoft.engine.bpm.document.DocumentValue
+
+if(myDocumentContract != null) {
+	return myDocumentContract
+} else {
+	Document currentDocument = apiAccessor.processAPI.getLastDocument(processInstanceId, "myDocument")
+	
+	FileInputValue fileInputValue = new FileInputValue(currentDocument.contentFileName, apiAccessor.processAPI.getDocumentContent(currentDocument.contentStorageId))
+	
+	return fileInputValue
+}

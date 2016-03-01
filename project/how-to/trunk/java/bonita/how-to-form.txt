@@ -1,0 +1,7 @@
+# Form : 
+
+# API
+getContext : à partir de la taskId
+/bonita/API/bpm/userTask/{{taskId}}/context 
+
+../API/identity/user/{{request.employeeId}} 
