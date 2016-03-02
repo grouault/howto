@@ -17,11 +17,15 @@ formOutput ==> JSon
 
 
 http://link
+Download: {{context.myDocument_ref.fileName}}
 Text : Download: {{context.myDocument_ref.fileName}} ==> Download: {{context.docNdf_ref.fileName}}
 URL ==> "/bonita/portal/" + context.myDocument_ref.url==> "/bonita/portal/" + context.docNdf_ref.url
 Frame ==> Current frame (_self)
 
 http://localhost:8080/bonita/portal/resource/taskInstance/Pool/1.5/ValiderDemande/content/%22/bonita/portal/%22%20+%20context.docNdf_ref.url
+
+http://localhost:8080/bonita/portal/resource/taskInstance/Pool/1.5/ValiderDemande/content/bonita/portal/%20+%20context.docNdf_ref.url
+
 
 # Parametrage studio
 Data/Document ==> Créé un document au niveau du workflow

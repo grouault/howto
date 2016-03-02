@@ -36,3 +36,5 @@ out += "Commentaire : " + request.getManagerComment() + "<br/><br/>";
 out += "Validé par : " + userManager.getLastName() + "<br/><br/>";
 out += "Cordialement.";
 return out;
+
+urlStream
