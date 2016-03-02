@@ -19,3 +19,6 @@ try {
 	}
 }
 return jsonContent;
+
+
+http://localhost:8080/bonita/logoutservice
