@@ -1,0 +1,72 @@
+# Form : 
+
+---------------------------------
+# Stockage Data au niveau du form
+---------------------------------
+1- sous forme d'expression JavaScript :
+formInputValidated
+return {"isApproved" : $data.request.decision, "managerComment": $data.comment}; 
+
+-------------------------------------------
+# Validation form / Objet métier et Contract
+--------------------------------------------
+La variable : $data dans le formulaire permet de récupérer les données de l'objet métier et autres.
+Exemple :
+data : {"data-value":{"persistenceId":113,"persistenceId_string":"113","persistenceVersion":0,"persistenceVersion_string":"0","employeeId":4,"employeeId_string":"4","libelle":"note de frais","montant":5,"montant_string":"5.0","dateFrais":1457481600000,"comment":null,"decision":false,"timerDate":1457532686697},"test":false}
+
+Les données du formulaire doivent :
+- respecter le contrat 
+==> retourner les valeurs attendues par le contrat.
+
+----------
+# document
+----------
+Les documents sont associés directement à l'instance du workflow.
+Il est peuplé par contrat.
+
+----------
+# taskId
+----------
+récupération de l'identifiant de l'instance.
+definir variable : taskId
+==> urlparameter : id 
+
+-----------------
+# Context / Request - API :
+-----------------
+getContext : à partir de la taskId
+/bonita/API/bpm/userTask/{{taskId}}/context 
+
+../API/identity/user/{{request.employeeId}} 
+../{{context.request_ref.link}} 
+
+-----------------
+# Rest API et Select
+-----------------
+1- Mettre dans le context sous forme d'une variable le flux JSon 
+==> possibleLiveType : ../API/extension/test/leaveReasons 	External API
+2- Configuration Select :
+- Available values : possibleLiveType
+- Displayed key : label (data flux json)
+- Returned key : id (data flux json)
+- Value : valeur de la request <==> doit matché la 'Returned key'
+
+---------------------------
+# Affichage des erreurs
+---------------------------
+Définir au niveau de la page la variable : error (String)
+Champs text :
+Hidden : error == null
+Text : <b>Error :</b> {{error | json}}
+
+---------------------------
+# Pieces jointes 
+---------------------------
+1- Champs d'upload :
+Value : valeur du contrat
+Url : ../API/formFileUpload
+
+2- Affichage du lien de download :
+Objet bonita : Link : http://
+text => "Download: {{context.docNdf_ref.fileName}}"
+url => "/bonita/portal/" + context.docNdf_ref.url

@@ -1,0 +1,9 @@
+Exemple d'infos du context :
+----------------------------
+Form input : {"isApproved":false}
+
+data :
+
+Context : {"request_ref":{"name":"request","type":"com.company.model.NoteDeFrais","link":"API/bdm/businessData/com.company.model.NoteDeFrais/109","storageId":109,"storageId_string":"109"},"docNdf_ref":{"id":211,"processInstanceId":3015,"name":"docNdf","author":4,"creationDate":1457531769655,"fileName":"pdf-exemple_415417317.pdf","contentMimeType":"application/pdf","contentStorageId":"211","url":"documentDownload?fileName=pdf-exemple_415417317.pdf&contentStorageId=211","description":"","version":"1","index":-1,"contentFileName":"pdf-exemple_415417317.pdf"}}
+
+Request : {"persistenceId":109,"persistenceId_string":"109","persistenceVersion":0,"persistenceVersion_string":"0","employeeId":4,"employeeId_string":"4","libelle":"Note de frais : restaurant","montant":45,"montant_string":"45.0","dateFrais":1457481600000,"comment":null,"decision":false,"timerDate":1457531949642}
