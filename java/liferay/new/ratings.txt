@@ -1,0 +1,25 @@
+# ratings
+##
+- ratings : 
+Mise à jour de la note moyenne :
+--------------------------------
+A la notation, une mise à jour est faite pour obtenir la note moyenne.
+Cet mise à jour se fait via un appel qui renvoie un flux JSon : getJSon
+Classe : com.liferay.portal.kernel.json.JSONFactoryUtil
+
+- Question / A voir :
+---------------------
+Mise à jour de la note : comment cela se passe-t-il?
+Quelle classe et service sont mis en jeu?
+
+# JavaScript
+##
+Le fichier de script mis en jeu est le suivant :
+Au niveau du folder : portal-web/docroot/html/js/liferay/rating.js
+
+# DataBase
+##
+Tables :
+--------
+- ratingstats
+- ratingsentry

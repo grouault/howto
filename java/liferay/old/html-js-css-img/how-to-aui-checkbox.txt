@@ -1,0 +1,38 @@
+##
+# Validation sur checkbox
+##
+# Urls
+http://rajeevalochanabr.wordpress.com/2012/08/20/validation-using-auialloy-user-interface-script-and-html-form/
+https://github.com/blessinglife/sample-aui-validator-taglib-portlet/blob/7458ff668597b835983249ce7b6db621b0c5acf1/docroot/view.jsp
+http://www.liferay.com/fr/community/forums/-/message_boards/message/23938551
+http://drewblessing.com/blog/-/blogs/34509
+
+# liferay-ui:input-checkbox
+true ou false pour validCondition :
+<liferay-ui:input-checkbox cssClass="condition" param="condition" defaultValue="<%= validCondition %>" />	
+
+# aui:input + validator.
+==> il faut passer par aui et enrichier le validator.
+<aui:script>
+var <portlet:namespace />formValidator;;
+AUI().ready('aui-form-validator', function(A) {
+<portlet:namespace />formValidator = new A.FormValidator({
+      boundingBox: document.<portlet:namespace />fm,
+      validateOnInput: true,
+      rules : {
+        <portlet:namespace/>conditionCheckbox: {
+           required: true
+        }
+      }
+    });
+});
+</aui:script>
+
+==> Dans le form, en réinitialisant les valeurs de la checkbox.
+<%
+boolean validCondition = userForm != null
+	&& userForm.getValidCondition() != null
+	&& StringUtils.hasText(userForm.getValidCondition())
+	&& "true".equals(userForm.getValidCondition()) ? true : false; %>
+<aui:input name="condition" cssClass="condition-utilisation" label="<%= urlCharterLink %>" type="checkbox" value="<%= validCondition %>"/>                    
+<liferay-ui:error key="condition-generale-required" message="condition-generale-required" />

@@ -1,0 +1,15 @@
+http://www.jarvana.com/jarvana/view/com/liferay/portal/portal-web/6.0.3/portal-web-6.0.3.war!/html/taglib/ui/ratings/page.jsp?format=ok
+
+# Ratings.
+##
+- Objet qui permet de récupérer les infos sur les ratings d'un objet.
+RatingsStats  ratingsStats = RatingsStatsLocalServiceUtil.getStats(Evenement.class.getName(), event.getEvenementId());
+ratingsStats.setAverageScore(3);
+==> TagLibs :
+	<liferay-ui:ratings 
+		classPK = "${event.primaryKey}"
+		className = "<%=Evenement.class.getName()%>" 
+		type = "stars"
+		numberOfStars = "5" 
+		ratingsStats="<%= ratingsStats %>" 
+		 />

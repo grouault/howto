@@ -1,0 +1,44 @@
+# Injection Properties
+##
+1- fichier de config définit dans le classpath.
+2- récupération dans le fichier de conf du controlleur, du fichier de config dans le classpath.
+3- Configuration du bean controlleur.
+
+<!-- Injection Properties --> 
+<bean id="regionParams" class="org.springframework.context.support.ResourceBundleMessageSource">
+	<property name="basenames">
+		<list>
+			<value>regions</value>
+		</list>
+	</property>
+</bean> 
+
+<!-- Injection properties en xml .-->
+ <import resource="classpath:context-spring-portlet.xml" /> 
+<bean id="userDetailController" class="fr.universcience.estim.portal.annuaire.web.spring.control.UserDetailController">
+	<property name="identityManager" ref="identityManager" />
+	<property name="geolocManager" ref="geolocManager" />
+	<property name="regionParams" ref="regionParams" />
+</bean>
+
+# Injection LDAP
+##
+<bean id="contextSource" class="org.springframework.ldap.core.support.LdapContextSource">
+	<property name="url" value="ldap://192.168.10.17:2389" />
+	<property name="base" value="dc=estim,dc=fr" />
+	<property name="userDn" value="cn=ldapadmin,dc=estim,dc=fr" />
+	<property name="password" value="secret" />
+</bean>
+ 
+ 
+# Region - Principe
+## 
+Ajax : recuperation des datas en json à partir d'une localisation.
+==> peuplement des données du formulaire.
+==> Validation et persistance des données.
+
+RegionParams.
+
+# Au niveau de adresse
+Region : mise à jour du RegionId.
+Country : mise à jour de la country.

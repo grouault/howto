@@ -1,0 +1,9 @@
+# Liferay-porlet.xml 
+##			
+Conf. spécifique Liferay.
+
+# Propriété de conf.
+##
+Ajouter une portlet non présente sur une page:
+----------------------------------------------
+<add-default-resource>true</add-default-resource>

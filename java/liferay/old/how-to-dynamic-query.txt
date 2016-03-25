@@ -1,0 +1,28 @@
+		// declencher une recherche sur "Title" et "Description"
+		DynamicQuery dynamicEventQuery = DynamicQueryFactoryUtil.forClass(Evenement.class);
+		// filtre sur les mots cles.
+		if (Validator.isNotNull(keywords)) {
+			Criterion keyWordCriterion = getKeyWordCriterion(keywords);
+			dynamicEventQuery.add(keyWordCriterion); // critere des mots cles.
+		}
+		// filgre sur la structure.
+		if (Validator.isNotNull(structures)) {
+			Criterion criterionStructure = getOrCriterions(structures, "structureId");
+			dynamicEventQuery.add(criterionStructure);
+		}				
+		// filtre sur les categories.
+		if (Validator.isNotNull(tabEventIds)) {
+			dynamicEventQuery.add(PropertyFactoryUtil.forName("evenementId").in(tabEventIds));	
+		}
+		// filtre sur la region.
+		events = EvenementLocalServiceUtil.dynamicQuery(dynamicEventQuery);				
+		return events;
+		
+		
+        	results = null; 
+        	DynamicQuery query = DynamicQueryFactoryUtil.forClass(EvenementContact.class);
+        	Criterion criterion = RestrictionsFactoryUtil.eq("evenementId", eventId);
+        	query.add(criterion);
+        	
+        	@SuppressWarnings("unchecked")
+			List<EvenementContact> evtsContact = EvenementContactLocalServiceUtil.dynamicQuery(query);;

@@ -1,0 +1,19 @@
+HowTo : PortletRequest.
+PortletRequest :
+--> ActionRequest.
+--> RenderRequest.
+
+# HowTo : mise dans le contexte des infos.
+actionRequest.setAttribute("refusedStructure", refusedStructures);
+	==> pour passer à la vue des objets
+actionResponse.setRenderParameter("view", "join-structure-view");
+	==> pour passer à la méthode de rendu, des infos de type String
+	
+# Récupération de HttpRequest à partir du RenderRequest.
+HttpServletRequest httpRequest = PortalUtil.getHttpServletRequest(renderRequest);
+Layout layout = LayoutLocalServiceUtil.getFriendlyURLLayout(themeDisplay.getScopeGroupId(), false, "/create-account");    
+String urlTest = layout.getRegularURL(httpRequest); ==> Recupération UrlGuest.
+
+# Récupérer le servletContext ==> passé par la Session.
+httpRequest.getSession.getServletContext()
++ mise à jour de l'ApplicationContext

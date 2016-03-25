@@ -1,0 +1,6 @@
+public final String SESSION_FACTORY = "liferaySessionFactory";
+// session factory
+sessionFactory = (SessionFactory) PortalBeanLocatorUtil.locate(SESSION_FACTORY);
+private EvenementFinder() {
+	sessionFactory = (SessionFactory) PortalBeanLocatorUtil.locate(SESSION_FACTORY);
+}

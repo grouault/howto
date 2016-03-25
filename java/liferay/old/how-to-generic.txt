@@ -1,0 +1,25 @@
+
+# jstl.
+http://adiguba.developpez.com/tutoriels/j2ee/jsp/jstl/#L-c:forEach
+
+# HowTo : map.
+http://fr.wikibooks.org/wiki/Programmation_Java/Collections
+
+# Howto : Image
+http://localhost:8080/image/user_male_portrait?img_id=27201&t=1367838812228
+
+# User
+##
+
+
+# PortletConfig
+##
+		Locale locale = renderRequest.getLocale();
+		PortletConfig portletConfig = (PortletConfig) renderRequest.getAttribute(JavaConstants.JAVAX_PORTLET_CONFIG);
+		ResourceBundle res = portletConfig.getResourceBundle(locale);
+		
+		PortletContext pc = request.getPortletSession().getPortletContext();
+		GeolocManager mgrGeoloc = (GeolocManager) PortletApplicationContextUtils.getWebApplicationContext(pc).getBean("geolocManager");
+		System.out.println("mgrGeoloc = " + mgrGeoloc);
+		GeolocManager geolocManager = (GeolocManager) PortletBeanLocatorUtil.locate("geolocManager");
+		System.out.println("geoloc1 = " + geolocManager);		

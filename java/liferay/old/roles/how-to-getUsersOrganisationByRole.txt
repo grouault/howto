@@ -1,0 +1,17 @@
+# Récupérer les users d'une organisation qui ont un certains rôle.
+##
+final List<User> functionalsAdmin = new ArrayList<User>();
+// recuperation du role admin pour la structure.
+final Role roleFunctionalAdm = RoleLocalServiceUtil.getRole(structure.getCompanyId(), RoleConstants.ORGANIZATION_ADMINISTRATOR); 
+// recuperation des users de la structure.
+final List<User> usersGroup = UserLocalServiceUtil.getOrganizationUsers(structure.getGroupId());
+if (!CollectionUtils.isEmpty(usersGroup)) {
+	for (final Iterator<User> iterator = usersGroup.iterator(); iterator.hasNext();) {
+		final User currentUser = (User) iterator.next();
+		if (UserGroupRoleLocalServiceUtil.hasUserGroupRole(currentUser.getUserId(), 
+				structure.getGroupId(), roleFunctionalAdm.getRoleId())) {
+			functionalsAdmin.add(currentUser); 
+		}
+	}
+}
+return functionalsAdmin;

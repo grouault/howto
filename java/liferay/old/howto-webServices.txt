@@ -1,0 +1,28 @@
+http://localhost:8080/api/axis
+http://test:test@localhost:8080/api/secure/axis/Portal_UserService
+http://localhost:8080/api/axis/Portal_UserService?wsdl
+http://localhost:8080/api/secure/axis/Portal_UserService?wsdl
+
+# ScreenName
+##
+http://test:test@localhost:8080/api/secure/axis/Portal_UserService
+http://test:test@localhost:8080/api/secure/axis/Portal_UserService?wsdl
+
+#UserId
+##
+http://10195:test@localhost:8080/api/secure/axis/Portal_UserService
+
+# 127.0.0.1
+http://test:test@127.0.0.1:8080/api/secure/axis/Portal_UserService
+
+
+# Notes
+##
+http://www.liferay.com/fr/web/antonio.junior/blog/-/blogs/consuming-liferay-web-services
+http://www.liferay.com/fr/community/wiki/-/wiki/Main/How+to+use+Custom+Attributes+to+enhance+Users
+http://issues.liferay.com/browse/LPS-14096?page=com.atlassian.jira.plugin.system.issuetabpanels:all-tabpanel
+http://java-liferay.blogspot.fr/2012/09/how-to-make-users-import-into-liferay.html
+
+# Exposte liferay as a WebService
+##
+http://www.devatwork.nl/2010/04/expose-a-liferay-service-as-a-web-service/

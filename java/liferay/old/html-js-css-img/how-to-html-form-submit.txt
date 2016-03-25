@@ -1,0 +1,14 @@
+# HowTo-Form
+##
+
+# submit
+<div class="submit">
+	<aui:button type="submit"  />
+</div>
+
+# submit with : js.
+<aui:button-row>
+<aui:button name="valider" 
+	value='<%= LanguageUtil.get(themeDisplay.getLocale(), "import-label-button-valid") %>' 
+	onClick="javascript: validateXlsImport(this.form);" />
+</aui:button-row>

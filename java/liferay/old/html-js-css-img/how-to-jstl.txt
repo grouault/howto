@@ -1,0 +1,61 @@
+# jstl.
+http://adiguba.developpez.com/tutoriels/j2ee/jsp/jstl/#L-c:forEach
+
+# c:if
+## 
+Avec Boolean :
+--------------
+<c:set var="isDefaultUser" value="<%= true %>" />
+<c:if test="${!isDefaultUser}">
+	test    
+</c:if>
+
+# Remettre dans le contexte java une variable jstl.
+##
+==> Par exemple, avec un <for:each>
+<c:forEach var="structure" items="${structures}">
+<% 
+Organization currentSructure = (Organization)pageContext.getAttribute("structure"); 
+%>
+
+
+# Itération sur une liste de String[]
+##
+<c:forEach items="${sdeps}" var="sdep">
+	<aui:option value="${sdep.serviceDeporteId}" label="${sdep.titre}" selected="${idsd == sdep.serviceDeporteId}"/>
+</c:forEach>
+
+sd.carte.events.type.filtrer.text
+sd.carte.events.them.filtrer.text
+sd.carte.events.pub.filtrer.text
+
+# Itération sur une Map
+##
+<c:if test="${!empty usersRegions}">
+   <div class="main-themes clearfix">
+	   <c:choose>
+		   <c:when test="${fn:length(usersRegions) > 1}"><liferay-ui:message  key="view-users-regions" /></c:when>
+		   <c:otherwise><liferay-ui:message  key="view-user-region" /></c:otherwise> 
+	   </c:choose>
+	   <c:set var="count" value="0" scope="page" />
+	   <c:forEach items="${usersRegions}" var="entry">
+		   <c:if test="${count > 0}">,&nbsp;</c:if>
+		   <c:set var="count" value="${count + 1}" scope="page"/>
+		   <a class="linkpersonneregion" 
+			  href="${entry.value}" 
+			  title="${entry.key}">${entry.key}</a> 
+	   </c:forEach>
+	   <%-- affichage du point. --%>
+	   <span>.</span>
+	</div>
+</c:if>
+
+# fn
+##
+<div class="debug">
+	debug 0 = ${movieSummary.langues}
+	<br/>
+	debug 2 = ${fn:split(movieSummary.langues, '#')}
+	<br/>
+	debug 1 = ${fn:length(fn:split(movieSummary.langues,'#'))}
+</div>

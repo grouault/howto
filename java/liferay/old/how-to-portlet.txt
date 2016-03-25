@@ -1,0 +1,30 @@
+# HowTo : Portlet
+##
+Object : Portlet:
+==> Porltlet name.
+==> Portlet id.
+- Comment récupérer les infos de la portlet?
+- PortletContext ?
+- PortletConfig ?
+- Comment récupérer l'id de la Portlet ==> Enrichier le fichier de constants.
+
+# Context portlet.
+##
+PortletContext pc = renderRequest.getPortletSession().getPortletContext();
+Enumeration<String> initParameters = pc.getInitParameterNames();
+String portletContextName = pc.getPortletContextName();
+
+# Recuperation d'un objet portlet ==> ?
+##
+A partir du service :
+---------------------
+Portlet p =PortletLocalServiceUtil.getPortlet(12);
+
+contexte JSP :
+--------------
+PortletDisplay pd = themeDisplay.getPortletDisplay();
+String id = pd.getId();
+String name = pd.getPortletName();
+
+#
+##

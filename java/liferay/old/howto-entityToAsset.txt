@@ -1,0 +1,21 @@
+# Transformer l'entite Slogan en Asset manipulable par le Potail.
+##
+
+Fichier Service.xml:
+--------------------
+Dans le fichier suivant, il convient de positionner les references suivantes :
+<reference package-path="com.liferay.portlet.asset" entity="AssetEntry" />
+<reference package-path="com.liferay.portlet.ratings" entity="RatingsStats" />
+
+Classe à créer :
+----------------
+Pour pouvoir manipuler l'entité en tant qu'asset dans lifreay (Portlet qui manipule les assets),
+il faut créer les classes suivantes:
+- SloganAssetRenderer extends BaseAssetRenderer
+- SloganAssetRendererFactory extends BaseAssetRendererFactory
+==> voir le package : fr.universcience.estim.referentiel.asset
+
+Liferay-portlet.xml :
+---------------------
+Il convient de mettre à jour le fichier Portlet.xml pour prendre en comtpe les classes créées à l'étape précédente :
+<asset-renderer-factory>fr.universcience.estim.referentiel.asset.SloganAssetRendererFactory</asset-renderer-factory>

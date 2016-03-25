@@ -1,0 +1,19 @@
+# Recuperer les admins fonctionnels.
+##
+public List<User> getFonctionnalAdmins(final Organization structure) throws SystemException, PortalException {
+	final List<User> functionalsAdmin = new ArrayList<User>();
+	// recuperation du role admin pour la structure.
+	final Role roleFunctionalAdm = RoleLocalServiceUtil.getRole(structure.getCompanyId(), ConstantsUtils.ROLE_ADMIN_FONCTIONNEL); 
+	// recuperation des users de la structure.
+	final List<User> usersGroup = UserLocalServiceUtil.getOrganizationUsers(structure.getOrganizationId());
+	if (!CollectionUtils.isEmpty(usersGroup)) {
+		for (final Iterator<User> iterator = usersGroup.iterator(); iterator.hasNext();) {
+			final User currentUser = (User) iterator.next();
+			if (UserGroupRoleLocalServiceUtil.hasUserGroupRole(currentUser.getUserId(), 
+					structure.getGroupId(), roleFunctionalAdm.getRoleId())) {
+				functionalsAdmin.add(currentUser); 
+			}
+		}
+	}
+	return functionalsAdmin;
+}

@@ -1,0 +1,21 @@
+# How-to-Errors
+##
+1- Dans le contrôleur : créer une liste d'erreur.
+List<String> errors = new ArrayList<String>(); // liste des erreurs.
+
+2- Créer un singleton de validation des errors : UserDetailValidator.validateUpdatedUser(uploadPortletRequest, errors)
+==> Récupérer les données de la request et procéder à leur validtion.
+==> Utiliserr la classe : Validator. ...
+==> Alimenter la liste avec les messages d'erreurs la clé des messages d'erreurs : clé des properties.
+
+3- En cas d'erreurs : 
+	Dans le contrôleur : mettre dans SessionErrors, les messages d'erreur.
+	for (String error : errors) {
+		SessionErrors.add(actionRequest, error);
+	}
+	SessionErrors.add(actionRequest, "fields-required");
+	
+4- Au niveau de la jsp :
+------------------------
+Afficher les messages d'erreurs :
+<liferay-ui:error key="structure-required" message="structure-required" />

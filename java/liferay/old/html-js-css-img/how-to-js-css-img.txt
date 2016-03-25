@@ -1,0 +1,22 @@
+# How-to ? javascript, css
+##
+
+# Javascript.
+##
+Include additional JavaScript in JSP file or HTML file like:
+* <script type='text/javascript' src='js/jquery_1.4.4.js'></script>
+* <script type='text/javascript' src='<%=request.getContextPath()%>/js/import/import-xls.js'></script>
+
+# Images.
+##
+Chemin des images du moteur : ==> \tomcat-7.0.27\webapps\ROOT\html\themes\classic\images
+Récupération de l'image : <%= themeDisplay.getPathThemeImages() %>/users_admin/facebook.jpg
+
+GetImage : 
+----------
+<img alt="My Image"
+	 id="<%= currentEvent.getIllustrationId() %>"
+	 title="This my image stored in liferay"
+	 src="<%=themeDisplay.getPathImage()%>/image.do?img_id=<%= currentEvent.getIllustrationId() %>" />
+	 
+	

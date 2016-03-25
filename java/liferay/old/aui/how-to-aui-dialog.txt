@@ -1,0 +1,62 @@
+http://marconapolitano.it/en/liferay/41-how-to-close-a-dialog-iframe-in-liferay-6-2.html
+http://www.liferay.com/fr/web/pokuri.jayaram/blog/-/blogs/portlet-in-popup-window-in-liferay-6-2
+http://goliferay.blogspot.fr/2015/01/how-to-close-liferay-popup-in-liferay.html
+
+The release of Liferay 6.2 and AlloyUI 2.0 has brought some changes in the dialogs management, removing some Javascript modules and deprecating other ones. 
+
+Let's see how to handle the following use case with Liferay 6.2: closing a dialog with a button inside the dialog itself.
+
+Open a dialog is a simple operation which, however, requires a minimum of attention; let's suppose to add the opening button in the <code>view.jsp</code> page and to display, inside the dialog, the content of the <code>dialog.jsp</code> page. The procedure is the classical one shown below, with the only particularity to add the <code>id</code> attribute, which uniquely identifies the dialog.
+
+    <aui:button name="openDialog" type="button" value="open-dialog" />
+
+    <liferay-portlet:renderURL var="dialogURL" windowState="<%=LiferayWindowState.POP_UP.toString() %>">
+    	<liferay-portlet:param name="mvcPath" value="/dialog.jsp" />
+    </liferay-portlet:renderURL>
+    <aui:script use="liferay-util-window">
+    A.one('#<portlet:namespace/>openDialog').on('click', function(event) {
+    	Liferay.Util.openWindow({
+    		dialog: {
+    			centered: true,
+    			height: 300,
+    			modal: true,
+    			width: 400
+    		},
+    		id: '<portlet:namespace/>dialog',
+    		title: '<liferay-ui:message key="i-am-the-dialog" />',
+    		uri: '<%=dialogURL %>'
+    	});
+    });
+    </aui:script>
+
+Inside the dialog.jsp page there could be anything (such as a form), but let's suppose that there's a button that trigger some kind of processing (read and manipulate the form fields) and then close the dialog itself.
+
+    <aui:button name="closeDialog" type="button" value="close" />
+     
+    <aui:script use="aui-base">
+    A.one('#<portlet:namespace/>closeDialog').on('click', function(event) {
+    	// Let's suppose that "data" contains the processing results
+    	var data = ...
+    	// Invoke a function with processgin results and dialog id
+    	Liferay.Util.getOpener().<portlet:namespace/>closePopup(data, '<portlet:namespace/>dialog');
+    });
+    </aui:script>
+
+The getOpener() function returns the window which opened the dialog, namely view.jsp; so the closePopup function must be defined inside view.jsp page.
+
+    <aui:script>
+    Liferay.provide(
+    	window,
+    	'<portlet:namespace/>closePopup',
+    	function(data, dialogId) {
+    		var A = AUI();
+    		
+    		// Here you can use "data" parameter
+    		
+    		// Closing the dialog
+    		var dialog = Liferay.Util.Window.getById(dialogId);
+    		dialog.destroy();
+    	},
+    	['liferay-util-window']
+    );
+    </aui:script>

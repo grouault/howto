@@ -1,0 +1,60 @@
+# User-Organisation.
+##
+
+# Data-Model
+##
+Table : role_
+Table de jointure : users_org
+Table : user_roles.
+Table : usergrouprole : user qui ont une rôle pour un groupe donnée ==> le group peut être une structure/organisation ou toute autre chose... 
+	car distinction par ClassPK / ClassNameId.
+Table : usergroupgrouperole ==> usergroup qui ont un role pour un group donné ==> ???
+	
+# Création d'une organisation.
+A sa création, une organisation est associé à un groupe : groupeId / companyId / classNameId / classPK
+Notion de groupe (?) : 
+	- chaque organisation a son propre groupe distinct.
+	==> Possibilité de désactiver le groupe (==> ?)
+	
+# Création d'un rôle :
+Un rôle est crée pour une companyId ??? <==> un site / un portail  <==> liferay.com.
+
+# Création d'un groupe de user :
+Object : UserGroup
+
+######### Requete ##########
+
+# Requete sur user-organisation.
+##
+
+#Récupérer les users d'une organisation.
+final List<User> usersGroup = UserLocalServiceUtil.getOrganizationUsers(structure.getGroupId());
+
+# Récupérer les organisations actives :
+List<Organization> structures = OrganizationLocalServiceUtil.getOrganizations(QueryUtil.ALL_POS, QueryUtil.ALL_POS);
+
+# Récupérer les organisations d'un user :
+List<Organization> structuresUser = OrganizationLocalServiceUtil.getUserOrganizations(user.getUserId());
+
+# Mettre à jour l'association user/organisation
+long[] newStruct = new long[0]; // tableaux des identifiants des structures que l'on veut associer.
+UserLocalServiceUtil.updateOrganizations(user.getUserId(), newStruct, sc);
+
+##
+# Requete sur les roles.
+##
+# Récupérer un rôle
+final Role roleFunctionalAdm = RoleLocalServiceUtil.getRole(structure.getCompanyId(), RoleConstants.ORGANIZATION_ADMINISTRATOR);
+# Savoir si un user a un role donne pour une organisation ==> on passe par le groupe.
+UserGroup ==> le user d'un groupe donc le user d'une organisation/structure. :
+UserGroupRoleLocalServiceUtil.hasUserGroupRole(currentUser.getUserId(), structure.getGroupId(), roleFunctionalAdm.getRoleId())
+
+##
+# Addresse sur user.
+##
+user <==> contact <==> address.
+L'address du user est stockée via la table contact.
+A un user peut être associé un contact.
+Dans la table addresse, il convient de renseigner : ClassPK:Contact / ClassId: identifiant du contact.
+
+
