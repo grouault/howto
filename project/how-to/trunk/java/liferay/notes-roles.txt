@@ -1,0 +1,20 @@
+# Note Role
+##
+Par défaut toutes les portlets ajoutées au contrôl-panel sont disponible seulement pour les utilisateurs qui sont administrateurs.
+Pour ajouter les portlets pour les autres users : 
+- utilisé la permission : ACCESS_IN_CONTROL_PANEL
+La permission doit être positionné pour le rôle souhaité.
+C'est ce rôle qui fait que la liste est visible dans le contrôle panel.
+- utilisé la permission : 
+--> VIEW pour voir la liste.
+
+# Définition
+##
+Permission : action sur une Ressource.
+
+#
+##
+Urls
+http://www.liferay.com/fr/community/wiki/-/wiki/Main/Control+Panel 
+http://content.liferay.com/4.0.0/docs/developers/ch07s03.html
+https://github.com/liferay/liferay-portal/blob/master/portal-web/docroot/html/portlet/plugins_admin/edit_plugin.jsp

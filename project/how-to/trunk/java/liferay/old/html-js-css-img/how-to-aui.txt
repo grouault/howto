@@ -1,0 +1,63 @@
+<%-- 
+description demande. 
+==> TextArea.
+--%>
+<aui:input 
+	maxlength="500" 
+	label="descriptionDemande" 
+	name="description" 
+	cols="40" 
+	rows="10" 
+	type="textarea" value="${userForm.description}" />        
+
+<%-- Class CSS sur les Input --%>
+inputCssClass
+
+<%-- date in form . --%>
+<aui name="" /> ==> rend la date avec une date - 1 jour.
+De la manière suivante : 
+<aui:input name="startTime" 
+   model="<%= Evenement.class %>" 
+   bean="<%= event %>"
+   value="<%= event.getStartTime() %>" />
+ERROR [http-bio-8080-exec-20][IncludeTag:154] java.lang.ClassCastException: java.util.Date cannot be cast to java.util.Calendar
+==> Du coup, il faut caster au préalable :
+<%
+Calendar startTime = CalendarFactoryUtil.getCalendar(); 
+startTime.setTime(event.getStartTime());
+%>
+<aui:input name="startTime" 
+   model="<%= Evenement.class %>" 
+   bean="<%= event %>"
+   value="<%= startTime %>" />
+   
+<%-- liferay-ui:date --%>
+				System.out.println("LanguageId = " + themeDisplay.getLanguageId());
+				System.out.println("Locale = " + themeDisplay.getLocale());
+				System.out.println("timeZone = " + timeZone);
+				themeDisplay.getTimeZone();
+			    //TimeZone currentTimeZone = TimeZone.;
+				// Locale currentLocal = Locale.FRANCE;
+				// System.out.println("currentLocal = " + currentLocal);
+			    // Calendar eventStartTime = CalendarFactoryUtil.getCalendar(timeZone, currentLocal);
+				// eventStartTime.s;
+				%>
+<!-- 				<div> -->
+<%-- 				 <liferay-ui:input-date --%>
+<%-- 					 dayValue="<%= eventStartTime.get(Calendar.DATE) %>" --%>
+<%-- 					 dayParam="day" --%>
+<%-- 					 disabled="<%= false %>" --%>
+<%-- 				      firstDayOfWeek="<%= eventStartTime.getFirstDayOfWeek() - 1 %>" --%>
+<%-- 					monthParam="month" --%>
+<%-- 					monthValue="<%= eventStartTime.get(Calendar.MONTH) %>" --%>
+					
+<%-- 					yearParam="year" --%>
+					
+<%-- 					yearValue="<%= eventStartTime.get(Calendar.YEAR) %>" --%>
+					
+<%-- 					yearRangeStart="<%= eventStartTime.get(Calendar.YEAR) %>" --%>
+					
+<%-- 					yearRangeEnd="<%= eventStartTime.get(Calendar.YEAR) + 50 %>" --%>
+					
+<%-- 					/> --%>
+<!-- 				</div> -->

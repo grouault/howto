@@ -1,0 +1,34 @@
+# HowTo : properties
+http://www.liferay.com/fr/community/wiki/-/wiki/Main/Localization+of+Portlets+Outside+of+Liferay
+
+# D'une manière générique.
+##
+==> récupération dans le fichier : portal-ext.properties
+PropsUtil.get("estim.page.detail.evenements.url");
+
+
+# TagLib :
+==> Recuperer le message dans le fichier ".properties"
+<liferay-ui:message key="import-file-info" />
+==> SessionMessages
+<liferay-ui:success key="key-value" message="" />
+==> SessionErrors
+<liferay-ui:error key="import-file-required" message="import-file-required" /> 
+
+# Fichier de conf. spécifique à une portlet.
+==> Recupe dans la JSP : 
+// recup. properties porlet.
+ResourceBundle res = portletConfig.getResourceBundle(locale);
+String propsValue = res.getString("props-key");
+
+==> Recuperation dans un contrôleur.
+Locale locale = renderRequest.getLocale();
+PortletConfig portletConfig = (PortletConfig) renderRequest.getAttribute(JavaConstants.JAVAX_PORTLET_CONFIG);
+ResourceBundle res = portletConfig.getResourceBundle(locale);
+
+# JSP : sans recuperation. 
+<%= LanguageUtil.get(themeDisplay.getLocale(), "import-label-button-valid") %>
+
+# JSP : recuperation dans le fichier Content avec des paramètres.
+LanguageUtil.format(pageContext, "upload-a-gif-or-jpeg-that-is-x-pixels-tall-and-x-pixels-wide", new Object[] {"120", "100"}, false)
+

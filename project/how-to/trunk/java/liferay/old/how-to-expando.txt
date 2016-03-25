@@ -1,0 +1,66 @@
+# How-to-Expando
+## 
+
+# Permission
+http://liferaysatish.blogspot.fr/2011/05/how-permissions-system-works-in-liferay.html
+
+Mettre à jour un expando
+-------------------------
+user.getExpandoBridge().setAttribute("GooglePlus", googlePlus);
+UserLocalServiceUtil.updateUser(user);
+
+Mettre les droits sur les Expandos :
+------------------------------------
+DataModel : Table ==> resourecepermission.	
+RoleId:
+	guest : 10161 / ownerid : 0 / actionids : 9
+	
+Code :
+------
+
+// Role:
+Role guest = RoleLocalServiceUtil.getRole(companyId, RoleConstants.GUEST);
+Role member = RoleLocalServiceUtil.getRole(companyId, RoleConstants.COMMUNITY_MEMBER);
+
+// droits.
+String[] actionsRW = new String[] { ActionKeys.VIEW, ActionKeys.UPDATE };
+
+// Resource  : expandoColumn
+Resource resource = ResourceLocalServiceUtil.addResource(
+		companyId,
+		ExpandoColumn.class.getName(), // type expando column
+		ResourceConstants.SCOPE_INDIVIDUAL,
+		String.valueOf(column.getColumnId())); // id expando column
+
+		
+// Positonnement des droits pour 
+// - le role 
+// - et la resource.
+Ok ==> ResourcePermissionLocalServiceUtil.setResourcePermissions(companyId, ExpandoColumn.class.getName(), ResourceConstants.SCOPE_INDIVIDUAL,       
+		  String.valueOf(expandoColumn.getColumnId()), guest.getRoleId(), new String[] { ActionKeys.VIEW, ActionKeys.UPDATE });
+
+		  
+
+
+
+# Pas BON
+##
+
+ko ==> PermissionLocalServiceUtil.setRolePermissions(guest.getRoleId(), actionsRO, resource.getResourceId());
+
+            	// ajout permisson sur resource.
+            	ResourcePermissionLocalServiceUtil.addResourcePermission(companyId, 
+            			ExpandoColumn.class.getName(), 
+            			ResourceConstants.SCOPE_INDIVIDUAL, 
+            			String.valueOf(expandoColumn.getColumnId()), 
+            			guest.getRoleId(), 
+            			action);       
+						
+    	// recuperation et suppression des permission.
+    	List<ResourcePermission> resourcePermissions = ResourcePermissionLocalServiceUtil.getResourcePermissions(companyId, ExpandoColumn.class.getName(), 
+    			ResourceConstants.SCOPE_INDIVIDUAL, String.valueOf(expandoColumn.getColumnId()));
+    	if (!resourcePermissions.isEmpty()) {
+    		for (ResourcePermission resourcePermission : resourcePermissions) {
+    			ResourcePermissionLocalServiceUtil.deleteResourcePermission(resourcePermission);
+    		}
+    	}

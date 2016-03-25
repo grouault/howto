@@ -1,0 +1,60 @@
+1- Comment contribuer une metadonnée?
+Définition :
+Sous Liferay, les metadonnées s'organisent en "vocabulaire" et en "categories".
+Les vocabulaires sont les metadonnées racine. Les catégories sont les metadonnées de niveau 1 et superieure. Une catégorie se place donc sous un vocabulaire
+ou sous une autre catégorie.
+
+a- Méta-données de type Vocabulaire.
+Pour créer un vocabulaire, il convient de se postionner dans le "Panneau de contrôle".
+Sélectionner ensuite le site sur lequel le vocabulaire est à créer, et selectionner dans le menu de gauche le sous-menu categorie.
+Sur l'écran de création du vocabulaire : 
+- Saisir le nom du vocabulaire et éventuellement sa description.
+- "Autoriser plusieurs catégories" : quand cette case est cochée, cela permet à l'utilisateur d'associer une ou plusieurs metadonnées sur le contenu.
+- "Type de contenu associé" : cette case à cocher permet d'activer le vocabulaire pour un type de contenu particulier. 
+	- Il convient alors de sélectionner dans la liste les contenus pour lesquels il sera alors possible d'associer la metadonnée.
+- "Droits d'accès" : ce bouton permet d'affiner les différentes permissions pour les différents rôle pour le vocabulaire.
+
+b- Méta-données de type Catégorie.
+Une metadonnée de type "Catégorie" est une metadonnée de niveau1 ou plus.
+- Créer une metadonnée de type Catégorie.
+  Il faut tout d'abord se positionner au niveau d'un vocabulaire et cliquer sur le bouton "Ajouter une catégorie" 
+  Sur l'écran de création d'une catégorie, il faut :
+  - Saisir le nom de la catégorie.
+  - Sélectionner le vocabulaire d'association.
+  - Positionner les permissions
+  - Positionner les propriétés
+  puis enregistrer. La catégorie est alors associé au vocabulaire.
+	
+- Créer une méta-donnée de type "sous-catégories".
+	- Associer une sous-catégorie à une catégorie.
+	Séléctionner la catégorie sur laquelle il convient d'associer la sous-catégorie, en cliquant sur la case à cocher préfixant la catégorie.
+	Dans la partie droite de l'écran : "Ensemble de catégorie", cliquer sur le bouton "Ajouter une sous catégorie"
+    Renseigner alors les informations utiles : son nom, positionnement des rôles et des propriétés.
+	Enregister. La sous-catégorie est alors associée à la catégorie.	
+	
+2- Comment associer des metadonnées sur un contenu WebContent?
+==> ?
+
+3- Comment associer des metadonnées sur un contenu de type asset?
+Il s'agit ici du cas d'utilisation de contenu existant en tant qu'Entité à part entière et définit en tant qu'Asset.
+Dans ce paragraphe, nous expliquons comment se fait l'association d'une metadonnée sur le contenu et la façon dont se fait la perstitence de l'association
+asset-metadonnées.
+
+1- Formulaire de création ou de modification :
+Au niveau du formulaire de création ou de modification, l'affichage des "Metadonnées" de fait par le simple postionnement du taglib suivant :
+- <aui:input name="categories" type="assetCategories" />  
+Ce taglib affiche alors, les metadonnées pour lesquelles le vocabulaire a été activer (voir precédemment.).
+Prenons l'exemple d'un contenu Slogan, surlequels le vocabulaire "Musique" est actif, dans le formulaire, il est alors possible d'associer des metadonnées.
+
+
+4- Enregistrement des metadonnéés 
+La perstitence de l'association "contenu - metadonnées" est rendu possible par le fait que contenu est été définit en tant qu'asset.
+Le ServiceBuilder génére alors les méthodes de service permettant d'assurer la persistance de cette information.
+
+Voici un exemple d'appel dans la fonction de mise à jour en base :
+        assetEntryLocalService.updateEntry(
+            userId, slogan.getGroupId(), Slogan.class.getName(),
+            slogan.getSloganId(), serviceContext.getAssetCategoryIds(),
+            serviceContext.getAssetTagNames());
+
+==> écran de modification du contenu.

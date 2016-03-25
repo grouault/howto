@@ -1,0 +1,136 @@
+# Pour une entité de type Asset.
+##
+
+// Registers asset
+AssetEntry eventAsset = assetEntryLocalService.updateEntry(userId,
+		event.getGroupId(), ENTITY_CLASS_NAME, event.getPrimaryKey(),
+		serviceContext.getAssetCategoryIds(),
+		serviceContext.getAssetTagNames());
+
+assetEntryLocalService.updateEntry(
+		userId, slogan.getGroupId(), Slogan.class.getName(),
+		slogan.getSloganId(), serviceContext.getAssetCategoryIds(),
+		serviceContext.getAssetTagNames());
+		
+# Copie des paramètres
+##		
+// PortalUtil.copyRequestParameters(actionRequest, response);
+						
+# Event
+##
+Récupération des AssetCategories en mode UploadRequest :
+Le service Context doit être récupéré de la manière suivante :
+- ServiceContext sc = ServiceContextFactory.getInstance(request);
+et non pas :
+- ServiceContext serviceContext = ServiceContextFactory.getInstance(Evenement.class.getName(), actionRequest);
+Pour récupérer les ids des catégories :
+long[] ids = serviceContext.getAssetCategoryIds();
+
+Et non :
+--------
+long[] assetCategoryIds = StringUtil.split((String)serviceContext.getAttribute("assetCategoryIds"), 0L);
+System.out.println("assetCategoryIds = " + assetCategoryIds);
+
+String[] assetTagNames = StringUtil.split(ParamUtil.getString(request, "assetTagNames"));
+System.out.println("assetTageName = " + assetTagNames);
+
+
+			long[] id1s = serviceContext.getAssetCategoryIds();
+			System.out.println("id1s = " + id1s);
+			System.out.println("test = " + ParamUtil.getLongValues(request, "assetCategoryNames")); 
+			System.out.println("test 2 = " + ParamUtil.getString(request, "assetCategoryNames")); 
+			System.out.println("test 3 = " + ParamUtil.getString(request, "assetCategoryIds")); 
+			// long[] assetCategoryIds = StringUtil.split((String)serviceContext.getAttribute("assetCategoryIds"), 0L);
+			// String[] assetCategoryIds = StringUtil.split(ParamUtil.getString(request, "assetCategoryIds"));
+			// System.out.println("assetCategoryIds = " + assetCategoryIds);
+			// long[] assetCategoryTest = StringUtil.split(ParamUtil.getString(request, "assetCategoryNames"), 0L);
+			// System.out.println("assetCategoryTest = " + assetCategoryTest);
+
+
+
+
+Evenement :
+		<liferay-ui:asset-categories-selector
+		    className="<%=Evenement.class.getName() %>"
+		    classPK="${event.primaryKey}" curCategoryIds="${curCategoryIds}" />						
+					
+        if (StringUtils.hasText(ParamUtil.getString(request, "assetCategoryIds"))) {
+        	assetCategoryIds = StringUtil.split(ParamUtil.getString(request, "assetCategoryNames"), 0L);
+
+			// mise a jour des categories et des tags.
+	    	// ActionUtil.updateAssetEvent(event, serviceContext, ConstantsUtil.MODE_CREATE, request);			
+			
+					
+    /**
+     * permet de mettre a jour des donnees suivant d un event.
+     * - categories et vocabulaires.
+     * - tags.
+     * @param event
+     * @param sc
+     * @param mode
+     * @param request
+     * @throws SystemException
+     */
+    public static void updateAssetEvent (Evenement event, ServiceContext sc, 
+    		String mode, UploadPortletRequest request) throws SystemException {
+    	
+        long[] assetCategoryIds = null; 
+        String[] assetTagNames = null;
+        
+        // mis a jour des categories.
+        if (StringUtils.hasText(ParamUtil.getString(request, "assetCategoryIds"))) {
+        	assetCategoryIds = StringUtil.split(ParamUtil.getString(request, "assetCategoryIds"), 0L);
+        } else if (StringUtils.hasText(mode) && ConstantsUtil.MODE_UPDATE.equals(mode))  {
+        	assetCategoryIds = AssetCategoryLocalServiceUtil.getCategoryIds(Evenement.class.getName(), event.getEvenementId());	
+        }
+        if (assetCategoryIds != null) {
+        	sc.setAssetCategoryIds(assetCategoryIds);
+        }
+        
+        // mise a jour des tags.
+        if (StringUtils.hasText(ParamUtil.getString(request, "assetTagNames"))) { 
+        	assetTagNames = StringUtil.split(ParamUtil.getString(request, "assetTagNames"));	
+        } else if (StringUtils.hasText(mode) && ConstantsUtil.MODE_UPDATE.equals(mode)) {
+        	assetTagNames = AssetTagLocalServiceUtil.getTagNames(Evenement.class.getName(), event.getEvenementId());	
+        }
+        if (assetTagNames != null) {
+        	sc.setAssetTagNames(assetTagNames);
+        }
+      	
+    }			
+
+
+			
+# Pour l'asset User.
+##
+==> Dans la vue : 
+<liferay-ui:message key="tags" />
+<aui:fieldset>
+	<aui:input name="tags" type="assetTags" />
+</aui:fieldset>			
+
+==> Fonction UpdateAsset dans le controller :
+---------------------------------------------
+protected void updateAsset(UploadPortletRequest uploadPortletRequest) throws Exception {
+	ThemeDisplay themeDisplay = (ThemeDisplay) uploadPortletRequest.getAttribute(
+		WebKeys.THEME_DISPLAY);
+	User user = themeDisplay.getUser();
+	long[] assetCategoryIds; 
+	String[] assetTagNames;
+	
+	// mis a jour des categories.
+	if (StringUtils.hasText(ParamUtil.getString(uploadPortletRequest, "assetCategoryNames"))) {
+		assetCategoryIds = StringUtil.split(ParamUtil.getString(uploadPortletRequest, "assetCategoryNames"), 0L);
+	} else {
+		assetCategoryIds = AssetCategoryLocalServiceUtil.getCategoryIds(User.class.getName(), user.getUserId());	
+	}
+	
+	// mise a jour des tags.
+	if (StringUtils.hasText(ParamUtil.getString(uploadPortletRequest, "assetTagNames"))) { 
+		assetTagNames = StringUtil.split(ParamUtil.getString(uploadPortletRequest, "assetTagNames"));	
+	} else {
+		assetTagNames = AssetTagLocalServiceUtil.getTagNames(User.class.getName(), user.getUserId());	
+	}
+	
+	UserLocalServiceUtil.updateAsset(user.getUserId(), user, assetCategoryIds, assetTagNames);
+}

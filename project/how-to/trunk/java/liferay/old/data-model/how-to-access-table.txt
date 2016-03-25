@@ -1,0 +1,12 @@
+# How-to-access-table
+##
+private Region getRegion() {
+	Region region = null;
+	Session session = null;
+	SessionFactory sessionFactory = (SessionFactory) PortalBeanLocatorUtil.locate("liferaySessionFactory");
+	session = sessionFactory.openSession();
+	String sql = "Select * From Region where name='Alberta';";
+	SQLQuery sqlQuery = session.createSQLQuery(sql);
+	region = (Region) sqlQuery.uniqueResult();
+	return region;
+}

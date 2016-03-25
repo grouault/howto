@@ -1,0 +1,112 @@
+# Urls.
+##
+http://www.opensourceforlife.com/2012/08/generate-portleturl-inside-liferay.html
+
+# Generation UrlPorlet à partir du renderResponse.
+##
+PortletURL portletURLAccept = renderResponse.createActionURL();
+try {
+	portletURLAccept.setSecure(false);
+	portletURLAccept.setParameter("myaction", "asj");
+	mav.addObject("url-accept", portletURLAccept.toString());	
+} catch (PortletSecurityException e) {
+	// TODO Auto-generated catch block
+	e.printStackTrace();
+}
+==> Vue : String urlAcceptStructureJoin = (String) request.getAttribute("url-accept");
+
+# Generation UrlPortlet a partir de PortletURLFactoryUil.
+##
+ThemeDisplay themeDisplay = (ThemeDisplay) renderRequest.getAttribute(WebKeys.THEME_DISPLAY); 
+PortletURL portletTest = PortletURLFactoryUtil.create(renderRequest, "createaccount_WAR_estimannuaireportlet", 
+		themeDisplay.getPlid(), PortletRequest.ACTION_PHASE);
+try {
+	portletTest.setParameter("myaction", "asj");
+	portletTest.setWindowState(WindowState.NORMAL);
+	portletTest.setPortletMode(PortletMode.VIEW);
+} catch (WindowStateException e1) {
+	// TODO Auto-generated catch block
+	e1.printStackTrace();
+} catch (PortletModeException e) {
+	// TODO Auto-generated catch block
+	e.printStackTrace();
+}
+
+# Générer l'URL d'accès à une autre Portlet, à partir de la Portlet courante.
+##
+// recuperation de la portlet : CREATE_ACCOUNT.
+String portletID = "createaccount_WAR_estimannuaireportlet";
+Portlet portletCible = PortletLocalServiceUtil.getPortletById(portletID);
+long plid = PortalUtil.getPlidFromPortletId(themeDisplay.getScopeGroupId(), portletID); 
+HttpServletRequest httpRequest = PortalUtil.getHttpServletRequest(renderRequest); 
+httpRequest = PortalUtil.getOriginalServletRequest(httpRequest); 
+PortletURL portletURL = PortletURLFactoryUtil.create(httpRequest , portletID, plid , PortletRequest.ACTION_PHASE); 
+// Configuration Portlet.
+urlAcceptStructureJoin = PortletURLFactoryUtil.create(httpRequest , portletID, plid , PortletRequest.ACTION_PHASE); 	
+urlAcceptStructureJoin.setParameter("myaction", "asj"); // action structure join.
+urlAcceptStructureJoin.setWindowState(WindowState.NORMAL);
+urlAcceptStructureJoin.setPortletMode(PortletMode.VIEW);
+urlAcceptStructureJoin.setSecure(false);
+
+# Redirection
+##
+// Redirection vers l action ShowEvent
+String friendlyUrlDetailEvent = PropsUtil.get("estim.detail.event.friendly.url");
+Layout layout = LayoutLocalServiceUtil.getFriendlyURLLayout(themeDisplay.getScopeGroupId(), false, friendlyUrlDetailEvent);
+HttpServletRequest httpRequest = PortalUtil.getHttpServletRequest(actionRequest); 
+httpRequest = PortalUtil.getOriginalServletRequest(httpRequest);
+PortletURL portletURL = PortletURLFactoryUtil.create(httpRequest , "detailevent_WAR_estimportailportlet", layout.getPlid() , PortletRequest.RENDER_PHASE); 
+portletURL.setWindowState(WindowState.NORMAL);
+portletURL.setPortletMode(PortletMode.VIEW);
+portletURL.setParameter("evenementId", String.valueOf(event.getEvenementId()));
+if (isUpdateMode) {
+	portletURL.setParameter("modeAction", "update");
+} else {
+	portletURL.setParameter("modeAction", "create");
+}
+actionResponse.sendRedirect(portletURL.toString());
+
+# URL vers une ressource
+##
+private PortletURL getPorletURLResource(ActionRequest request,
+		ThemeDisplay themeDisplay, String portletName,
+		String pageFriendlyUrl) throws PortalException,
+		SystemException, WindowStateException, PortletModeException {
+	
+	Layout layout;
+	long plid;
+	HttpServletRequest httpRequest;
+	PortletURL portletURL;
+	layout = LayoutLocalServiceUtil.getFriendlyURLLayout(themeDisplay.getScopeGroupId(), false, pageFriendlyUrl);
+	plid = layout.getPlid();
+	httpRequest = PortalUtil.getHttpServletRequest(request); 
+	httpRequest = PortalUtil.getOriginalServletRequest(httpRequest);
+	portletURL = PortletURLFactoryUtil.create(httpRequest , portletName, plid, PortletRequest.RESOURCE_PHASE); 
+	portletURL.setWindowState(WindowState.NORMAL);
+	portletURL.setPortletMode(PortletMode.VIEW);
+	return portletURL;
+	
+}
+
+##
+# Générer le lien vers une autre portlet dans une JSP.
+##
+<liferay-portlet:renderURL var="urlDetailEvent"
+				portletName="gestionevenement_WAR_estimagendaportlet" 
+				portletMode ="view" 
+				windowState ="maximized" >
+	<liferay-portlet:param name="myaction" value="showEvent" />
+	<liferay-portlet:param name="evenementId" value="<%= String.valueOf(currentEvent.getEvenementId())%>" />
+</liferay-portlet:renderURL>
+
+
+# Cloner une URL
+##
+PortletURL urlToClone = urlsPortlets[0];
+PortletURL newUrl = PortletURLUtil.clone(urlToClone, response);
+newUrl.setParameter("titi", "toto");
+String nameSpace = urlToClone.toString().substring(0, urlToClone.toString().indexOf("?"));	
+String parameters = newUrl.toString().substring(newUrl.toString().indexOf("?"), newUrl.toString().length());
+String urlToCall = nameSpace.concat(parameters);
+System.out.println("currentUrl = " + urlsPortlets[0].toString());
+System.out.println("urlToCall = " + urlToCall);

@@ -1,0 +1,37 @@
+     	final long defaultRepoId = DLFolderConstants.getDataRepositoryId(themeDisplay.getScopeGroupId(), 
+                DLFolderConstants.DEFAULT_PARENT_FOLDER_ID);
+        final long defaultFolderId = DLFolderConstants.DEFAULT_PARENT_FOLDER_ID;		
+		
+		long groupId = feToCopy.getGroupId();
+    		System.out.println("Repository id = " + feToCopy.getRepositoryId());
+    		System.out.println("Folder id = " + feToCopy.getFolderId());
+    		System.out.println("groupId 1 = " + feToCopy.getGroupId());
+    		System.out.println("groupId 2 = " + themeDisplay.getScopeGroupId());
+    		
+    		newFileEntry = DLFileEntryServiceUtil.copyFileEntry(
+    				feToCopy.getFileEntryId(), 
+    				feToCopy.getRepositoryId(), 
+    				feToCopy.getFileEntryId(), 
+    				feToCopy.getFolderId(), 
+    				serviceContext);
+    		if (Validator.isNotNull(newFileEntry)) {
+    			newEvent.setBrochureId(newFileEntry.getFileEntryId());
+    			EvenementLocalServiceUtil.updateEvenement(newEvent);
+    		}
+			
+			
+# Access ToFileEntry in JSP
+##
+<a href='<%=themeDisplay.getPortalURL()+"/c/document_library/get_file?uuid="+dlFileEntry.getUuid()+"&groupId="+themeDisplay.getScopeGroupId() %>' >			
+			
+			
+MimetypesFileTypeMap mimeTypesMap = new MimetypesFileTypeMap();
+String mimeType = mimeTypesMap.getContentType(file);
+logger.info("MimeType 2 = " + mimeType);
+
+
+Date dateCreate = new Date();
+DateFormat df = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss");
+String newName = "Duplicate-" + df.format(dateCreate) + ".pdf";
+File newFile = new File(newName);
+file.renameTo(newFile);				

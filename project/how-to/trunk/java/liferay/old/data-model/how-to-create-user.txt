@@ -1,0 +1,281 @@
+package fr.exagone.user;
+
+import java.io.IOException;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Locale;
+
+import javax.portlet.ActionRequest;
+import javax.portlet.ActionResponse;
+import javax.portlet.PortletException;
+import javax.portlet.PortletRequestDispatcher;
+import javax.portlet.RenderRequest;
+import javax.portlet.RenderResponse;
+
+import org.springframework.orm.hibernate3.HibernateAccessor;
+import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
+import org.springframework.orm.hibernate3.support.OpenSessionInViewFilter;
+import org.springframework.util.StringUtils;
+
+import com.liferay.counter.service.CounterLocalServiceUtil;
+import com.liferay.portal.kernel.bean.PortalBeanLocatorUtil;
+import com.liferay.portal.kernel.dao.orm.QueryUtil;
+import com.liferay.portal.kernel.dao.orm.SQLQuery;
+import com.liferay.portal.kernel.dao.orm.Session;
+import com.liferay.portal.kernel.dao.orm.SessionFactory;
+import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.exception.SystemException;
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
+import com.liferay.portal.kernel.util.WebKeys;
+import com.liferay.portal.model.Address;
+import com.liferay.portal.model.Company;
+import com.liferay.portal.model.Contact;
+import com.liferay.portal.model.Region;
+import com.liferay.portal.model.User;
+import com.liferay.portal.model.UserGroup;
+import com.liferay.portal.service.AddressLocalServiceUtil;
+import com.liferay.portal.service.ClassNameLocalServiceUtil;
+import com.liferay.portal.service.ContactLocalServiceUtil;
+import com.liferay.portal.service.RegionServiceUtil;
+import com.liferay.portal.service.ServiceContext;
+import com.liferay.portal.service.ServiceContextFactory;
+import com.liferay.portal.service.UserGroupLocalServiceUtil;
+import com.liferay.portal.service.UserLocalServiceUtil;
+import com.liferay.portal.theme.ThemeDisplay;
+import com.liferay.util.bridges.mvc.MVCPortlet;
+
+import fr.exagone.role.ManageRole;
+
+/**
+ * Portlet implementation class ManageUser
+ */
+public class ManageUser extends MVCPortlet {
+
+	protected String viewJSP;
+	
+	private static Log _log = LogFactoryUtil.getLog(ManageRole.class);
+
+	
+    public void init() {
+        viewJSP = getInitParameter("view-jsp");
+    }
+
+    public void render(RenderRequest renderRequest, RenderResponse renderResponse)
+            throws PortletException, IOException {
+        // recuperation de la page cible.
+        String view = this.viewJSP;
+        if (renderRequest.getParameter("jspPage") != null && !"".equals(renderRequest.getParameter("jspPage"))) {
+        	view = renderRequest.getParameter("jspPage");
+        }
+        include(view, renderRequest, renderResponse);    
+    }
+    
+    protected void include(
+            String path, RenderRequest renderRequest,
+            RenderResponse renderResponse)
+        throws IOException, PortletException {
+
+        PortletRequestDispatcher portletRequestDispatcher = getPortletContext().getRequestDispatcher(path);
+        if (portletRequestDispatcher == null) {
+            _log.error(path + " is not a valid include");
+        }
+        else {
+            portletRequestDispatcher.include(renderRequest, renderResponse);
+        }
+    } 
+    
+    public void addUser(ActionRequest request, ActionResponse response) {
+    	
+        // persistance du user.
+        try {
+        	
+    		ThemeDisplay themeDisplay = (ThemeDisplay) request.getAttribute(WebKeys.THEME_DISPLAY); 
+    		Company company = themeDisplay.getCompany();
+	    	ServiceContext serviceContext;
+			serviceContext = ServiceContextFactory.getInstance(User.class.getName(), request);
+    		
+    		
+        	// Mise en place des attributs.
+	        // long creatorUserId = UserLocalServiceUtil.getDefaultUser(themeDisplay.getUserId()).getUserId();
+	        long creatorUserId = themeDisplay.getUserId();
+			long companyId = themeDisplay.getCompanyId();
+	        boolean autoPassword = false;
+	       
+	        // generation du password.
+	        String password = "toto";
+	        String password1 = password;
+	        String password2 = password;
+	        boolean autoScreenName = false; 
+	        
+	        
+	        String emailAddress = "titi@toto.fr"; 
+	        long facebookId = 0L;
+	        String openId = "";
+	        
+	        String firstName = "firstName";
+	        String middleName = "middleName";
+	        String lastName = "lastName";
+	        String screenName = "tititoto"; 
+	
+	        int prefixId = 123; // FIXME.  
+	        int suffixId = 0;
+	        boolean male = false;
+	        	        
+	        int birthdayMonth = Calendar.JANUARY; //  Calendar.JANUARY
+	        int birthdayDay = 1; // 
+	        int birthdayYear = 1970; // 
+	       
+	        String jobTitle = "";
+                
+            long[] groupIds = null;
+            long[] organizationIds = null;
+            long[] roleIds = null;
+            
+            UserGroup userGroup = UserGroupLocalServiceUtil.getUserGroup(company.getCompanyId(), "contributeur");
+            long[] userGroupIds = {userGroup.getUserGroupId()};
+            
+            // persistance du user.
+            User newUser = UserLocalServiceUtil.addUser(
+                creatorUserId,
+            	companyId,
+                autoPassword, 
+                password1, 
+                password2, 
+                autoScreenName, screenName, emailAddress, 
+                facebookId, openId, Locale.getDefault(), 
+                firstName, middleName, lastName, 
+                prefixId, suffixId, male, 
+                birthdayMonth, birthdayDay, birthdayYear,
+                jobTitle, 
+                groupIds, 
+                organizationIds, 
+                roleIds, 
+                userGroupIds, 
+                false, serviceContext);
+                 
+            String infoMessage = "Insertion nouveau user dans la table user [OK] - name = " + newUser.getLastName() + " - id " + newUser.getUserId();
+            _log.info(infoMessage);
+             
+            // creation du contact.
+            long idContact = CounterLocalServiceUtil.increment(Contact.class.getName());
+            Contact contact = ContactLocalServiceUtil.createContact(idContact);
+            contact.setCompanyId(companyId);
+            contact.setCreateDate(new Date());
+            contact.setUserName(screenName);
+            contact.setUserId(newUser.getUserId());
+            contact.setModifiedDate(new Date());
+            contact.setFirstName(firstName);
+            contact.setLastName(lastName);
+            contact.setMiddleName(middleName);
+            contact.setPrefixId(prefixId);
+            contact.setSuffixId(suffixId);
+            contact.setJobTitle(jobTitle+contact.getContactId());
+            contact.setBirthday(new Date());
+            Contact newContact = ContactLocalServiceUtil.addContact(contact);             
+               
+            infoMessage = "Insertion nouveau user dans la table contact [OK] - id contact " + newContact.getContactId();
+            _log.info(infoMessage);
+            
+           // creation adresse.
+           Address address = AddressLocalServiceUtil.createAddress(CounterLocalServiceUtil.increment(Address.class.getName()));
+           address.setCompanyId(company.getCompanyId());
+           address.setClassNameId(ClassNameLocalServiceUtil.getClassNameId("com.liferay.portal.model.Contact"));
+           address.setClassPK(newContact.getContactId());
+           address.setCity("cite-name");
+           address.setStreet1("street1");
+           address.setZip("35360");
+           Region region = getRegion();
+           address.setRegionId(3006);
+           address.setUserId(newUser.getUserId());
+           AddressLocalServiceUtil.addAddress(address);
+           infoMessage = "Insertion nouveau user dans la table address [OK] - name = " + newUser.getLastName() + " - id " + newUser.getUserId();
+           _log.info(infoMessage);
+           
+           // on complète les infos du user.
+           newUser.setContactId(contact.getContactId());
+           newUser.setCreateDate(new Date());
+           UserLocalServiceUtil.updateUser(newUser);
+           
+        } catch (SystemException e) {
+        	 _log.error("Insertion nouveau user [KO]" + e.getMessage());
+ 
+        } catch (PortalException e) {
+        	 _log.error("Insertion nouveau user [KO]" + e.getMessage());
+        }
+    }
+    
+    public void deleteUser (ActionRequest actionRequest, ActionResponse actionResponse) {
+		String userIdToDelete = actionRequest.getParameter("userid");
+		if (StringUtils.hasText(userIdToDelete)) {
+			try {
+				
+	    		ThemeDisplay themeDisplay = (ThemeDisplay) actionRequest.getAttribute(WebKeys.THEME_DISPLAY); 
+	    		Company company = themeDisplay.getCompany();
+				
+				User currentUser = UserLocalServiceUtil.getUser(Long.parseLong(userIdToDelete));
+				Contact contact = currentUser.getContact();
+				List<Address> addresses = AddressLocalServiceUtil.getAddresses
+						(company.getCompanyId(),
+						        "com.liferay.portal.model.Contact",
+						        contact.getContactId());
+				
+				// suppression user.
+				String msgInfo = "Tentative de suppression du user : " + userIdToDelete;
+				_log.info(msgInfo);
+				UserLocalServiceUtil.deleteUser(Long.parseLong(userIdToDelete));
+				msgInfo = "Suppression du user [OK]";
+				_log.info(msgInfo);
+				
+				// suppression contact.
+				if (contact != null) {
+					msgInfo = "Tentative de suppression du contact";
+					_log.info(msgInfo);	
+					ContactLocalServiceUtil.deleteContact(contact);
+					msgInfo = "Suppression du contact [OK]";
+					_log.info(msgInfo);		
+				}
+				
+				// suppression address.
+				if (!addresses.isEmpty()) {
+					for (Iterator<Address> iterator = addresses.iterator(); iterator
+							.hasNext();) {
+						Address address = (Address) iterator.next();
+						msgInfo = "Tentative de suppression de l'adresse : " + address.getAddressId();
+						_log.info(msgInfo); 
+						AddressLocalServiceUtil.deleteAddress(address);
+						msgInfo = "Suppression address [OK]";
+						_log.info(msgInfo);	
+					}				
+				}
+
+
+			} catch (NumberFormatException e) {
+				_log.equals(e.getMessage());
+				e.printStackTrace();
+			} catch (PortalException e) {
+				_log.equals(e.getMessage());
+				e.printStackTrace();
+			} catch (SystemException e) {
+				_log.equals(e.getMessage());
+				e.printStackTrace();
+			}
+		} else {
+			_log.equals("[Suppression du user impossible] - aucun idientifiant.");
+		}
+    }
+    
+    private Region getRegion() {
+    	Region region = null;
+    	Session session = null;
+    	SessionFactory sessionFactory = (SessionFactory) PortalBeanLocatorUtil.locate("liferaySessionFactory");
+    	session = sessionFactory.openSession();
+    	String sql = "Select * From Region where name='Alberta';";
+    	SQLQuery sqlQuery = session.createSQLQuery(sql);
+    	region = (Region) sqlQuery.uniqueResult();
+    	return region;
+    }
+    
+}

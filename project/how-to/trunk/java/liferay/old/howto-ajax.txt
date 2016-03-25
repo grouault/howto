@@ -1,0 +1,108 @@
+	
+	====
+	GOOD METHOD
+	====
+	@ResourceMapping("getLocalisation")
+	public void serveResourceLocalisation(ResourceRequest resourceRequest, ResourceResponse resourceResponse)
+			throws IOException, PortletException {
+		
+		String fluxJson = null;
+		try {
+			
+			if (LOGGER.isDebugEnabled()) {
+				LOGGER.debug("redressLocalisation");
+			}
+			
+			String localisation = resourceRequest.getParameter("localisation");
+			if (StringUtils.hasText(localisation)) {
+				try {
+					fluxJson = geolocManager.getJsonAddress(localisation);
+				} catch (FunctionalException e) {
+					LOGGER.error("[redressLocalisation]" + e.getMessage());	
+					fluxJson = null;
+				} catch (TechnicalException e) {
+					LOGGER.error("[redressLocalisation]" + e.getMessage());	
+					fluxJson = null;
+				}
+			} else {
+				LOGGER.error("La localisation est une valeur vide.");
+			}
+
+	        // write response
+			resourceResponse.setContentType("application/json; charset=UTF-8");
+	        PrintWriter pWriter;
+            pWriter = resourceResponse.getWriter();
+            pWriter.print(fluxJson);
+            
+        } catch (IOException e) {
+        	LOGGER.error("erreur rencontré lors du post", e);
+        }
+		
+	}
+	
+	================
+	bas option
+	================
+	
+	==> action.
+	/**
+	 * Fonction de redressement d'adresse.
+	 * @param actionRequest
+	 * @param actionResponse
+	 */
+	@ActionMapping(params = "myaction=redresslocation")
+	public void redressLocalisation(ActionRequest actionRequest,
+			ActionResponse actionResponse) {
+		
+		if (LOGGER.isDebugEnabled()) {
+			LOGGER.debug("redressLocalisation");
+		}
+		
+		String fluxJson = null;
+		String localisation = actionRequest.getParameter("localisation");
+		if (StringUtils.hasText(localisation)) {
+			try {
+				fluxJson = geolocManager.getJsonAddress(localisation);
+			} catch (FunctionalException e) {
+				LOGGER.error("[redressLocalisation]" + e.getMessage());	
+				fluxJson = null;
+			} catch (TechnicalException e) {
+				LOGGER.error("[redressLocalisation]" + e.getMessage());	
+				fluxJson = null;
+			}
+		} else {
+			LOGGER.error("La localisation est une valeur vide.");
+		}
+		
+		// mise a jour du contexte.
+		actionResponse.setRenderParameter("action", "redresslocation");
+		actionResponse.setRenderParameter("fluxjson", fluxJson);
+		
+	}
+	
+	==> RENDER
+	// CAS : Redressement d'adresse.
+		if (renderRequest.getParameter("action") != null 
+				&& "redresslocation".equals(renderRequest.getParameter("action"))) {
+			mav = null;
+			// mav.setView("redress-adress");
+			String fluxJson = renderRequest.getParameter("fluxjson");
+			/* mav.addObject("jsonValue", fluxJson); */
+			
+			renderResponse.reset();
+			renderResponse.resetBuffer();
+			// renderResponse.setContentType("application/json; charset=UTF-8");
+			PrintWriter pWriter;
+            try {
+            	String contentType = renderResponse.getContentType();
+    	        if (StringUtils.hasText(fluxJson)) {
+                	pWriter = renderResponse.getWriter();
+    				pWriter.print(fluxJson);
+    				renderResponse.flushBuffer();
+    	        } else {
+    	        	LOGGER.error("Le flux Json est vide pour le redressement d'adresse.");
+    	        }				
+			} catch (IOException e) {
+				LOGGER.error(e.getMessage());
+			}
+		}

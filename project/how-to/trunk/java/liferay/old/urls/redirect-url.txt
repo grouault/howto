@@ -1,0 +1,39 @@
+# Redirect URL dans un méthdoe de type RENDER
+##
+LOGGER.error(pex.getMessage());
+String redirectUrl = StructureUtil.getInstance().getUrlDetailStructure(Long.parseLong(organizationId));
+RedirectView view = new RedirectView();
+view.setUrl( redirectUrl );
+view.setStatusCode(HttpStatus.MOVED_PERMANENTLY);
+mav = new ModelAndView(view);
+
+==> Via PortalUtil ...
+
+# Redirect avec status 302
+##
+actionResponse.addProperty(HttpStatus.MOVED_PERMANENTLY.name(), String.valueOf(HttpStatus.MOVED_PERMANENTLY.value()));
+actionResponse.sendRedirect( redirectUrl );
+
+
+// Redirect 301 vers la bonne URL.
+LOGGER.error(pex.getMessage());
+
+String redirectUrl = StructureUtil.getInstance().getUrlDetailStructure(Long.parseLong(organizationId));
+/*
+HttpServletResponse response = PortalUtil.getHttpServletResponse(renderResponse);
+response.sendRedirect( redirectUrl );
+mav = null;
+*/
+/*
+PortletURL redirectURL = renderResponse.createActionURL();
+redirectURL.setParameter("myaction", "redirect");
+*/
+
+RedirectView view = new RedirectView("redirect");
+view.setUrl( redirectUrl );
+view.setStatusCode(HttpStatus.MOVED_PERMANENTLY);
+mav = new ModelAndView(view).addObject("organizationId", organizationId);
+
+
+				actionResponse.setStatus(HttpStatus.MOVED_PERMANENTLY.value());
+				actionResponse.sendRedirect( redirectUrl );

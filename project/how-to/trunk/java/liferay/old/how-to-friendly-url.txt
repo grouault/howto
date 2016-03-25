@@ -1,0 +1,11 @@
+#
+http://www.opensource-techblog.com/2012/11/how-to-create-friendly-url-for-liferay.html
+http://docs.liferay.com/portal/6.0/definitions/liferay-friendly-url-routes_6_0_0.dtd.html#implicit-parameter
+http://www.liferay.com/fr/community/wiki/-/wiki/Main/FriendlyURLMapper
+
+http://www.opensource-techblog.com/2012/11/how-to-create-friendly-url-for-liferay.html
+
+# Mapping Redirect.
+##
+Implicit Parameter : redirect
+==> conduit à bondir dans la bonne fonction.

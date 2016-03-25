@@ -1,0 +1,56 @@
+# Code de TEST
+##
+HttpServletRequest httpRequest = PortalUtil.getHttpServletRequest(portletRequest); 
+httpRequest = PortalUtil.getOriginalServletRequest(httpRequest)  
+//Retrieve layout id of another portlet   
+long plid = PortalUtil.getPlidFromPortletId(themeDisplay.getScopeGroupId(), portletID); 
+
+PortletURL portletURL = PortletURLFactoryUtil.create(httpRequest ,portletId, plid ,PortletRequest.RENDER_PHASE); 
+
+// old code.
+HttpServletRequest httpRequest = PortalUtil.getHttpServletRequest(renderRequest);
+Layout layout = LayoutLocalServiceUtil.getFriendlyURLLayout(themeDisplay.getScopeGroupId(), false, "/create-account");    
+layout.getLayoutId();
+String urlTest = layout.getRegularURL(httpRequest);
+Long url = LayoutLocalServiceUtil.getFriendlyURLLayout(themeDisplay.getScopeGroupId(), false, "/create-account").getPlid(); 
+
+// Layout id :
+//Retrieve layout id of another portlet   
+Layout layout = LayoutLocalServiceUtil.getFriendlyURLLayout(themeDisplay.getScopeGroupId(), false, "/create-account");   
+Long portletId = layout.getLayoutId();
+Long plid = layout.getPlid();
+
+# Contexte spring
+##
+ApplicationContext ctx = new ClassPathXmlApplicationContext(new String[] {"context-spring-portlet.xml"});
+String indexerHost = "";
+String Search
+
+// Recuperation du contexte. 
+ApplicationContext ctx = new ClassPathXmlApplicationContext(new String[] {"context-spring-portlet.xml"});
+geolocManager = (GeolocManager) ctx.getBean("geolocManager");
+testExploitMailReceiver = (InternetAddress) ctx.getBean("testExploitMailReceiver");
+mailSender = (MailSender) ctx.getBean("mailSender");
+((ConfigurableApplicationContext) ctx).close();
+
+# To report
+##
+private String escapeAccents(HttpServletRequest request, String fieldName) throws UnsupportedEncodingException {
+			   String nom = Normalizer.normalize(new String(request.getParameter(fieldName).getBytes("iso-8859-1")), Normalizer.Form.NFD);
+			   nom = nom.replaceAll("[^\\p{ASCII}]", "").toUpperCase();
+			   return nom;
+}
+
+
+						builder.append(FACETTE_PREFIX).append(vocabularyName
+				.replace("[^a-zA-Z0-9]", "_")
+				.replaceAll("[\\s]", "_")
+				.replaceAll("[éèê]", "e")
+				.toLowerCase()).append("/").append(codeProperty.getValue().toLowerCase());
+				
+# Récupération Bundle in Controlleur
+ResourceBundle rsb = ResourceBundle.getBundle("videotheque"); 
+
+
+
+
