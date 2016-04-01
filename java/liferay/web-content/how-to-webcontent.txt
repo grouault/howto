@@ -1,0 +1,21 @@
+# How-to- WebContent
+
+XML - JournalArticle - Template: 
+--------------------------------
+Les contenus web sont stockés dans la table JournalArticle.
+Le contenu représentat le webContent est stockés au format xml (colonne Content.).
+Pour pouvoir récupérer ses infos, il faut faire du parsing xml.
+http://dom4j.sourceforge.net/dom4j-1.4/apidocs/org/dom4j/tree/DefaultElement.html
+
+			<div class="debug">
+				content = $dynamicElement.elements("dynamic-content")<br/>
+				#set( $testElements = $dynamicElement.elements("dynamic-element") )
+				elements = $testElements<br/>
+				#foreach( $element in $testElements )
+					name0 = $element.attributeValue("name")<br/>
+					text0 = $element.element("dynamic-content").getText()
+				#end
+			</div>
+
+
+

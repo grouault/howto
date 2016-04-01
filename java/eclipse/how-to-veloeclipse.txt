@@ -7,5 +7,8 @@ Install it.
 2- After, simply install Veloeclipse or other old "2.0 style" plugin
 http://veloeclipse.googlecode.com/svn/trunk/update/
 
+Voir le site : 
+http://www.first8.nl/blog/velocity-editor-in-eclipse-luna/
+
 # Eclipse 3.3
 https://code.google.com/p/veloeclipse/

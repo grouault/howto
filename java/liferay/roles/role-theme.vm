@@ -1,0 +1,43 @@
+	#set( $roleLocalService = $serviceLocator.findService("com.liferay.portal.service.RoleLocalService") )
+
+	## role associe au groupe du user.
+	#set( $userGroupLocalService = $serviceLocator.findService("com.liferay.portal.service.UserGroupLocalService") )
+	#set( $userGroupList = $userGroupLocalService.getUserUserGroups( $user_id ) )
+	#set( $userGroupGroupRoleLocalService = $serviceLocator.findService("com.liferay.portal.service.UserGroupGroupRoleLocalService") )
+	#set( $groupLocalService = $serviceLocator.findService("com.liferay.portal.service.GroupLocalService") )
+			
+	## roles : tous les roles du user.
+	#set( $roles = [] )
+
+	## recuperation regular role.
+	#set ($usrRoles = $roleLocalService.getUserRoles( $user_id ))
+	#if( !$usrRoles.isEmpty() )
+    	#foreach($role in $usrRoles)
+			#set($addRole = $roles.add($role))
+    	#end		
+	#end
+	
+	## recuperation inherited roles.
+	#foreach($userGroup in $userGroupList)
+		#set ( $group = $groupLocalService.getUserGroupGroup( $company_id, $userGroup.getUserGroupId() ) )
+		#set ( $groupRoles = $roleLocalService.getGroupRoles( $group.getGroupId() ) )
+		#if ( !$groupRoles.isEmpty() ) 
+			#foreach($role in $groupRoles)
+				#set($addRole = $roles.add($role))
+			#end
+		#end
+	#end		
+
+	#if (!$roles.isEmpty())
+		#foreach($role in $roles)
+			#if ($role.getName() == "Administrator")
+				#set ($showDockbar=true)
+				#break
+			#elseif ( $role.getName().startsWith("Contributeur") )
+				#set ($showDockbar=true)
+				#break
+			#else
+				#set ($showDockbar=false)
+			#end	
+    	#end	
+	#end
