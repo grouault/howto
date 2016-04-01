@@ -1,0 +1,98 @@
+"<?xml version="1.0"?>
+
+<root available-locales="en_US" default-locale="en_US">
+	<dynamic-element name="ImageArticle" type="image" index-type="" index="0">
+		<dynamic-element name="imgArticleZoom" index="0" type="boolean" index-type="keyword">
+			<dynamic-content language-id="en_US"><![CDATA[]]></dynamic-content>
+		</dynamic-element>
+		<dynamic-element name="imgArticleFormat" index="0" type="list" index-type="">
+			<dynamic-content language-id="en_US"><![CDATA[paysage]]></dynamic-content>
+		</dynamic-element>
+		<dynamic-element name="imgArticlePosition" index="0" type="list" index-type="keyword">
+			<dynamic-content language-id="en_US"><![CDATA[left]]></dynamic-content>
+		</dynamic-element>
+		<dynamic-element name="Credits" index="0" type="text" index-type="">
+			<dynamic-content language-id="en_US"><![CDATA[@dr]]></dynamic-content>
+		</dynamic-element>
+		<dynamic-element name="Legende" index="0" type="text_box" index-type="">
+			<dynamic-content language-id="en_US"><![CDATA[Légende de l'image]]></dynamic-content>
+		</dynamic-element>
+		<dynamic-element name="SeparateurImageArticle" index="0" type="list" index-type="">
+			<dynamic-content language-id="en_US"><![CDATA[non]]></dynamic-content>
+		</dynamic-element>
+		<dynamic-content language-id="en_US" id="2914536">/image/journal/article?img_id=2914536&amp;t=1459354892190</dynamic-content>
+	</dynamic-element>
+	<dynamic-element name="Chapeau" type="text_area" index-type="keyword" index="0">
+		<dynamic-element name="SeparateurChapeau" index="0" type="list" index-type="keyword">
+			<dynamic-content language-id="en_US"><![CDATA[non]]></dynamic-content>
+		</dynamic-element>
+		<dynamic-content language-id="en_US"><![CDATA[<p><strong>La tournée d'information du directeur général</strong></p>
+
+<p>Dès juin 2014, le directeur général délégué a effectué une tournée de réunions dans toutes les directions et délégations afin de se mettre à votre écoute et de dialoguer avec vous sur la situation et l'avenir de l'établissement.</p>
+
+<p>A cette occasion, il a émis le souhait d'une large participation de tous et a annoncé la mise en place de la démarche Constructifs ensemble à l'automne.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>]]></dynamic-content>
+	</dynamic-element>
+	<dynamic-element name="InterTitre" type="text" index-type="keyword" index="0">
+		<dynamic-element name="ImageCorpsTexte" index="0" type="image" index-type="">
+			<dynamic-element name="imgParaZoom" index="0" type="boolean" index-type="keyword">
+				<dynamic-content language-id="en_US"><![CDATA[]]></dynamic-content>
+			</dynamic-element>
+			<dynamic-element name="imgParaFormat" index="0" type="list" index-type="">
+				<dynamic-content language-id="en_US"><![CDATA[paysage]]></dynamic-content>
+			</dynamic-element>
+			<dynamic-element name="imgParaPosition" index="0" type="list" index-type="">
+				<dynamic-content language-id="en_US"><![CDATA[left]]></dynamic-content>
+			</dynamic-element>
+			<dynamic-element name="CreditsCorpsTexte" index="0" type="text" index-type="">
+				<dynamic-content language-id="en_US"><![CDATA[]]></dynamic-content>
+			</dynamic-element>
+			<dynamic-content language-id="en_US" id="2914537">/image/journal/article?img_id=2914537&amp;t=1459354892197</dynamic-content>
+		</dynamic-element>
+		<dynamic-element name="CorpsTexte" index="0" type="text_area" index-type="keyword">
+			<dynamic-content language-id="en_US"><![CDATA[Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.]]></dynamic-content>
+		</dynamic-element>
+		<dynamic-element name="SeparateurCorpsTexte" index="0" type="list" index-type="">
+			<dynamic-content language-id="en_US"><![CDATA[non]]></dynamic-content>
+		</dynamic-element>
+		<dynamic-element name="ImageIllustration" index="0" type="image" index-type="">
+			<dynamic-element name="imgIllustrationZoom" index="0" type="boolean" index-type="keyword">
+				<dynamic-content language-id="en_US"><![CDATA[]]></dynamic-content>
+			</dynamic-element>
+			<dynamic-element name="CreditsIllustration" index="0" type="text" index-type="">
+				<dynamic-content language-id="en_US"><![CDATA[]]></dynamic-content>
+			</dynamic-element>
+			<dynamic-content language-id="en_US" id="2914538">/image/journal/article?img_id=2914538&amp;t=1459354892211</dynamic-content>
+		</dynamic-element>
+		<dynamic-element name="Separateur_image_d_illustration" index="0" type="list" index-type="keyword">
+			<dynamic-content language-id="en_US"><![CDATA[non]]></dynamic-content>
+		</dynamic-element>
+		<dynamic-element name="LinkToPage" index="0" type="link_to_layout" index-type="">
+			<dynamic-element name="LabelLinkIntranet" index="0" type="text" index-type="">
+				<dynamic-content language-id="en_US"><![CDATA[]]></dynamic-content>
+			</dynamic-element>
+			<dynamic-content language-id="en_US"><![CDATA[]]></dynamic-content>
+		</dynamic-element>
+		<dynamic-element name="separateur_des_liens_vers_une_page_de_l_intranet" index="0" type="list" index-type="">
+			<dynamic-content language-id="en_US"><![CDATA[non]]></dynamic-content>
+		</dynamic-element>
+		<dynamic-element name="DAM" index="0" type="document_library" index-type="">
+			<dynamic-element name="LabelLinkDocument" index="0" type="text" index-type="">
+				<dynamic-content language-id="en_US"><![CDATA[]]></dynamic-content>
+			</dynamic-element>
+			<dynamic-content language-id="en_US"><![CDATA[]]></dynamic-content>
+		</dynamic-element>
+		<dynamic-element name="SeparateurDocument" index="0" type="list" index-type="keyword">
+			<dynamic-content language-id="en_US"><![CDATA[non]]></dynamic-content>
+		</dynamic-element>
+		<dynamic-element name="LinkUrl" index="0" type="text" index-type="">
+			<dynamic-element name="LabelLinkUrl" index="0" type="text" index-type="">
+				<dynamic-content language-id="en_US"><![CDATA[]]></dynamic-content>
+			</dynamic-element>
+			<dynamic-content language-id="en_US"><![CDATA[]]></dynamic-content>
+		</dynamic-element>
+		<dynamic-element name="SeparateurLinkUrl" index="0" type="list" index-type="">
+			<dynamic-content language-id="en_US"><![CDATA[non]]></dynamic-content>
+		</dynamic-element>
+		<dynamic-content language-id="en_US"><![CDATA[]]></dynamic-content>
+	</dynamic-element>
+</root>"

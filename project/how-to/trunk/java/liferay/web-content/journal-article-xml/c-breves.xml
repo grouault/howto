@@ -1,0 +1,58 @@
+"<?xml version="1.0"?>
+
+<root available-locales="en_US" default-locale="en_US">
+	<dynamic-element name="ImageBreve" type="image" index-type="" index="0">
+		<dynamic-element name="imgBreveZoom" index="0" type="boolean" index-type="keyword">
+			<dynamic-content language-id="en_US"><![CDATA[true]]></dynamic-content>
+		</dynamic-element>
+		<dynamic-element name="Credit" index="0" type="text" index-type="keyword">
+			<dynamic-content language-id="en_US"><![CDATA[@Crédits]]></dynamic-content>
+		</dynamic-element>
+		<dynamic-content language-id="en_US" id="2916535">/image/journal/article?img_id=2916535&amp;t=1459414939798</dynamic-content>
+	</dynamic-element>
+	<dynamic-element name="Accroche" type="text_box" index-type="keyword" index="0">
+		<dynamic-content language-id="en_US"><![CDATA[Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua]]></dynamic-content>
+	</dynamic-element>
+	<dynamic-element name="Content" type="text_area" index-type="" index="0">
+		<dynamic-content language-id="en_US"><![CDATA[Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum]]></dynamic-content>
+	</dynamic-element>
+	<dynamic-element name="imgIllustration" type="image" index-type="keyword" index="0">
+		<dynamic-element name="imgIllustrationZoom" index="0" type="boolean" index-type="keyword">
+			<dynamic-content language-id="en_US"><![CDATA[true]]></dynamic-content>
+		</dynamic-element>
+		<dynamic-element name="imgIllustrationCredit" index="0" type="text" index-type="">
+			<dynamic-content language-id="en_US"><![CDATA[@illustration]]></dynamic-content>
+		</dynamic-element>
+		<dynamic-content language-id="en_US" id="2916536">/image/journal/article?img_id=2916536&amp;t=1459414939805</dynamic-content>
+	</dynamic-element>
+	<dynamic-element name="LinkToPage" type="link_to_layout" index-type="" index="0">
+		<dynamic-element name="LabelLinkIntranet" index="0" type="text" index-type="keyword">
+			<dynamic-content language-id="en_US"><![CDATA[Consulter la page DSI]]></dynamic-content>
+		</dynamic-element>
+		<dynamic-content language-id="en_US"><![CDATA[12@public@2606501]]></dynamic-content>
+	</dynamic-element>
+	<dynamic-element name="LinkToPage" type="link_to_layout" index-type="" index="1">
+		<dynamic-element name="LabelLinkIntranet" index="1" type="text" index-type="keyword">
+			<dynamic-content language-id="en_US"><![CDATA[Consulter la page des actions en cours]]></dynamic-content>
+		</dynamic-element>
+		<dynamic-content language-id="en_US"><![CDATA[10@public@2606501]]></dynamic-content>
+	</dynamic-element>
+	<dynamic-element name="Document" type="document_library" index-type="" index="0">
+		<dynamic-element name="LabelLinkDocument" index="0" type="text" index-type="">
+			<dynamic-content language-id="en_US"><![CDATA[Mon lien document]]></dynamic-content>
+		</dynamic-element>
+		<dynamic-content language-id="en_US"><![CDATA[/documents/2606501/0/dfsfds/449fc5ee-4e2f-4aab-8358-ed2f860da9d7]]></dynamic-content>
+	</dynamic-element>
+	<dynamic-element name="LinkUrl" type="text" index-type="" index="0">
+		<dynamic-element name="LabelLinkUrl" index="0" type="text" index-type="">
+			<dynamic-content language-id="en_US"><![CDATA[Consulter le site l'équipe.fr]]></dynamic-content>
+		</dynamic-element>
+		<dynamic-content language-id="en_US"><![CDATA[http://www.lequipe.fr/]]></dynamic-content>
+	</dynamic-element>
+	<dynamic-element name="LinkUrl" type="text" index-type="" index="1">
+		<dynamic-element name="LabelLinkUrl" index="1" type="text" index-type="">
+			<dynamic-content language-id="en_US"><![CDATA[Consulter le site le monde.fr]]></dynamic-content>
+		</dynamic-element>
+		<dynamic-content language-id="en_US"><![CDATA[http://www.lemonde.fr/]]></dynamic-content>
+	</dynamic-element>
+</root>"
