@@ -1,0 +1,5 @@
+pg_restore -h localhost -U gerep -d gerep db/latest.dump
+
+C:/Program Files (x86)/PostgreSQL/9.2/bin\pg_restore.exe --host localhost --port 5432 --username "gerep" --dbname "gerep" --role "gerep" --no-password  --schema gerep_16_12 --verbose "D:\tmp\dump\gerep\gerep_test_restore.backup"
+
+pg_restore.exe --host localhost --port 5432 --username "gerep" --dbname "gerep_1612" --role "gerep" --no-password --verbose "D:/tmp/dump/gerep/gerep_01-12-2016.backup"
