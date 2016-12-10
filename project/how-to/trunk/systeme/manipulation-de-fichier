@@ -1,0 +1,4 @@
+E-Répertoire
+1-mkdir
+  - possible d'indiquer plusieurs arguments sur la ligne de commandes.
+  - (-p) : créer une série de répertoire imbriqué.

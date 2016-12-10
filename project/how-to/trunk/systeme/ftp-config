@@ -1,0 +1,5 @@
+# ouvrir le port 21
+iptables -I INPUT -p tcp --dport 21 -j ACCEPT
+iptables -I OUTPUT -p tcp --dport 21 -j ACCEPT
+service iptables status
+service iptables save
