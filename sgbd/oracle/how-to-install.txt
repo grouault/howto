@@ -1,0 +1,6 @@
+-- How to Install Oracle
+------------------------
+http://litis.univ-lehavre.fr/~duvallet/enseignements/Cours/Oracle11g/COURS-ORACLE.pdf
+http://dbaora.com/install-oracle-11g-11-2-0-4-on-fedora-20/
+http://litis.univ-lehavre.fr/~duvallet/enseignements/Cours/Oracle11g/oracle
+https://docs.oracle.com/cd/B28359_01/server.111/b32009/strt_stp.htm

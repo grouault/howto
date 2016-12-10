@@ -1,0 +1,41 @@
+# how-to install vertigo
+https://github.com/KleeGroup/vertigo-demo-api
+
+Vertigo demo application API
+Purpose
+
+This application sets API for Focus-demo-app
+
+How to install it ?
+
+Install Vertigo Snapshot into your repo (needed for this version only)
+
+Clone or download vertigo code sources branch develop. Install vertigo snapshot :
+
+mvn clean source:jar install -DskipTests
+Generate vertigo demo standalone jar :
+
+Clone or download vertigo-demo code sources.
+
+Generate standalone runnable jar :
+
+mvn clean compile assembly:single
+How to launch it ?
+
+1- Prepare database directory
+
+mkdir d:/pandora
+mkdir d:/pandora/data
+mkdir d:/pandora/search
+2- Copy database into d:/pandora/data
+
+3- Just launch the generated standalone jar :
+
+java -jar target/vertigo-demo-api-1.0-SNAPSHOT-jar-with-dependencies.jar
+The API serve datas at this URL : http://localhost:8080/.
+
+You could check API at this URL : http://localhost:8080/swaggerUi.
+
+# Person
+--------
+http://localhost:8080/persons/1
