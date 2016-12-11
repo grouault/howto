@@ -1,0 +1,7 @@
+#ici définition des alias
+alias vision="cd /D/Services/devs/workspaces/mars/react/Vision/"
+
+#Définition des variables d'environement
+
+export MAVEN_HOME="/D/Services/devs/tools/java/apache-maven/apache-maven-3.3.9-bin/apache-maven-3.3.9"
+export PATH=$MAVEN_HOME/bin:$PATH
