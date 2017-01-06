@@ -20,17 +20,19 @@ CREATE TABLE CLIENTS(
 	[telephone] [char](14) NULL
 ) ON [PRIMARY]
 GO
-
+--
 -- Ajout d'une colonne
 ALTER TABLE CLIENTS ADD CODEREP char(2) NOT NULL;
 -- Modification d'une colonne existante
 ALTER TABLE CLIENTS ALTER COLUMN TELEPHONE char(14) NOT NULL;
-
+--
+-- TABLE CATEGORIE
 CREATE TABLE CATEGORIES(
   code_cat int identity(100,1),
   libelle_cat nvarchar(200)
 );
-
+--
+-- TABLE COMMANDES
 GO
 CREATE TABLE COMMANDES(
   numero_cde int identity(1350,1),
