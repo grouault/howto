@@ -2,10 +2,10 @@ USE GESCOM
 GO
 -- TABLE ARTICLES
 CREATE TABLE ARTICLES(
-	REFERENCE_ART nvarchar(16),
-	DESIGNATION_ART nvarchar(200),
-	PRIXHT_ART decimal(10,2),
-	CODE_CAT int
+	reference_art nvarchar(16),
+	designation_art nvarchar(200),
+	prixht_art decimal(10,2),
+	code_art int
 );
 exec sp_help ARTICLES
 --
