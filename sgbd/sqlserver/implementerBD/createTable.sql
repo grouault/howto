@@ -1,6 +1,6 @@
 USE GESCOM
 GO
-
+-- TABLE ARTICLES
 CREATE TABLE ARTICLES(
 	REFERENCE_ART nvarchar(16),
 	DESIGNATION_ART nvarchar(200),
@@ -8,6 +8,18 @@ CREATE TABLE ARTICLES(
 	CODE_CAT int
 );
 exec sp_help ARTICLES
+--
+-- TABLE CLIENTS
+CREATE TABLE CLIENTS(
+	[numero] [int] NOT NULL,
+	[nom] [varchar](30) NOT NULL,
+	[prenom] [varchar](30) NOT NULL,
+	[adresse] [nvarchar](80) NULL,
+	[codepostal] [char](5) NULL,
+	[ville] [nvarchar](30) NULL,
+	[telephone] [char](14) NULL
+) ON [PRIMARY]
+GO
 
 -- Ajout d'une colonne
 ALTER TABLE CLIENTS ADD CODEREP char(2) NOT NULL;
