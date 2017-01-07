@@ -8,15 +8,13 @@ CREATE TABLE ARTICLES(
 	designation nvarchar(200) NULL,
 	prixht decimal(10,2) NULL,
 	code_cat int NULL,
-	prixttc as (prixht_art * 1.196) PERSISTED
+	prixttc as (prixht * 1.196) PERSISTED
   constraint pk_articles PRIMARY KEY (reference),
   constraint uq_des_prix UNIQUE NONCLUSTERED(
-	designation_art asc, 
-	prixht_art asc
+	designation asc, 
+	prixht asc
   ),
-  constraint fk_articles_categories FOREIGN KEY(code_cat) 
-	REFERENCES CATEGORIE(code_cat) ON UPDATE CASCADE,
-  constraint ck_articles_prixht CHECK (prixht>=0),
+  constraint ck_articles_prixht CHECK (prixht>=0)
 );
 GO
 -- ===============
@@ -42,7 +40,7 @@ CREATE TABLE CLIENTS(
 	coderep char(2) NOT NULL,
 	ca numeric(10,2) NULL,
 	gps geography NULL,
-  constraint pk_clients PRIMARY KEY(numero_cli)	
+  constraint pk_clients PRIMARY KEY(numero_cli),	
   constraint ck_clients_codepostal CHECK 
 	((CONVERT(int,codepostal)>=10000) AND (CONVERT(int,codepostal)<=95999))
 ); 
@@ -69,7 +67,7 @@ CREATE TABLE HISTO_FAC(
 	numero_cde int NULL,
 	montantht smallmoney NULL,
 	etat_fac char(2) NULL,
-  constraint pk_histo_fac PRIMARY KEY(numero_fac)
+  constraint pk_histo_fac PRIMARY KEY(numero_fac),
   constraint fk_histo_fac_commandes FOREIGN KEY(numero_cde) REFERENCES COMMANDES(numero_cde)
 );
 GO
@@ -83,7 +81,7 @@ CREATE TABLE LIGNES_CDE(
 	qte_cde int NULL DEFAULT 1
   constraint pk_lignes_cde PRIMARY KEY(numero_cde, numero_lig),
   constraint fk_lignes_cde_commandes FOREIGN KEY(numero_cde) REFERENCES COMMANDES(numero_cde),
-  constraint fk_lignes_cde_articles FOREIGN KEY(reference_art) REFERENCES ARTICLES(reference_art)
+  constraint fk_lignes_cde_articles FOREIGN KEY(reference_art) REFERENCES ARTICLES(reference)
 );
 GO
 -- =================
@@ -95,7 +93,12 @@ CREATE TABLE STOCKS(
 	qte_stock int NULL,
 	stock_mini int NULL DEFAULT 0,
 	stock_maxi int NULL,
-	constraint pk_stocks PRIMARY_KEY(reference_art, depot),
-	constraint fk_stocks_articles FOREIGN KEY(reference_art) REFERENCES ARTICLES(reference_art)
+	constraint pk_stocks PRIMARY KEY(reference_art, depot),
+	constraint fk_stocks_articles FOREIGN KEY(reference_art) REFERENCES ARTICLES(reference)
 );
 GO
+-- =================
+-- CONSTRAINTS
+-- =================
+ALTER TABLE ARTICLES ADD CONSTRAINT fk_articles_categories FOREIGN KEY(code_cat) 
+	REFERENCES CATEGORIES(code_cat) ON UPDATE CASCADE
