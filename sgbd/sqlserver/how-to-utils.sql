@@ -4,3 +4,7 @@ DBCC USEROPTIONS;
 
 -- Procédure stockées d'aide sur les tables
 exec sp_help ARTICLES
+
+-- Changer le nom d'une colonne dans une table
+exec sp_rename N'dbo.Table.AncienNom', N'NouveauNom', 'COLUMN'
+GO
