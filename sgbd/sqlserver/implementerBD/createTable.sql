@@ -1,4 +1,4 @@
-USE GESCOM
+USE GESCOM_DEMO
 GO
 -- ==============
 -- TABLE ARTICLES
@@ -21,16 +21,16 @@ GO
 -- TABLE CATEGORIE
 -- ===============
 CREATE TABLE CATEGORIES(
-	code_cat int IDENTITY(100,1) NOT NULL,
+	code int IDENTITY(100,1) NOT NULL,
 	libelle nvarchar(200) NOT NULL,
-  constraint pk_categories PRIMARY KEY(code_cat)
+  constraint pk_categories PRIMARY KEY(code)
 );
 GO
 -- =============
 -- TABLE CLIENTS
 -- =============
 CREATE TABLE CLIENTS(
-	numero_cli int NOT NULL,
+	numero int NOT NULL,
 	nom varchar(30) NOT NULL,
 	prenom varchar(30) NOT NULL,
 	adresse nvarchar(80) NULL,
@@ -40,7 +40,7 @@ CREATE TABLE CLIENTS(
 	coderep char(2) NOT NULL,
 	ca numeric(10,2) NULL,
 	gps geography NULL,
-  constraint pk_clients PRIMARY KEY(numero_cli),	
+  constraint pk_clients PRIMARY KEY(numero),	
   constraint ck_clients_codepostal CHECK 
 	((CONVERT(int,codepostal)>=10000) AND (CONVERT(int,codepostal)<=95999))
 ); 
@@ -55,7 +55,7 @@ CREATE TABLE COMMANDES(
 	numero_cli int NOT NULL,
 	etat_cde char(2) NULL
   constraint pk_commandes PRIMARY KEY(numero_cde),
-  constraint fk_commandes_clients FOREIGN KEY(numero_cli) REFERENCES CLIENTS(numero_cli)
+  constraint fk_commandes_clients FOREIGN KEY(numero_cli) REFERENCES CLIENTS(numero)
 );
 GO
 -- ===============
@@ -101,4 +101,4 @@ GO
 -- CONSTRAINTS
 -- =================
 ALTER TABLE ARTICLES ADD CONSTRAINT fk_articles_categories FOREIGN KEY(code_cat) 
-	REFERENCES CATEGORIES(code_cat) ON UPDATE CASCADE
+	REFERENCES CATEGORIES(code) ON UPDATE CASCADE
