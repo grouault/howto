@@ -7,7 +7,6 @@
 select distinct ville
 from clients;
 go
-
 select ville
 from clients
 group by ville;
