@@ -45,3 +45,28 @@ select a1.prixht, a1.reference
 	select min(a2.prixht)
 	from ARTICLES a2
  );
+ 
+-- =========================================================================
+-- Sortir le prix minimun, le maximum et le prix moyen sur une ligne
+-- prix moyen sorti dans une table T1
+-- prix maximum et prix minimum sortis dans une table T2 (Left join)
+-- croos join entre T1 et T2
+-- =========================================================================
+Select avg(a.prixht) as 'Prix moyen' 
+	INTO #ArticlePrixMoyen
+from ARTICLES a; 
+with PrixExtreme as (
+	select a1.prixht as 'Prix maximum', a1.reference as 'Réf. prix maximum', a2.prixht as 'Prix minimum', a2.reference 'Réf. prix minimum'
+	 from articles a1 
+		left join articles a2 on a1.code_cat<>a2.code_cat 
+	 where a1.prixht >=any(
+		select max(a2.prixht)
+		from ARTICLES a2
+	 ) and a2.prixht <=any(
+		select min(a2.prixht)
+		from ARTICLES a2
+	)
+)
+Select pe.[Prix maximum], pe.[Réf. prix maximum], pe.[Prix minimum], pe.[Réf. prix minimum], pm.[Prix moyen]
+from PrixExtreme pe cross join #ArticlePrixMoyen pm;
+Drop table #ArticlePrixMoyen;
