@@ -35,3 +35,13 @@ select c.numero_cde, c.date_cde
   from COMMANDES c
   where DATEDIFF(mm, GETDATE(), c.date_cde) > 1 
 	and DATEDIFF(mm, GETDATE(), c.date_cde) < 3;
+	
+-- ============================================================
+-- Calcul élémentaire ; portée sur le select
+-- ============================================================
+select a.reference, 'Ancien prix'=prixht, 'Nouveau prix'=prixht * 1.1
+from ARTICLES a;
+
+select rtrim(cli.prenom) + ' ' +  rtrim(cli.nom) AS patronyme,
+	substring(cli.codepostal, 1, 2)
+	from CLIENTS cli;
