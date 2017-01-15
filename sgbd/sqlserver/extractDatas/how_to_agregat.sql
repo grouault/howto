@@ -70,3 +70,33 @@ with PrixExtreme as (
 Select pe.[Prix maximum], pe.[Réf. prix maximum], pe.[Prix minimum], pe.[Réf. prix minimum], pm.[Prix moyen]
 from PrixExtreme pe cross join #ArticlePrixMoyen pm;
 Drop table #ArticlePrixMoyen;
+
+-- =========================================================================
+-- Sortir le prix minimun, le maximum et le prix moyen sur une ligne
+-- prix moyen sorti dans une table temporaire T1
+-- prix maximum sorti dans une tablee temporaire T2 
+-- prix minimum sortis dans une table CTE T3
+-- Cross Join : T1xT2xT3
+-- =========================================================================
+select art.designation as 'designation', art.prixht as 'prixht'
+	into #PrixMaximum
+  from ARTICLES art
+  where art.prixht >= any (
+	select max(a1.prixht)
+	from ARTICLES a1
+  );
+Select avg(a.prixht) as 'Prix moyen' 
+	INTO #ArticlePrixMoyen
+from ARTICLES a; 
+With PrixMinimum as (
+	select art.designation, art.prixht
+	  from ARTICLES art
+	  where art.prixht <= any (
+		select min(a2.prixht)
+		from ARTICLES a2
+	  )
+)
+Select pmi.designation as 'Ref. Minimum', pmi.prixht as 'Prix minimum', pma.designation as 'Ref. Maximum', pma.prixht as 'Prix.Maximum', pm.[Prix moyen]
+	from PrixMinimum pmi cross join #PrixMaximum pma cross join #ArticlePrixMoyen pm;
+Drop table #PrixMaximum;
+Drop table #ArticlePrixMoyen;
