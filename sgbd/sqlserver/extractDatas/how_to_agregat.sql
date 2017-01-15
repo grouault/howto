@@ -97,6 +97,8 @@ With PrixMinimum as (
 	  )
 )
 Select pmi.designation as 'Ref. Minimum', pmi.prixht as 'Prix minimum', pma.designation as 'Ref. Maximum', pma.prixht as 'Prix.Maximum', pm.[Prix moyen]
-	from PrixMinimum pmi cross join #PrixMaximum pma cross join #ArticlePrixMoyen pm;
+	from PrixMinimum pmi 
+	cross join #PrixMaximum pma 
+	cross join #ArticlePrixMoyen pm;
 Drop table #PrixMaximum;
 Drop table #ArticlePrixMoyen;
