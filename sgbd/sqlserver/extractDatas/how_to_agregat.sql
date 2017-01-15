@@ -11,3 +11,11 @@ go
 select ville
 from clients
 group by ville;
+
+-- =========================================================================
+-- Prix Minimum, Moyen, Maximum des articles
+-- =========================================================================
+select MIN(a.prixht) as 'Prix minimum',
+	AVG(a.prixht) as 'Prix moyen',
+	MAX(a.prixht) as 'Prix maximum'
+from articles a;
