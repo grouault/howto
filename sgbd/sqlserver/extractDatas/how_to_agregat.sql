@@ -32,3 +32,16 @@ select a1.prixht as 'Prix maximum', a1.reference, a2.prixht as 'Prix minimum', a
 	select min(a2.prixht)
 	from ARTICLES a2
  );
+
+-- =========================================================================
+-- Sortir le prix minimun et maximum sur deux lignes
+-- =========================================================================
+select a1.prixht, a1.reference
+ from articles a1 
+ where a1.prixht >=any(
+	select max(a2.prixht)
+	from ARTICLES a2
+ ) or a1.prixht <=any(
+	select min(a2.prixht)
+	from ARTICLES a2
+ );
