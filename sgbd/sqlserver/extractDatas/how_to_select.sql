@@ -14,3 +14,8 @@ where ville = 'Nantes';
 Select nom, prenom, numero, ville
 FROM CLIENTS
 where codepostal between 44000 and 44999
+
+Select nom, prenom, numero, ville
+FROM CLIENTS
+where ville like 'V%' and ville is not NULL
+	AND prenom like 'V_l%';
