@@ -32,3 +32,26 @@ cd network/admin
 ==> vi oratab
 
 /oradata/ORA11G
+
+
+---------------
+SELECT table_name  from all_tables where owner = 'SCOTT';
+
+Se connecter sur Scott\Tiger :
+-----------------------------g1
+
+    SQL> conn  system/password;
+
+    Unlock "scott"
+
+    SQL> alter user scott account unlock;
+
+    Can change "tiger":
+
+    SQL> alter user scott identified by tiger;
+    SQL> conn scott/tiger; -Success
+
+scott account is locked in 11g due to security thinking, 
+
+SELECT table_name  from all_tables where owner = 'SCOTT';
+SELECT * FROM ALL_TABLES WHERE OWNER in 'SCOTT';
