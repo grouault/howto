@@ -4,3 +4,25 @@ http://litis.univ-lehavre.fr/~duvallet/enseignements/Cours/Oracle11g/COURS-ORACL
 http://dbaora.com/install-oracle-11g-11-2-0-4-on-fedora-20/
 http://litis.univ-lehavre.fr/~duvallet/enseignements/Cours/Oracle11g/oracle
 https://docs.oracle.com/cd/B28359_01/server.111/b32009/strt_stp.htm
+
+# utils
+##
+User Oracle:
+
+vi .bash_profile
+alias
+envo
+
+echo $ORACLE_HOSTNAME
+echo $ORACLE_HOME
+
+sqlplus sys as sysdba
+
+cd network/admin
+==> listener.ora
+
+/etc
+==> vi /etc/oraInst.loc
+==> vi oratab
+
+/oradata/ORA11G
