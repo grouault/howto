@@ -1,3 +1,5 @@
 https://talend-open-studio.fr.uptodown.com/windows/telecharger
 https://community.talend.com/talendopenstudiotutorials/
 http://haskouse.developpez.com/tutoriels/etl/talend-open-studio/creation-job/#LIV-D-5
+
+http://www.encodage-video.com/devprog/doc/TalendOpenStudio-DI-UG-50b-FR.pdf
