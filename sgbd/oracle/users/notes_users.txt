@@ -1,0 +1,8 @@
+# sys
+##
+recoit tous les privilètes et rôles existants.
+
+# Vues pour visualiser les utlisateurs
+##
+
+3
