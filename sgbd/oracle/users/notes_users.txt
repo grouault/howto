@@ -5,4 +5,16 @@ recoit tous les privilètes et rôles existants.
 # Vues pour visualiser les utlisateurs
 ##
 
-3
+##
+# PRIVILEGES
+##
+- permet de gérer les droits utilisateurs.
+-- privilèges système : droit d'exéctuer un ordre SQL.
+-- privilège objet : accéder à un objet d'un autre utilisateur
+- un privilège est assoicé à un rôle ou à un utilisateur
+
+# Vues pour visualiser les privilèges
+
+# Vues pour visualiser les rôles
+##
+
