@@ -4,6 +4,8 @@ recoit tous les privilètes et rôles existants.
 
 # Vues pour visualiser les utlisateurs
 ##
+DBA_USERS
+DBA_TS_QUOTAS
 
 ##
 # PRIVILEGES
