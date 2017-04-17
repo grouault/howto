@@ -1,3 +1,4 @@
+-- Call procedure in Package.
 set serveroutput on;
 DECLARE
 
