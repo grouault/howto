@@ -1,0 +1,16 @@
+mvn -X install:install-file -Dfile=path/to/mly/jar -DgroupId=j<groupname> -DartifactId=<artifactname> -Dversion=<version> -Dpackaging=jar -DgeneratePom=true
+
+mvn -X install:install-file -Dfile=astre-client-0.1 -DgroupId=fr.inria -DartifactId=astre-client -Dversion=0.1 -Dpackaging=jar -DgeneratePom=true
+mvn install:install-file -Dfile=astre-client-0.1.jar -DgroupId=fr.inria -DartifactId=astre-client -Dversion=0.1 -Dpackaging=jar
+mvn install:install-file -Dfile=D:\services\INRIA\GEF\lib\astre-client-0.1.jar -DgroupId=fr.inria -DartifactId=astre-client -Dversion=0.1 -Dpackaging=jar
+
+Install des jars INRIA:
+-----------------------
+mvn install:install-file -Dfile=astre-client-0.1.jar -DartifactId=astre-client -DgroupId=fr.inria -Dversion=0.1 -Dpackaging=jar
+mvn install:install-file -Dfile=opsfClient-1.1.0.jar -DartifactId=opsfClient -DgroupId=fr.inria -Dversion=1.1.0 -Dpackaging=jar
+mvn install:install-file -Dfile=inria-util-1.0.0.jar -DartifactId=inria-util -DgroupId=fr.inria -Dversion=1.0.0 -Dpackaging=jar
+mvn install:install-file -Dfile=gef-api-2.5.7.jar -DartifactId=gef-api -DgroupId=fr.inria -Dversion=2.5.7 -Dpackaging=jar
+
+#
+##
+javax.servlet / servlet-api
