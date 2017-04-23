@@ -14,3 +14,6 @@ mvn install:install-file -Dfile=gef-api-2.5.7.jar -DartifactId=gef-api -DgroupId
 #
 ##
 javax.servlet / servlet-api
+
+# ojdbc.jar
+mvn install:install-file -Dfile=ojdbc14-10.2.jar -DartifactId=ojdbc14 -DgroupId=com.oracle -Dversion=10.2 -Dpackaging=jar
