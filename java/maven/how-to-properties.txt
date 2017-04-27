@@ -1,2 +1,13 @@
 # Get Path Properties
 getClass().getClassLoader().getResource("reservoir.properties")
+
+# Properties files
+InputStream propertiesFile = this.getClass().getClassLoader().getResourceAsStream("config.properties");
+Properties props = new Properties();
+props.load(propertiesFile);
+//Etablisssement de la connexion.
+String urlConnection = props.getProperty("connection");
+String user = props.getProperty("user");
+String mdp = props.getProperty("password");
+connexion = DriverManager.getConnection(urlConnection, user, mdp);
+logger.info("ouverture de la connexion");
