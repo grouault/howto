@@ -3,7 +3,12 @@
 - SYS
 - SYSTEM/manager
 
-# sys
+# Privilèges particulier
+##
+- SYSDBA
+- SYSOPER
+
+# Compte sys
 ##
 - recoit tous les privilèges et rôles existants.
 - sys est le propriétaire du dictionnaire de données
