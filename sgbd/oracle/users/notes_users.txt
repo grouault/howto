@@ -1,6 +1,12 @@
+# Compte Oracle d'administration
+##
+- SYS
+- SYSTEM/manager
+
 # sys
 ##
-recoit tous les privilètes et rôles existants.
+- recoit tous les privilèges et rôles existants.
+- sys est le propriétaire du dictionnaire de données
 
 # Vues pour visualiser les utlisateurs
 ##
