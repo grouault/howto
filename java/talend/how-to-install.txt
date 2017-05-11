@@ -4,6 +4,9 @@ http://haskouse.developpez.com/tutoriels/etl/talend-open-studio/creation-job/#LI
 http://www.encodage-video.com/devprog/doc/TalendOpenStudio-DI-UG-50b-FR.pdf
 https://www.talendforge.org/forum/viewtopic.php?id=35307
 
+# file context
+https://www.talendbyexample.com/talend-load-context-example.html
+
 # Download
 https://fr.osdn.net/projects/sfnet_talend-studio/downloads/Talend%20Open%20Studio/5.0.1/TOS_DI-r74687-V5.0.1.zip/
 https://talend-open-studio.fr.uptodown.com/windows/telecharger
