@@ -1,0 +1,7 @@
+# Mars workspaces
+D:\devs\projets\java\java-cas\workspace-cas
+D:\devs\workspaces\mars\j2ee\rest\aurora
+D:\devs\workspaces\mars\j2se-git
+D:\devs\workspaces\mars\j2ee
+D:\devs\projets\projet-klee\themis\workspace_themis
+D:\devs\workspaces\mars\gerep-2
