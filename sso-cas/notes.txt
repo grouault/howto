@@ -1,0 +1,10 @@
+# urls
+##
+http://aldian.developpez.com/tutoriels/javaee/authentification-centralisee-sso-cas/#LIV-E
+
+https://wiki.jasig.org/display/CASC/JA-SIG+Java+Client+Simple+WebApp+Sample
+
+# Communication sécurisée Tomcat/Appli-j2ee
+##
+http://aldian.developpez.com/tutoriels/javaee/ssl-autosigne-m2m-tomcat/#LIII
+https://blogs.oracle.com/gc/unable-to-find-valid-certification-path-to-requested-target
