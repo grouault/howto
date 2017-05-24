@@ -1,0 +1,39 @@
+# Mars workspaces
+D:\devs\projets\java\java-cas\workspace-cas
+D:\devs\workspaces\mars\j2ee\rest\aurora
+D:\devs\workspaces\mars\j2se-git
+D:\devs\workspaces\mars\j2ee
+D:\devs\projets\projet-klee\themis\workspace_themis
+D:\devs\workspaces\mars\gerep-2
+
+http://localhost:8080/cas/login
+https://localhost:8080/cas/login
+
+http://localhost:8080/mywebapp/
+http://localhost:8080/mywebapp/protected/
+
+https://localhost:8443/mywebapp/
+
+
+https://localhost:8443/mywebapp2/
+
+keytool -genkey -keyalg RSA -alias mylocaltomcat1 -keystore D:\devs\projets\java\java-cas\certificat\keystore\keystore.jks -validity 365 -keysize 2048 -storepass myKeystorePassword -keypass myKeystorePassword
+
+git checkout 08618129e66127921fbfcbc205a06153c92622fe path/to/file.txt
+
+git clone git@github.com:KleeGroup/focus-starter-kit.git
+
+https://github.com/escline/InstallCert/blob/master/InstallCert.java
+
+curl 'https://github.com/escline/InstallCert/blob/master/InstallCert.java' > InstallCert.txt
+
+javac InstallCert
+java InstallCert localhost:8443
+
+keytool -exportcert -alias localhost-1 -keystore jssecacerts -storepass changeit -file localhost.cer
+keytool -importcert -alias localhost -keystore D:\devs\projets\java\java-cas\certificat\keystore -storepass changeit -file localhost.cer
+keytool -importcert -alias localhost -keystore C:\Program Files\Java\jdk1.8.0_05\jre\lib\security -storepass changeit -file localhost.cer
+keytool -importcert -alias localhost -keystore C:\Program Files\Java\jdk1.8.0_05\jre\lib\security\cacerts -storepass changeit -file localhost.cer
+keytool -importcert -alias localhost -keystore C:/Program Files/Java/jdk1.8.0_05/jre/lib/security/cacerts -storepass changeit -file localhost.cer
+
+keytool -importcert -alias woot.com -keystore /usr/lib/jvm/java-6-sun-1.6.0.26/jre/lib/security/cacerts -storepass changeit -file woot.com.cer
