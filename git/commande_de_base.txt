@@ -1,10 +1,19 @@
 git config --help
 git config -h
 
+# Principe
+Etat: pour un fichier suivi par GIT, le fichier peut être dans 3 états
+- Validé / Modifié / Indexé
+Pour pouvoir être committé, un fichier doit êtré dans l'état 'indexé'.
+Indexation : nouvelle signature/nouveau hash // signe le fichier pour le versionnement et en faire une nouvelle version
+
 # Fichier de configuration de git
 $ git config --global user.name "grouault"
 $ git config --global user.email "gildasrouault@gmail.com"
 $ git config --global core.editor vim
+
+# status : git status
+renseigne sur le statut du dépot actuel
 
 # Indexation : git add
 add: indexer à la main tous les fichiers qui ont été créés ou modifiés
