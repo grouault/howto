@@ -26,6 +26,7 @@ $ git add . ==> index tous les fichiers modifiés
 $ git add -p ==> index de manière interactive
 
 # Commit : git commit
+Commit : action de prendre le répertoire de travail et d'en faire une copie carbonne qu'on appelera 'version/révision'
 Une fois indexé, un fichier peut-être committé.
 Cela créer une version/révision (hash) sur le dépôt local (réferentiel local)
 $ git commit ==> commit les fichiers indexés.
