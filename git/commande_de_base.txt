@@ -1,0 +1,24 @@
+git config --help
+git config -h
+
+# Fichier de configuration de git
+$ git config --global user.name "grouault"
+$ git config --global user.email "gildasrouault@gmail.com"
+$ git config --global core.editor vim
+
+# Indexation : git add
+add: indexer à la main tous les fichiers qui ont été créés ou modifiés
+Il est de la responsabilité du développeur d'inclure :
+- les fichiers à versionner 
+- les fichiers modifiés 
+$ git status
+$ git add [mon_fichier]
+$ git add . ==> index tous les fichiers modifiés
+$ git add -p ==> index de manière interactive
+
+# Commit : git commit
+Une fois indexé, un fichier peut-être committé.
+Cela créer une version/révision (hash) sur le dépôt local (réferentiel local)
+$ git commit ==> commit les fichiers indexés.
+$ git commit -m "[Commentaire]"
+$ git commit -am "[Commentaire]" ==> indexe les fichiers modifiés(a) et fait un commit
