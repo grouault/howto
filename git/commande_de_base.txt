@@ -32,3 +32,9 @@ Cela créer une version/révision (hash) sur le dépôt local (réferentiel loca
 $ git commit ==> commit les fichiers indexés.
 $ git commit -m "[Commentaire]"
 $ git commit -am "[Commentaire]" ==> indexe les fichiers modifiés(a) et fait un commit
+
+# Ignorer : .gitignore
+- racine du dépot
+- quel fichier / pattern fichier à ignorer
+Créer le fichier et ajouter le fichier au dépôt.
+git rm --cached [nom_fichier] ==> retirer du suivi de version le fichier
