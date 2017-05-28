@@ -21,3 +21,15 @@ $ git remote rename [old_name] [new_name]
 Prendre les révisions locales et les synchroniser avec le repo distant
 $ git push [depot_local] [branche_distante]
 Ex : $git push origin master
+
+# Clone
+S'abonner au repo distant, copier l'intégralité du dépot, son historique et le ramener chez nous en tant que dépot local
+$ git clone https://github.com/grouault/demonstration-video-eni.git
+
+# Fetch
+$ git fetch origin master
+Synchroniser le repos distant avec le repo local
+
+# Merge
+- consiste à merger l'espace de travail avec avec autre chose : dépot local
+$ git merge origin master
