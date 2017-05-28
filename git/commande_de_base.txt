@@ -33,6 +33,14 @@ $ git commit ==> commit les fichiers indexés.
 $ git commit -m "[Commentaire]"
 $ git commit -am "[Commentaire]" ==> indexe les fichiers modifiés(a) et fait un commit
 
+# historiser : un fichier / une revision
+$ git checkout ==> remplace un fichier par sa révision à un instant t
+Permet de consulter un fichier, mais ne permet pas de le modifier
+
+# Retour arrière
+$ git reset ==> annule l'effet du 'git add' précédent
+$ get reset --hard ==> écrase les modifications faite depuis le dernier commit
+
 # Ignorer : .gitignore
 - racine du dépot
 - quel fichier / pattern fichier à ignorer
