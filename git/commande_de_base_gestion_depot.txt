@@ -1,0 +1,18 @@
+# Branche
+--> se replacer sur le master
+$ git status
+$ git checkout master
+
+# Ajouter un dépôt distant
+$ git remote ==> indique les dépôts auxquels je suis abonné / si pas d'abonnement rien
+$ git remote add [nom] [url] ==> par convention dépot referentil s'appelle origin
+Exemple :
+$ git remote add origin https://github.com/grouault/demonstration-video-eni.git
+==> Je pousse les sources vers mon repot. origin
+$ git remote -v ==> fetch/push pour la synchronisation avec le dépôt distant
+
+# Supprimer un depot
+$ git remote rm origin
+
+# Renommer un depot
+$ git remote rename [old_name] [new_name]
