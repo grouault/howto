@@ -38,3 +38,11 @@ $ git commit -am "[Commentaire]" ==> indexe les fichiers modifiés(a) et fait un
 - quel fichier / pattern fichier à ignorer
 Créer le fichier et ajouter le fichier au dépôt.
 git rm --cached [nom_fichier] ==> retirer du suivi de version le fichier
+
+# Nettoyer espace de travail
+--> effacer les fichiers qui ne font pas parti du referentiel / fichier non indexé par Git
+$ git clean -n ==> ce que Git propose en suppression
+$ git clean -df ==> supprimer dossier et fichier
+--> effacer les fichiers qui font parti du .gitignore 
+$ git clean -xn
+$ git clean -xdf
