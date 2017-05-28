@@ -16,3 +16,8 @@ $ git remote rm origin
 
 # Renommer un depot
 $ git remote rename [old_name] [new_name]
+
+# Push
+Prendre les révisions locales et les synchroniser avec le repo distant
+$ git push [depot_local] [branche_distante]
+Ex : $git push origin master
