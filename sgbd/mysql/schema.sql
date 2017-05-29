@@ -1,3 +1,7 @@
+-- DROP SCHEMA
+drop schema `aurora`;
+CREATE SCHEMA `aurora` DEFAULT CHARACTER SET utf8;
+
 CREATE USER 'bugzilla'@'localhost' IDENTIFIED BY 'bugzilla';
 GRANT USAGE ON * . * TO 'bugzilla'@'localhost' IDENTIFIED BY 'bugzilla';
 CREATE DATABASE IF NOT EXISTS `bugzilla` ;
