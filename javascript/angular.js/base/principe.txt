@@ -22,7 +22,7 @@ La vue est une page HTML chargée d'afficher les données du modèle.
 
   Syntaxe : {{}} ==> créé un lien, un data-binding, one-way, entre la vue et une propriété du modèle
 
-# Scope : 
+# Scopes : 
 $scope est le mécanisme permettant d'exposer les données aux vues.
 Il est passé en paramètre de chaque contrôleur, tout propriété ou fonction y étant ajouté sera accessible dans la vue
 Les scopes 
@@ -31,6 +31,7 @@ Les scopes
 - chaque application a un scope global : $rootScope <==> ng-app
 - chaque contrôleur a son propre scope ; chaque scope peut accèder aux scopes des contrôleurs parents et rend
   les propriétés et fonctions de ces scopes accessibles aux vues
+- directives : peuvent créés des scopes
 
 # Module
 Un module permet d'encapsuler l'ensemble des éléments d'une application AngularJs.
