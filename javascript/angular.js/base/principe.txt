@@ -14,13 +14,20 @@ Il doit ainsi :
 - exposer le modèle et les fonctions à la vue via l'objet $scope
 - réagir au changement du modèle
 
-# Vue :
+# Vue et binding :
 La vue est un templage de page HTML chargée d'afficher les données du modèle.
 - accède à l'objet $scope
   ng-app: permet de spécifier quelle partie de la page HTML AngularJS doit gérer.
   ng-app="MonApplication"  ==> angular.module("MonApplication",[])
 
   Syntaxe : {{}} ==> créé un lien, un data-binding, one-way, entre la vue et une propriété du modèle
+
+- Binding : 
+Le principe de binding est de synchroniser une donnée du modèle et l'affichage de cette donnée.
+- one-way : met à jour la vue quand le modèle change
+- two-way : met à jour la vue quand le modèle change et met à jour le modèle quans la vue change
+- one-time : affiche une donnée du modèle dans la vue et désactive la relation de binding
+
 
 # Scopes : 
 $scope est le mécanisme permettant d'exposer les données aux vues.
