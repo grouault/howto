@@ -12,4 +12,4 @@ Vue : La vue est une page HTML chargée d'afficher les données du modèle.
   ng-app: permet de spécifier quelle partie de la page HTML AngularJS doit gérer.
   ng-app="MonApplication"  ==> angular.module("MonApplication",[])
 
-  Syntaxe : {{}} ==> créé un lien, un data-binding entre la vue et une propriété du modèle
+  Syntaxe : {{}} ==> créé un lien, un data-binding, one-way, entre la vue et une propriété du modèle
