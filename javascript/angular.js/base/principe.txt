@@ -2,21 +2,36 @@
 ##
 - framework qui s'organise autour des framework : MVC / MVVM
 
-Modéle : représenter par un objet ou une valeur Javascript
+# Modéle : 
+- représenter par un objet ou une valeur Javascript
 
-Contrôleur : 
+# Contrôleur : 
 C'est une classe Javascript prenant en paramètre l'objet $scope qui représenter le modèle.
 L'objet $scope est automatiquement fournit au contrôleur via le mécanisme d'injection de dépendance utilisé par AngularJS.
 Le rôle du contrôleur est de fournir les données et les actions avec lequel l'utilisateur interagira dans les vues.
+Il doit ainsi :
+- initialiser l'état du modèle
+- exposer le modèle et les fonctions à la vue via l'objet $scope
+- réagir au changement du modèle
 
-Vue : La vue est une page HTML chargée d'afficher les données du modèle.
+# Vue :
+La vue est une page HTML chargée d'afficher les données du modèle.
 - accède à l'objet $scope
   ng-app: permet de spécifier quelle partie de la page HTML AngularJS doit gérer.
   ng-app="MonApplication"  ==> angular.module("MonApplication",[])
 
   Syntaxe : {{}} ==> créé un lien, un data-binding, one-way, entre la vue et une propriété du modèle
-  
+
+# Scope : 
+$scope est le mécanisme permettant d'exposer les données aux vues.
+Il est passé en paramètre de chaque contrôleur, tout propriété ou fonction y étant ajouté sera accessible dans la vue
+Les scopes 
+- s'organisent suivant une structure hiérarchique.
+- possèdent une relation d'héritage : ils peuvent accèder à leur parent et hérite de leur propriété.
+- chaque application a un scope global : $rootScope <==> ng-app
+- chaque contrôleur a son propre scope ; chaque scope peut accèder aux scopes des contrôleurs parents et rend
+  les propriétés et fonctions de ces scopes accessibles aux vues
+
 # Module
-##
 Un module permet d'encapsuler l'ensemble des éléments d'une application AngularJs.
 Chaque élément d'une application doit être déclaré dans un module.
