@@ -15,7 +15,7 @@ Il doit ainsi :
 - réagir au changement du modèle
 
 # Vue :
-La vue est une page HTML chargée d'afficher les données du modèle.
+La vue est un templage de page HTML chargée d'afficher les données du modèle.
 - accède à l'objet $scope
   ng-app: permet de spécifier quelle partie de la page HTML AngularJS doit gérer.
   ng-app="MonApplication"  ==> angular.module("MonApplication",[])
