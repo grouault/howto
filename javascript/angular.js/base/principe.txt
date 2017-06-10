@@ -4,8 +4,10 @@
 
 Modéle : représenter par un objet ou une valeur Javascript
 
-Contrôleur : c'est une classe Javascript prenant en paramètre l'objet $scope qui représenter le modèle.
-  l'objet $scope est automatiquement fournit au contrôleur via le mécanisme d'injection de dépendance utilisé par AngularJS.
+Contrôleur : 
+C'est une classe Javascript prenant en paramètre l'objet $scope qui représenter le modèle.
+L'objet $scope est automatiquement fournit au contrôleur via le mécanisme d'injection de dépendance utilisé par AngularJS.
+Le rôle du contrôleur est de fournir les données et les actions avec lequel l'utilisateur interagira dans les vues.
 
 Vue : La vue est une page HTML chargée d'afficher les données du modèle.
 - accède à l'objet $scope
@@ -13,3 +15,8 @@ Vue : La vue est une page HTML chargée d'afficher les données du modèle.
   ng-app="MonApplication"  ==> angular.module("MonApplication",[])
 
   Syntaxe : {{}} ==> créé un lien, un data-binding, one-way, entre la vue et une propriété du modèle
+  
+# Module
+##
+Un module permet d'encapsuler l'ensemble des éléments d'une application AngularJs.
+Chaque élément d'une application doit être déclaré dans un module.
