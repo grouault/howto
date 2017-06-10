@@ -1,5 +1,15 @@
 # Principe d'une application Angular.js
 ##
 - framework qui s'organise autour des framework : MVC / MVVM
+
 Modéle : représenter par un objet ou une valeur Javascript
+
 Contrôleur : c'est une classe Javascript prenant en paramètre l'objet $scope qui représenter le modèle.
+  l'objet $scope est automatiquement fournit au contrôleur via le mécanisme d'injection de dépendance utilisé par AngularJS.
+
+Vue : La vue est une page HTML chargée d'afficher les données du modèle.
+- accède à l'objet $scope
+  ng-app: permet de spécifier quelle partie de la page HTML AngularJS doit gérer.
+  ng-app="MonApplication"  ==> angular.module("MonApplication",[])
+
+  Syntaxe : {{}} ==> créé un lien, un data-binding entre la vue et une propriété du modèle
