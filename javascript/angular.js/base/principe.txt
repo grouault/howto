@@ -1,0 +1,5 @@
+# Principe d'une application Angular.js
+##
+- framework qui s'organise autour des framework : MVC / MVVM
+Modéle : représenter par un objet ou une valeur Javascript
+Contrôleur : c'est une classe Javascript prenant en paramètre l'objet $scope qui représenter le modèle.
