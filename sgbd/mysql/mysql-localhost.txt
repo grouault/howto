@@ -1,6 +1,6 @@
 Mysql sur mon poste:
-- install : C:\Program Files\MySQL\MySQL Server 5.1
-- root/rg0411rc
+- install :xamp
+- root/gildas
 
 ##
 # Sites.
@@ -33,7 +33,7 @@ max_allowed_packet=20M
 
 
 ##
-# Création d'un nouveau shéma.
+# CrÃ©ation d'un nouveau shÃ©ma.
 ##
 CREATE USER 'bugzilla'@'localhost' IDENTIFIED BY 'bugzilla';
 GRANT USAGE ON * . * TO 'bugzilla'@'localhost' IDENTIFIED BY 'bugzilla';
