@@ -1,3 +1,6 @@
+--
+-- https://crunchify.com/how-to-fix-cannot-change-version-of-project-facet-dynamic-web-module-to-3-0-error-in-eclipse/
+--
 CREATE USER 'websystique'@'localhost' IDENTIFIED BY 'websystique';
 GRANT USAGE ON * . * TO 'websystique'@'localhost' IDENTIFIED BY 'websystique';
 CREATE SCHEMA `websystique` DEFAULT CHARACTER SET utf8;
