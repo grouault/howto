@@ -5,7 +5,10 @@
 mysql -h localhost -u root -p
 ==> saisir le password.
 
-# utilisation/changement d'une base de donnÈes.
+# Voir les tables
+show databases;
+
+# utilisation/changement d'une base de donn√©es.
 use database;
 
 # voir les tables.
@@ -14,21 +17,21 @@ show tables;
 # stucture d'une table.
 describe table;
 
-# Dumper une base de donnÈes : mysql dump.
+# Dumper une base de donn√©es : mysql dump.
 mysqldump -h localhost -u root -p teammanager > teammanager.mysql
-==> CrÈer un dump versus mysql!
+==> Cr√©er un dump versus mysql!
 
 # Importer un dump
 mysqldump -h localhost -u root -p teammanager < teammanager.mysql
 
-# Importer, modifier, supprimer des enregistrements  de la base ‡ partir d'un fichier sql.
+# Importer, modifier, supprimer des enregistrements  de la base √† partir d'un fichier sql.
 mysql -u teammanager --password=teammanager teammanager < insertCoach.sql
 
-# Lister toutes les bases de donnÈes sur un serveur:
+# Lister toutes les bases de donn√©es sur un serveur:
 mysqlshow -u teammanager -p
 
-# Lister les tables dans une base de donnÈes
+# Lister les tables dans une base de donn√©es
 mysqlshow -u teammanager -p teammanager
 
-# Lister la dÈfinition díune table
+# Lister la d√©finition d‚Äôune table
 mysqlshow -u teammanager -p teammanager coach
