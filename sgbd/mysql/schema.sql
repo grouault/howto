@@ -2,6 +2,12 @@
 drop schema `aurora`;
 CREATE SCHEMA `aurora` DEFAULT CHARACTER SET utf8;
 
+-- /websystique/ ---------------------------------------------
+CREATE USER 'websystique'@'localhost' IDENTIFIED BY 'websystique';
+GRANT USAGE ON * . * TO 'websystique'@'localhost' IDENTIFIED BY 'wesystique';
+CREATE SCHEMA `websystique` DEFAULT CHARACTER SET utf8;
+
+-- // ---------------------------------------------
 CREATE USER 'bugzilla'@'localhost' IDENTIFIED BY 'bugzilla';
 GRANT USAGE ON * . * TO 'bugzilla'@'localhost' IDENTIFIED BY 'bugzilla';
 CREATE DATABASE IF NOT EXISTS `bugzilla` ;
