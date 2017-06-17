@@ -1,4 +1,5 @@
-CREATE USER 'websystique'@'localhost' IDENTIFIED BY 'websystique';
-GRANT USAGE ON * . * TO 'websystique'@'localhost' IDENTIFIED BY 'websystique';
-CREATE SCHEMA `websystique` DEFAULT CHARACTER SET utf8;
-GRANT ALL PRIVILEGES ON `websystique` . * TO 'websystique'@'localhost';
+CREATE SCHEMA `jpa` DEFAULT CHARACTER SET utf8;
+
+CREATE USER 'jpa'@'localhost' IDENTIFIED BY 'jpa';
+GRANT USAGE ON * . * TO 'jpa'@'localhost' IDENTIFIED BY 'jpa';
+GRANT ALL PRIVILEGES ON `jpa` . * TO 'jpa'@'localhost';
