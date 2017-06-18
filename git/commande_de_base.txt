@@ -20,6 +20,7 @@ git init monNouveauProjet
 renseigne sur le statut du dépot actuel
 
 # Indexation : git add
+Git fait appel à un système par état pour gérer ses fichiers.
 add: indexer à la main tous les fichiers qui ont été créés ou modifiés
 Il est de la responsabilité du développeur d'inclure :
 - les fichiers à versionner 
