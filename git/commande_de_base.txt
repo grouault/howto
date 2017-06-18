@@ -13,7 +13,7 @@ $ git config --global user.email "gildasrouault@gmail.com"
 $ git config --global core.editor vim
 
 # initilisation d'un dépôt GIT
-git init
+git init ==> initialise un dépôt GIT sur la branche Master
 git init monNouveauProjet
 
 # status : git status
