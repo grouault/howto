@@ -12,6 +12,10 @@ $ git config --global user.name "grouault"
 $ git config --global user.email "gildasrouault@gmail.com"
 $ git config --global core.editor vim
 
+# initilisation d'un dépôt GIT
+git init
+git init monNouveauProjet
+
 # status : git status
 renseigne sur le statut du dépot actuel
 
