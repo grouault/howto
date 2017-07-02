@@ -1,1 +1,37 @@
  Ant (Another Neat Tool) est un outil de batch de tâches Java
+
+# Balise : <property ... />
+##
+définissent des variables de script avec la balise <property name="nomVariable" value="valeurVariable"/>
+La variable peut ensuite être utilisée dans le script avec la notation ${nomVariable}
+
+Ex: <property name="lib.dir" value="../../../lib" />
+
+# Balise : <path ... />
+##
+la balise <path> sert à définir des éléments du classpath que devront utiliser les tâches ant.
+Ici, le path "project.classpath" (le nom est libre) rassemble toutes les archives .jar de l'arborescence du dossier <exemples>/lib.
+<!-- le Classpath du projet -->
+<path id="project.classpath">
+    <fileset dir="${lib.dir}">
+        <include name="**/*.jar" />
+    </fileset>
+</path>
+
+# Balise <PatternSet ... />
+##
+la balise <patternset> sert à désigner un ensemble de fichiers par des modèles de noms.
+<patternset id="conf">
+    <include name="**/*.xml" />
+    <include name="**/*.properties" />
+</patternset>
+==> Peut alors être utiliser dans un autre Target
+<!-- Copier les fichiers de configuration dans le classpath -->
+ <target name="copyconf">
+     <mkdir dir="${build.dir}" />
+     <copy todir="${build.dir}">
+         <fileset dir="${src.java.dir}">
+             <patternset refid="conf" />
+         </fileset>
+     </copy>
+ </target>
