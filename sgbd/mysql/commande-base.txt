@@ -1,6 +1,14 @@
 # Commande MySql
 ##
 
+# démarrer mysql
+Lancer : mysqld.exe
+
+# Arrêter mysql
+>"C:\Program Files\MySQL\MySQL Server 5.7\bin\mysqladmin" -u root shutdown
+>mysqladmin -u root shutdown -p
+
+
 # Connection ligne de commande.
 mysql -h localhost -u root -p
 ==> saisir le password.
