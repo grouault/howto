@@ -5,6 +5,10 @@
 mysql -h localhost -u root -p
 ==> saisir le password.
 
+# Change Root Password
+ALTER USER 'root'@'localhost' IDENTIFIED BY 'MyNewPass'; ==> MySQL 5.7.6 and later: 
+SET PASSWORD FOR 'root'@'localhost' = PASSWORD('MyNewPass'); ==> MySQL 5.7.5 and earlier: 
+
 # Voir les tables
 show databases;
 
