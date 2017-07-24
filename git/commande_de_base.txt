@@ -1,6 +1,9 @@
 git config --help
 git config -h
 
+# proxy
+git config --global http.proxy 10.3.64.101:8080
+
 # Principe
 Etat: pour un fichier suivi par GIT, le fichier peut être dans 3 états
 - Validé / Modifié / Indexé
