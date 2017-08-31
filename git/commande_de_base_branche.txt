@@ -9,3 +9,9 @@ $ git checkout v2.0 -b v2.1
 
 # Créerla branche sur le repo distant
 $ git push origin v2.O
+
+# Fusionner deux branches : intégrer les données de la branche v2.0 dans master
+==> se positionner dans master
+$ git merge v2.0
+
+# Tag :
