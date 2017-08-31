@@ -1,3 +1,10 @@
+Resume:
+- commit : espace de travail au dépot local
+- push : dépot local ==> dépot distant
+- fetch : depot distant ==> depot local
+- merge : depot local ==> espace de travail
+- pull : fetch + merge
+
 # Branche
 --> se replacer sur le master
 $ git status
@@ -34,4 +41,4 @@ Synchroniser le repos distant avec le repo local
 - consiste à merger l'espace de travail avec avec autre chose : dépot local
 $ git merge origin master
 Note:
-- fast-forwaded ==> le merge peut se faire en toute transparence
+- fast-forwarded ==> le merge peut se faire en toute transparence
