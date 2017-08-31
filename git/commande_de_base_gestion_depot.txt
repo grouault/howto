@@ -33,3 +33,5 @@ Synchroniser le repos distant avec le repo local
 # Merge
 - consiste à merger l'espace de travail avec avec autre chose : dépot local
 $ git merge origin master
+Note:
+- fast-forwaded ==> le merge peut se faire en toute transparence
