@@ -1,2 +1,8 @@
 # Créer une branche à partir du master
 $ git branch v2.0
+
+# Passer sur une branch ==> je m'aligne sur la nouvelle branche
+$ git checkout v2.0
+
+# Raccourci pour créer et se positionner sur la nouvelle branche
+$ git checkout v2.0 -b v2.1 
