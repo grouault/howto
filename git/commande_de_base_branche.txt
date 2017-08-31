@@ -1,0 +1,2 @@
+# Créer une branche à partir du master
+$ git branch v2.0
