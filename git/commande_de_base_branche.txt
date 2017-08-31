@@ -1,4 +1,4 @@
-# Créer une branche à partir du master
+# Créer une branche à partir du master sur le repo local
 $ git branch v2.0
 
 # Passer sur une branch ==> je m'aligne sur la nouvelle branche
@@ -6,3 +6,6 @@ $ git checkout v2.0
 
 # Raccourci pour créer et se positionner sur la nouvelle branche
 $ git checkout v2.0 -b v2.1 
+
+# Créerla branche sur le repo distant
+$ git push origin v2.O
