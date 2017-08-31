@@ -14,4 +14,10 @@ $ git push origin v2.O
 ==> se positionner dans master
 $ git merge v2.0
 
-# Tag :
+# Tag : qd on merge, en général on rejoint le développement.
+==> poser une étiquette, nouvelle version
+$ git tag -a 2.0 -m 'Mise en production de la 2.0' master
+-a : donner un nom
+
+# Pousser les tags sur le master
+$ git push origin master --tags
