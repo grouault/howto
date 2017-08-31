@@ -21,3 +21,7 @@ $ git tag -a 2.0 -m 'Mise en production de la 2.0' master
 
 # Pousser les tags sur le master
 $ git push origin master --tags
+
+# Récupérer une branche / un tag
+$ git pull origin 2.0
+$ git pull origin v2.0
