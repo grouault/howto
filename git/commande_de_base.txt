@@ -54,6 +54,7 @@ $ get reset --hard ==> écrase les modifications faite depuis le dernier commit
 - quel fichier / pattern fichier à ignorer
 Créer le fichier et ajouter le fichier au dépôt.
 git rm --cached [nom_fichier] ==> retirer du suivi de version le fichier
+git rm -r --cached salsa-core/target ==> recursif
 
 # Nettoyer espace de travail
 --> effacer les fichiers qui ne font pas parti du referentiel / fichier non indexé par Git
