@@ -9,3 +9,7 @@ UPDATE SchemaHoraire
         dateModification=CURDATE(),
         utilisateurCreation='SYSTEM', 
         utilisateurModification='SYTEM';
+
+INSERT INTO SchemaHoraire (dateValidite, ressourceId, dateCreation, dateModification, utilisateurCreation, utilisateurModification) 
+    VALUES (CAST('2017-07-01' AS DATE), 26223, CURDATE(), CURDATE(), 'SYTSEM', 'SYSTEM');
+
