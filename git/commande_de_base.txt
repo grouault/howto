@@ -1,5 +1,12 @@
+# Configuration GIT
+Fichier de configuration global : user_folder/.gitconfig
 git config --help
 git config -h
+
+# Fichier de configuration de git
+$ git config --global user.name "grouault"
+$ git config --global user.email "gildasrouault@gmail.com"
+$ git config --global core.editor vim
 
 # proxy
 git config --global http.proxy 10.3.64.101:8080
@@ -10,11 +17,6 @@ Etat: pour un fichier suivi par GIT, le fichier peut être dans 3 états
 - Validé / Modifié / Indexé
 Pour pouvoir être committé, un fichier doit êtré dans l'état 'indexé'.
 Indexation : nouvelle signature/nouveau hash // signe le fichier pour le versionnement et en faire une nouvelle version
-
-# Fichier de configuration de git
-$ git config --global user.name "grouault"
-$ git config --global user.email "gildasrouault@gmail.com"
-$ git config --global core.editor vim
 
 # initilisation d'un dépôt GIT
 git init ==> initialise un dépôt GIT sur la branche Master
