@@ -25,3 +25,8 @@ $ git push origin master --tags
 # Récupérer une branche / un tag
 $ git pull origin 2.0
 $ git pull origin v2.0
+
+# Supprimer une branche
+git branch -d the_local_branch
+git push origin :the_remote_branch
+git push origin --delete the_remote_branch
