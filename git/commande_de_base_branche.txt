@@ -26,6 +26,11 @@ $ git push origin master --tags
 $ git pull origin 2.0
 $ git pull origin v2.0
 
+# Supprimer un tag
+ git tag -d 1.0.7
+ git push origin :1.0.7
+ 
+
 # Supprimer une branche
 git branch -d the_local_branch
 git push origin :the_remote_branch
