@@ -5,7 +5,8 @@ Chaque dépot local embarque la totalité des version du projet, y compris les b
 
 # Intégrité  des données
 A la différence de svn, qui enregistre les diff., chaque modification de fichier entraine sa duplication 
-et son identification par un hash sha-1, qui garantit que le fichier n'a pas été altéré lors du téléchargement ou autre process.
+et son identification par un hash sha-1 ; une signature qui garantit que le fichier n'a pas été altéré lors du téléchargement
+ou autre process.
 Si un maillon est perdu à svn, il peut être impossible de regénérer le fichier final.
 
 # Etat d'un fichier : Non suivi, Validé, Modifié, Indexé.
