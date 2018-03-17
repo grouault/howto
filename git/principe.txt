@@ -11,3 +11,8 @@ Si un maillon est perdu à svn, il peut être impossible de regénérer le fichi
 Dans git, les fichiers dupliquées sont chainés.
 
 # Etat d'un fichier : Non suivi, Validé, Modifié, Indexé.
+Modifié : le fichier est modifié ; un fichier modifié n'est pas ajouté à l'index. 
+Pour prendre en compte les modification il faut l'indexé.
+Indexé : les changements sont enregistrés, le fichier peut-être validé. 
+Indexxé permet de dupliquer le fichier et la création d'une nouvelle signature, nouveau hash.
+Validé : fichier est versionné et en sécurité 
