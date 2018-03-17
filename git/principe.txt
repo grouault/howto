@@ -1,9 +1,11 @@
 # Principe
 - VCS : git est système de gestion de version distribué (vs local ou centralisé (SVN))
-==> il n'y a pas à proprement parlé de serveur central. Chaque dépot local embarque la totalité des version du projet, y compris les branches et les tags.
+==> il n'y a pas à proprement parlé de serveur central. 
+Chaque dépot local embarque la totalité des version du projet, y compris les branches et les tags.
 
 # Intégrité  des données
-A la différence de svn, qui enregistre les diff., chaque modification de fichier entraine sa duplication et son identification par un hash sha-1, qui garantit que le fichier n'a pas été altéré lors du téléchargement ou autre process.
+A la différence de svn, qui enregistre les diff., chaque modification de fichier entraine sa duplication 
+et son identification par un hash sha-1, qui garantit que le fichier n'a pas été altéré lors du téléchargement ou autre process.
 Si un maillon est perdu à svn, il peut être impossible de regénérer le fichier final.
 
 # Etat d'un fichier : Non suivi, Validé, Modifié, Indexé.
