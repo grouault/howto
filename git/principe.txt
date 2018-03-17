@@ -8,5 +8,6 @@ A la différence de svn, qui enregistre les diff., chaque modification de fichie
 et son identification par un hash sha-1 ; une signature qui garantit que le fichier n'a pas été altéré lors du téléchargement
 ou autre process.
 Si un maillon est perdu à svn, il peut être impossible de regénérer le fichier final.
+Dans git, les fichiers dupliquées sont chainés.
 
 # Etat d'un fichier : Non suivi, Validé, Modifié, Indexé.
