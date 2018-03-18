@@ -3,6 +3,16 @@
 ==> il n'y a pas à proprement parlé de serveur central. 
 Chaque dépot local embarque la totalité des version du projet, y compris les branches et les tags.
 
+# Besoin
+Gérer le code source et ses versions
+Pouvoir restaurer une version antérieure d'un fichier
+
+# Rôle
+- Ramener un fichier à un état précédent
+- Visualiser les changements au cours du temps
+- voir qui a modifié quoi
+- déterminer quel changement a causé des problèmes
+
 # Intégrité  des données
 A la différence de svn, qui enregistre les diff., chaque modification de fichier entraine sa duplication 
 et son identification par un hash sha-1 ; une signature qui garantit que le fichier n'a pas été altéré lors du téléchargement
