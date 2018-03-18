@@ -24,6 +24,11 @@ Avantage : Suppression du point unique de panne
 Git : 
 - système décentralisé : dcvs ==> aucun serveur maître n'est requis / chaque développeur a son dépôt.
 - Fichier identifiés par un hash sha-1 : aucun diff n'est stocké, si un fichier est modifié, deux versions sont enregistés
+- Robustesse : stable et rodé
+- Architecture distribuée
+- Conception simple (4 commandes)
+- Support de milliers de branches en parallèles
+- Gestion efficace des projets d'envergure.
 
 # Intégrité  des données
 A la différence de svn, qui enregistre les diff., chaque modification de fichier entraine sa duplication 
