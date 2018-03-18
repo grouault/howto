@@ -13,11 +13,14 @@ Pouvoir restaurer une version antérieure d'un fichier
 - voir qui a modifié quoi
 - déterminer quel changement a causé des problèmes
 
-# Type de VCS : l
+# Type de VCS : 
 - locaux : connexion et travail sur le serveur
 - centralisés : code source stocké sur le serveur. Le développeur s'approprie le code source et travail sur son poste.
 - distribués : tout noeud (serveur, poste développeur ...) est un référentiel. On ne dépend plus d'un serveur central.
 Chaque serveur est un noeud du réseau sur lequel on peut s'alimenter.
+Avantage : Suppression du point unique de panne 
+==> chaque client a une copie complète du dépot
+==> si le serveur est perdu, n'importe quel dépôt client peut servir de serveur
 
 # Intégrité  des données
 A la différence de svn, qui enregistre les diff., chaque modification de fichier entraine sa duplication 
