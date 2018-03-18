@@ -21,7 +21,9 @@ Chaque serveur est un noeud du réseau sur lequel on peut s'alimenter.
 Avantage : Suppression du point unique de panne 
 ==> chaque client a une copie complète du dépot ; tout l'historique (toutes les versions) du projet est présente.
 ==> si le serveur est perdu, n'importe quel dépôt client peut servir de serveur
-Git : système décentralisé : dcvs ==> aucun serveur maître n'est requis
+Git : 
+- système décentralisé : dcvs ==> aucun serveur maître n'est requis / chaque développeur a son dépôt.
+- Fichier identifiés par un hash sha-1 : aucun diff n'est stocké, si un fichier est modifié, deux versions sont enregistés
 
 # Intégrité  des données
 A la différence de svn, qui enregistre les diff., chaque modification de fichier entraine sa duplication 
