@@ -1,0 +1,19 @@
+Download from http://www.mongodb.org/downloads
+Install .msi file in folder C:\mongodb
+Create data, data\db, log directories and mongo.config file under C:\mongodb.
+
+#mongo.config
+Add the following lines in "mongo.config" file
+port=27017
+dbpath=C:\mongodb\data\db\
+logpath=C:\mongodb\log\mongo.log
+
+#Start server :
+mongod.exe --config="C:\mongodb\mongo.config"
+Connect to localhost MongoDB server via command line
+
+# connect
+mongo --port 27017
+Connect to remote MongoDB server via command line with authentication.
+
+mongo --username abcd --password abc123 --host server_ip_or_dns --port 27017
