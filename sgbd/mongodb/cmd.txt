@@ -1,2 +1,5 @@
+# urls
+https://www.tutorialspoint.com/mongodb/mongodb_create_database.htm
+
 # Voir les bases
 show.dbs
