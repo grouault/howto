@@ -12,8 +12,8 @@ logpath=C:\mongodb\log\mongo.log
 mongod.exe --config="C:\mongodb\mongo.config"
 Connect to localhost MongoDB server via command line
 
-# connect
+# connect withou authentication
 mongo --port 27017
-Connect to remote MongoDB server via command line with authentication.
 
+# Connect to remote MongoDB server via command line with authentication.
 mongo --username abcd --password abc123 --host server_ip_or_dns --port 27017
