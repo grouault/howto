@@ -1,5 +1,8 @@
 # urls
 https://www.tutorialspoint.com/mongodb/mongodb_create_database.htm
 
+# connect withou authentication
+mongo --port 27017
+
 # Voir les bases
 show.dbs
