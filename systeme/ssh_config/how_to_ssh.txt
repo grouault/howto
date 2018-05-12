@@ -6,6 +6,10 @@ systemctl start sshd
 # verifier le status
 systemctl status sshd
 
+# machine distante
+ssh user@nom-machine
+ssh user@ip ==> ssh root@192.168.0.1
+
 # url
 http://doc.fedora-fr.org/wiki/SSH_:_Authentification_par_cl%C3%A9#Pr.C3.A9sentation
 http://forum.ubuntu-fr.org/viewtopic.php?id=241905
