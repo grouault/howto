@@ -2,6 +2,7 @@
 ##
 Le répertoire courant n'est pas forcément la racine du projet.
 Maven fournit la variable système basedir qui pointe à la racine du projet.
+File basedir = new File(System.getProperty("basedir", "")).getAbsoluteFile();
 
 # Get Path Properties
 getClass().getClassLoader().getResource("reservoir.properties")
