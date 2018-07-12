@@ -5,7 +5,7 @@
 --
 -- Suppression en créant une table temporaire.
 -- Avec MySql, il est impossible de faire une modificaiton quand dans la sous-requêtre, la même table est référencé.
--- Il faut passer par une table temporaire
+-- Il faut passer par une table temporaire créer par le Select id From ( ... )
 --
 update Budget 
     set temoinSuppression = true
