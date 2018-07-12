@@ -1,5 +1,11 @@
 --
+-- Deux requêtes de mise à jour qui font le meme travaille.
+--
+
+--
 -- Suppression en créant une table temporaire.
+-- Avec MySql, il est impossible de faire une modificaiton quand dans la sous-requêtre, la même table est référencé.
+-- Il faut passer par une table temporaire
 --
 update Budget 
     set temoinSuppression = true
