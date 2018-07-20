@@ -34,3 +34,18 @@ entier+entier2
 1+2
 [gildas@localhost ~]$ expr $entier + $entier2
 3
+
+# Export de variable
+Rendre disponible une variable aux scripts parent et enfant
+[gildas@localhost system]$ echo 'echo $var_exported' > child-script
+[gildas@localhost system]$ ls
+child-script
+[gildas@localhost system]$ vi child-script
+[gildas@localhost system]$ var_exported="la variable est définie"
+[gildas@localhost system]$ echo $var_exported
+la variable est définie
+[gildas@localhost system]$ bash ./child-script
+
+[gildas@localhost system]$ export var_exported=$var_exported
+[gildas@localhost system]$ bash ./child-script
+la variable est définie
