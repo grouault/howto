@@ -16,4 +16,7 @@ C'est un interpréteur interactif, chaque instruction est exécuter dès la fin 
 - le caractère pour séparer les commandes les une des autres est l'espace " ".
 
 # Variable en Shell
-- placer le résultat d'une instruction dans un espace mémoire et modifier ce résultat plus loin lors de l'exécution
+- placer le résultat d'une instruction dans un espace mémoire et modifier ce résultat plus loin lors de l'exécution.
+==> L'information contenue dans l'espace mémoire = variable.
+Déclaration :
+$ ma_variable = "ma chaîne de caractère"
