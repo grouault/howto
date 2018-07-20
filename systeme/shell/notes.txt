@@ -25,3 +25,12 @@ $ ma_variable = "ma chaîne de caractère"
 # Absence de type
 ==> les variables sont non typées 
 ==> du point de vue du shell, la nature des variables == chaine de caracère
+==> commande expr : faire de simples opération mathématiques
+[gildas@localhost ~]$ entier=1
+[gildas@localhost ~]$ entier2=2
+[gildas@localhost ~]$ expr entier+entier2
+entier+entier2
+[gildas@localhost ~]$ expr $entier+$entier2
+1+2
+[gildas@localhost ~]$ expr $entier + $entier2
+3
