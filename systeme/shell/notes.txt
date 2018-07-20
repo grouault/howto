@@ -11,3 +11,6 @@ C'est un interpréteur interactif, chaque instruction est exécuter dès la fin 
 # Séparateur de ligne
 - mode interactif 'retour chariot'
 - mode interactif, plusieurs instructions : ';'
+
+# Séparateur de commande
+- le caractère pour séparer les commandes les une des autres est l'espace " ".
