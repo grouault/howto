@@ -1,0 +1,5 @@
+# Langage interprété
+Le shell est un langage interprété ==> instructions utilisées sont interprétées avant d'être transformées en langage machine
+Dans le cas des langages compilés, les instructions sont directement transformés en instruction machine.
+Langage Interprété : pas de gestion de mémoire. 
+C'est à l'interpréteur de s'occuper d'allouer la mémoire nécessaire à l'exécution du programme.
