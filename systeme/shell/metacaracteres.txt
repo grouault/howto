@@ -5,7 +5,7 @@ Lors de leur interprétation, ils sont utilisés pour sélectionner (ou non) des
 []: sélectionn un caractère ; permet de définir une classe de caractères
 - : définit une suite de caractère
 ! : exprime une exclusion - employé avec la définition d'une suite
-* : sélectionne toutes les chaine des caractères, à l'exception du point en première position
+* : sélectionne toutes les chaine des caractères y compris la chaine vide, à l'exception du point en première position
 
 Exemple:
 [gildas@localhost system]$ ls
