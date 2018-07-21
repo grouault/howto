@@ -71,3 +71,18 @@ contenues dans la variable (ou la valeur) ne soient séparées lors du traitemen
 [gildas@localhost system]$ expr "${sum}"
 1 + 2
 ==> Attention : mis entre "", la variable reste une chaine de caracètre unique.
+
+# Tableau
+Un tableau en shell est une variable contenant plusieurs valeurs
+[gildas@localhost system]$ tableau[0]=1
+[gildas@localhost system]$ echo ${tableau[0]}
+1
+[gildas@localhost system]$ tableau[1]=45
+[gildas@localhost system]$ echo ${tableau[45]}
+
+[gildas@localhost system]$ echo ${tableau[1]}
+45
+==> Les tableaux sont discontinues
+[gildas@localhost system]$ tableau[10]=20
+[gildas@localhost system]$ echo ${tableau[10]}
+20
