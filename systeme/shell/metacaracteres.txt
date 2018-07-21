@@ -1,4 +1,4 @@
-# Métacarctères
+# Métacaractères
 Caractères de la lignes qui sont interprétés.
 Lors de leur interprétation, ils sont utilisés pour sélectionner (ou non) des noms de fichies mais pas que...
 ? : sélectionne un caractère, à l'exception du point en première position
