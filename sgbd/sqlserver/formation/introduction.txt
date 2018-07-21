@@ -8,3 +8,10 @@
 
 # Instruction du DML : data manipulation language
 - langage permettant de manipuler les données
+
+# objectifs
+- tables
+- insérer et modifier les données
+- extraite les données
+- accélèrer  les requêtes : vues, index
+- Transact SQL : définir des procèdures
