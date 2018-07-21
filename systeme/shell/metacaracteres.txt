@@ -14,6 +14,10 @@ abc  abcdef  child-script
 abc  abcdef
 [gildas@localhost system]$ ls [!a]*
 child-script
+[gildas@localhost system]$ ls [!a-z]*
+ls: impossible d'accéder à '[!a-z]*': No such file or directory
+[gildas@localhost system]$ ls [!A-Z]*
+abc  abcdef
 
 # Métacaractère et expression régulières
 Bien que les 2 utilisent les même règles, il ne s'agit pas de la même chose.
