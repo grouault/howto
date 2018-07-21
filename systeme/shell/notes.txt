@@ -51,3 +51,23 @@ la variable est définie
 [gildas@localhost system]$ export var_exported=$var_exported
 [gildas@localhost system]$ bash ./child-script
 la variable est définie
+
+# Valeur
+Les valeurs sont des espaces mémoires dont le contenu, à la différence des variables ne peut pas être modifié
+[gildas@localhost system]$ readonly MY_VALUE=hello
+[gildas@localhost system]$ echo ${MY_VALUE}
+hello
+[gildas@localhost system]$
+
+# Précaution dans l'utilisation des variables
+Norme : ${ma_variable}
+Conseillé : "${ma_variable}"
+==> les valeurs contenu dans la variable peuvent contenir le séparateur de commande " " par défaut.
+==> peut entraîner un comportement non attendu, à moins que l'éxécution du script ne requiert justement que le valeurs
+contenues dans la variable (ou la valeur) ne soient séparées lors du traitement
+[gildas@localhost system]$ sum="1 + 2"
+[gildas@localhost system]$ expr ${sum}
+3
+[gildas@localhost system]$ expr "${sum}"
+1 + 2
+==> Attention : mis entre "", la variable reste une chaine de caracètre unique.
