@@ -14,6 +14,8 @@ C'est un interpréteur interactif, chaque instruction est exécuter dès la fin 
 
 # Séparateur de commande
 - le caractère pour séparer les commandes les une des autres est l'espace " ".
+- 1 + 2 ==> commnande +
+- 1+2 ==> pas de commande plus mais une chaine unique
 
 # Variable en Shell
 - placer le résultat d'une instruction dans un espace mémoire et modifier ce résultat plus loin lors de l'exécution.
