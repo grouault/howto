@@ -23,3 +23,6 @@ abc  abcdef
 Bien que les 2 utilisent les même règles, il ne s'agit pas de la même chose.
 Tous les caractères spéciaux des expr. regul. ne sont pas disponibles sous forme de métacaractères
 
+# Négation
+Différence de syntaxe avec les expressions régulières
+Expression régulière, on utilise le caractère ^
