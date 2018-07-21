@@ -2,10 +2,18 @@
 Caractères de la lignes qui sont interprétés.
 Lors de leur interprétation, ils sont utilisés pour sélectionner (ou non) des noms de fichies mais pas que...
 ? : sélectionne un caractère, à l'exception du point en première position
-[]: Indique l'emplacement d'une suite de caractère
+[]: sélectionn un caractère ; permet de définir une classe de caractères
 - : définit une suite de caractère
 ! : exprime une exclusion - employé avec la définition d'une suite
 * : sélectionne toutes les chaine des caractères, à l'exception du point en première position
+
+Exemple:
+[gildas@localhost system]$ ls
+abc  abcdef  child-script
+[gildas@localhost system]$ ls [a]*
+abc  abcdef
+[gildas@localhost system]$ ls [!a]*
+child-script
 
 # Métacaractère et expression régulières
 Bien que les 2 utilisent les même règles, il ne s'agit pas de la même chose.
