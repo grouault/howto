@@ -12,6 +12,12 @@ GO ==> séparateur d'instuction
 CREATE TABLE ARTICLES(
   REFERENCE_ART nvarchar(16), ==> chaine caractère longueur variable format caractères 16 caracètres maximum
   DESIGNATION_ART nvarchar(200),
-  PRIXHT_ART decimal(10,2),
+  PRIXHT_ART decimal(10,2), ==> décimal avec au maximum 2 chiffres après la virgule
   CODE_CAT int
 );
+
+==> Syntaxe minimum sans clé primaire ou secondaire
+==> Créer avec un préfixe dbo.ARTICLES 
+- DataBaseOwner 
+- correspond schéma par défaut ; les tables sont regroupées dans des ensemble logiques : schéma.
+- étant administrateur : on travaille par défaut dans le schéma dbo
