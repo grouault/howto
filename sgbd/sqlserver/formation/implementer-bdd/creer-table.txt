@@ -21,3 +21,6 @@ CREATE TABLE ARTICLES(
 - DataBaseOwner 
 - correspond schéma par défaut ; les tables sont regroupées dans des ensemble logiques : schéma.
 - étant administrateur : on travaille par défaut dans le schéma dbo
+
+# infos sur la table
+exec sp_help ARTICLES;
