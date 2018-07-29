@@ -6,13 +6,14 @@
 
 - # 1- clé primaire: 
 - plus petite clé d'identification possible dans une table
+- applique la non nullité
 CREATE TABLE HISTO_FAC(
   numero_fac int identity(1000,1) not null,
   date_fac datetime,
   numeor_cde int,
   montantht smallmoney,
   etat_fac char(2),
-  constraint pk_histo_facto primary_key(numero_fac)
+  constraint pk_histo_fact primary_key(numero_fac)
 );
 
 
