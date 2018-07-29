@@ -12,7 +12,7 @@ CREATE TABLE HISTO_FAC(
   numeor_cde int,
   montantht smallmoney,
   etat_fac char(2),
-  
+  constraint pk_histo_facto primary_key(numero_fac)
 );
 
 
