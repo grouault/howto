@@ -30,12 +30,22 @@ ALTER TABLE LIGNES_CDE
   ADD CONSTRAINT pk_lignes
   PRIMARY KEY NONCLUSTERED (numero_cde, numero_lig);
 
+-- # 2 : unicité ou clé secondaire
+-- complète les données de clés primaires
+-- ne pas avoir deux lignes qui possèdent exactement la même contrainte
+-- ex: ne pas avoir deux clients ayant le même nom et numéro de téléphone
+-- ex: un email
 
+ALTER TABLE ARTICLES
+  ALTER COLUMN reference_art nvarchar(16) not null;
+ALTER TABLE ARTICLES
+  ADD CONSTRAINT pk_articles PRIMARY_KEY(refernce_art);
+-- exemple : constainte unicicé: prix et désignation
+ALTER TABLE ARTICLES
+  ADD CONSTRAINT uq_des_prix
+  UNIQUE NONCLUSTERED(designation_art, prixht_art);
+  
 
-- # 2 : unicité ou clé secondaire
-- ne pas avoir deux lignes qui possèdent exactement la même contrainte
-- ex: ne pas avoir deux clients ayant le même nom et numéro de téléphone
-- ex: un email
 
 - # 3: clé étrangère
 - contrainte d'intégrité référentiel
