@@ -45,12 +45,12 @@ ALTER TABLE ARTICLES
   ADD CONSTRAINT uq_des_prix
   UNIQUE NONCLUSTERED(designation_art, prixht_art);
   
+-- # 3: clé étrangère
+-- contrainte d'intégrité référentiel
+-- elle référence la clé primaire d'une autre table et permet de lier la structure de deux tables
+-- exemple entre table catégorie et articles
+ALTER TABLE CATEGORIES ADD CONSTRAINT pk_categories primary key (code_cat);
 
-
-- # 3: clé étrangère
-- contrainte d'intégrité référentiel
-- référence la clé primaire d'une autre table
-- permet de lier la structure de deux tables
 
 - # 4: contraintes de validation
 - contrainte de type check:
