@@ -2,7 +2,7 @@
 - conteneur qui vont contenir l'information
 - définir les colonnes : nom lisible et compréhensible
 - typer les données : 
--- chaine caractère unicode(2octets) ou format classique (1octet)
+-- chaine caractère unicode(nvarchar : 2 octets) ou format classique (char : 1 octet)
 -- date : date, datetime, datetime2, time, smallDateTime...
 -- numérique : entier=> int(4 octets), tinyint(1 octet)
 
