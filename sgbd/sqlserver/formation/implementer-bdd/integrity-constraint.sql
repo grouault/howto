@@ -62,7 +62,6 @@ ALTER TABLE ARTICLES
   REFERENCES CATEGORIES(code_cat) 
   ON UPDATE CASCADE;
 
-
 - # 4: contraintes de validation
 - contrainte de type check:
 - ex: prix d'un article est bien positif
