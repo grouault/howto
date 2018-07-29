@@ -7,3 +7,5 @@
 -- base msdb : base système ; base utilisé par l'agent sql-server
 -- tempdb : objet temporaire
 -- distribution : mécanisme de réplication
+
+# créer à partir d'un script
