@@ -48,8 +48,13 @@ ALTER TABLE ARTICLES
 -- # 3: clé étrangère
 -- contrainte d'intégrité référentiel
 -- elle référence la clé primaire d'une autre table et permet de lier la structure de deux tables
--- exemple entre table catégorie et articles
+-- exemple entre table catégorie et articles :
 ALTER TABLE CATEGORIES ADD CONSTRAINT pk_categories primary key (code_cat);
+ALTER TABLE ARTICLES 
+  ADD CONSTRAINT fk_articles_categories
+  FOREIGN KEY (code_cat)
+  REFERENCES CATEGORIES(code_cat) 
+  ON UPDATE CASCADE;
 
 
 - # 4: contraintes de validation
