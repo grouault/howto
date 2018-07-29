@@ -9,3 +9,5 @@
 -- distribution : mécanisme de réplication
 
 # créer à partir d'un script
+Collate : ordre de tri utilisé 
+exemple French_CI_AI : tri suivant ordre alpahabétique francais, case insentivive, accent insensitive
