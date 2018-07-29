@@ -17,7 +17,14 @@ CREATE TABLE HISTO_FAC(
   etat_fac char(2),
   constraint pk_histo_fact primary_key(numero_fac)
 );
---
+CREATE TABLE LIGNES_CDE(
+  numero_cde int not null,
+  numero_ligne int not null,
+  reference_art nvarchar(16) not null,
+  qte_cde int default 1
+);
+GO
+-- table avec index 
 -- nonclustered: index non-organisé : index qui ne réogarnise pas physiquement les données de la table
 ALTER TABLE LIGNES_CDE
   ADD CONSTRAINT pk_lignes
