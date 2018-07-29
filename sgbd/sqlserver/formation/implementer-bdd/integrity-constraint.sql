@@ -1,0 +1,4 @@
+- # contraintes d'intégrité
+- permettre de garantir l'intégrité des données
+- mettre en place une structure qui permet à sql_server de travailler correctement et d'appliquer les différentes formes normales 
+- cad s'assurer que les données sont conformes aux règles de gestion fixées par le modèle relationnel.
