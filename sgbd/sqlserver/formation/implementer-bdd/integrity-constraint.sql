@@ -49,8 +49,11 @@ ALTER TABLE ARTICLES
 -- contrainte d'intégrité référentiel
 -- elle référence la clé primaire d'une autre table et permet de lier la structure de deux tables
 -- exemple entre table catégorie et articles :
--- on udpate cascade : modification reportée sur tous les articles quand modifis sur la catégorie.
+-- on udpate cascade : si on modifie le code_categorie dans la table des catégories, la modification est reportée sur tous les articles 
+-- qui font référence à cette catégorie
 -- par défaut: no_action : impossible de mettre à jour car référencé par autre table
+-- set null : mettre null au niveau du code_categorie de la table article pour les articles appartenant à cet catégorie
+-- set default : reprendre la valeur par défaut
 -- deux options delete ou mis à jour
 ALTER TABLE CATEGORIES ADD CONSTRAINT pk_categories primary key (code_cat);
 ALTER TABLE ARTICLES 
