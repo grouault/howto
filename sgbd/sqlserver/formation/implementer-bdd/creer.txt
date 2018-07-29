@@ -1,5 +1,8 @@
 # créer une base de données
 - interface graphique / objet Base de données ==> Nouvelle BDD
+objet de base de données : create / alter / drop
+==> table / procédure / fonction / vue ... tous les objets d'une base de données
+
 --> création d'un fichier de données (type Primary) et un fichier Joural
 - création à partir d'une bdd system (model) pour la structurer
 -- base master : contient info dont sql server a besoin pour administrer correctement son instance
