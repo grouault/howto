@@ -63,6 +63,9 @@ ALTER TABLE ARTICLES
   ON UPDATE CASCADE;
 
 - # 4: contraintes de validation
-- contrainte de type check:
+- contrainte de type check - faire des validation simples
 - ex: prix d'un article est bien positif
 - sur une ligne courante, s'assurer que cette validation est bien faite.
+ALTER TABLE ARTICLES
+  ADD CONSTRAINT ck_articles_prixht
+  CHECK (prixht_art >= 0);
