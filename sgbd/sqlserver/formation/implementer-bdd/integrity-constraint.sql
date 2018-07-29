@@ -1,12 +1,14 @@
-- # contraintes d'intégrité
-- permettre de garantir l'intégrité des données
-- mettre en place une structure qui permet à sql_server de travailler correctement et d'appliquer les différentes formes normales 
-- cad s'assurer que les données sont conformes aux règles de gestion fixées par le modèle relationnel.
+-- # contraintes d'intégrité
+-- permettre de garantir l'intégrité des données
+-- mettre en place une structure qui permet à sql_server de travailler correctement et d'appliquer les différentes formes normales 
+-- cad s'assurer que les données sont conformes aux règles de gestion fixées par le modèle relationnel.
 
-
-- # 1- clé primaire: 
-- plus petite clé d'identification possible dans une table
-- applique la non nullité
+-- # 1- clé primaire: 
+-- plus petite clé d'identification possible dans une table
+-- applique la non nullité
+-- mise en place d'un index : organise physiquement les données de la table
+-- clustered : par défaut, organise physiquement les données de la table
+-- requête simple : les données apparaissent trié dans l'ordre de l'index de la clé primaire, ordre des données tel que stockées dans la base
 CREATE TABLE HISTO_FAC(
   numero_fac int identity(1000,1) not null,
   date_fac datetime,
@@ -15,6 +17,12 @@ CREATE TABLE HISTO_FAC(
   etat_fac char(2),
   constraint pk_histo_fact primary_key(numero_fac)
 );
+--
+-- nonclustered: index non-organisé : index qui ne réogarnise pas physiquement les données de la table
+ALTER TABLE LIGNES_CDE
+  ADD CONSTRAINT pk_lignes
+  PRIMARY KEY NONCLUSTERED (numero_cde, numero_lig);
+
 
 
 - # 2 : unicité ou clé secondaire
