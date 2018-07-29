@@ -4,20 +4,29 @@
 - cad s'assurer que les données sont conformes aux règles de gestion fixées par le modèle relationnel.
 
 
-- 1- clé primaire: 
+- # 1- clé primaire: 
 - plus petite clé d'identification possible dans une table
+CREATE TABLE HISTO_FAC(
+  numero_fac int identity(1000,1) not null,
+  date_fac datetime,
+  numeor_cde int,
+  montantht smallmoney,
+  etat_fac char(2),
+  
+);
 
-- 2 : unicité ou clé secondaire
+
+- # 2 : unicité ou clé secondaire
 - ne pas avoir deux lignes qui possèdent exactement la même contrainte
 - ex: ne pas avoir deux clients ayant le même nom et numéro de téléphone
 - ex: un email
 
-- 3: clé étrangère
+- # 3: clé étrangère
 - contrainte d'intégrité référentiel
 - référence la clé primaire d'une autre table
 - permet de lier la structure de deux tables
 
-- 4: contraintes de validation
+- # 4: contraintes de validation
 - contrainte de type check:
 - ex: prix d'un article est bien positif
 - sur une ligne courante, s'assurer que cette validation est bien faite.
