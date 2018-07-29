@@ -1,0 +1,17 @@
+# création des tables
+- conteneur qui vont contenir l'information
+- définir les colonnes : nom lisible et compréhensible
+- typer les données : 
+-- chaine caractère unicode(2octets) ou format classique (1octet)
+-- date : date, datetime, datetime2, time, smallDateTime...
+-- numérique : entier=> int(4 octets), tinyint(1 octet)
+
+# instruction
+USE GESCOM
+GO ==> séparateur d'instuction
+CREATE TABLE ARTICLES(
+  REFERENCE_ART nvarchar(16), ==> chaine caractère longueur variable format caractères 16 caracètres maximum
+  DESIGNATION_ART nvarchar(200),
+  PRIXHT_ART decimal(10,2),
+  CODE_CAT int
+);
