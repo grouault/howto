@@ -9,6 +9,10 @@ But :
 - faire appel à des attributs
 - faire des opérations, concaténation, commande javascript simple, vérification, tests...
 
+# FormsModule
+- Permet d'utiliser la directive NgModel
+- à importer dans AppModule
+
 # [(NgModel)] lier un element html à une variable en mémoire
 <input type="text"  [(NgModel)]="saisie" />
 Angular : met toi à l'écoute de que l'utilisateur met dans ce champs et met le résultat dans la variable saisie.
