@@ -15,5 +15,12 @@ ng new name_project
 - .gitingore
 - karma.conf.js: execution des tests unitaires
 - package.json : toutes les dépendances pour exécuter l'appliation
-- tsconfig : config du compilateur typescript
-- tslint : toutes les règles de développement que l'on s'impose
+- tsconfig.json : config du compilateur typescript
+- tslint.json : toutes les règles de développement que l'on s'impose
+
+# src
+index.html : boostraper angular
+main.ts : initialise angular vis à vis du navigateur
+app : module application
+asset : font, image, icone, sons, vidéo
+environnement: variable d'environnement (dev / prod)
