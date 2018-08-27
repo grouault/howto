@@ -1,0 +1,4 @@
+# Module
+Module au sens Angular : regroupement de différents composants, services, filters qui forment un ensemble cohérent.
+Partir d'application
+Exemple : gérer l'utilisateur ==> isoler dans un module
