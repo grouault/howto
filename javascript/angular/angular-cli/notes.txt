@@ -1,0 +1,2 @@
+# angular/cli : créer un projet
+ng new name_project
