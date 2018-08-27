@@ -24,3 +24,6 @@ main.ts : initialise angular vis à vis du navigateur
 app : module application
 asset : font, image, icone, sons, vidéo
 environnement: variable d'environnement (dev / prod)
+
+# src/app
+app.module.ts : module principale qui constitue l'application
