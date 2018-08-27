@@ -21,9 +21,8 @@ ng new name_project
 # src
 index.html : boostraper angular
 main.ts : initialise angular vis à vis du navigateur
-app : module application
+app : module principale qui constitue l'application
 asset : font, image, icone, sons, vidéo
 environnement: variable d'environnement (dev / prod)
 
-# src/app
-app.module.ts : module principale qui constitue l'application
+
