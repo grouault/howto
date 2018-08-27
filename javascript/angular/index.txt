@@ -1,0 +1,7 @@
+# Angular
+Compilation => mécanisme d'optimisation (reconnaissance de tel ou tel type de bloc de code pour générer un code javascript optimiser)
+Organisation
+
+# Problèmatique
+==> Robot : comment faire en sorte d'indexer une SPA?
+==> utiliser pour faire des sites mobiles.
