@@ -1,2 +1,19 @@
 # Créer un projet
 ng new name_project
+
+# principe
+- télécharge toutes les dépendances requises aux projets
+-- compilateur, webpack, ...
+-- librairie angular
+
+# structure projet
+- e2e : test d'intégration / test end to end
+- node_modules : binaires pour compiler et servir le projet
+- src : source de l'application
+- angular-cli.json: configuration du client angular
+- .editorconfig: expliquer à l'éditeur comment de comporter vis à vis du projet
+- .gitingore
+- karma.conf.js: execution des tests unitaires
+- package.json : toutes les dépendances pour exécuter l'appliation
+- tsconfig : config du compilateur typescript
+- tslint : toutes les règles de développement que l'on s'impose
