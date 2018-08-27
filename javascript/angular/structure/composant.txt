@@ -1,0 +1,3 @@
+# composant / component
+Association d'une vue (template), feuille de style, classe
+Classe : contrôleur qui pilote la vue, interagit avec les services
