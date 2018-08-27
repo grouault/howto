@@ -1,0 +1,5 @@
+# binding
+- variable en mémoire
+- mécanisme d'expression: {{ ... }}
+Angular évalue l'expression : {{ 1+1 }}
+Faire des test : {{ title === 'app' }}
