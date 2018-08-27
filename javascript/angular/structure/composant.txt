@@ -1,3 +1,11 @@
 # composant / component
+
+# Structure
 Association d'une vue (template), feuille de style, classe
 Classe : contrôleur qui pilote la vue, interagit avec les services
+
+# @Component
+Transforme la classe en composant Angular
+
+# Déclarer le componsant au niveau d'angular
+Modifier le module principale 'app-module' et référencer le composant.
