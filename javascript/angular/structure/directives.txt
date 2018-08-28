@@ -1,0 +1,2 @@
+# directives
+Le mécanisme d'expression (binding) n'est pas suffisant pour construire une application fonctionelle et dynamique.
