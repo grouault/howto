@@ -12,6 +12,10 @@ Modifier le module principale 'app-module' et référencer le composant.
 
 # variable du composant : 
 public : visible de l'extérieur, de la vue
+Exemple:
+public display: Boolean = true;
+public list: String[] = ['A', 'B', 'C','D','E'];
+public title: String = 'Mon composant';
 
 # méthode du composant :
 - permettent d'agir sur les variables du composant.
