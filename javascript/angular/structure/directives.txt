@@ -9,4 +9,14 @@ Suivant leur comportement, les directives agissent sur le code html : rendre vis
 
 Les directives les plus courantes: ngIf, ngFor, ngStyle, ngModel, ngClass
 
-# [(NgModel)] lier un element html à une variable en mémoire
+# ngIf
+Conditionner l'affichage d'un élément.
+
+# ngModel
+[(NgModel)] lier un element html à une variable en mémoire
+
+# ngFor
+
+# ngStyle
+
+# ngClass
