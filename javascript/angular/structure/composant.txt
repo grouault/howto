@@ -7,5 +7,8 @@ Classe : contrôleur qui pilote la vue, interagit avec les services
 # @Component
 Transforme la classe en composant Angular
 
-# Déclarer le componsant au niveau d'angular
+# Déclarer le composant au niveau d'angular
 Modifier le module principale 'app-module' et référencer le composant.
+
+# variable du composant : 
+public : visible de l'extérieur, de la vue
