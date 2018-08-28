@@ -5,4 +5,8 @@ Les directives agissent sur la vue en fonction de
 - de valeur
 - de conditions 
 qui viennent du composant, du serveur...
+Suivant leur comportement, les directives agissent sur le code html : rendre visible ou non un élément, afficher des listes... 
 
+Les directives les plus courantes: ngIf, ngFor, ngStyle, ngModel, ngClass
+
+# [(NgModel)] lier un element html à une variable en mémoire
