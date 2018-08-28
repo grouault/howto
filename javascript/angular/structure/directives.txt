@@ -8,7 +8,6 @@ qui viennent du composant, du serveur...
 Suivant leur comportement, les directives agissent sur le code html : rendre visible ou non un élément, afficher des listes... 
 
 Les directives les plus courantes: ngIf, ngFor, ngStyle, ngModel, ngClass
-
 # ngIf
 Conditionner l'affichage d'un élément.
 
