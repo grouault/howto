@@ -15,6 +15,7 @@ Conditionner l'affichage d'un élément.
 [(NgModel)] lier un element html à une variable en mémoire
 
 # ngFor
+<li *ngFor="let item of list">{{item}}</li>
 
 # ngStyle
 
