@@ -29,3 +29,5 @@ add : ajouter des chose dans le canal.
 next: info est disponible, je peux la ventiler aux abonnés.
 error: définir une erreur
 remove: enlever qqchose du canal
+
+On peut s'en servir comme buffer, file, evènement ou ventiler une seul info...
