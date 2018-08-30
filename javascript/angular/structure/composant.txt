@@ -1,4 +1,6 @@
 # composant / component
+Un composant se concentre sur son rôle de contrôleur.
+Il est en relation avec la vue et les services.
 
 # Structure
 Association d'une vue (template), feuille de style, classe
