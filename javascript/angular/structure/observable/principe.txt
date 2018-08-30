@@ -14,4 +14,7 @@ Quand le serveur / utilisateur a quelque chose à me dire, j'effectue un traitem
 Le canal est ouvert le temps que le serveur réponde.
 
 # Module
-import  {Observable} from 'rxjs/Observable'
+import {Observable} from 'rxjs/Observable'
+
+# Fonction qui remonte un observable
+fonction rehercherFilms(titre:String): Observable<Array<Film>> { ... }
