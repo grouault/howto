@@ -3,5 +3,8 @@ Problématique: gestion du temps de réponse.
 Le navigateur ne met à diposition qu'un Thread à la fois et il faut pour l'utilisateur ne pas attendre que le serveur réponde.
 
 # Promise
+Le principe est le suivant:
+- j'ai un traitement dans un coin ; il vit sa vie et me rappelle quand le traitement est terminé.
+- mécanisme de requête / réponse avec un traitement long potentiel ==> Je prévois ce qui se passe et derrière je réponds.
 
 # Observable
