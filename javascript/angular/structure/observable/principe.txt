@@ -1,0 +1,3 @@
+# Programmation réactive
+Problématique: gestion du temps de réponse.
+Le navigateur ne met à diposition qu'un Thread à la fois
