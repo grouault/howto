@@ -22,7 +22,15 @@ Fonction qui remonte un observable
 fonction rehercherFilms(titre:String): Observable<Array<Film>> { ... }
 On est bien sur un mécanisme asynchrone, je ne renvoie pas la valeur directement mais un observable qui est 
 capable de fournir un Array<Film> ou une erreur à la fin du traitement.
-subscribe: Le composant se met à l'écoute du cancal de communication
+subscribe: Le composant se met à l'écoute du cancal de communication / observable et réagir quand il répond.
+S'inscire au canal ; qd une valeur est ajoutée au canal add ou erreur ou autre, je vais être capable de la traiter.
+
+Exemple:
+this.rechercherFilms(this.recherche).subscribe(
+  value => this.films = value,
+  error => this.erreur = error,
+  () => this.loading = false // ==> taitement terminé.
+)
 
 
 # Observer
