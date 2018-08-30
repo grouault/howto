@@ -1,0 +1,2 @@
+# Injectable
+Il s'agit d'une annotation que l'on positionne sur un composant : service ou autre pour indiquer que la classe devient une entité injectable sous la forme d'un singleton ou non.
