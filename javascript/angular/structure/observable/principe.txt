@@ -20,3 +20,7 @@ import {Observable} from 'rxjs/Observable'
 fonction rehercherFilms(titre:String): Observable<Array<Film>> { ... }
 On est bien sur un mécanisme asynchrone, je ne renvoie pas la valeur directement mais un observable qui est 
 capable de fournir un Array<Film> ou une erreur à la fin du traitement.
+
+# Observer
+Qu'est ce qui se passe dans le canal de communication?
+return new Obervable(Observer => { ... });
