@@ -12,3 +12,6 @@ Un observable est un canal de communication ; comme si j'allumais la radio, des 
 Mécanisme d'écoute / évenementiel : se mettre à l'écoute d'un click ou interaction avec l'utilisateur ; 
 Quand le serveur / utilisateur a quelque chose à me dire, j'effectue un traitement.
 Le canal est ouvert le temps que le serveur réponde.
+
+# Module
+import  {Observable} from 'rxjs/Observable'
