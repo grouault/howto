@@ -7,3 +7,7 @@ Exemple : gérer l'utilisateur ==> isoler dans un module
 - Permet d'utiliser la directive NgModel
 - à importer dans AppModule: FormsModule
 - à importer dans le composant : import {FormsModule} from '@angular/forms';
+
+# HttpModule
+- Permet d'utiliser la couche HttpClient
+import {HttpClientModule} from '@angular/common/http'
