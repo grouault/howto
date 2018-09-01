@@ -10,3 +10,10 @@ Question : où faire l'injection des composants?
 # Mise en place:
 1- app.module.ts
 import { RouterModule } from '@angular/router'
+
+Définir les routes:
+const routes: Routes = [
+  {path: 'recherche', component: MonComposantComponent},
+  {path: '', redirectTo: 'recherche', pathMatch: 'full'}
+];
+
