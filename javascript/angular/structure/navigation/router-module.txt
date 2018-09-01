@@ -14,6 +14,14 @@ const routes: Routes = [
   {path: '', redirectTo: 'recherche', pathMatch: 'full'}
 ];
 
+Injecter le router Module en faisant référence au routes :
+  imports: [
+    BrowserModule,
+    FormsModule,
+    HttpClientModule,
+    RouterModule.forRoot(routes)
+  ],
+
 # router-outlet
 Question : où faire l'injection des composants?
 ==> on peut vouloir garder un header / footer constant
