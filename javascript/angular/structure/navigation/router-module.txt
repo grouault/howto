@@ -1,5 +1,7 @@
 # RouterModule
-Mécanisme de traitement des routes
+Mécanisme de traitement des routes même si on est sur SPA.
+Toujours une seule page, mais possibilité de naviguer entre plusieurs pages : simulation de navigation car on est toujours
+sur un mécanisme de composant.
 route : associé un composant à un path
 Question : où faire l'injection des composants?
 ==> on peut vouloir garder un header / footer constant
