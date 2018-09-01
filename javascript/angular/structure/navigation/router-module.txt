@@ -3,9 +3,6 @@ Mécanisme de traitement des routes même si on est sur SPA.
 Toujours une seule page, mais possibilité de naviguer entre plusieurs pages : simulation de navigation car on est toujours
 sur un mécanisme de composant.
 route : associé un composant à un path
-Question : où faire l'injection des composants?
-==> on peut vouloir garder un header / footer constant
-==> <router-outlet> : router d'angular, c'est à cet endroit que tu injectes le composant qui nous intérèsse.
 
 # Mise en place:
 1- app.module.ts
@@ -17,3 +14,7 @@ const routes: Routes = [
   {path: '', redirectTo: 'recherche', pathMatch: 'full'}
 ];
 
+# router-outlet
+Question : où faire l'injection des composants?
+==> on peut vouloir garder un header / footer constant
+==> <router-outlet> : router d'angular, c'est à cet endroit que tu injectes le composant qui nous intérèsse.
