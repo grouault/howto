@@ -1,2 +1,0 @@
-# Création de component
-ng g component nom_composant
