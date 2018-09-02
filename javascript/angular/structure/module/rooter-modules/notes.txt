@@ -29,3 +29,5 @@ Question : où faire l'injection des composants.
 ==> on peut vouloir garder un header / footer constant
 ==> En général app.component.html
 ==> <router-outlet> : router d'angular, c'est à cet endroit que tu injectes le composant qui nous intérèsse.
+
+# Passage de paramètres
