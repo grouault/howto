@@ -41,6 +41,8 @@ Process :
 2- mettre à jour le router-link dans les vues
 Format:
 <a [routerLink]="['routePath', routeParameterValue]">{{film.title}}</a>
+==>
+<a [routerLink]="['/details', film.episode_id]">{{film.title}}</a>
 3- récupération du paramètre au niveau du contrôleur
 a- nouvel import pour récupérer la route active : route surlaquelle je me trouve actuellement.
 import { ActivatedRoute } from '@angular/router';
