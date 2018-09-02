@@ -50,6 +50,8 @@ import { ActivatedRoute } from '@angular/router';
 b- injection
 constructor(private route: ActivatedRoute) { }
 c- dans ngOnInit, récupération des paramètres de la route courante
+d- route.params est un observable ; il faut y souscrire.
+==> renvoie un tableau contenant les paramètres : il suffit alors de récupérer les paramètres par leur nom.
 
 
 
