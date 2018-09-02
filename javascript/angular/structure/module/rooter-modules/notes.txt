@@ -1,4 +1,5 @@
- RouterModule
+# RouterModule
+Module permettant de gérer la navigation au sein d'un appliction angular
 Mécanisme de traitement des routes même si on est sur SPA.
 Toujours une seule page, mais possibilité de naviguer entre plusieurs pages : simulation de navigation car on est toujours
 sur un mécanisme de composant.
