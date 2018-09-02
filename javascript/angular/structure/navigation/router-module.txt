@@ -10,8 +10,9 @@ import { RouterModule } from '@angular/router'
 
 Définir les routes:
 const routes: Routes = [
+  {path: '', redirectTo: 'recherche', pathMatch: 'full'},
   {path: 'recherche', component: MonComposantComponent},
-  {path: '', redirectTo: 'recherche', pathMatch: 'full'}
+  {path: 'details', component: DetailsComponent}
 ];
 
 Injecter le router Module en faisant référence au routes :
