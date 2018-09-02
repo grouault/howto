@@ -4,6 +4,7 @@ Partir d'application
 Exemple : gérer l'utilisateur ==> isoler dans un module
 
 # AppModule
+- boostraper l'application - initialisation de l'application
 - Module d'initialisation des composants de l'application
 - main.ts: permet de boostraper le module et d'initialiser les composants de l'application
 
