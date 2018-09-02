@@ -39,3 +39,17 @@ Question : où faire l'injection des composants.
 # directives router-link
 Format:
 <a [routerLink]="['routePath', routeParameterValue]">{{film.title}}</a>
+
+Process :
+1- indiquer dans le router que j'attends des paramètres : il faut donc mettre à jour les routes
+{path: 'details/:id', component: DetailsComponent}
+2- mettre à jour le router-link
+3- récupération du paramètre au niveau du contrôleur
+a- nouvel import pour récupérer la route active : route surlaquelle je me trouve actuellement.
+import { ActivatedRoute } from '@angular/router';
+b- injection
+constructor(private route: ActivatedRoute) { }
+c- dans ngOnInit, récupération des paramètres de la route courante
+
+
+
