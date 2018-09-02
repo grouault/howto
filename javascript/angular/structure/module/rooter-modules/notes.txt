@@ -31,3 +31,11 @@ Question : où faire l'injection des composants.
 ==> <router-outlet> : router d'angular, c'est à cet endroit que tu injectes le composant qui nous intérèsse.
 
 # Passage de paramètres
+##
+# liens hypertextes
+- on oublie les liens hypertextes '<a href>' qui déclenchent le rechargement de la page.
+- on utilisera un router-link avec ou sans paramètres
+
+# directives router-link
+Format:
+<a [routerLink]="['routePath', routeParameterValue]">{{film.title}}</a>
