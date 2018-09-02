@@ -35,15 +35,12 @@ Question : où faire l'injection des composants.
 # liens hypertextes
 - on oublie les liens hypertextes '<a href>' qui déclenchent le rechargement de la page.
 - on utilisera un router-link avec ou sans paramètres
-
-# directives router-link
-Format:
-<a [routerLink]="['routePath', routeParameterValue]">{{film.title}}</a>
-
 Process :
 1- indiquer dans le router que j'attends des paramètres : il faut donc mettre à jour les routes
 {path: 'details/:id', component: DetailsComponent}
-2- mettre à jour le router-link
+2- mettre à jour le router-link dans les vues
+Format:
+<a [routerLink]="['routePath', routeParameterValue]">{{film.title}}</a>
 3- récupération du paramètre au niveau du contrôleur
 a- nouvel import pour récupérer la route active : route surlaquelle je me trouve actuellement.
 import { ActivatedRoute } from '@angular/router';
