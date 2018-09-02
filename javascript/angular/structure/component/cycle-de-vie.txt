@@ -1,0 +1,5 @@
+# constructeur
+Il est appelé à l'instanciation de l'objet ; objet est instancié par angular de manière à être injecter.
+
+# ngOnInit
+Le composant est prêt à être présenter ; toutes les infos, tout l'écosystème qui est déjà initialisé.
