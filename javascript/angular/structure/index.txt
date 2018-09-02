@@ -1,3 +1,8 @@
 # mot-clé
 - binding
 - programmation réactive (obervable)
+- angular-cli
+- app-module
+- module
+- component
+- provider
