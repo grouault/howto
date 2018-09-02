@@ -23,7 +23,8 @@ Injecter le router Module en faisant référence au routes :
     RouterModule.forRoot(routes)
   ],
 
-# router-outlet
-Question : où faire l'injection des composants?
+2- router-outlet
+Question : où faire l'injection des composants.
 ==> on peut vouloir garder un header / footer constant
+==> En général app.component.html
 ==> <router-outlet> : router d'angular, c'est à cet endroit que tu injectes le composant qui nous intérèsse.
