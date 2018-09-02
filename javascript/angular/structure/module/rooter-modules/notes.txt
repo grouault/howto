@@ -52,6 +52,9 @@ constructor(private route: ActivatedRoute) { }
 c- dans ngOnInit, récupération des paramètres de la route courante
 d- route.params est un observable ; il faut y souscrire.
 ==> renvoie un tableau contenant les paramètres : il suffit alors de récupérer les paramètres par leur nom.
+==> on ne récupère pas directement le paramètre ; on passe par un observable ; comme cela si le composant est instancié une 
+seule fois, et que la route change quand même, de part la souscription, en ayant un seul objet en mémoire, pour une utiliasation il pourra chercher le paramètre 1, pour une autre le paramètre 2 ...
+Question : quel différence par rapport à un passage de paramètre directe.
 
 
 
