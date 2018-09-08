@@ -23,4 +23,5 @@ Angular : met toi à l'écoute de que l'utilisateur met dans ce champs et met le
 # event bindig syntax
 Un évènement est associé à un sélecteur. L'évènement est associé à un traitement particulier qui est une méthode du composant.
 Exemple:
+Permet de lier l'évènement click à la méthode afficher().
 <button (click)="afficher()">Afficher</button>
