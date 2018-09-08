@@ -1,10 +1,12 @@
 # composant / component
+Les composants sont les blocs de construction d'une application Angular.
 Un composant se concentre sur son rôle de contrôleur.
 Il est en relation avec la vue et les services.
 
 # Structure
 Association d'une vue (template), feuille de style, classe
-Classe : contrôleur qui pilote la vue, interagit avec les services
+Classe (Typescript) : contrôleur qui pilote la vue, interagit avec les services
+Template : fichier html associé à la feuille de style pour définir l'ui.
 
 # @Component
 Transforme la classe en composant Angular
