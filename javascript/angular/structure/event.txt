@@ -1,4 +1,0 @@
-# event
-Un évènement est associé à un sélecteur. L'évènement est associé à un traitement particulier qui est une méthode du composant.
-Exemple:
-<button (click)="afficher()">Afficher</button>
