@@ -19,3 +19,8 @@ Angular : met toi à l'écoute de que l'utilisateur met dans ce champs et met le
 ==> inspecter la valeur en permanence, écouter, pousser
 
 ==> Déclarer la variable dans le contrôleur pour influencer ce qui est affiché à l'écran
+
+# event bindig syntax
+Un évènement est associé à un sélecteur. L'évènement est associé à un traitement particulier qui est une méthode du composant.
+Exemple:
+<button (click)="afficher()">Afficher</button>
