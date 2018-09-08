@@ -11,6 +11,8 @@ lance un serveur http (live reload) : compilation, packaging, écoute (web-socke
 ng g component nom_composant
 
 # Création d'un service
+ng g service nomService
+=> ne pas oulier de mettre à jour le fichier AppModule et le tableau Providers
 
 # build
 ng build
