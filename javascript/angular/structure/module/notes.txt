@@ -9,12 +9,13 @@ Exemple : gérer l'utilisateur ==> isoler dans un module
 - main.ts: permet de boostraper le module et d'initialiser les composants de l'application
 
 # FormsModule
+- permet de créer et gérer les formulaires de l'application
 - Permet d'utiliser la directive NgModel
 - à importer dans AppModule: FormsModule
 - à importer dans le composant : import {FormsModule} from '@angular/forms';
 
 # HttpModule
-- Permet d'utiliser la couche HttpClient
+- Permet d'utiliser la couche HttpClient, et d'envoyer les requêtes http.
 import {HttpClientModule} from '@angular/common/http'
 
 # RouterModule
