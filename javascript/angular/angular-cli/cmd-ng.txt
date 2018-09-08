@@ -9,3 +9,10 @@ lance un serveur http (live reload) : compilation, packaging, écoute (web-socke
 
 # Création de component
 ng g component nom_composant
+
+# Création d'un service
+
+# build
+ng build
+angular compile le front-end et le place dans le folder de sortie:
+==> angular-cli.json : outDir
