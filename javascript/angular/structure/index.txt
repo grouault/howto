@@ -13,3 +13,6 @@
 - créer les models qui seront importés dans les composants
 - créer les services qui permettent de traiter les requêtes Http
 - mettre à jour AppModule: composants, service et autres modules nécessaires à l'application
+
+Une application Angular est composée d'une hiérarchie de composants.
+
