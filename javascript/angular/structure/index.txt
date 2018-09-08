@@ -1,3 +1,4 @@
+
 # mot-clé
 - binding
 - programmation réactive (obervable)
@@ -6,3 +7,9 @@
 - module
 - component
 - provider
+
+# Coder une application Angular
+- créer des composants
+- créer les models qui seront importés dans les composants
+- créer les services qui permettent de traiter les requêtes Http
+- mettre à jour AppModule: composants, service et autres modules nécessaires à l'application
