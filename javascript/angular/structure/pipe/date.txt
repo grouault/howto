@@ -1,0 +1,9 @@
+export class Hero{
+  id: number;
+  name: string;
+  birthday: Date;
+}
+
+birthday: new Date(1988, 3, 15)
+
+<div><span>birthday:</span>{{hero.birthday | date:'dd/MM/yyyy'}}</div>
