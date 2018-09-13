@@ -25,3 +25,13 @@ Un évènement est associé à un sélecteur. L'évènement est associé à un t
 Exemple:
 Permet de lier l'évènement click à la méthode afficher().
 <button (click)="afficher()">Afficher</button>
+
+# class binding syntax
+https://angular.io/guide/template-syntax#class-binding
+Permet d'ajouter ou supprimer une classe CSS de l'attribut 'class' d'un élément HTML.
+<!-- toggle the "special" class on/off with a property -->
+<div [class.special]="isSpecial">The class binding is special</div>
+
+<!-- binding to `class.special` trumps the class attribute -->
+<div class="special"
+     [class.special]="!isSpecial">This one is not so special</div>
