@@ -35,3 +35,5 @@ Permet d'ajouter ou supprimer une classe CSS de l'attribut 'class' d'un élémen
 <!-- binding to `class.special` trumps the class attribute -->
 <div class="special"
      [class.special]="!isSpecial">This one is not so special</div>
+
+# style binding syntax
