@@ -26,5 +26,10 @@ Conditionner l'affichage d'un élément.
 # Form
 ########
 # Select
-ngValue : Permet de définir la valeur des options
+<select name="profile" ngModel>
 <option [ngValue]="null"></option>
+</select>
+name: permet de récupérer la valeur sélectionné à la validation du fomulaire
+ngModel: permet d'enregistrer l'élément avec ngFrom (ou n binding two way)
+ngValue : Permet de définir la valeur des options
+
