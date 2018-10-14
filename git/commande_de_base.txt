@@ -57,6 +57,14 @@ $ git checkout -f
 $ git reset ==> annule l'effet du 'git add' précédent
 $ get reset --hard ==> écrase les modifications faite depuis le dernier commit
 
+To move head-branch to previous commit:
+$ git status                    #make sure current directory is committed, or lose it
+$ git log --oneline --decorate  #make sure there is a ref besides HEAD branch, or lose it
+$ git reset --hard 9e5e64a      #move Head-branch to specified commit
+
+Annuler un commit :
+$ git reset --soft 9e5e64a
+
 # Ignorer : .gitignore
 - racine du dépot
 - quel fichier / pattern fichier à ignorer
