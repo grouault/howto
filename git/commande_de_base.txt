@@ -78,6 +78,9 @@ To move head-branch to previous commit:
 $ get reset --hard ==> écrase les modifications faite depuis le dernier commit
 $ git reset --hard 9e5e64a      #move Head-branch to specified commit
 
+==> 
+https://alexgirard.com/git-book/intermediaire/repair-reset-checkout-revert/
+
 # Ignorer : .gitignore
 - racine du dépot
 - quel fichier / pattern fichier à ignorer
