@@ -72,6 +72,7 @@ $ git reset ==> annule l'effet du 'git add' précédent
 
 Annuler un commit :
 $ git reset --soft 9e5e64a ; le commit est annulé mais pas les données
+==> Fichie remis à l'index
 
 To move head-branch to previous commit:
 $ get reset --hard ==> écrase les modifications faite depuis le dernier commit
