@@ -53,17 +53,29 @@ $ git checkout -f
 ==> the deletes files should be back.
 ==> CAUTION : commint uncommitted files
 
-# Retour arrière
-$ git reset ==> annule l'effet du 'git add' précédent
-$ get reset --hard ==> écrase les modifications faite depuis le dernier commit
+# HEAD
+Version de tête de la brance en cours de visualisation.
+La version de tête pointe sur le dernier commit.
+Les changements réalisés et les changements réalisés ajoutés à l'index ne font pas partir de la version Head.
 
-To move head-branch to previous commit:
-$ git status                    #make sure current directory is committed, or lose it
+# git log et HEAD
 $ git log --oneline --decorate  #make sure there is a ref besides HEAD branch, or lose it
-$ git reset --hard 9e5e64a      #move Head-branch to specified commit
+
+# Retour arrière sur un fichier non ajouté à l'index
+git checkout [filename]
+
+# Retour arrière sur un fichier ajouté à l'index ==> se repoistionner sur la version de tête.
+git checkout HEAD [filename]
+
+# Retour arrière sur un fichier committé.
+$ git reset ==> annule l'effet du 'git add' précédent
 
 Annuler un commit :
-$ git reset --soft 9e5e64a
+$ git reset --soft 9e5e64a ; le commit est annulé mais pas les données
+
+To move head-branch to previous commit:
+$ get reset --hard ==> écrase les modifications faite depuis le dernier commit
+$ git reset --hard 9e5e64a      #move Head-branch to specified commit
 
 # Ignorer : .gitignore
 - racine du dépot
