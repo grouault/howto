@@ -61,7 +61,9 @@ Les changements réalisés et les changements réalisés ajoutés à l'index ne 
 # git log et HEAD
 $ git log --oneline --decorate  #make sure there is a ref besides HEAD branch, or lose it
 
-# Retour arrière sur un fichier non ajouté à l'index
+# Retour arrière sur un fichier ajouté à l'index au préalable et surlequel on a fait d'autres modifs.
+# on voit le fichier tel que présent sur l'index. Les dernières modifications sont effacées
+# git checkout : dernier le la pile ; le dernier de la pile n'est pas forcément le head mais l'index...
 git checkout [filename]
 
 # Retour arrière sur un fichier ajouté à l'index ==> se repoistionner sur la version de tête.
