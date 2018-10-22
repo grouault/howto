@@ -16,4 +16,7 @@ La tâche de flux de données permet d'encapsuler le moteur de flux de données 
  La tâche de flux de données est l'endroit où s'effectue la majorité du travail d'un processus d'extraction, de transformation et de chargement (ETL).
 
 2- Source de fichier plat
-Une source de fichier plat est un composant de flux de données qui utilise des métadonnées définies par un Gestionnaire de connexions de fichiers plats pour spécifier le format et la structure des données à extraire à partir du fichier plat par un processus de transformation. La source de fichier plat peut être configurée pour extraire les données à partir d'un seul fichier plat en utilisant la définition de format de fichier fournie par le Gestionnaire de connexions de fichiers plats.
+Une source de fichier plat est un composant de flux de données qui utilise des métadonnées définies par un Gestionnaire de connexions
+de fichiers plats pour spécifier le format et la structure des données à extraire à partir du fichier plat par un processus de 
+transformation. La source de fichier plat peut être configurée pour extraire les données à partir d'un seul fichier plat en utilisant la 
+définition de format de fichier fournie par le Gestionnaire de connexions de fichiers plats.
