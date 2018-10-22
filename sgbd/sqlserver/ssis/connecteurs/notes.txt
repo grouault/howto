@@ -1,0 +1,11 @@
+1- gestionnaire de connexions de fichiers plats
+==> pour la connexion à la source de données
+
+2-gestionnaire de connexions OLE-DB
+==> pour la connexion à la destination
+Un Gestionnaire de connexions OLE DB permet à un package d’extraire ou de charger des données dans une source de données compatible OLE DB.
+
+3- Tâche de flux de données 
+La tâche de flux de données permet d'encapsuler le moteur de flux de données qui déplace les données entre les sources et les destinations 
+ et fournit la fonctionnalité grâce à laquelle il est possible de transformer, nettoyer et modifier les données lors de leur déplacement. 
+ La tâche de flux de données est l'endroit où s'effectue la majorité du travail d'un processus d'extraction, de transformation et de chargement (ETL).
