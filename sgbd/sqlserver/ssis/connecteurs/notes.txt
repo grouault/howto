@@ -13,7 +13,8 @@ Un Gestionnaire de connexions OLE DB permet à un package d’extraire ou de cha
 1- Tâche de flux de données 
 La tâche de flux de données permet d'encapsuler le moteur de flux de données qui déplace les données entre les sources et les destinations 
  et fournit la fonctionnalité grâce à laquelle il est possible de transformer, nettoyer et modifier les données lors de leur déplacement. 
- La tâche de flux de données est l'endroit où s'effectue la majorité du travail d'un processus d'extraction, de transformation et de chargement (ETL).
+ La tâche de flux de données est l'endroit où s'effectue la majorité du travail d'un processus d'extraction, de transformation 
+ et de chargement (ETL).
 
 2- Source de fichier plat
 Une source de fichier plat est un composant de flux de données qui utilise des métadonnées définies par un Gestionnaire de connexions
