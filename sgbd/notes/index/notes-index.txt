@@ -18,3 +18,8 @@ Pour cela, il existe plusieurs types d'index différents, et deux types de "clé
 1- Ils prennent de la place en mémoire.
 2- Ils ralentissent les requêtes d'insertion, modification et suppression, 
 puisqu'à chaque fois, il faut remettre l'index à jour en plus de la table.
+
+# Index sur plusieurs colonnes
+On parle d'index "par la gauche". Si on prend des sous-parties d'index existant en prenant des colonnes "par la gauche", 
+ces index existent. Mais si l'on commence par la droite ou que l'on "saute" une colonne, 
+ils n'existent pas et doivent éventuellement être créés.
