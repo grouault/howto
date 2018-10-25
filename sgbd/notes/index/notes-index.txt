@@ -1,0 +1,2 @@
+# Définition
+Structure de données qui reprend la liste ordonnée des valeurs auxquelles il se rapporte.
