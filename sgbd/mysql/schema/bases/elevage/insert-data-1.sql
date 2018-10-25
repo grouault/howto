@@ -1,3 +1,4 @@
+SET NAMES utf8;
 LOCK TABLES Animal WRITE;
 INSERT INTO Animal VALUES 
 (1,'chien','M','2010-04-05 13:43:00','Rox','Mordille beaucoup'),(2,'chat',NULL,'2010-03-24 02:23:00','Roucky',NULL),(3,'chat','F','2010-09-13 15:02:00','Schtroumpfette',NULL),
