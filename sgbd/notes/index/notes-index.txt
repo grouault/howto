@@ -1,2 +1,5 @@
 # Définition
 Structure de données qui reprend la liste ordonnée des valeurs auxquelles il se rapporte.
+Lorsque vous créez un index sur une table, MySQL stocke cet index sous forme d'une structure particulière, 
+contenant les valeurs des colonnes impliquées dans l'index. 
+Cette structure stocke les valeurs triées et permet d'accéder à chacune de manière efficace et rapide.
