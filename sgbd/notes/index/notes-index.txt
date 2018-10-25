@@ -13,3 +13,8 @@ pour chacun de ces index, n'est pas nécessairement le même
 1- Accélérer les requêtes qui utilisent des colonnes indexées comme critères de recherche. 
 2- Assurer l'intégrité des données de la base ; cela signifie garantir la qualité de vos données. 
 Pour cela, il existe plusieurs types d'index différents, et deux types de "clés".
+
+# Désavantages
+1- Ils prennent de la place en mémoire.
+2- Ils ralentissent les requêtes d'insertion, modification et suppression, 
+puisqu'à chaque fois, il faut remettre l'index à jour en plus de la table.
