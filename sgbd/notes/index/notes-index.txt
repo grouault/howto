@@ -3,3 +3,8 @@ Structure de données qui reprend la liste ordonnée des valeurs auxquelles il s
 Lorsque vous créez un index sur une table, MySQL stocke cet index sous forme d'une structure particulière, 
 contenant les valeurs des colonnes impliquées dans l'index. 
 Cette structure stocke les valeurs triées et permet d'accéder à chacune de manière efficace et rapide.
+
+Mais pourquoi ne pas simplement trier la table complète sur la base de la colonne id ?
+Pourquoi créer et stocker une structure spécialement pour l'index ? 
+Tout simplement parce qu'il peut y avoir plusieurs index sur une même table, et que l'ordre des lignes, 
+pour chacun de ces index, n'est pas nécessairement le même
