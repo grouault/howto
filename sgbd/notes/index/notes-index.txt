@@ -56,3 +56,10 @@ Il existe deux commandes permettant de créer des index sur une table existante 
 ALTER TABLE
 CREATE INDEX.
 Ces deux commandes sont équivalentes, 
+
+# Rercherche FullText
+Les recherches via  FULLTEXT  fonctionnent plutôt pas mal, mais si vous avez énormément de données, si vous faites énormément de
+requêtes de recherche, ou des recherches très complexes, n'hésitez pas à vous tourner vers un outil spécialisé, un vrai moteur de
+recherche comme SolR, Sphinx ou ElasticSearch.
+Un index FULLTEXT  ne peut être défini que sur une colonne de type CHAR, VARCHAR  ou TEXT.
+Les index "par la gauche" ne sont pas pris en compte par les index FULLTEXT
