@@ -29,3 +29,13 @@ CREATE TABLE Animal (
                                                 -- de caractères pris en compte)
 )
 ENGINE=INNODB;
+           
+-- unique et fulltext
+CREATE TABLE nom_table (
+    colonne1 INT NOT NULL,   
+    colonne2 VARCHAR(40), 
+    colonne3 TEXT,
+    UNIQUE [INDEX] ind_uni_col2 (colonne2),     -- Crée un index UNIQUE sur la colonne2, INDEX est facultatif
+    FULLTEXT [INDEX] ind_full_col3 (colonne3)   -- Crée un index FULLTEXT sur la colonne3, INDEX est facultatif
+)
+ENGINE=MyISAM;                   
