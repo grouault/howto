@@ -35,3 +35,6 @@ la même que si l'on avait pris la colonne entière.
 Si vous mettez un index sur une colonne de type BLOB  ou TEXT  (ou un de leurs dérivés), 
 MySQL exige que vous précisiez un nombre de caractères à prendre en compte. Et heureusement… vu la longueur potentielle 
 de ce que l'on stocke dans de telles colonnes.
+
+# Index unique
+
