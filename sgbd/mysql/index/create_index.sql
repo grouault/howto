@@ -25,6 +25,7 @@ CREATE TABLE Animal (
     commentaires TEXT,
     PRIMARY KEY (id),
     INDEX ind_date_naissance (date_naissance),  -- index sur la date de naissance
-    INDEX ind_nom (nom(10))                     -- index sur le nom (le chiffre entre parenthèses étant le nombre de caractères pris en compte)
+    INDEX ind_nom (nom(10))                     -- index sur le nom (le chiffre entre parenthèses étant le nombre 
+                                                -- de caractères pris en compte)
 )
 ENGINE=INNODB;
