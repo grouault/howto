@@ -30,3 +30,8 @@ Sur ce type de colonne, il est préférable de placer un index partiel, c'est à
 sur des champs alphanumériques permet de gagner de la place (un index sur 150 lettres prend évidemment plus de place
 qu'un index sur 20 lettres), et si la longueur est intelligemment définie, l'accélération permise par l'index sera 
 la même que si l'on avait pris la colonne entière.
+
+# Index BLOB et TEXT
+Si vous mettez un index sur une colonne de type BLOB  ou TEXT  (ou un de leurs dérivés), 
+MySQL exige que vous précisiez un nombre de caractères à prendre en compte. Et heureusement… vu la longueur potentielle 
+de ce que l'on stocke dans de telles colonnes.
