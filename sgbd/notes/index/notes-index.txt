@@ -23,3 +23,10 @@ puisqu'à chaque fois, il faut remettre l'index à jour en plus de la table.
 On parle d'index "par la gauche". Si on prend des sous-parties d'index existant en prenant des colonnes "par la gauche", 
 ces index existent. Mais si l'on commence par la droite ou que l'on "saute" une colonne, 
 ils n'existent pas et doivent éventuellement être créés.
+
+# Index sur les colonnes AlphNumerique
+Sur ce type de colonne, il est préférable de placer un index partiel, c'est à dir sur les 25-30 premiers caractères.
+"Indexe cette colonne, mais base-toi seulement sur les x premiers caractères. Le fait d'utiliser ces index partiels 
+sur des champs alphanumériques permet de gagner de la place (un index sur 150 lettres prend évidemment plus de place
+qu'un index sur 20 lettres), et si la longueur est intelligemment définie, l'accélération permise par l'index sera 
+la même que si l'on avait pris la colonne entière.
