@@ -37,4 +37,6 @@ MySQL exige que vous précisiez un nombre de caractères à prendre en compte. E
 de ce que l'on stocke dans de telles colonnes.
 
 # Index unique
-
+Avoir un index UNIQUE  sur une colonne (ou plusieurs) permet de s'assurer que jamais vous n’insérerez deux fois la même 
+valeur (ou combinaison de valeurs) dans la table.
+Lorsque vous mettez un index UNIQUE  sur une table, vous ne mettez pas seulement un index, vous ajoutez surtout une contrainte.
