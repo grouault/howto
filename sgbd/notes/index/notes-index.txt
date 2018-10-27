@@ -44,3 +44,15 @@ Lorsque vous mettez un index UNIQUE  sur une table, vous ne mettez pas seulement
 # Indes FullText
 Un index FULLTEXT  est utilisé pour faire des recherches de manière puissante et rapide sur un texte. 
 On n'utilise donc ce type d'index que sur les colonnes de type CHAR, VARCHAR  ou TEXT.
+
+# Ajout des index après création de la table
+En dehors du fait que parfois vous ne penserez pas à tout au moment de la création de votre table, 
+il peut parfois être intéressant de créer les index après la table.
+En effet, je vous ai dit que l'ajout d'index sur une table ralentissait l'exécution des requêtes d'écriture 
+(insertion, suppression, modification de données). Par conséquent, si vous créez une table que vous comptez remplir avec un grand
+nombre de données immédiatement, grâce à la commande LOAD DATA INFILE, par exemple, il vaut bien mieux créer la table, la remplir,
+et ensuite seulement créer les index voulus sur cette table.
+Il existe deux commandes permettant de créer des index sur une table existante : 
+ALTER TABLE
+CREATE INDEX.
+Ces deux commandes sont équivalentes, 
