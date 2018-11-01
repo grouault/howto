@@ -33,3 +33,19 @@ from articles
 select RTRIM(nom) + ' ' + RTRIM(prenom) as Patronyme,
   substring(codepostal, 1, 2) as Departement
 From Clients;
+
+--
+-- distinct
+-- ==> Permet de faire un affichage différent de l'information au fur et à mesure que cette dernière
+-- est présentée
+-- au moment de l'affichage, on ne retient que des noms différents les uns des autres
+--
+Select distinct ville from CLIENTS;
+
+-- 
+-- distinct par Group By
+-- Permet de faire un distinct nécessitant une opération de tri qui est toutefois performante.
+-- Constitue des sous-ensemble et on sort l'étiquette du sous-ensemble
+-- On ne peut afficher que ces étiquette
+select ville from clients group by ville;
+--
