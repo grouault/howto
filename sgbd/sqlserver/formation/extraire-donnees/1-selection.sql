@@ -21,8 +21,15 @@ where DATEPART (mm, date_cde) = 6
 where DATEDIFF(year, GETDATE(), date_cde) < 3
 
 --
--- calcul élémentaire et affichage dans une nouvelle colonne
+-- calcul élémentaire sur chaine numérique et affichage dans une nouvelle colonne
 -- Portée : que sur le jeu de résultat, que sur l'instruction SELECT qui n'est pas une instruction UPDATE
 -- 
 select REFERENCE_ART, 'Ancien Prix'=PRIX_HT, 'Nouveau Prix'=PRIX_HT*1.1
 from articles
+
+--
+-- calcul élémentaire sur chaine de caractère
+--
+select RTRIM(nom) + ' ' + RTRIM(prenom) as Patronyme,
+  substring(codepostal, 1, 2) as Departement
+From Clients;
