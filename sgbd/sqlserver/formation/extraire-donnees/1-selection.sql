@@ -17,5 +17,5 @@ where ville IS NULL
 -- 2- Date
 -- extraire une partie de la date
 where DATEPART (mm, date_cde) = 6
--- difference
+-- difference en nombre d'année entre la date courante et la date de commande
 where DATEDIFF(year, GETDATE(), date_cde) < 3
