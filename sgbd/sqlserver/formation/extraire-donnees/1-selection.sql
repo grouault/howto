@@ -19,3 +19,10 @@ where ville IS NULL
 where DATEPART (mm, date_cde) = 6
 -- difference en nombre d'année entre la date courante et la date de commande
 where DATEDIFF(year, GETDATE(), date_cde) < 3
+
+--
+-- calcul élémentaire et affichage dans une nouvelle colonne
+-- Portée : que sur le jeu de résultat, que sur l'instruction SELECT qui n'est pas une instruction UPDATE
+-- 
+select REFERENCE_ART, 'Ancien Prix'=PRIX_HT, 'Nouveau Prix'=PRIX_HT*1.1
+from articles
