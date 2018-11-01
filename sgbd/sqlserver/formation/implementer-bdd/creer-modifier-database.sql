@@ -16,6 +16,12 @@ objet de base de données : create / alter / drop
 Collate : ordre de tri utilisé 
 exemple French_CI_AI : tri suivant ordre alpahabétique francais, case insentivive, accent insensitive
 
+-- # Instruction
+CREATE : permet de créer un objet
+ALTER : permet de modifier un objet
+DROP : permet de supprimer un objet
+-- objet : table, procedure, fonction, vue, ...
+
 -- # MODIFIER
 -- modifier un certaines nombre de paramètres
 
