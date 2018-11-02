@@ -3,6 +3,10 @@
 -- Opérateur Select auquel 
 --
 
+
+-- ================= --
+-- == RESTRICTION == --
+-- ================= --
 -- 0- like
 -- % : remplace 0 à N caractères
 -- _ : remplace 1 caractère
