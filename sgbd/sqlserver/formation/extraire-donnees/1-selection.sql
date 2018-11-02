@@ -42,8 +42,11 @@ From Clients;
 -- =============== --
 -- fonction de calcul d'agrégat, fonction qui permet :
 -- 1- le regroupement
--- 2- extraire un calcul : MIN, MAX, AVT, COUNT
+-- 2- extraire un calcul : MIN, MAX, AVT, COUNT, SUM
 -- 3- restriction sur calcul: HAVING
+select ref_art, sum(qte) from stock group by ref_art
+select departement=substring(codepostal, 1, 2), count(client) 
+from client group by substring(codepostal, 1, 2);
 
 -- ============== --
 -- == DISTINCT == --
