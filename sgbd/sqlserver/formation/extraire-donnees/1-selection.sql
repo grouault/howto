@@ -20,20 +20,34 @@ where DATEPART (mm, date_cde) = 6
 -- difference en nombre d'année entre la date courante et la date de commande
 where DATEDIFF(year, GETDATE(), date_cde) < 3
 
---
+
+-- ============ --
+-- == CALCUL == --
+-- ============ --
+-- Calcul élémentaire --
+-- ================== --
 -- calcul élémentaire sur chaine numérique et affichage dans une nouvelle colonne
 -- Portée : que sur le jeu de résultat, que sur l'instruction SELECT qui n'est pas une instruction UPDATE
 -- 
 select REFERENCE_ART, 'Ancien Prix'=PRIX_HT, 'Nouveau Prix'=PRIX_HT*1.1
 from articles
-
 --
 -- calcul élémentaire sur chaine de caractère
 --
 select RTRIM(nom) + ' ' + RTRIM(prenom) as Patronyme,
   substring(codepostal, 1, 2) as Departement
 From Clients;
+--
+-- Calcul d'agégat --
+-- =============== --
+-- fonction de calcul d'agrégat, fonction qui permet :
+-- 1- le regroupement
+-- 2- extraire un calcul : MIN, MAX, AVT, COUNT
+-- 3- restriction sur calcul: HAVING
 
+-- ============== --
+-- == DISTINCT == --
+-- ============== --
 --
 -- distinct
 -- ==> Permet de faire un affichage différent de l'information au fur et à mesure que cette dernière
