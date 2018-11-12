@@ -4,3 +4,12 @@ et qui permet d'identifier de manière unique chaque ligne de la table.
 - Contrainte d'unicité : ceci ressemble fort à un index UNIQUE.
 - Composée d'une ou plusieurs colonnes : comme les index, les clés peuvent donc être composites.
 - Permet d'identifier chaque ligne de manière unique : dans ce cas, une clé primaire ne peut pas être NULL.
+Pour le dire différemment, une contrainte de clé primaire est donc une combinaison
+de deux des contraintes que nous avons vues jusqu'à présent : UNIQUE  et NOT NULL.
+
+# Choix de la clé primaire
+On est bien souvent obligé d'ajouter une colonne pour jouer le rôle de la clé primaire. 
+C'est cette fameuse colonne id, auto-incrémentée.
+En effet, si l'on définit une clé primaire, c'est en partie dans le but d'utiliser au maximum cette clé pour 
+faire des recherches dans la table. Comme les recherches sont beaucoup plus rapides sur des nombres que sur des textes, 
+il est souvent intéressant d'avoir une clé primaire composée de colonnes de type INT
