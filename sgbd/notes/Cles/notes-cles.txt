@@ -1,0 +1,3 @@
+# clé primaire
+La clé primaire d'une table est une contrainte d'unicité, composée d'une ou plusieurs colonnes, 
+et qui permet d'identifier de manière unique chaque ligne de la table.
