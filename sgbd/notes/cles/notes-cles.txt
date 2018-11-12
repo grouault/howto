@@ -29,3 +29,7 @@ de type INT UNSIGNED  aussi.
 
 Tous les moteurs de table ne permettent pas l'utilisation des clés étrangères. Par exemple, MyISAM ne le permet pas, 
 contrairement à InnoDB.
+
+Une clé étrangère est un peu plus complexe à créer qu'un index ou une clé primaire, puisqu'il faut deux éléments :
+- la ou les colonnes sur lesquelles on crée la clé - on utilise FOREIGN KEY  ;
+- la ou les colonnes qui vont servir de référence - on utilise REFERENCES.
