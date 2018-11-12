@@ -13,3 +13,19 @@ C'est cette fameuse colonne id, auto-incrémentée.
 En effet, si l'on définit une clé primaire, c'est en partie dans le but d'utiliser au maximum cette clé pour 
 faire des recherches dans la table. Comme les recherches sont beaucoup plus rapides sur des nombres que sur des textes, 
 il est souvent intéressant d'avoir une clé primaire composée de colonnes de type INT
+
+# clé étrangère
+Les clés étrangères ont pour fonction principale la vérification de l'intégrité de votre base. 
+Elles permettent de s'assurer que vous n'insérez pas de bêtises…
+- Comme pour les index et les clés primaires, il est possible de créer des clés étrangères composites.
+- Lorsque vous créez une clé étrangère sur une colonne (ou un groupe de colonnes) – 
+la colonne client de Commande dans notre exemple –, un index est automatiquement ajouté sur celle-ci (ou sur le groupe).
+- Par contre, la colonne (le groupe de colonnes) qui sert de référence - la colonne numero de Client - 
+doit déjà posséder un index (ou être clé primaire, bien sûr).
+- La colonne (ou le groupe de colonnes) sur laquelle (lequel) la clé est créée doit être exactement du même type que la colonne
+(le groupe de colonnes) qu'elle (il) référence. Cela implique qu'en cas de clé composite, il y ait le même nombre de colonnes 
+dans la clé et la référence. Donc, si numero (dans Client) est un INT UNSIGNED, client (dans Commande) doit être 
+de type INT UNSIGNED  aussi.
+
+Tous les moteurs de table ne permettent pas l'utilisation des clés étrangères. Par exemple, MyISAM ne le permet pas, 
+contrairement à InnoDB.
