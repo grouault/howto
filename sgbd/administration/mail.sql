@@ -1,3 +1,9 @@
+--
+-- Pour pouvoir envoyer des mail, on doit:
+-- 1- creer un compte d'envoi de mail
+-- 2- creer un profil
+-- 3- associer le profil au compte
+
 -- Drop a Database Mail account
 EXECUTE msdb.dbo.sysmail_delete_account_sp  
     @account_name = 'AdminMail' ;  
@@ -14,6 +20,9 @@ select * from [msdb].[dbo].[sysmail_account]
 select * from [msdb].[dbo].[sysmail_profileaccount]
 --delete from [msdb].[dbo].[sysmail_profileaccount] where [profile_id]=2   and [account_id]=3
 
+--
+-- Creer le compte mail et le profil
+--
 -- Create a Database Mail account
 EXECUTE msdb.dbo.sysmail_add_account_sp
     @account_name = 'ET_INT',
@@ -39,8 +48,12 @@ EXECUTE msdb.dbo.sysmail_add_principalprofile_sp
     @principal_name = 'testMail',
     @is_default = 1 ;
 
+--
+-- envoyer le mail
+--
 EXEC msdb.dbo.sp_send_dbmail
     @profile_name = 'ET_DEV',
     @recipients = 'a.bouaraba@groupe-pomona.fr', 
     @subject='V000118\ET-DEV-2PES - ECHEC EXECUTION PACKAGE SSIS',
     @body = 'test ET';
+
