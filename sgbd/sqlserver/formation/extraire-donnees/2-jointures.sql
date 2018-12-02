@@ -19,3 +19,10 @@ where a.code_cat = c.code;
 select a.designation, c.code, c.libelle 
 from [dbo].[CATEGORIES] c inner join [dbo].[ARTICLES] a
 on a.code_cat = c.code;
+-- jointure plus complexe
+select co.numero_cde as num_co, co.date_cde as date_cmd, cli.nom as nom_client, lc.reference_art, 
+	a.prixht as Prix_Ht, lc.qte_cde
+from [dbo].[COMMANDES] co 
+	inner join [dbo].[LIGNES_CDE] lc on lc.numero_cde = co.numero_cde 
+	inner join [dbo].[ARTICLES] a on a.reference = lc.reference_art
+	inner join [dbo].[CLIENTS] cli on cli.numero = co.numero_cli
