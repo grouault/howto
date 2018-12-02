@@ -1,3 +1,0 @@
--- Produit Cartésien
--- Opérateur compétitif :
--- une table avec une seule ligne d'information : on veut rajouter cette information sur toutes les lignes d'une autre table.
