@@ -10,5 +10,8 @@ from [dbo].[CATEGORIES] c cross join [dbo].[ARTICLES] a;
 -- ========
 -- Jointure
 -- ========
-select c.libelle, a.designation
-from [dbo].[CATEGORIES] c cross join [dbo].[ARTICLES] a;
+-- Pour un article, savoir dans quelle catégorie il est placé
+--
+select a.designation, c.code, c.libelle 
+from [dbo].[CATEGORIES] c, [dbo].[ARTICLES] a
+where a.code_cat = c.code;
