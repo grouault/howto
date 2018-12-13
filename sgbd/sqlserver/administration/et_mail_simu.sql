@@ -19,3 +19,11 @@ EXECUTE msdb.dbo.sysmail_add_profileaccount_sp
     @profile_name = 'ET_SIMU',
     @account_name = 'ET_SIMU',
     @sequence_number = 2;
+
+
+--
+EXEC msdb.dbo.sp_send_dbmail
+    @profile_name = 'ET_SIMU',
+    @recipients = 'g.rouault@groupe-pomona.fr', 
+    @subject='V000170\ET-DEV-2PES - test',
+    @body = 'test ET';
