@@ -3,6 +3,10 @@
 
 Doc:
 http://static.springsource.org/spring-security/site/docs/3.0.x/reference/core-services.html#core-services-dao-provider
+https://javaetmoi.developpez.com/tutoriels/spring/configurez-spring-java/#LVI
+// CAS
+https://www.baeldung.com/spring-security-cas-sso
+https://apereo.github.io/cas/5.1.x/planning/Architecture.html
 
 - Principe:
 -----------
