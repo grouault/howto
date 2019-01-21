@@ -1,3 +1,6 @@
+-- procédure pour connaître les gens qui sont connectés.
+sp_who2
+
 -- Descrit les options de la connexion au moteur
 -- Util pour le format de date pour les tests
 DBCC USEROPTIONS;
