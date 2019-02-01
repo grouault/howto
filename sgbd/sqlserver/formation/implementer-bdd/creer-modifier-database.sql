@@ -3,6 +3,7 @@
 - interface graphique / objet Base de données ==> Nouvelle BDD
 objet de base de données : create / alter / drop
 ==> table / procédure / fonction / vue ... tous les objets d'une base de données
+==> Langage du DDL
 
 --> création d'un fichier de données (type Primary) et un fichier Journal
 - création à partir d'une bdd system (model) pour la structurer
