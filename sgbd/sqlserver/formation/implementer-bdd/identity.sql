@@ -9,4 +9,4 @@ CREATE TABLE CATEGORIES(
 );
 
 -- pour cette colonne, on ne fournit jamais de valeur explicit
--- sqlserver fournit un code catégorie : commence à 1, incrémentation par pas de 1
+-- sqlserver fournit un code catégorie : commence à 100, incrémentation par pas de 1
