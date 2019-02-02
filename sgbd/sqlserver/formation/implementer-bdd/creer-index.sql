@@ -21,6 +21,12 @@ CREATE INDEX I_LIGNES_REFART
   ON LIGNES_CDE(reference_art)
   INCLUDE (numero_cde);
 go
+
+
+--
+-- index filtré
+-- ne vont pas indexé la totalité des infos de la table mais un sous-ensemble de la table filtré avec une clause where
+--
 CREATE INDEX IDESIGNATION_ARTICLES
   ON ARTICLES(designation_art)
   WHERE code_cat IN (1,2);
