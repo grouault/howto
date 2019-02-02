@@ -26,6 +26,7 @@ go
 --
 -- index filtré
 -- ne vont pas indexé la totalité des infos de la table mais un sous-ensemble de la table filtré avec une clause where
+-- utilisable par sql_server quand on fait une recherche d'articles dans le code est 1 ou 2.
 --
 CREATE INDEX IDESIGNATION_ARTICLES
   ON ARTICLES(designation_art)
