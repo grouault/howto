@@ -1,5 +1,20 @@
 
 --
+-- Index
+-- - accéder rapidement et de manière efficace à l'information
+-- - égalité de traitement pour accéder à l'information
+-- - parcourir l'index, accéder directement à l'information une fois trouvée l'info pertinente trouvé dans l'index
+-- - organise ou non physiquement les données de la table
+-- - information stockée dans des pages - sans index les pages sont chainées. L'index permet de construire alors un arbre balancée
+--  de pages permettant d'accéder plus rapidement à l'information
+--
+-- index qui n'organise pas physiquement les données de la table
+-- - index classique : ex: ville ==> accéder à l'ensemble des client par ville
+-- - index couvrant : contient les valeurs indexées, puis une partie de la table pour tenter  de répondre aux demandes
+-- ce certaines requêtes et que les requêtes n'accèdent qu'à l'index dans accéder à la table
+--
+
+--
 -- créer un index unique ordonnée
 -- index mis en place une contrainte de clé primaire
 -- définit pas une contrainte de clé primaire ==> ne pourrait pas référencé cet index comme étant une clé primaire 
