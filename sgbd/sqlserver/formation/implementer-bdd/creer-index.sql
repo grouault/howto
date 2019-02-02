@@ -1,3 +1,10 @@
+
+--
+-- créer un index unique ordonnée
+-- index mis en place une contrainte de clé primaire
+-- définit pas une contrainte de clé primaire ==> ne pourrait pas référencé cet index comme étant une clé primaire 
+-- si derrière j'ai besoin d'une contrainte de clé étrangère qui doit faire référence aux clients 
+--
 CREATE UNIQUE CLUSTERED INDEX INOCLI
   ON CLIENTS (numero)
   WITH (FILLFACTOR=50);
