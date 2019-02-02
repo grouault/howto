@@ -9,6 +9,14 @@ CREATE UNIQUE CLUSTERED INDEX INOCLI
   ON CLIENTS (numero)
   WITH (FILLFACTOR=50); -- au niveau feuille, elles vont être complété à 50%
 go
+
+--
+-- index couvrant
+-- contient les informations indexées et des infos qui vont permettent de répondre directement aux demandes des requêtes.
+-- indexe la colonne reference_art (accès rapide aux différenctes ref.article présente dans cette table)
+-- inclure dans les pages au niveau feuille les numéros de commande
+-- ==> on parcours l'index via la ref.article, une fois trouvé, on trouve directement dans l'index, au niveau feuille, l'information.
+--
 CREATE INDEX I_LIGNES_REFART
   ON LIGNES_CDE(reference_art)
   INCLUDE (numero_cde);
