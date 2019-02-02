@@ -11,7 +11,9 @@
 ALTER DATABASE GESCOM
   SET AUTO_CREATE_STATISTICS ON;
 GO
+-- verifier que la création des stats est activé
 SELECT name, is_auto_update_stats_on
   FROM sys.databases;
 GO
+-- travailler de façon manuelle
 exec sp_createstats
