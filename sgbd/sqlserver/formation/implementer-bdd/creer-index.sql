@@ -7,7 +7,7 @@
 --
 CREATE UNIQUE CLUSTERED INDEX INOCLI
   ON CLIENTS (numero)
-  WITH (FILLFACTOR=50);
+  WITH (FILLFACTOR=50); -- au niveau feuille, elles vont être complété à 50%
 go
 CREATE INDEX I_LIGNES_REFART
   ON LIGNES_CDE(reference_art)
