@@ -8,3 +8,10 @@
 -- qu'est ce qu'il va pouvoir gagner comme temps d'exécution ==> comme si on met à disposition une route sans connaître la destination,
 -- les différentes sorties, le nombre de voies, la largeur ==> incidence sur la vitesse à laquelle on peut se déplacer sur cette route
 --
+ALTER DATABASE GESCOM
+  SET AUTO_CREATE_STATISTICS ON;
+GO
+SELECT name, is_auto_update_stats_on
+  FROM sys.databases;
+GO
+exec sp_createstats
