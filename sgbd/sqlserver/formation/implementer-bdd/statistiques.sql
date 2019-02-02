@@ -1,0 +1,9 @@
+--
+-- permettre à SQL-SERVER de bien exploité ces index
+-- ==> Voir sql-server lorsqu'il dresse le plan d'exéction d'une requête comme si l'on décide d'un chemin pour aller 
+-- d'un point A à un point B
+-- tient compte de tout un tas d'élément : le jours, l'heure et autres paramètres que l'on connaît tel que la densité du traffic
+-- En fonction des différents paramètres, on choisit le chemin optimum
+-- Pour sql-server c'est la même chose, si on met en place des index, mais si on ne lui donne pas la pertinence des index, 
+-- qu'est ce qu'il va pouvoir gagner comme temps d'exécution
+--
