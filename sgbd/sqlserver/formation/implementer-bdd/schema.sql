@@ -1,0 +1,5 @@
+--
+-- sql-server propose un niveau intermédiaire d'orgnaisation entre la base de données et les tables
+-- appelé schéma
+-- schéma unique par défaut : dbo (data base ownner)
+--
