@@ -37,7 +37,7 @@ CREATE INDEX IDESIGNATION_ARTICLES
 CREATE TABLE STOCKS(
 	reference_art nvarchar(16) NOT NULL,
 	depot char(2) NOT NULL,
-	qte_stock int NULL,
+	qte_stk int NULL,
 	stock_mini int NULL DEFAULT 0,
 	stock_maxi int NULL,
 	constraint pk_stocks PRIMARY KEY(reference_art, depot),
