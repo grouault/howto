@@ -59,7 +59,7 @@ CREATE TABLE CLIENTS(
 	gps geography NULL,
   constraint pk_clients PRIMARY KEY(numero),	
   constraint ck_clients_codepostal CHECK 
-	((CONVERT(int,codepostal)>=10000) AND (CONVERT(int,codepostal)<=95999))
+	((CONVERT(int,codepostal)>=00001) AND (CONVERT(int,codepostal)<=95999))
 ); 
 
 -- Ajout d'une colonne
