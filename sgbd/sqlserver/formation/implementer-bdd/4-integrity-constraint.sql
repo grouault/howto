@@ -8,7 +8,8 @@
 -- applique la non nullité
 -- mise en place d'un index : organise physiquement les données de la table
 -- clustered : par défaut, organise physiquement les données de la table
--- requête simple : les données apparaissent trié dans l'ordre de l'index de la clé primaire, ordre des données tel que stockées dans la base
+-- requête simple : les données apparaissent trié dans l'ordre de l'index de la clé primaire, ordre des données tel que stockées
+-- dans la base
 CREATE TABLE HISTO_FAC(
   numero_fac int identity(1000,1) not null,
   date_fac datetime,
