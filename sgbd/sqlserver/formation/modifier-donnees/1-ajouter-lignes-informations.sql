@@ -30,5 +30,8 @@ CREATE TABLE #TBN(leSchema sysname, leNom sysname);
 go
 INSERT INTO #TBN execute dbo.noms_tables
 go
+--
+-- inserer plusieurs données d'un coup
+-- 
 INSERT INTO CATEGORIES (libelle_cat)
   VALUES ('Moniteur LCD'),('Switch');
