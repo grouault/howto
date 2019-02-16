@@ -15,11 +15,17 @@ go
 INSERT INTO STOCKS (REFERENCE_ART, DEPOT, QTE_STK)
   SELECT REFERENCE_ART,'P2',0 FROM ARTICLES;
 go
+--
+-- Connaître tous les noms des tables actuellement créé sur la base de données GESCOM.
+--
 create procedure noms_tables as
   select TABLE_SCHEMA, TABLE_NAME  from INFORMATION_SCHEMA.TABLES;
 go
 execute dbo.noms_tables
 go
+--
+-- sysname (synonyme): permet de créer une colonne qui peut stocker un identifiant au format sql-server
+--
 CREATE TABLE #TBN(leSchema sysname, leNom sysname);
 go
 INSERT INTO #TBN execute dbo.noms_tables
