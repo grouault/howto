@@ -10,3 +10,9 @@ CREATE TABLE CATEGORIES(
 
 -- pour cette colonne, on ne fournit jamais de valeur explicit
 -- sqlserver fournit un code catégorie : commence à 100, incrémentation par pas de 1
+
+-- insertion
+-- pour inserer une valeur particulière
+set identity_insert categories on;
+
+set identity_insert categories off;
