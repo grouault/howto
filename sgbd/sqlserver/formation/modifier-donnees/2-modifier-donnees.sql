@@ -1,10 +1,20 @@
+--
+-- maj d'un enregistrement
+--
 UPDATE CLIENTS SET nom=DEFAULT, adresse=NULL, ville='Nantes'
   WHERE numero=25;
 SELECT * FROM CLIENTS WHERE numero=25;
 go
+--
+-- maj de plusieurs enregistrements
+--
 UPDATE ARTICLES SET PRIXHT_ART=PRIXHT_ART*1.01
   WHERE PRIXHT_ART<20;
 go
+--
+-- mise à jour de la quantité sur un enregistrement
+-- en se basant sur les infos d'une autre table
+--
 UPDATE STOCKS
   SET qte_stk=qte_stk-(SELECT SUM(QTE_CDE)
       FROM LIGNES_CDE
