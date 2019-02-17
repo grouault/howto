@@ -15,5 +15,6 @@ go
 --
 -- Instruction du DDL
 -- vide le contenu de la table sans passé par la journalisation (journal des transactions)
+-- on met tous à la poubelle - processus irreversible
 --
 TRUNCATE TABLE HISTO_FAC;
