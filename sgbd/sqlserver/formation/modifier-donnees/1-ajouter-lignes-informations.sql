@@ -35,3 +35,17 @@ go
 -- 
 INSERT INTO CATEGORIES (libelle_cat)
   VALUES ('Moniteur LCD'),('Switch');
+  
+--
+-- IDENTITY
+-- Pour insérer une valeur explicite dans une colonne IDENTITY
+-- il faut désactiver par script la propriété identity_insert à OFF.
+--
+select * from CATEGORIES
+insert into categories(code_cat, libelle_cat) values (226,'livres');
+go
+set identity_insert categories on
+insert into categories(code_cat, libelle_cat) values (226,'livres');
+set identity_insert categories off
+go
+select * from categories where code_cat=226;
