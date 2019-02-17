@@ -1,3 +1,7 @@
+--
+-- supprimer tous les clients
+-- attention aux contraintes
+--
 DELETE FROM CLIENTS;
 go
 DELETE FROM HISTO_FAC WHERE etat_fac='SO';
