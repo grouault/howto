@@ -12,4 +12,8 @@ DELETE FROM H
   WHERE H.numero_cde=c.numero_cde
    AND C.numero_cli=1;
 go
+--
+-- Instruction du DDL
+-- vide le contenu de la table sans passé par la journalisation (journal des transactions)
+--
 TRUNCATE TABLE HISTO_FAC;
