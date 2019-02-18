@@ -55,5 +55,20 @@ LEFT OUTER JOIN sys.partitions AS P
 LEFT OUTER JOIN sys.allocation_units AS AU 
  ON AU.allocation_unit_id = TL.resource_associated_entity_id;
 
-
+--
+-- Requête des logs
+--
+SELECT top 1  @session = c.session_id, @text = t.text
+FROM sys.dm_exec_connections c
+CROSS APPLY sys.dm_exec_sql_text (c.most_recent_sql_handle) t   --- jointure avec une table resultante d'une fonction
+where c.session_id in 
+		(SELECT distinct blocking_session_id as Session_bloquante
+				FROM sys.dm_os_waiting_tasks
+				WHERE blocking_session_id IS NOT NULL and wait_type like 'LCK%' and wait_duration_ms >= 60000
+				and blocking_session_id not in 
+						(SELECT session_id 
+							FROM sys.dm_os_waiting_tasks
+							WHERE blocking_session_id IS NOT NULL and wait_type like 'LCK%' and wait_duration_ms >= 60000
+							)
+		)
 
