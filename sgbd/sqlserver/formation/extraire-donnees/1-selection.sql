@@ -9,15 +9,11 @@
 -- ================= --
 -- == SELECTION   == --
 -- ================= --
-SELECT * FROM ARTICLES;
-GO
-SELECT CODE_CAT, REFERENCE_ART FROM ARTICLES;
-GO
+Sélectionné une ou plusieurs colonnes dans un ordre souhaitée:
+* : toutes les colonnes
+renommage :
 SELECT Catégorie=CODE_CAT, 
-       'Désignation de l''article'=DESIGNATION_ART 
-       FROM ARTICLES;
-
-
+       'Désignation de l''article'=DESIGNATION_ART
 
 -- ================= --
 -- == RESTRICTION == --
