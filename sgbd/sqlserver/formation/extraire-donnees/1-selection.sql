@@ -1,6 +1,10 @@
 --
 -- Selectionner une ou plusieurs colonnes
 -- Opérateur Select auquel 
+-- Requête d'extraction : Select
+-- Restriction :
+-- Données proviennent de plusieurs tables
+-- calcul plus ou moins complexes
 --
 
 
