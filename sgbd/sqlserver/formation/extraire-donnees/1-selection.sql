@@ -21,14 +21,16 @@ SELECT Catégorie=CODE_CAT,
 --  = : restriction sur valeur fixe
 -- between : valeur comprise entre deux bornes ; les bornes sont prises en compte
 -- and / or : combiner les clauses de restrictions
--- like
+-- Opérationeur : like
 -- % : remplace 0 à N caractères
 -- _ : remplace 1 caractère
 where (ville like 'N%')
 where (prenom like 'NO_m%')
 
--- 1- Critère de selection Null
--- NULL = Absence de saisie.
+-- Critère de selection Null
+-- soit une valeur est saisie, soit la valeur est null
+-- NULL = Absence de saisie ==> pas de comparaison avec l'opérateur = possible
+-- est-ce qu'une absence de saisie est égale à une autre absence de saisie ==> c'est faux
 -- Toute comparaison avec Null est faux.
 where ville IS NULL
 
