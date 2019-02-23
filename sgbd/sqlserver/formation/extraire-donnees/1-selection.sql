@@ -20,7 +20,8 @@ SELECT Catégorie=CODE_CAT,
 -- ================= --
 --  = : restriction sur valeur fixe
 -- between : valeur comprise entre deux bornes ; les bornes sont prises en compte
--- 0- like
+-- and / or : combiner les clauses de restrictions
+-- like
 -- % : remplace 0 à N caractères
 -- _ : remplace 1 caractère
 where (ville like 'N%')
