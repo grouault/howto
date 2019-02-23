@@ -6,11 +6,24 @@
 -- Données proviennent de plusieurs tables
 -- calcul plus ou moins complexes
 --
+-- ================= --
+-- == SELECTION   == --
+-- ================= --
+SELECT * FROM ARTICLES;
+GO
+SELECT CODE_CAT, REFERENCE_ART FROM ARTICLES;
+GO
+SELECT Catégorie=CODE_CAT, 
+       'Désignation de l''article'=DESIGNATION_ART 
+       FROM ARTICLES;
+
 
 
 -- ================= --
 -- == RESTRICTION == --
 -- ================= --
+--  = : restriction sur valeur fixe
+-- between : valeur comprise entre deux bornes ; les bornes sont prises en compte
 -- 0- like
 -- % : remplace 0 à N caractères
 -- _ : remplace 1 caractère
