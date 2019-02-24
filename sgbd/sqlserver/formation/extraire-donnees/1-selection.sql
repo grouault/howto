@@ -63,7 +63,7 @@ From Clients;
 -- fonction de calcul d'agrégat, fonction qui permet :
 -- 1- le regroupement
 -- 2- extraire un calcul : MIN, MAX, AVT, COUNT, SUM
--- 3- restriction sur calcul: HAVING
+-- 3- restriction sur le retour du calcul de l'agrégat: HAVING
 -- ==> agregat peut porter sur totalité d'une table ou sous-ensembe
 -- ==> opération ensembliste sur ensemble ou sous-ensemble
 select ref_art, sum(qte) from stock group by ref_art
