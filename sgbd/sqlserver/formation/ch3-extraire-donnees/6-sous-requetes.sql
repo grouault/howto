@@ -1,0 +1,6 @@
+-- =============
+-- sous-requete
+-- =============
+-- éviter l'utilisation de tables temporaires
+-- toutes les commandes d'un client
+--
