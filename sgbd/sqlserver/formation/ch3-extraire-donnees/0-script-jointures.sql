@@ -119,6 +119,9 @@ SELECT TOP (3) cde.numero_cde,
   ORDER BY ca DESC;
 GO
 SELECT COUNT(*) FROM COMMANDES;
+--
+-- SELECT TOP 5 PERCENT
+--
 SELECT TOP 5 PERCENT cde.numero_cde,
        ca=SUM(qte_cde*prixht_art)
   FROM COMMANDES cde INNER JOIN LIGNES_CDE lig
