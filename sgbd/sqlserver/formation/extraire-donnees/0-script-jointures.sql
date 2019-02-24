@@ -36,7 +36,7 @@ SELECT CDE.numero_cde,
 
 
 -- =================
--- Jointure ouverte
+-- Jointure externe
 -- =================
 SELECT Client=cli.numero, nom, cde.numero_cde
   FROM CLIENTS cli LEFT OUTER JOIN COMMANDES cde
