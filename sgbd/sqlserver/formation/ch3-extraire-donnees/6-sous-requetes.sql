@@ -36,3 +36,9 @@ SELECT reference_art
 -- La sous-requête peut renvoyer soit 0, soit 1 ou plusieurs lignes
 -- L'instruction EXISTS renvoit VRAI lorsque la requête passé en paramètre renvoit au moins une ligne
 -- Renvoit 0 lignes, EXISTS renvoie Faux et not exists renvoie VRAI
+
+-- =======================
+-- NOTES
+-- =======================
+-- une sous-requête imbriqué est exécuté une fois
+-- une sous-requête corrélé est exécuté n fois
