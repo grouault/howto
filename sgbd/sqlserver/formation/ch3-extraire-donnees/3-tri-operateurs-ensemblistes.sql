@@ -1,6 +1,6 @@
--- 
+-- =========================
 -- TRI
---
+-- =========================
 -- sql-server qui va décider de l'ordre d'affichage des infos.
 -- non garantit d'une exécution à l'autre de la requête
 -- si sql fait un parcours de la table sous-jacente à la requête, sql-server organise physiquement les données de la table 
@@ -11,5 +11,16 @@
 -- ==> l'ordre des résultats peut-être alors modifier
 --
 -- Pour pallier, cela, il faut utiliser l'instruction ORDER BY
+-- OFFSET : on saute les dix premières lignes triées 
+-- FETCH NEXT : on affiche les 5 lignes suivantes
 --
-
+SELECT nom, prenom, adresse, codepostal, ville
+  FROM CLIENTS
+  ORDER BY nom, prenom, codepostal, ville
+  OFFSET 10 ROWS FETCH NEXT 5 ROWS ONLY;
+  
+-- =========================
+-- OPERATEUR-ENSEMBLISTE
+-- =========================
+-- UNION - INTERSECTION - DIFFERENCE
+--
