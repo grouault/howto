@@ -64,6 +64,8 @@ From Clients;
 -- 1- le regroupement
 -- 2- extraire un calcul : MIN, MAX, AVT, COUNT, SUM
 -- 3- restriction sur calcul: HAVING
+-- ==> agregat peut porter sur totalité d'une table ou sous-ensembe
+-- ==> opération ensembliste sur ensemble ou sous-ensemble
 select ref_art, sum(qte) from stock group by ref_art
 select departement=substring(codepostal, 1, 2), count(client) 
 from client group by substring(codepostal, 1, 2);
