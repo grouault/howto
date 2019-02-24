@@ -44,5 +44,6 @@ SELECT Client=cli.numero, nom, cde.numero_cde
   FROM CLIENTS cli LEFT OUTER JOIN COMMANDES cde
   ON cli.numero=cde.numero_cli;
 -- ==> depuis la table des clients, je considère tous les clients ;
+-- ==> jointure ouverte à gauche : Left : je prend tous les clients (client est à gauche)
 -- qd je satisfait le critère de jointure, j'affiche là ou les commandes
 -- si pas de commandes trouvées, j'affiche quand même le client sans la commande
