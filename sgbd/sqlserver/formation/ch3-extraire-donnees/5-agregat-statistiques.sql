@@ -17,6 +17,12 @@ SELECT depot, libelle_cat , designation_art ,sum(qte_stk) as total
 -- ===============================
 -- with rollup
 -- ===============================
+-- permet de faire des sous-totaux par groupe d'agrégats
+-- group-by a1, a2, a3
+-- sous-total 1 : a1, a2, a3
+-- sous-total 2 : a1, a2
+-- sous-total 3 : a1, 
+-- sous-total 4 : - (tout agregat confondu voila ce que j'ai)
 -- élargit le critère de regroupement
   ...
   GROUP BY depot, libelle_cat , designation_art
