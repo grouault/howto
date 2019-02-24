@@ -14,3 +14,15 @@ SELECT depot, libelle_cat , designation_art ,sum(qte_stk) as total
   ON cat.code_cat=art.code_cat
   WHERE depot IN ('N','P1')
   GROUP BY depot, libelle_cat , designation_art;
+-- ===============================
+-- with rollup
+-- ===============================
+-- élargit le critère de regroupement
+  ...
+  GROUP BY depot, libelle_cat , designation_art
+  WITH ROLLUP;
+ -- mais ne permet pas de dire :
+ ---- tout dépôt confondu pour les souris combien j'en ai en stock
+ ---- tout dépôt confondu pour les souris pour logitech G500 combien j'en ai en stock
+ ---- tout dépôt confondu toute catégories confondues pour logitech G500, combien j'en ai en stock
+  
