@@ -24,5 +24,11 @@ SELECT nom, prenom, adresse, codepostal, ville
 -- =========================
 -- UNION - INTERSECTION - DIFFERENCE
 --
--- UNION : réunir en un seul jeu de résultat le résultat de deux requêtes différentes
+-- UNION
+-- réunir en un seul jeu de résultat le résultat de deux requêtes différentes
 -- Les deux requêtes doivent renvoyées le même type d'information cad le même nombre de colonnes et le même type de données
+-- INTERSECTION :
+-- travaille sur deux jeux de résultats stucturés de la même façon.
+-- DIFFERENCE :
+-- travaille sur deux jeux de résultats stucturés de la même façon.
+-- affiché un jeu d'enregistrement-requête execpté / sauf ceux contenus dans l'autres requêtes.
