@@ -65,6 +65,10 @@ SELECT nom, prenom, adresse, codepostal, ville
 -- Opérateurs-ensembliste
 -- =======================
 -- UNION
+-- Pour un depot/un article : voir la quantite commande et la quantité en stock
+-- Deux requête : stock / commande
+-- Union des requête et tri surt ref_art et origine
+--
 SELECT origine='Stock',convert(char(6), depot) as "Commande/dépot",
        reference_art, qte_stk
    FROM STOCKS
