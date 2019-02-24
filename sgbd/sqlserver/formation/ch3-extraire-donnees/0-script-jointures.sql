@@ -90,6 +90,10 @@ SELECT *
   FROM CLIENTS
   WHERE codepostal BETWEEN 44000 and 44999;
 GO
+--
+-- Difference
+-- affiché tous les clients sauf ceux qui habitent en Loire-Atlantique
+--
 SELECT nom, prenom
   FROM CLIENTS
 EXCEPT
