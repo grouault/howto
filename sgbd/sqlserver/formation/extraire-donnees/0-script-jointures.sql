@@ -38,10 +38,13 @@ SELECT CDE.numero_cde,
 -- =================
 -- Jointure externe
 -- =================
+-- affiché tous les clients avec leur commande associé
+-- même les clients qui n'ont pas de commandes
 SELECT Client=cli.numero, nom, cde.numero_cde
   FROM CLIENTS cli LEFT OUTER JOIN COMMANDES cde
   ON cli.numero=cde.numero_cli;
   GO
+-- ==> syntaxe non normalisé
 SELECT Client=cli.numero, nom, cde.numero_cde
   FROM CLIENTS cli ,COMMANDES cde
   WHERE cli.numero *= cde.numero_cli;
