@@ -13,7 +13,7 @@ from [dbo].[CATEGORIES] c cross join [dbo].[ARTICLES] a;
 -- ========
 -- Jointure
 -- ========
--- produit-cartésien auquel on rajoute une restriction
+-- produit-cartésien auquel on rajoute une restriction ou un critère de jointure
 -- Pour un article, savoir dans quelle catégorie il est classé
 -- avec produit cartésien
 select a.designation, c.code, c.libelle 
