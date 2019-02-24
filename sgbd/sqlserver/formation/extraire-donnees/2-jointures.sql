@@ -1,6 +1,8 @@
 -- =================
 -- Produit Cartésien
 -- =================
+-- fait toutes les combinaisons possibles entre deux tables
+-- pour chaque enregistrement, on fait correspondre tous les autres enregistrements d'une autre table
 -- Opérateur compétitif :
 -- une table avec une seule ligne d'information : on veut rajouter cette information sur toutes les lignes d'une autre table.
 -- Ecriture normalisé : cross join
