@@ -12,7 +12,7 @@ from [dbo].[CATEGORIES] c cross join [dbo].[ARTICLES] a;
 
 -- ========
 -- Jointure
--- ========
+-- ========- 
 -- produit-cartésien auquel on rajoute une restriction ou un critère de jointure
 -- Pour un article, savoir dans quelle catégorie il est classé
 -- avec produit cartésien
@@ -32,3 +32,17 @@ from [dbo].[COMMANDES] co
 	inner join [dbo].[LIGNES_CDE] lc on lc.numero_cde = co.numero_cde 
 	inner join [dbo].[ARTICLES] a on a.reference = lc.reference_art
 	inner join [dbo].[CLIENTS] cli on cli.numero = co.numero_cli
+-- ================
+-- Jointure externe
+-- ================
+-- jointure ne permette pas de sélectionner / afficher les lignes que l'on ne peut pas mettre en correspondance
+-- pkoi : parce qu'elle ne respecte pas / réponde pas aux critère de jointure
+-- ==> jointure externe : left outer join pour afficher les lignes que l'on ne peut pas mettre en correspondance
+-- ex: rapproché les clients des commandes : clients qui n'ont pas passés de commandes
+-- client left outer join commandes
+SELECT Client=cli.numero, nom, cde.numero_cde
+  FROM CLIENTS cli LEFT OUTER JOIN COMMANDES cde
+  ON cli.numero=cde.numero_cli;
+-- ==> depuis la table des clients, je considère tous les clients ;
+-- qd je satisfait le critère de jointure, j'affiche là ou les commandes
+-- si pas de commandes trouvées, j'affiche quand même le client sans la commande
