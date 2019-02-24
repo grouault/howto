@@ -21,6 +21,7 @@ from [dbo].[CATEGORIES] c, [dbo].[ARTICLES] a
 where a.code_cat = c.code;
 -- ecriture normalisé
 -- A utilisé de préférence à l'écriture du produit-cartésien ; mis en conformité avec les évolutions possibles de la norme SQL
+-- optimiseur de requête sql-server reconnaît une syntaxe non normalisé exprime une jointure comme la syntaxe normalisé
 select a.designation, c.code, c.libelle 
 from [dbo].[CATEGORIES] c inner join [dbo].[ARTICLES] a
 on a.code_cat = c.code;
