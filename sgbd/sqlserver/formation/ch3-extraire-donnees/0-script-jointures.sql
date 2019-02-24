@@ -134,6 +134,7 @@ SELECT TOP 5 PERCENT cde.numero_cde,
 -- =======================
 -- TABLES TEMPORAIRES
 -- =======================  
+-- table permanente
 SELECT numero, nom, prenom
   INTO CLINANTES
   FROM CLIENTS
@@ -142,6 +143,7 @@ GO
 SELECT *
   FROM CLINANTES;
 GO
+-- table temporaire
 SELECT reference_art, sum(qte_cde) as quantite
   INTO ##artCde
   FROM LIGNES_CDE
