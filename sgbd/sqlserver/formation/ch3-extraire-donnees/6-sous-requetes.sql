@@ -40,5 +40,5 @@ SELECT reference_art
 -- =======================
 -- NOTES
 -- =======================
--- une sous-requête imbriqué est exécuté une fois
--- une sous-requête corrélé est exécuté n fois
+-- une sous-requête imbriquée est exécuté une fois
+-- une sous-requête corrélée est exécuté n fois
