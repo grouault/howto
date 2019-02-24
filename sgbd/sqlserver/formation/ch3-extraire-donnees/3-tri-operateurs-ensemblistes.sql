@@ -32,3 +32,8 @@ SELECT nom, prenom, adresse, codepostal, ville
 -- DIFFERENCE :
 -- travaille sur deux jeux de résultats stucturés de la même façon.
 -- affiché un jeu d'enregistrement-requête execpté / sauf ceux contenus dans l'autres requêtes.
+-- =========================
+-- TOP
+-- =========================
+TOP : Affiche les premières lignes d'un jeu de résultats
+SELECT TOP 5 PERCENT : affiché les 5 premiers pourcent
