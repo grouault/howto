@@ -49,3 +49,19 @@ SELECT ville, codepostal
 	FROM CLIENTS
 	GROUP BY ville, codepostal;	
 	FROM CLIENTS;
+GO
+SELECT Prix_mini=MIN(PRIXHT_ART),
+	Prix_moyen=AVG(PRIXHT_ART),
+	Prix_maxi=MAX(PRIXHT_ART) 
+	FROM ARTICLES;
+GO
+--
+-- quantité en stock quelques soit le dépot
+SELECT REFERENCE_ART, SUM(QTE_STK) as Quantité
+	FROM STOCKS
+	GROUP BY REFERENCE_ART;
+GO
+SELECT Département =SUBSTRING(codepostal,1,2)
+	FROM CLIENTS
+	GROUP BY SUBSTRING(codepostal,1,2)
+	HAVING COUNT(*)>=2;
