@@ -21,9 +21,9 @@ SELECT reference_art, sum(qte_cde) as quantite
 -- table non visible d'une autre connexion
 --
 
--- =============
--- Table CTE
--- =============
+-- ===================================
+-- Table CTE : Common Table Expression
+-- ===================================
 -- stocké les infos de manière temporaire ; portée locale - reste définit que pour la requête qui suit immédiatement
 -- pas besoin de supprimer la table temporaire
 -- une fois passée le point-virgule, la requête Select qui suit la définition de la table CTE, la table temporaire
