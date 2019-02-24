@@ -13,12 +13,14 @@ from [dbo].[CATEGORIES] c cross join [dbo].[ARTICLES] a;
 -- ========
 -- Jointure
 -- ========
--- Pour un article, savoir dans quelle catégorie il est placé
+-- produit-cartésien auquel on rajoute une restriction
+-- Pour un article, savoir dans quelle catégorie il est classé
 -- avec produit cartésien
 select a.designation, c.code, c.libelle 
 from [dbo].[CATEGORIES] c, [dbo].[ARTICLES] a
 where a.code_cat = c.code;
 -- ecriture normalisé
+-- A utilisé de préférence à l'écriture du produit-cartésien ; mis en conformité avec les évolutions possibles de la norme SQL
 select a.designation, c.code, c.libelle 
 from [dbo].[CATEGORIES] c inner join [dbo].[ARTICLES] a
 on a.code_cat = c.code;
