@@ -150,3 +150,21 @@ SELECT reference_art, sum(qte_cde) as quantite
   GROUP BY reference_art;
 GO
 SELECT * FROM ##artCde;
+-- =======================
+-- TABLES CTE
+-- =======================  
+WITH CLI44 AS(
+  SELECT numero, nom, prenom
+    FROM CLIENTS
+	WHERE codepostal BETWEEN 44000 AND 44999
+)
+SELECT * FROM CLI44;
+GO
+WITH CLI44 AS(
+  SELECT numero, nom, prenom
+    FROM CLIENTS
+	WHERE codepostal BETWEEN 44000 AND 44999
+)
+SELECT COUNT(*) FROM CLIENTS ;
+
+SELECT * FROM CLI44;
