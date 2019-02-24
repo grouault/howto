@@ -227,6 +227,7 @@ SELECT reference_art
 GO
 --
 -- Tous les articles qui ont le même prix
+-- Tous les articles qui ont le même prix qu'un autre
 --
 SELECT reference_art, prixht_art
   FROM ARTICLES art1
