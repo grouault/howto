@@ -80,6 +80,8 @@ SELECT 'Commande', convert(char(6), cde.numero_cde),
 ORDER BY reference_art, origine;
 GO
 -- INTERSECTION
+-- client qui habitent dans une villes commencant par Nantes
+-- client qui habient en Loire Altantique
 SELECT *
   FROM CLIENTS
   WHERE ville LIKE 'Nantes%'
