@@ -225,6 +225,9 @@ SELECT reference_art
     FROM LIGNES_CDE
 	WHERE LIGNES_CDE.reference_art= ARTICLES.reference_art);
 GO
+--
+-- Tous les articles qui ont le même prix
+--
 SELECT reference_art, prixht_art
   FROM ARTICLES art1
   WHERE prixht_art=(SELECT distinct art2.prixht_art
