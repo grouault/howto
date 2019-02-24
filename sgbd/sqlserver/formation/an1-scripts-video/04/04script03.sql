@@ -1,0 +1,9 @@
+
+SELECT REFERENCE_ART,
+	'Ancien Prix'=PRIXHT_ART,
+	'Nouveau Prix'=PRIXHT_ART*1.1
+	FROM ARTICLES;
+GO
+SELECT RTRIM(nom)+' '+RTRIM(prenom) AS Patronyme,
+	SUBSTRING(codepostal,1,2) AS DEPARTEMENT
+	FROM CLIENTS;
