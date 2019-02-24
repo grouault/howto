@@ -71,6 +71,9 @@ from client group by substring(codepostal, 1, 2);
 -- ============== --
 -- == DISTINCT == --
 -- ============== --
+-- Principe d'unicité : ne peut pas avoir deux lignes parfaitement identique au sein d'une table.
+-- Par contre, une requête Select ne fait que renvoyer une ligne d'information au sein d'une table;
+-- on peut donc avoir plusieurs la même ligne d'information au sein du résultat du Select
 --
 -- distinct
 -- ==> Permet de faire un affichage différent de l'information au fur et à mesure que cette dernière
