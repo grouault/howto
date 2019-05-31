@@ -1,0 +1,8 @@
+ # recuperer l'identifiant du process tomcat
+ netstat -ano | findstr :8080
+ 
+ # tuer le process
+ taskkill /PID 19028 /F
+ 
+ # lister les process
+ tasklist
