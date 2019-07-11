@@ -22,9 +22,13 @@ $ git tag -a 2.0 -m 'Mise en production de la 2.0' master
 # Pousser les tags sur le master
 $ git push origin master --tags
 
+# Récupérer une branche qui n'existe pas
+git checkout -b dev origin/dev
+
 # Récupérer une branche / un tag
 $ git pull origin 2.0
 $ git pull origin v2.0
+==> Attention se postionner sur la branche sinon merge avec la branche courante
 
 # Supprimer un tag
  git tag -d 1.0.7
