@@ -31,10 +31,12 @@ $ git pull origin v2.0
 ==> Attention se postionner sur la branche sinon merge avec la branche courante
 
 # Supprimer un tag
- git tag -d 1.0.7
- git push origin :1.0.7
+ $ git tag -d 1.0.7
+ $ git push origin :1.0.7
+ ou
+ $ git push origin :refs/tags/12345
  
 # Supprimer une branche
-git branch -d the_local_branch
+$ git branch -d the_local_branch
 git push origin :the_remote_branch
 git push origin --delete the_remote_branch
