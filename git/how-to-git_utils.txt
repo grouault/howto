@@ -1,0 +1,16 @@
+# RESET à partir du HEAD.
+##
+> git reset HEAD
+> git reset --soft
+==> Remet dans l'état Modifié : supprime l'index et pas les modifs.
+
+> git reset HARD
+==> Remet dans l'état initial avant indexation : supprime l'index et les modifications.
+
+
+# DIFF-INDEX
+##
+# https://git-scm.com/docs/git-diff-index
+
+> git diff-index --abbrev HEAD
+> git diff-index --cached HEAD
