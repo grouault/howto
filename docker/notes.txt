@@ -3,9 +3,12 @@
 
 # Définition
 https://www.lebigdata.fr/docker-definition
-
-#
 https://guillaumebriday.fr/comprendre-et-mettre-en-place-docker
+
+
+# urls volume
+https://rominirani.com/docker-on-windows-mounting-host-directories-d96f3f056a2c
+https://stackoverflow.com/questions/46529884/windows-docker-external-mount
 
 # install - docker toolbox
 https://github.com/docker/toolbox/issues/636
