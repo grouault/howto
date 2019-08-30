@@ -1,0 +1,19 @@
+# Windows: Fonctionne à partir d'un shell DOS
+##
+
+## Volume : conteneur Linux / Alpine
+grouault@N050134 C:\Users\grouault
+> docker run -it -v c:/docker/datas:/data alpine /bin/sh
+==> demarre un conteneur: cranky_heisenberg en mode interactive
+
+# demarrer le conteneur
+> docker start cranky_heisenberg
+
+# arreter le conteneur
+> docker start cranky_heisenberg
+
+# execution commande sans lancer le conteneur
+> docker exec -it cranky_heisenberg /bin/sh
+
+# lancer un conteneur et executer la commande
+> docker rue -v c:/docker/datas:/data alpine ls /data
