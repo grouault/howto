@@ -7,6 +7,9 @@
 > docker logs mongodb
 > docker inspect mongodb
 
+# Suppression conteneur en forcant l'arret et suppression du volume
+> docker rm -fv mongodb
+
 # MYSQL
 ##
 > docker run -e MYSQL_ROOT_PASSWORD=root -p 11800:3306 mysql
