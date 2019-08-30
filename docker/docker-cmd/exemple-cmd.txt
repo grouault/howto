@@ -3,7 +3,10 @@
 
 # MYSQL
 ##
-> docker run -e MYSQL_ROOT_PASSWORD=root -p 11800:3306 mysql -d
+> docker run -e MYSQL_ROOT_PASSWORD=root -p 11800:3306 mysql
+> docker exec -it nifty_perlman bash
+# 5.7.27
+> docker run -e MYSQL_ROOT_PASSWORD=root -p 11800:3306 mysql:5.7.27
 
 # Volume : conteneur Linux / Alpine
 ## 
