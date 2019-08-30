@@ -1,7 +1,12 @@
 # Windows: Fonctionne à partir d'un shell DOS
 ##
 
-## Volume : conteneur Linux / Alpine
+# MYSQL
+##
+> docker run -e MYSQL_ROOT_PASSWORD=root -p 11800:3306 mysql -d
+
+# Volume : conteneur Linux / Alpine
+## 
 grouault@N050134 C:\Users\grouault
 > docker run -it -v c:/docker/datas:/data alpine /bin/sh
 ==> demarre un conteneur: cranky_heisenberg en mode interactive
