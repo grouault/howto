@@ -1,6 +1,12 @@
 # Windows: Fonctionne à partir d'un shell DOS
 ##
 
+# Mongo
+##
+> docker run -d --name mongodb -p 27017:27017 mongo
+> docker logs mongodb
+> docker inspect mongodb
+
 # MYSQL
 ##
 > docker run -e MYSQL_ROOT_PASSWORD=root -p 11800:3306 mysql
