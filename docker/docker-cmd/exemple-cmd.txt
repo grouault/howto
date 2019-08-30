@@ -10,6 +10,15 @@
 # Suppression conteneur en forcant l'arret et suppression du volume
 > docker rm -fv mongodb
 
+# Avec Volume
+> docker run -d --name mongodb -p 27017:27017 mongo
+> docker run -d --name mongodb -p 27017:27017 -v c:/docker/datas/mongo/base-test:/data/db mongo
+> docker exec -it mongodb /bin/sh
+==> Ne fonctionne pas
+
+> docker volume create --name=mongodata
+> docker run -d --name mongodb -p 27017:27017 -v mongodata:/data/db mongo
+
 # MYSQL
 ##
 > docker run -e MYSQL_ROOT_PASSWORD=root -p 11800:3306 mysql
