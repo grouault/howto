@@ -8,6 +8,11 @@ RESET - REVERT - CHECKOUT
 * Possibilité d’écraser des fichiers dans le répertoire de travail
 
 ## RESET
+* Annule les changements validés
+* Crée un nouveau commit à partir d’un commit spécifié en l’inversant. Par conséquent, ajoute un nouvel historique de validation au projet, mais il ne modifie pas l’historique existant.
+* Possibilité d’écraser des fichiers dans le répertoire de travail
+---
+
 * RESET à partir du HEAD.
 > git reset HEAD
 > git reset --soft
