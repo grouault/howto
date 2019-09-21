@@ -29,11 +29,10 @@ Il existe de nombreuses façons différentes d’annuler vos changements, tout d
 
 ---
 ## CHECKOUT
-> git checkout mon_fichier
-positionne le ficher tel que sur l'index.
+1. Scénario : fichiers modifiés et présent dans l'index
+> *git checkout mon_fichier* : positionne le ficher tel que sur l'index.
 
-> git checkout HEAD mon_fichier
-positionne le fichier tel que sur le HEAD <==> git reset HEAD
+> *git checkout HEAD mon_fichier* : positionne le fichier tel que sur le HEAD <==> git reset HEAD
 
 ## RESET
 * --soft : dit à git de se positionner sur un autre 'commit', index et working-directory ne sont pas altérés.
@@ -47,13 +46,13 @@ Tous les fichiers changés entre le HEAD d'origine et le 'commit' seront indexé
 
 * RESET à partir du HEAD
 1. Scénario : fichiers modifiés et présent dans l'index
-> git reset : supprime de l'index et garde les modifs dans le working directory.
+> *git reset* : supprime de l'index et garde les modifs dans le working directory.
 
-> git reset --soft: ne fait rien : garde les fichiers dans l'index
+> *git reset --soft* : ne fait rien : garde les fichiers dans l'index
 
-> git reset --mixed: supprime de l'index et garde les modifs dans le working directory.
+> *git reset --mixed* : supprime de l'index et garde les modifs dans le working directory.
 
-> git reset HARD : Remet dans l'état initial avant indexation : supprime l'index et les modifications.
+> *git reset HARD* : remet dans l'état initial avant indexation : supprime l'index et les modifications.
 
 ## REVERT
 * Sans Merge préalable
