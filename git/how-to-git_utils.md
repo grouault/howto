@@ -1,9 +1,10 @@
-# RESET - REVERT - CHECKOUT
-##
+RESET - REVERT - CHECKOUT
+=========================
+
+## RESET
 
 
-# RESET à partir du HEAD.
-##
+* RESET à partir du HEAD.
 > git reset HEAD
 > git reset --soft
 ==> Remet dans l'état Modifié : supprime l'index et pas les modifs.
@@ -11,14 +12,13 @@
 > git reset HARD
 ==> Remet dans l'état initial avant indexation : supprime l'index et les modifications.
 
-# RESET à partir d'un autre Commit
-##
+* RESET à partir d'un autre Commit
 > git reset --soft
 
 > git reset --hard HEAD~3
 
-# REVERT
-##
+## REVERT
+
 # Sans Merge préalable
 > git revert HEAD~2
 
