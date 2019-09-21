@@ -45,15 +45,13 @@ Tous les fichiers changés entre le HEAD d'origine et le 'commit' seront indexé
 * --hard : supprimme tous ; repostionne le HEAD à un autre commit ; index et working directory sont alignés sur le HEAD.
 > git reset --hard HEAD~3
 
-* RESET à partir du HEAD ==> permet de désindexer
-> git reset quand il y a des fichier indexés 
+* RESET à partir du HEAD
+1- Scénario : fichiers modifiés et présent dans l'index
+> git reset :
 ==> supprime de l'index et garde les modifs dans le working directory.
-
-> git reset --soft ==> ne fait rien ???
-
+> git reset --soft ==> ne fait rien : garde les fichiers dans l'index
 > git reset --mixed
-==> Remet dans l'état Modifié : supprime l'index et pas les modifs.
-
+==> supprime de l'index et garde les modifs dans le working directory.
 > git reset HARD
 ==> Remet dans l'état initial avant indexation : supprime l'index et les modifications.
 
