@@ -2,8 +2,6 @@ RESET - REVERT - CHECKOUT
 =========================
 
 ## RESET
-
-
 * RESET à partir du HEAD.
 > git reset HEAD
 > git reset --soft
@@ -18,18 +16,14 @@ RESET - REVERT - CHECKOUT
 > git reset --hard HEAD~3
 
 ## REVERT
-
-# Sans Merge préalable
+* Sans Merge préalable
 > git revert HEAD~2
-
-# Avec Merge préalable
+* Avec Merge préalable
 > git revert -m 1 c53c4e7a0a0c91977160e1b83c0d2d52a76d39b8
 
 
 
-# DIFF-INDEX
-##
-# https://git-scm.com/docs/git-diff-index
-
+## DIFF-INDEX
+https://git-scm.com/docs/git-diff-index
 > git diff-index --abbrev HEAD
 > git diff-index --cached HEAD
