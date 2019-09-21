@@ -55,7 +55,7 @@ Tous les fichiers changés entre le HEAD d'origine et le 'commit' seront indexé
 
 > *git reset --mixed* : supprime de l'index et garde les modifs dans le working directory.
 
-> *git reset HARD* : remet dans l'état initial avant indexation : supprime l'index et les modifications.
+> *git reset --hard* : remet dans l'état initial avant indexation : supprime l'index et les modifications.
 
 ## REVERT
 * Sans Merge préalable
