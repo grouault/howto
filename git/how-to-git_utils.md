@@ -11,13 +11,13 @@ RESET - REVERT - CHECKOUT
 * Annule les changements validés
 * Crée un nouveau commit à partir d’un commit spécifié en l’inversant. Par conséquent, ajoute un nouvel historique de validation au projet, mais il ne modifie pas l’historique existant.
 * Possibilité d’écraser des fichiers dans le répertoire de travail
-* git revert: outils pour annulé les *changements validés* ==> git revert HEAD~1
+* *git revert*: outils pour annulé les **changements validés** ==> *git revert HEAD~1*
 
 ## RESET
 * A utiliser pour retourner au dernier état validé. Ceci éliminera les commits dans une branche privée ou élimera les changements non validés.
 * altère l'historique des commits
 * peut-être utilisé pour désindexé un fichier
-* git reset HEAD : annulé les *changements non validés*
+* *git reset HEAD* : annulé les **changements non validés**
 
 ---
 
