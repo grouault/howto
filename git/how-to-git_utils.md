@@ -39,7 +39,7 @@ Il existe de nombreuses façons différentes d’annuler vos changements, tout d
 > *git checkout HEAD mon_fichier* : positionne le fichier tel que sur le HEAD <==> git reset HEAD
 
 3. Scénario : plusieurs fichiers modifiés
-> *git checkout HEAD * : ne fait rien
+> *git checkout HEAD * : traite l'ensemble des fichiers
 
 ## RESET
 * --soft : dit à git de se positionner sur un autre 'commit', index et working-directory ne sont pas altérés.
