@@ -8,10 +8,9 @@ RESET - REVERT - CHECKOUT
 * Possibilité d’écraser des fichiers dans le répertoire de travail
 
 ## REVERT
-* Annule les changements validés
+* *git revert*: outils pour annulé les **changements validés et partagés** ==> *git revert HEAD~1*
 * Crée un nouveau commit à partir d’un commit spécifié en l’inversant. Par conséquent, ajoute un nouvel historique de validation au projet, mais il ne modifie pas l’historique existant.
 * Possibilité d’écraser des fichiers dans le répertoire de travail
-* *git revert*: outils pour annulé les **changements validés** ==> *git revert HEAD~1*
 
 ## RESET
 * Important : à utiliser sur des fichers validés, uniquement si ces derniers n'ont pas été rendu public et partagé sur le repo distant.
