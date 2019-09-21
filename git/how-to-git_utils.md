@@ -29,10 +29,10 @@ Il existe de nombreuses façons différentes d’annuler vos changements, tout d
 
 ---
 ## CHECKOUT
->> git checkout mon_fichier
+> git checkout mon_fichier
 positionne le ficher tel que sur l'index.
 
->> git checkout HEAD mon_fichier
+> git checkout HEAD mon_fichier
 positionne le fichier tel que sur le HEAD <==> git reset HEAD
 
 ## RESET
