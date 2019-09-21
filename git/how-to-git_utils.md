@@ -6,6 +6,7 @@ RESET - REVERT - CHECKOUT
 * Il annule tout changement de contenu par rapport à ceux du commit spécifique
 * Cela n’apportera pas de changements à l’historique de validation
 * Possibilité d’écraser des fichiers dans le répertoire de travail
+* git checkout mon_fichier ==> permet de manipuler un fichier individuel
 
 ## REVERT
 * *git revert*: outils pour annulé les **changements validés et partagés** ==> *git revert HEAD~1*
@@ -29,13 +30,16 @@ Il existe de nombreuses façons différentes d’annuler vos changements, tout d
 
 ---
 ## CHECKOUT
-1. Scénario : fichiers modifiés mais non présent dans l'index
+1. Scénario : un fichier modifié mais non présent dans l'index
 > *git checkout mon_fichier* : positionne le ficher à la dernière version connu de git (index ou commit).
 
 2. Scénario : fichiers modifiés et poussé dans l'index
 > *git checkout mon_fichier* : positionne le ficher tel que sur l'index.
 
 > *git checkout HEAD mon_fichier* : positionne le fichier tel que sur le HEAD <==> git reset HEAD
+
+3. Scénario : plusieurs fichiers modifiés
+> *git checkout HEAD * : ne fait rien
 
 ## RESET
 * --soft : dit à git de se positionner sur un autre 'commit', index et working-directory ne sont pas altérés.
