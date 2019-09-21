@@ -35,17 +35,14 @@ Il existe de nombreuses façons différentes d’annuler vos changements, tout d
 Tous les fichiers changés entre le HEAD d'origine et le 'commit' seront indexés
 > git reset --soft HEAD~1
 
-* --mixed : dit à git de se positionner sur un autre 'commit', index et working-directory ne sont pas altérés.
-: 
-* --hard :
+* --mixed : dit à git de se positionner sur un autre 'commit', index est supprimé et working-directory n'est pas altéré.
 
-
-* RESET à partir d'un autre Commit
-
+* --hard : supprimme tous ; repostionne le HEAD à un autre commit ; index et working directory sont alignés sur le HEAD.
 > git reset --hard HEAD~3
 
-* RESET à partir du HEAD ==> permet de désindex
-> git reset --soft
+* RESET à partir du HEAD ==> permet de désindexer
+> git reset --soft ==> ne fait rien ???
+> git reset --mixed
 ==> Remet dans l'état Modifié : supprime l'index et pas les modifs.
 > git reset HARD
 ==> Remet dans l'état initial avant indexation : supprime l'index et les modifications.
