@@ -7,12 +7,20 @@ RESET - REVERT - CHECKOUT
 * Cela n’apportera pas de changements à l’historique de validation
 * Possibilité d’écraser des fichiers dans le répertoire de travail
 
-## RESET
+## REVERT
 * Annule les changements validés
 * Crée un nouveau commit à partir d’un commit spécifié en l’inversant. Par conséquent, ajoute un nouvel historique de validation au projet, mais il ne modifie pas l’historique existant.
 * Possibilité d’écraser des fichiers dans le répertoire de travail
----
 
+## RESET
+* A utiliser pour retourner au dernier état validé. Ceci éliminera les commits dans une branche privée ou élimera les changements non validés.
+* altère l'historique des commits
+* peut-être utilisé pour désindexé un fichier
+
+---
+Chaque commande vous permet d’annuler une sorte de changement dans votre dépôt, seulement checkout et reset peut être utilisé pour manipuler des commits ou des fichiers individuels
+---
+## RESET
 * RESET à partir du HEAD.
 > git reset HEAD
 > git reset --soft
