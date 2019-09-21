@@ -29,7 +29,10 @@ Il existe de nombreuses façons différentes d’annuler vos changements, tout d
 
 ---
 ## CHECKOUT
-1. Scénario : fichiers modifiés et présent dans l'index
+1. Scénario : fichiers modifiés mais non présent dans l'index
+> *git checkout mon_fichier* : positionne le ficher à la dernière version connu de git (index ou commit).
+
+2. Scénario : fichiers modifiés et poussé dans l'index
 > *git checkout mon_fichier* : positionne le ficher tel que sur l'index.
 
 > *git checkout HEAD mon_fichier* : positionne le fichier tel que sur le HEAD <==> git reset HEAD
