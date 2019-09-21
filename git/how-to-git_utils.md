@@ -14,10 +14,14 @@ RESET - REVERT - CHECKOUT
 * *git revert*: outils pour annulé les **changements validés** ==> *git revert HEAD~1*
 
 ## RESET
-* A utiliser pour retourner au dernier état validé. Ceci éliminera les commits dans une branche privée ou élimera les changements non validés.
+* Important : à utiliser sur des fichers validés, uniquement si ces derniers n'ont pas été rendu public et partagé sur le repo distant.
+* A utiliser pour retourner au dernier état validé
+==> *git reset HEAD* : annulé les **changements non validés**
+==> permet aussi de désindexer un fichier
+* Eliminer les commits dans une branche privée
+==> annulé les 2 derniers commits : *git reset HEAD~2*
 * altère l'historique des commits
 * peut-être utilisé pour désindexé un fichier
-* *git reset HEAD* : annulé les **changements non validés**
 
 ---
 
