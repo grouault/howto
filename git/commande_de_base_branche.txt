@@ -23,7 +23,7 @@ $ git tag -a 2.0 -m 'Mise en production de la 2.0' master
 $ git push origin master --tags
 
 # Récupérer une branche qui n'existe pas
-git checkout -b dev origin/dev
+$ git checkout -b dev origin/dev
 
 # Récupérer une branche / un tag
 $ git pull origin 2.0
@@ -37,8 +37,8 @@ $ git pull origin v2.0
  $ git push origin :refs/tags/12345
  
 # Supprimer plusieurs tags 
-git tag -d 1.1 1.2 1.3
-git push --delete origin 1.1 1.2 1.3
+$ git tag -d 1.1 1.2 1.3
+$ git push --delete origin 1.1 1.2 1.3
  
 # Supprimer une branche
 $ git branch -d the_local_branch
