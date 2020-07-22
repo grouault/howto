@@ -23,7 +23,8 @@ $ git tag -a 2.0 -m 'Mise en production de la 2.0' master
 $ git push origin master --tags
 
 # Récupérer une branche qui n'existe pas
-$ git checkout -b dev origin/dev
+$ git fetch origin ==> recuperer le pointeur de la branche distante
+$ git checkout -b dev origin/dev ==> reconstuire la branche localement : dev
 
 # Récupérer une branche / un tag
 $ git pull origin 2.0
