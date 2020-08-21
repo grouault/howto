@@ -17,8 +17,13 @@
 mysql> SELECT User, Host, Password FROM mysql.user;
 
 ## change password
+
 shell> mysql -u root
+
 > SET PASSWORD FOR 'root'@'localhost' = PASSWORD('gildas');
+
 > SET PASSWORD FOR 'root'@'127.0.0.1' = PASSWORD('gildas');
+
 > SET PASSWORD FOR 'root'@'::1' = PASSWORD('gildas');
+
 > SET PASSWORD FOR 'root'@'%' = PASSWORD('gildas');
