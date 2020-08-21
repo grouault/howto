@@ -27,3 +27,11 @@ shell> mysql -u root
 > SET PASSWORD FOR 'root'@'::1' = PASSWORD('gildas');
 
 > SET PASSWORD FOR 'root'@'%' = PASSWORD('gildas');
+
+ou
+
+shell> mysql -u root
+
+mysql> UPDATE mysql.user SET Password = PASSWORD('new_password') WHERE User = 'root';
+    
+mysql> FLUSH PRIVILEGES;
