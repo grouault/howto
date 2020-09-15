@@ -11,8 +11,9 @@
       where OBJECT_NAME(p.OBJECT_ID) = 'ArticleUniteAssortiment'
 
 ## Infos sur les locks
-select  resource_database_id 
-FROM sys.dm_tran_locks AS TL;
+
+  select  resource_database_id 
+  FROM sys.dm_tran_locks AS TL;
 
 
 ## locks par database
