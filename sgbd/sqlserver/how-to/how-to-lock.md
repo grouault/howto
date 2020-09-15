@@ -1,5 +1,5 @@
 ## trouver les locks sur une table
-'''
+''
 
     SELECT 
     --*
@@ -11,4 +11,4 @@
       JOIN sys.partitions p ON l.resource_associated_entity_id = p.hobt_id
       where OBJECT_NAME(p.OBJECT_ID) = 'ArticleUniteAssortiment'
 
-'''
+''
