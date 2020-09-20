@@ -24,13 +24,9 @@ git checkout
 1. *git checkout [filename]* : restauration à partir de l'index (annulation [wd])
 2. *git checkout HEAD [filename]* : restauration à partir du HEAD (annulation [wd] et [i])
 
+* possibilité de traiter l'ensemble des fichiers : en remplaçant [filename] par *.
 
-
-
-
-
-
-## CHECKOUT
+## Exemple
 1. Scénario : un fichier modifié mais non présent dans l'index
 > *git checkout mon_fichier* : positionne le ficher à la dernière version connu de git (index ou commit).
 
@@ -42,6 +38,10 @@ git checkout
 3. Scénario : plusieurs fichiers modifiés
 > *git checkout HEAD * : traite l'ensemble des fichiers
 
-Changes not staged for commit:
-  (use "git add <file>..." to update what will be committed)
-  (use "git checkout -- <file>..." to discard changes in working directory)
+## Fichier modifier mais pas encore mis à l'index
+---
+
+	Changes not staged for commit:
+  		(use "git add <file>..." to update what will be committed)
+  		(use "git checkout -- <file>..." to discard changes in working directory)
+---
