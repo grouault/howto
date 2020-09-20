@@ -1,5 +1,5 @@
 git checkout
-=========================
+============
 
 ## pour déplacer le pointeur HEAD
 * soit pour basculer entre les branches
@@ -27,7 +27,7 @@ git checkout
 * possibilité de traiter l'ensemble des fichiers : en remplaçant [filename] par *.
 
 ## Exemple
-1. Sc�nario : un fichier modifi� mais non pr�sent dans l'index
+1. Scénario : un fichier modifié mais non présent dans l'index
 > *git checkout mon_fichier* : positionne le ficher à la dernière version connu de git (index ou commit).
 
 2. Scénario : fichiers modifiés et poussé dans l'index
