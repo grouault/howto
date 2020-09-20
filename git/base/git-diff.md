@@ -1,5 +1,5 @@
-## git diff
-===========
+git diff
+========
 
 L'index (stage) peut-être analysé en différentiel :
 * soit sur l'espace de travail [wd]
