@@ -7,3 +7,20 @@
 * Cela n’apportera pas de changements à l’historique de validation
 * Possibilité d’écraser des fichiers dans le répertoire de travail
 * git checkout mon_fichier ==> permet de manipuler un fichier individuel
+
+
+## CHECKOUT
+1. Scénario : un fichier modifié mais non présent dans l'index
+> *git checkout mon_fichier* : positionne le ficher à la dernière version connu de git (index ou commit).
+
+2. Scénario : fichiers modifiés et poussé dans l'index
+> *git checkout mon_fichier* : positionne le ficher tel que sur l'index.
+
+> *git checkout HEAD mon_fichier* : positionne le fichier tel que sur le HEAD <==> git reset HEAD
+
+3. Scénario : plusieurs fichiers modifiés
+> *git checkout HEAD * : traite l'ensemble des fichiers
+
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git checkout -- <file>..." to discard changes in working directory)
