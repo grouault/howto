@@ -1,24 +1,37 @@
 ## git checkout
 ===============
 
+## pour dÃ©placer le pointeur HEAD
+* soit pour basculer entre les branches
+* soit sur une branche donnÃ©e, se positionner sur un commit spÃ©cifique
+
+---
+	* changer de branche : git co branche1
+	|--------------------master----------------------|	
+				|
+        |----branche1-----|
+ 
+--- 
+
+
 ## CHECKOUT
-* pour déplacer le pointeur HEAD vers un commit spécifique ou basculer entre les branches
-* Il annule tout changement de contenu par rapport à ceux du commit spécifique
-* Cela n’apportera pas de changements à l’historique de validation
-* Possibilité d’écraser des fichiers dans le répertoire de travail
+* pour dÃ©placer le pointeur HEAD vers un commit spÃ©cifique ou basculer entre les branches
+* Il annule tout changement de contenu par rapport Ã  ceux du commit spÃ©cifique
+* Cela nâ€™apportera pas de changements Ã  lâ€™historique de validation
+* PossibilitÃ© dâ€™Ã©craser des fichiers dans le rÃ©pertoire de travail
 * git checkout mon_fichier ==> permet de manipuler un fichier individuel
 
 
 ## CHECKOUT
-1. Scénario : un fichier modifié mais non présent dans l'index
-> *git checkout mon_fichier* : positionne le ficher à la dernière version connu de git (index ou commit).
+1. ScÃ©nario : un fichier modifiÃ© mais non prÃ©sent dans l'index
+> *git checkout mon_fichier* : positionne le ficher Ã  la derniÃ¨re version connu de git (index ou commit).
 
-2. Scénario : fichiers modifiés et poussé dans l'index
+2. ScÃ©nario : fichiers modifiÃ©s et poussÃ© dans l'index
 > *git checkout mon_fichier* : positionne le ficher tel que sur l'index.
 
 > *git checkout HEAD mon_fichier* : positionne le fichier tel que sur le HEAD <==> git reset HEAD
 
-3. Scénario : plusieurs fichiers modifiés
+3. ScÃ©nario : plusieurs fichiers modifiÃ©s
 > *git checkout HEAD * : traite l'ensemble des fichiers
 
 Changes not staged for commit:
