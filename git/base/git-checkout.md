@@ -1,5 +1,5 @@
-## git checkout
-===============
+git checkout
+=========================
 
 ## pour déplacer le pointeur HEAD
 * soit pour basculer entre les branches
