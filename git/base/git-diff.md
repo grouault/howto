@@ -1,20 +1,20 @@
 ## git diff
 
-L'index (stage) peut-être analysé en différentiel :
+L'index (stage) peut-Ãªtre analysÃ© en diffÃ©rentiel :
 * soit sur l'espace de travail [wd]
 * soit sur le repository [r]
 
-* git diff [filename]
-- différene entre [wd] et [i]
-- Qu'est-ce qui a été modifié mais pas encore indexé?
+## git diff [filename]
+- diffÃ©rene entre [wd] et [i]
+- Qu'est-ce qui a Ã©tÃ© modifiÃ© mais pas encore indexÃ©?
 
 
-* git diff --cached [filename]
-- différence entre [i] et [r]
-- Quelle modification a été indexée et est prête pour la validation?
+## git diff --cached [filename]
+- diffÃ©rence entre [i] et [r]
+- Quelle modification a Ã©tÃ© indexÃ©e et est prÃªte pour la validation?
 
 # Vocabulaire
-* Unstage : désindexer, enelver de l'index, dé-présélectionner
+* Unstage : dÃ©sindexer, enelver de l'index, dÃ©-prÃ©sÃ©lectionner
 * discard changes : annuler les modifications
 
 # 
