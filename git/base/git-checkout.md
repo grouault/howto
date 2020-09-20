@@ -3,16 +3,21 @@
 
 ## pour déplacer le pointeur HEAD
 * soit pour basculer entre les branches
-* soit sur une branche donnée, se positionner sur un commit spécifique
-
 ---
 	* changer de branche : git co branche1
-	|--------------------master----------------------|	
+	|--------------------master---------------------->	
 		|
         	|----branche1-----|
  
 --- 
 
+* soit sur une branche donnée, se positionner sur un commit spécifique
+---
+	* Branche master, se positionner sur le commit c1 : git co C1
+	|----c1----c2-------C3---------------------->	
+
+ 
+--- 
 
 ## CHECKOUT
 * pour déplacer le pointeur HEAD vers un commit spécifique ou basculer entre les branches
