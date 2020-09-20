@@ -9,7 +9,7 @@ Le choix d’une méthode appropriée dépend si vous avez ou non validé le cha
 
 Chaque commande [checkout],[reset],[revert] permet d’annuler une sorte de changement dans votre dépôt. 
 
-## réparer des erreurs non-validées, géré des fichiers individuels
+## réparer des erreurs non-validées, gérer des fichiers individuels
 * checkout 
 * reset 
 
