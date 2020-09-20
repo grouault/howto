@@ -1,4 +1,4 @@
-RESET - REVERT - CHECKOUT
+CHECKOUT -RESET - REVERT 
 =========================
 
 ---
