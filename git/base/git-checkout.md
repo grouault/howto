@@ -20,16 +20,14 @@ git checkout
 --- 
 
 ## Réparer une erreur non committée
-* pour annuler les changement dans l'espace de travail
-> *git checkout [filename]* : restauration à partir de l'index 
-> *git checkout HEAD [filename]* : restauration à partir du HEAD
+* pour **annuler les changement** dans l'espace de travail, en manipulant un **fichier individuel**
+1. *git checkout [filename]* : restauration à partir de l'index (annulation [wd])
+2. *git checkout HEAD [filename]* : restauration à partir du HEAD (annulation [wd] et [i])
 
 
-* pour déplacer le pointeur HEAD vers un commit spécifique ou basculer entre les branches
-* Il annule tout changement de contenu par rapport à ceux du commit spécifique
-* Cela n’apportera pas de changements à l’historique de validation
-* Possibilité d’écraser des fichiers dans le répertoire de travail
-* git checkout mon_fichier ==> permet de manipuler un fichier individuel
+
+
+
 
 
 ## CHECKOUT
