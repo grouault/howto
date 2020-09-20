@@ -1,4 +1,4 @@
-# git checkout
+git checkout
 =========================
 
 ## pour déplacer le pointeur HEAD
