@@ -8,8 +8,8 @@
 ---
 	* changer de branche : git co branche1
 	|--------------------master----------------------|	
-				|
-        |----branche1-----|
+		|
+        	|----branche1-----|
  
 --- 
 
