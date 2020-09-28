@@ -6,7 +6,7 @@ L'index (stage) peut-être analysé en différentiel :
 * soit sur le repository [r]
 
 ## git diff [filename]
-- différene entre [wd] et [i]
+- différence entre [wd] et [i]
 - Qu'est-ce qui a été modifié mais pas encore indexé?
 
 ## git diff --cached [filename]

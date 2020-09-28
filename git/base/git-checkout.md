@@ -24,7 +24,11 @@ git checkout
 1. *git checkout [filename]* : restauration à partir de l'index (annulation [wd])
 2. *git checkout HEAD [filename]* : restauration à partir du HEAD (annulation [wd] et [i])
 
-* possibilité de traiter l'ensemble des fichiers : en remplaçant [filename] par *.
+* possibilité de traiter l'ensemble des fichiers : 
+*IMPORTANT*: annule les mofifications dans le [wd].
+1. *git checkout HEAD [*]*
+2. *git reset --hard head*
+
 
 ## Exemple
 1. Scénario : un fichier modifié mais non présent dans l'index
