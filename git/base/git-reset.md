@@ -1,37 +1,43 @@
-## git reset
-===============
+## RESET
+========
+
+## DÃ©sindexer
+1- desindexÃ© : supprime les modifications de l'[i] en conservant les modifications dans le [wd]
+> git reset [filename]
+2-
+
 
 
 ## RESET
-* Important : à utiliser sur des fichers validés, uniquement si ces derniers n'ont pas été rendu public et partagé sur le repo distant.
-* A utiliser pour retourner au dernier état validé
-==> *git reset HEAD* : annulé les **changements non validés**
-==> permet aussi de désindexer un fichier
-* Eliminer les commits dans une branche privée
-==> annulé les 2 derniers commits : *git reset HEAD~2*
-* altère l'historique des commits
-* peut-être utilisé pour désindexé un fichier
+* Important : Ã  utiliser sur des fichers validÃ©s, uniquement si ces derniers n'ont pas Ã©tÃ© rendu public et partagÃ© sur le repo distant.
+* A utiliser pour retourner au dernier Ã©tat validÃ©
+==> *git reset HEAD* : annulÃ© les **changements non validÃ©s**
+==> permet aussi de dÃ©sindexer un fichier
+* Eliminer les commits dans une branche privÃ©e
+==> annulÃ© les 2 derniers commits : *git reset HEAD~2*
+* altÃ¨re l'historique des commits
+* peut-Ãªtre utilisÃ© pour dÃ©sindexÃ© un fichier
 
 
 ## RESET
-* --soft : dit à git de se positionner sur un autre 'commit', index et working-directory ne sont pas altérés.
-Tous les fichiers changés entre le HEAD d'origine et le 'commit' seront indexés
+* --soft : dit Ã  git de se positionner sur un autre 'commit', index et working-directory ne sont pas altÃ©rÃ©s.
+Tous les fichiers changÃ©s entre le HEAD d'origine et le 'commit' seront indexÃ©s
 > git reset --soft HEAD~1
 
-* --mixed : dit à git de se positionner sur un autre 'commit', index est supprimé et working-directory n'est pas altéré.
+* --mixed : dit Ã  git de se positionner sur un autre 'commit', index est supprimÃ© et working-directory n'est pas altÃ©rÃ©.
 
-* --hard : supprimme tous ; repostionne le HEAD à un autre commit ; index et working directory sont alignés sur le HEAD.
+* --hard : supprimme tous ; repostionne le HEAD Ã  un autre commit ; index et working directory sont alignÃ©s sur le HEAD.
 > git reset --hard HEAD~3
 
-* RESET à partir du HEAD
-1. Scénario : fichiers modifiés et présent dans l'index
+* RESET Ã  partir du HEAD
+1. ScÃ©nario : fichiers modifiÃ©s et prÃ©sent dans l'index
 > *git reset* : supprime de l'index et garde les modifs dans le working directory.
 
 > *git reset --soft* : ne fait rien : garde les fichiers dans l'index
 
 > *git reset --mixed* : supprime de l'index et garde les modifs dans le working directory.
 
-> *git reset --hard* : remet dans l'état initial avant indexation : supprime l'index et les modifications.  
+> *git reset --hard* : remet dans l'Ã©tat initial avant indexation : supprime l'index et les modifications.  
   
   
 # 
