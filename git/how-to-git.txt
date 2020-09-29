@@ -1,5 +1,4 @@
-git clone git@github.com:KleeGroup/focus-starter-kit.git
 
-
-# vertigo
-git clone git@github.com:KleeGroup/vertigo-demo-api
+## urls
+### Configuration
+https://git-scm.com/book/fr/v2/Personnalisation-de-Git-Configuration-de-Git
