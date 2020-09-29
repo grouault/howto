@@ -27,7 +27,7 @@ git checkout
 * possibilité de traiter l'ensemble des fichiers : 
 *IMPORTANT*: annule les mofifications dans le [wd].
 1. *git checkout HEAD [*]*
-2. *git reset --hard head*
+2. *git reset --hard HEAD*
 
 
 ## Exemple
