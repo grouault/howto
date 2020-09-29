@@ -4,9 +4,11 @@
 ## Désindexer
 1- desindexé : supprime les modifications de l'[i] en conservant les modifications dans le [wd]
 > git reset [filename]
-2-
 
-
+2- à partir du HEAD
+> git reset HEAD [filename]
+* restaure le fichier tel que sur le HEAD
+* supprime les modifications de l'[i] en conservant les modifications dans le [wd]
 
 ## RESET
 * Important : à utiliser sur des fichers validés, uniquement si ces derniers n'ont pas été rendu public et partagé sur le repo distant.
