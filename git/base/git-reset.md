@@ -1,7 +1,7 @@
 ## RESET
 ========
 
-## Désindexer
+## Désindexer sans supprimer les modifications dans le working-directory
 1- desindexé : supprime les modifications de l'[i] en conservant les modifications dans le [wd]
 > git reset [filename]
 
@@ -10,18 +10,7 @@
 * restaure le fichier tel que sur le HEAD
 * supprime les modifications de l'[i] en conservant les modifications dans le [wd]
 
-## RESET
-* Important : à utiliser sur des fichers validés, uniquement si ces derniers n'ont pas été rendu public et partagé sur le repo distant.
-* A utiliser pour retourner au dernier état validé
-==> *git reset HEAD* : annulé les **changements non validés**
-==> permet aussi de désindexer un fichier
-* Eliminer les commits dans une branche privée
-==> annulé les 2 derniers commits : *git reset HEAD~2*
-* altère l'historique des commits
-* peut-être utilisé pour désindexé un fichier
-
-
-## RESET
+## Supprimer un commit locale.
 * --soft : dit à git de se positionner sur un autre 'commit', index et working-directory ne sont pas altérés.
 Tous les fichiers changés entre le HEAD d'origine et le 'commit' seront indexés
 > git reset --soft HEAD~1
@@ -29,6 +18,22 @@ Tous les fichiers changés entre le HEAD d'origine et le 'commit' seront indexé
 * --mixed : dit à git de se positionner sur un autre 'commit', index est supprimé et working-directory n'est pas altéré.
 
 * --hard : supprimme tous ; repostionne le HEAD à un autre commit ; index et working directory sont alignés sur le HEAD.
+
+
+## RESET
+* Important : à utiliser sur des fichers validés, uniquement si ces derniers n'ont pas été rendu public et partagé sur le repo distant.
+* A utiliser pour retourner au dernier état validé
+==> *git reset HEAD* : annulé les **changements non validés**
+
+* Eliminer les commits dans une branche privée
+==> annulé les 2 derniers commits : *git reset HEAD~2*
+* altère l'historique des commits
+* peut-être utilisé pour désindexé un fichier
+
+
+## RESET
+
+
 > git reset --hard HEAD~3
 
 * RESET à partir du HEAD

@@ -16,8 +16,11 @@ git checkout
 	* Branche master, se positionner sur le commit c1 : git co C1
 	|----c1----c2-------C3--------------------------->	
 
- 
 --- 
+
+## Récupérer une version d'un fichier
+* Remplacer un fichier par sa révision dans le référentiel à instant t
+> *git checkhout [SHA] [filename]*
 
 ## Réparer une erreur non committée
 * pour **annuler les changement** dans l'espace de travail, en manipulant un **fichier individuel**
@@ -28,7 +31,6 @@ git checkout
 *IMPORTANT*: annule les mofifications dans le [wd].
 1. *git checkout HEAD [*]*
 2. *git reset --hard HEAD*
-
 
 ## Exemple
 1. Scénario : un fichier modifié mais non présent dans l'index
