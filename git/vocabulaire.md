@@ -25,9 +25,7 @@
 * git stocke ces objets de [t=tree] dans le dépôt Git.
 2. création d'un objet [c=commit] qui contient des métadonnées + un pointeur vers l'arbre de la racine du projet.
 '''
-
-	[c=commit] --> [s=snapshot=instantané du contenu que vous avez indexé]
-
+   [c=commit] --> [s=snapshot=instantané du contenu que vous avez indexé]
 '''
 ** metadonnées ** : les noms et prénoms de l'auteur, le message, et des pointeurs vers le ou les commits qui précèdent directement ce commit.
   
