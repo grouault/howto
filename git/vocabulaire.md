@@ -1,33 +1,35 @@
 # Vocabulairec
-* Unstage : désindexer, enelver de l'index, dé-présélectionner
+* Unstage : dÃ©sindexer, enelver de l'index, dÃ©-prÃ©sÃ©lectionner
 * discard changes : annuler les modifications
 * commit : objet de type commit
-* blob : objet de type fichier dans le dépôt	
-* tree : objet de type arbre dans le dépôt : [arbre de branche]
-* snapshot: objet de type arbre dans le dépôt : [arbre de la racine du projet]
+* blob : objet de type fichier dans le dÃ©pÃ´t	
+* tree : objet de type arbre dans le dÃ©pÃ´t : [arbre de branche]
+* snapshot: objet de type arbre dans le dÃ©pÃ´t : [arbre de la racine du projet]
 
-## dépôt
-* le dépôt est constitué de l'ensembe des objets blob, tree, commit et snapshot.
+## dÃ©pÃ´t
+* le dÃ©pÃ´t est constituÃ© de l'ensembe des objets blob, tree, commit et snapshot.
 
 ## index (zone)
 * simple fichier texte
-* stocke les informations concernant ce qui fera parti du prochain instantané
-* zone de préparation
+* stocke les informations concernant ce qui fera parti du prochain instantanÃ©
+* zone de prÃ©paration
 
 ## indexation
-1. calcule une empreinte (sha = version) pour chaque fichier à versionner. 
-2. stockage de la version de chaque fichier [b=blob] dans le dépôt 
-3. ajout l'empreinte à la zone d'index
+1. calcule une empreinte (sha = version) pour chaque fichier Ã  versionner. 
+2. stockage de la version de chaque fichier [b=blob] dans le dÃ©pÃ´t 
+3. ajout l'empreinte Ã  la zone d'index
 
 ## commit
 1. recalcul de l'arbre de la racine 
-* git calcule l'empreinte de chaque sous-répertoire ; objet de type arbre : [t=tree]
-* git stocke ces objets de [t=tree] dans le dépôt Git.
-2. création d'un objet [c=commit] qui contient des métadonnées + un pointeur vers l'arbre de la racine du projet.
+* git calcule l'empreinte de chaque sous-rÃ©pertoire ; objet de type arbre : [t=tree]
+* git stocke ces objets de [t=tree] dans le dÃ©pÃ´t Git.
+2. crÃ©ation d'un objet [c=commit] qui contient des mÃ©tadonnÃ©es + un pointeur vers l'arbre de la racine du projet.
 '''
-	[c=commit] --> [s=snapshot=instantané du contenu que vous avez indexé]
+
+	[c=commit] --> [s=snapshot=instantanÃ© du contenu que vous avez indexÃ©]
+
 '''
-** metadonnées ** : les noms et prénoms de l'auteur, le message, et des pointeurs vers le ou les commits qui précèdent directement ce commit.
+** metadonnÃ©es ** : les noms et prÃ©noms de l'auteur, le message, et des pointeurs vers le ou les commits qui prÃ©cÃ¨dent directement ce commit.
   
 ## snapshot
-* instantané [s=snapshot] du contenu de l'espace de travail au moment [t] 
+* instantanÃ© [s=snapshot] du contenu de l'espace de travail au moment [t] 
