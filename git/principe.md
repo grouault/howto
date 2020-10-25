@@ -41,5 +41,5 @@ Dans git, les fichiers dupliquées sont chainés.
 Modifié : le fichier est modifié ; un fichier modifié n'est pas ajouté à l'index. 
 Pour prendre en compte les modification il faut l'indexé.
 Indexé : les changements sont enregistrés, le fichier peut-être validé. 
-Indexxé permet de dupliquer le fichier et la création d'une nouvelle signature, nouveau hash.
+Indexé permet de dupliquer le fichier et la création d'une nouvelle signature, nouveau hash.
 Validé : fichier est versionné et en sécurité 

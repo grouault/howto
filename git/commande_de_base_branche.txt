@@ -1,18 +1,4 @@
-# Créer une branche à partir du master sur le repo local
-$ git branch v2.0
 
-# Passer sur une branch ==> je m'aligne sur la nouvelle branche
-$ git checkout v2.0
-
-# Raccourci pour créer et se positionner sur la nouvelle branche
-$ git checkout v2.0 -b v2.1 
-
-# Créerla branche sur le repo distant
-$ git push origin v2.O
-
-# Fusionner deux branches : intégrer les données de la branche v2.0 dans master
-==> se positionner dans master
-$ git merge v2.0
 
 # Tag : qd on merge, en général on rejoint le développement.
 ==> poser une étiquette, nouvelle version
@@ -22,9 +8,7 @@ $ git tag -a 2.0 -m 'Mise en production de la 2.0' master
 # Pousser les tags sur le master
 $ git push origin master --tags
 
-# Récupérer une branche qui n'existe pas
-$ git fetch origin ==> recuperer le pointeur de la branche distante
-$ git checkout -b dev origin/dev ==> reconstuire la branche localement : dev
+
 
 # Récupérer une branche / un tag
 $ git pull origin 2.0
