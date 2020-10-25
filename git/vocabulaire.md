@@ -1,9 +1,14 @@
 # Vocabulaire
 > **Unstage** : désindexer, enelver de l'index, dé-présélectionner
+
 > **discard** changes : annuler les modifications
+
 > **commit** : objet de type commit
+
 > **blob** : objet de type fichier dans le dépôt	
+
 > **tree** : objet de type arbre dans le dépôt : [arbre de branche]
+
 > **snapshot**: objet de type arbre dans le dépôt : [arbre de la racine du projet]
 
 ## dépôt
