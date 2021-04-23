@@ -1,17 +1,17 @@
-# Gestion des rÃ´les
+# Gestion des rôles
 ##
 
-- DÃ©finition de trois rÃ´les:
+- Définition de trois rôles:
 ----------------------------
 - Contributeur
 - Lecteur
-- Lecteur sans accÃ¨s aux coordonnÃ©es (adresse, email, etc.) des scientifiques.
+- Lecteur sans accès aux coordonnées (adresse, email, etc.) des scientifiques.
 
 
-# Impact sur la base de donnÃ©es.
+# Impact sur la base de données.
 ##
 
-CrÃ©ation de la table: USERS
+Création de la table: USERS
 CREATE TABLE USERS
 (
   USER_ID      NUMBER(19)                       NOT NULL,
@@ -21,7 +21,7 @@ CREATE TABLE USERS
 ALTER TABLE USERS ADD (PRIMARY KEY(USER_ID))
 
 
-CrÃ©ation de la table:
+Création de la table:
 CREATE TABLE ROLES
 (
   ROLE_ID    NUMBER(19)            NOT NULL,
@@ -30,7 +30,7 @@ CREATE TABLE ROLES
 )
 ALTER TABLE ROLES ADD (PRIMARY KEY(ROLE_ID))
 
-CrÃ©ation de la table: 
+Création de la table: 
 CREATE TABLE USER_ROLE
 (
   USER_ID  NUMBER(19)                           NOT NULL,
@@ -48,64 +48,64 @@ ALTER TABLE USER_ROLE ADD (
 Contributeur: ce qu'il doit pouvoir faire.
 -------------
 - lister les scientifiques
-- lister les Ã©tablissements
+- lister les établissements
 - lister les projets
-- CrÃ©er/modifier: un projet
-- CrÃ©er/modifier: un scientifique
-- CrÃ©er/modifier: un Ã©tablissement
-- CrÃ©er/modifier: une intervention
-- exporter les donnÃ©es des scientifiques
+- Créer/modifier: un projet
+- Créer/modifier: un scientifique
+- Créer/modifier: un établissement
+- Créer/modifier: une intervention
+- exporter les données des scientifiques
 - rechercher les projets
 - rechercher les scientifiques
 
 Lecteur: ce qu'il doit pouvoir faire
 --------
 - lister les scientifiques
-- lister les Ã©tablissements
+- lister les établissements
 - lister les projets
-- exporter les donnÃ©es des scientifiques
+- exporter les données des scientifiques
 - rechercher les projets
 - rechercher les scientifiques
-==> il ne peut modifier aucune donnÃ©e
+==> il ne peut modifier aucune donnée
 
 Lecteur seul:
 -------------
-Ce rÃ´le n'est pas Ã  gÃ©rÃ©...(?): point 2.3.3
+Ce rôle n'est pas à géré...(?): point 2.3.3
 
 
-# Impact sur les Ã©crans.
+# Impact sur les écrans.
 ##
 
 Ecran de listes:
 ----------------
-Liste des scientifiques  : quand l'utilisateur est un lecteur : vÃ©rifier que la derniÃ¨re colonne action n'apparaÃ®t pas.
-Liste des projets				 : quand l'utilisateur est un lecteur : vÃ©rifier que la derniÃ¨re colonne action n'apparaÃ®t pas.
-Liste des Ã©tablissements : quand l'utilisateur est un lecteur : vÃ©rifier que la derniÃ¨re colonne action n'apparaÃ®t pas.
+Liste des scientifiques  : quand l'utilisateur est un lecteur : vérifier que la dernière colonne action n'apparaît pas.
+Liste des projets				 : quand l'utilisateur est un lecteur : vérifier que la dernière colonne action n'apparaît pas.
+Liste des établissements : quand l'utilisateur est un lecteur : vérifier que la dernière colonne action n'apparaît pas.
 
-Ecran de consultation des dÃ©tails d'un scientifique:
+Ecran de consultation des détails d'un scientifique:
 ----------------------------------------------------
 Cacher les boutons : Valider, Supprimer ce scientifique.
-Champs						 : chaque champ doit Ãªtre rendu non Ã©ditable.
-Titre de la page 	 : Modifier Ã  "Consultation des donnÃ©es du scientifique"
+Champs						 : chaque champ doit être rendu non éditable.
+Titre de la page 	 : Modifier à "Consultation des données du scientifique"
 
-Ecran de consultation des dÃ©tails d'un projet:
+Ecran de consultation des détails d'un projet:
 ----------------------------------------------
-Cacher les boutons 			: Valider, Ajouter une intervention Ã  ce projet.
-Champs						 			: chaque champ doit Ãªtre rendu non Ã©ditable.
-Titre de la page 	 			: Modifier Ã  "Consultation des donnÃ©es d'un projet"
-Liste des interventions : Cacher la colonne permettant de supprimer une intervention Ã  ce projet
+Cacher les boutons 			: Valider, Ajouter une intervention à ce projet.
+Champs						 			: chaque champ doit être rendu non éditable.
+Titre de la page 	 			: Modifier à "Consultation des données d'un projet"
+Liste des interventions : Cacher la colonne permettant de supprimer une intervention à ce projet
  
-Ecran de consultation des dÃ©tails d'une intervention:
+Ecran de consultation des détails d'une intervention:
 ----------------------------------------------------- 
 Cacher les boutons 			: Valider, Supprimer cette intervention
-Champs						 			: chaque champ doit Ãªtre rendu non Ã©ditable.
-Titre de la page 	 			: Modifier Ã  "Consultation des donnÃ©es d'une intervention"
+Champs						 			: chaque champ doit être rendu non éditable.
+Titre de la page 	 			: Modifier à "Consultation des données d'une intervention"
 
-Ecran de consultation des dÃ©tails d'un Ã©tablissement:
+Ecran de consultation des détails d'un établissement:
 -----------------------------------------------------
-Cacher les boutons 			: Valider, Ajouter un scientifique Ã  cet Ã©tablissement.
-Champs						 			: chaque champ doit Ãªtre rendu non Ã©ditable.
-Titre de la page 	 			: Modifier Ã  "Consultation des donnÃ©es d'un Ã©tablissement"
+Cacher les boutons 			: Valider, Ajouter un scientifique à cet établissement.
+Champs						 			: chaque champ doit être rendu non éditable.
+Titre de la page 	 			: Modifier à "Consultation des données d'un établissement"
 Liste des scientifiques : Cacher la colonne de suppresion
 
 Recherche d'un scientifique ou d'un projet:
@@ -117,6 +117,6 @@ Recherche d'un scientifique ou d'un projet:
 ##
 - permet la saisie du login
 - permet la saisie du mot de passe
-==> action de connexion authentifie l'utilisateur et dÃ©termine son rÃ´le
+==> action de connexion authentifie l'utilisateur et détermine son rôle
 			--> contributeur/lecteur
-			--> Le rÃ´le est alors mis en session.
+			--> Le rôle est alors mis en session.

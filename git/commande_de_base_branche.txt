@@ -25,7 +25,4 @@ $ git pull origin v2.0
 $ git tag -d 1.1 1.2 1.3
 $ git push --delete origin 1.1 1.2 1.3
  
-# Supprimer une branche
-$ git branch -d the_local_branch
-$ git push origin :the_remote_branch
-$ git push origin --delete the_remote_branch
+

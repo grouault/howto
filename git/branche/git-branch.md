@@ -1,6 +1,5 @@
 git branch
 ==========
-
 ## BRANCHE LOCAL 
 
 # Créer une branche à partir du master sur le repo local
@@ -14,11 +13,7 @@ git branch
 
 # Créer la branche sur le repo distant
 >$ git push origin v2.O
-
-# Fusionner deux branches : intégrer les données de la branche v2.0 dans master
-==> se positionner dans master
->$ git merge v2.0
-
+ 
 ## BRANCHE REMOTE
 
 # Informations sur les branches
@@ -38,3 +33,29 @@ git branch
 2. deuxieme solution
 >$ git fetch origin ==> recuperer le pointeur de la branche distante
 >$ git checkout -b dev origin/dev ==> reconstuire la branche localement : dev
+
+## FUSION - merge
+Fusion pour intégrer des travaux aux historiques divergeants.
+Cette commande réalise une fusion à trois branches entre les deux derniers instantanés (snaphots)
+de chaque branche et l'ancêtre le plus récent, créant un nouvel instantané (et un commit).
+
+# Fusionner deux branches : intégrer les données de la branche v2.0 dans master
+==> se positionner dans master
+>$ git merge v2.0
+
+## REBASER (Rebasing)
+
+
+## SUPPRIMER UNE BRANCHE
+> $ git branch -d the_local_branch
+> $ git push origin :the_remote_branch
+> $ git push origin --delete the_remote_branch
+
+# Commande utile
+# filter les branches de la liste suivant que vous les avez : 
+1- fusionnées avec la branche courante
+>$ git branch --merged
+2- pas encore fusionnées avec la branche courante
+>$ git branch --no-merged
+# lister les derniers 'commit' sur chaque branche
+>$ git branch -v 
