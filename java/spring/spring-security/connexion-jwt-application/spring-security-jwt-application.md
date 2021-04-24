@@ -1,57 +1,57 @@
 ## Application Spring-Security et JWT
-- application qui permet de gérer des tâches
-- accès via API REST sécurisé d'une manière stateless, par Spring-Security en utilisant JWT
+- application qui permet de gÃ©rer des tÃ¢ches
+- accÃ¨s via API REST sÃ©curisÃ© d'une maniÃ¨re stateless, par Spring-Security en utilisant JWT
 
 ## Projet-Spring-Boot
 
-### dépendances
+### dÃ©pendances
 
 ```
 * spring-boot-starter-data-jpa : mapping objet relationnel
 * spring-boot-starter-data-rest : mettre en place facilement API Rest (@RepositoryRestResource)
-	* finalement non utilisé
+	* finalement non utilisÃ©
 * spring-boot-starter-security : spring security
-* spring-boot-starter-web: on créer une application web
-* io.jsonwebtoken : implémentation de jwt (dépendances manuelles)
+* spring-boot-starter-web: on crÃ©er une application web
+* io.jsonwebtoken : implÃ©mentation de jwt (dÃ©pendances manuelles)
 ```
 
-### dépendance classique
+### dÃ©pendance classique
 
 ```
-* spring-boot-devtools : redémarrage serveur
+* spring-boot-devtools : redÃ©marrage serveur
 * org.projectlombok :
 * spring-boot-starter-test : test unitaire
-* spring-security-tests : test unitaire de sécurité
+* spring-security-tests : test unitaire de sÃ©curitÃ©
 ```
 
-## Processus d'autentification : deux filtres à mettre en place
+## Processus d'autentification : deux filtres Ã  mettre en place
 
 ### Filtre pour faire l'authentification
 
-* Ce filtre implémente deux méthodes:
-	* attemptAuthentication : pour fournir à Spring-Security les infos saisies par le user
+* Ce filtre implÃ©mente deux mÃ©thodes:
+	* attemptAuthentication : pour fournir Ã  Spring-Security les infos saisies par le user
 	* successfulAuthentication: pour construire le token JWT
 	
 ```
 * JWT Authentication Filter :
 * attemptAuthentication() : construit un objet Authentication pour Spring-Security
 * checkPassword()
-* successfulAuthentication() : construit le token JWT en cas d'authentifiation réussit
+* successfulAuthentication() : construit le token JWT en cas d'authentifiation rÃ©ussit
 ```
 
-### Filtre pour vérifier les autorisations liées au token
+### Filtre pour vÃ©rifier les autorisations liÃ©es au token
 ```
 * JWT Autorisation Filter :
-* filtre qui s'exécute pour chaque requête (avant d'exécuter la requête pour avoir les résultats)
-* vérifie la validité du token (token par valeur | on vérifie la signature du token (contient tout ce qu'il faut pour l'exploiter dans son contexte))
-* si ok, spring-security met à jour son contexte : setAuthentication(user)
-* si ok, la requete est envoyé au dispatcher-servlet
+* filtre qui s'exÃ©cute pour chaque requÃªte (avant d'exÃ©cuter la requÃªte pour avoir les rÃ©sultats)
+* vÃ©rifie la validitÃ© du token (token par valeur | on vÃ©rifie la signature du token (contient tout ce qu'il faut pour l'exploiter dans son contexte))
+* si ok, spring-security met Ã  jour son contexte : setAuthentication(user)
+* si ok, la requete est envoyÃ© au dispatcher-servlet
 ```
 
-### Register (création de compte)
+### Register (crÃ©ation de compte)
 
-* Méthode qui permet de créer un user
-* Particularité : créer le user/password mais ne pas retourner le password dans le flux JSon de retour.
+* MÃ©thode qui permet de crÃ©er un user
+* ParticularitÃ© : crÃ©er le user/password mais ne pas retourner le password dans le flux JSon de retour.
 * Pour cela, sur l'entity on utilise les annatotations suivantes:
 
 ```
@@ -61,52 +61,52 @@
 		return password;
 	}
 
-	// deserialisation à la création
-	// on recupère le mot de passe.
+	// deserialisation Ã  la crÃ©ation
+	// on recupÃ¨re le mot de passe.
 	@JsonSetter
 	public void setPassword(String password) {
 		this.password = password;
 	}
 ``` 
 
-## Mise en place sécurité JWT
+## Mise en place sÃ©curitÃ© JWT
 
 * plus besoin de formulaire d'authentification
-* activer la sécurité en mode stateless et désactiver la sécurité basé sur les sessions
+* activer la sÃ©curitÃ© en mode stateless et dÃ©sactiver la sÃ©curitÃ© basÃ© sur les sessions
 	```
 	http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 	```
-	* on passe d'un système d'authentification par référence à un système d'auhtenification par valeur.
+	* on passe d'un systÃ¨me d'authentification par rÃ©fÃ©rence Ã  un systÃ¨me d'auhtenification par valeur.
 
 
 
-### Création des filtres
+### CrÃ©ation des filtres
 
 #### JWTAuthenticationFilter
 * Fonction 
 	* 1- faire l'authentification
-	* 2- créer le token
-* classe qui héride de la classe : UsernamePasswordAuthenticationFilter
-	* c'est un filtre qui intervient spécialement dans les opérations d'identification
-	* c'est le filtre qui procède à l'autentification dans la méthode :
+	* 2- crÃ©er le token
+* classe qui hÃ©ride de la classe : UsernamePasswordAuthenticationFilter
+	* c'est un filtre qui intervient spÃ©cialement dans les opÃ©rations d'identification
+	* c'est le filtre qui procÃ¨de Ã  l'autentification dans la mÃ©thode :
 		```
 		public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response)
 		```
-	* IMPORTANT : Cette méthode ne met pas dans le contexte Spring en session, les infos.
-	* ce filtre a besoin de l'objet AuthenticationManager hérité de la classe WebSecurityConfigurerAdapter 
+	* IMPORTANT : Cette mÃ©thode ne met pas dans le contexte Spring en session, les infos.
+	* ce filtre a besoin de l'objet AuthenticationManager hÃ©ritÃ© de la classe WebSecurityConfigurerAdapter 
 	
 ##### Override attemptAuthentication()
 
 ###### Pourquoi
 
 ```
-* Par défaut, ce filtre récupère les informations de connection dans la request: 
+* Par dÃ©faut, ce filtre rÃ©cupÃ¨re les informations de connection dans la request: 
 	* via un request.getParameter("username")
 	* via un request.getParameter("password")
-	car par défaut les données sont envoyées au format www-urlencoded [username=...&password=?]
-* Or pour s'authentifier, on va utiliser username/password au format JSon ; la récupération par défaut n'est donc plus adequat.
-* Les données au format JSon seront à récupérer par le code : request.getInputStream().
-* Pour enfin, passer par l'objet ObjectMapper(Jackson) pour déserialiser dans un objet Java.
+	car par dÃ©faut les donnÃ©es sont envoyÃ©es au format www-urlencoded [username=...&password=?]
+* Or pour s'authentifier, on va utiliser username/password au format JSon ; la rÃ©cupÃ©ration par dÃ©faut n'est donc plus adequat.
+* Les donnÃ©es au format JSon seront Ã  rÃ©cupÃ©rer par le code : request.getInputStream().
+* Pour enfin, passer par l'objet ObjectMapper(Jackson) pour dÃ©serialiser dans un objet Java.
 ```
 
 ###### Exemple
@@ -124,8 +124,8 @@
 			throw new RuntimeException(e); // pour que le user recoit qqchose
 		}
 		
-		// tentative d'authentification qui reste la même
-		// par défaut on se base sur le manager authenticationManager.
+		// tentative d'authentification qui reste la mÃªme
+		// par dÃ©faut on se base sur le manager authenticationManager.
 		return authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword()));
 	
 	}
@@ -135,21 +135,21 @@
 
 ###### Pourquoi
 
-* besoin de construire/générer le token JWT
+* besoin de construire/gÃ©nÃ©rer le token JWT
 
 ```
-* cette méthode reçoit en paramètre le résultat de l'authentification
-* permet de récupérer les infos du user qui a été authentifié
+* cette mÃ©thode reÃ§oit en paramÃ¨tre le rÃ©sultat de l'authentification
+* permet de rÃ©cupÃ©rer les infos du user qui a Ã©tÃ© authentifiÃ©
 * construction du jwtToken :
 	* on met les claims [sujet, expiration, authorities]
-	* la signature en précisant la méthode de hash avec le secret utilisé
+	* la signature en prÃ©cisant la mÃ©thode de hash avec le secret utilisÃ©
 	* on compact le tout : met en base64Url
-* met dans la réponse le token
+* met dans la rÃ©ponse le token
 ```
 
 ###### Insertion des constantes ou en properties
 
-* certaines valeurs doivent être stocké soit en properties (avec annotation values), soit en constantes
+* certaines valeurs doivent Ãªtre stockÃ© soit en properties (avec annotation values), soit en constantes
 * Exemple
 
 ```
@@ -177,37 +177,37 @@ public static final String HEADER_STRING = "Authorization";
 				.compact();
 		
 		
-		// mise dans la réponse du JWT
-		// Ajout du préfixe : Bearer + Token
+		// mise dans la rÃ©ponse du JWT
+		// Ajout du prÃ©fixe : Bearer + Token
 		response.addHeader(SecurityConstants.HEADER_STRING, SecurityConstants.TOKEN_PREFIX + jwtToken);
 		
 	}
 ```
 
 #### JWTAutorisationFilter 
-* il s'agit de l'implémentation d'un nouveau filtre
+* il s'agit de l'implÃ©mentation d'un nouveau filtre
 * Fonction
 	* filtre devant analyser le token et checker la bonne authentification
-	* filtre appelé à chaque requête donc c'est un filtre qui doit se placer avant les autres
-		* c'est le premier filtre qui doit intercepter les requêtes
-* classe qui héride de la classe : OncePerRequestFilter
-	* filtre qui s'exécute à chaque requête
-	* classe doFilterInternal à implémenter
+	* filtre appelÃ© Ã  chaque requÃªte donc c'est un filtre qui doit se placer avant les autres
+		* c'est le premier filtre qui doit intercepter les requÃªtes
+* classe qui hÃ©ride de la classe : OncePerRequestFilter
+	* filtre qui s'exÃ©cute Ã  chaque requÃªte
+	* classe doFilterInternal Ã  implÃ©menter
 
 ##### Fonctions
 
 ```
-* récupération du token et vérification que le token existe dans la requête
+* rÃ©cupÃ©ration du token et vÃ©rification que le token existe dans la requÃªte
 * si ko : on passe au filtre suivant
 * si ok : on parse le token 
-	* en precisant le secret et le préfixe (on doit le supprimer)
-	* le parsing déclenche la vérification et provoque une exception si l'opération ne matche pas.
+	* en precisant le secret et le prÃ©fixe (on doit le supprimer)
+	* le parsing dÃ©clenche la vÃ©rification et provoque une exception si l'opÃ©ration ne matche pas.
 * si parsing ok
-	* récupération des datas du token
-	* mise à jour du contexte Spring pour que ce dernier soit au courant du user loggué et de ses rôles
+	* rÃ©cupÃ©ration des datas du token
+	* mise Ã  jour du contexte Spring pour que ce dernier soit au courant du user logguÃ© et de ses rÃ´les
 	* poursuite de la chaine des filtres
-* REMARQUE : à la fin de la requête, le contexte est vidé.
-		* comme la config. de la sécurité est en mode Stateless, la session n'est pas mis à jour.
+* REMARQUE : Ã  la fin de la requÃªte, le contexte est vidÃ©.
+		* comme la config. de la sÃ©curitÃ© est en mode Stateless, la session n'est pas mis Ã  jour.
 ```
 		
 ##### Exemple
@@ -220,11 +220,11 @@ public static final String HEADER_STRING = "Authorization";
 		
 
 		// recuperation du token
-		// check la bonne récupération
+		// check la bonne rÃ©cupÃ©ration
 		String jwtToken = request.getHeader(SecurityConstants.HEADER_STRING);
 		if (jwtToken == null || !jwtToken.startsWith(SecurityConstants.TOKEN_PREFIX)) {
 			filterChain.doFilter(request, response); // on poursuit dans la chaine des filtres
-			return; // on quitte la méthode
+			return; // on quitte la mÃ©thode
 		}
 		
 		// parsing du token avec verification du secret.
