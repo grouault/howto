@@ -164,7 +164,29 @@ public class CSIUserDetails implements UserDetails {
 	- return new User(appUser.getUserName(), appUser.getPassword(), authorities);
 ```
 
-##### Implémentation en mémoire 
+##### PasswordEncoder
+* sert à crypter le mot de passe :
+	* à la récupération, lors de la création initial de l'objet Authentication
+	* au niveau de la comparaison, avec ce qui es récupérée par userDetailService
+* cela signifie, que les infos stockées pour le pwd, le soit avec le passwordEncoder
+
+
+##### Implémentation
+
+* L'implementation se fait dans la méthode 
+	```
+	protected void configure(AuthenticationManagerBuilder auth) throws Exception
+	```
+* Le but est de retrouver les informations pour l'authentification quand un user se loggue.
+* Les informations sont ainis récupérer et retourner dans un objet UserDetail de 3 façons :	
+	* reconciliation en mémoire
+	* réconciliation en base
+	* réconciliation spécifique
+	
+
+
+###### Implémentation en mémoire 
+
 
 ```
 package fr.exagone.security;
@@ -179,15 +201,31 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
+	// Dès qu'un bean de ce type est utilisé
+	// il convient de l'utiliser dans la configuration d'enregisrement
+	// car par defaut le manager d'auhtenfication l'utilisera pour l'authentification.
+	@Bean
+	public BCryptPasswordEncoder getBCryptPasswdEncoder() {
+		return new BCryptPasswordEncoder();
+	}
+
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 		 
 		 // utilisateur en mémoire.
 		 // {noop} : corrige erreur : there is no PasswordEncoder mapped for the id 'null'
+		 // A utiliser qd aucun encoder n'est definit
 		 auth.inMemoryAuthentication()
 		 	.withUser("admin").password("{noop}1234").roles("ADMIN","USER")
 		 	.and()
 		 	.withUser("user").password("{noop}1234").roles("USER");
+			
+		// avec BCryptEncoder
+		// Dès qu'un encoder est définit, il faut l'utiliser
+        auth.inMemoryAuthentication()
+	        .withUser("admin").password(getBCryptPasswdEncoder().encode("1234")).roles("ADMIN","USER")
+	        .and()
+	        .withUser("user").password(getBCryptPasswdEncoder().encode("1234")).roles("USER");		
 	
 	 }
 	 
@@ -204,7 +242,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 }
 ```
 
-##### Implémentation JDBC
+###### Implémentation JDBC
 
 ```
 	@Override
@@ -218,7 +256,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	 }
 ```
 
-##### Implémentation propre ou spécifique
+###### Implémentation propre ou spécifique
 
 * Principe
 
@@ -235,8 +273,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		// recuperation des utilisateur avec la couche de service : UserDetailService	
 		// check-password
 		auth
-			.userDetailsService(userDetailService) // service pour la récupération du user et de ses rôles.
-			.passwordEncoder(getBCryptPasswdEncoder()); // verification du password
+		// custo du service pour la récupération du user et de ses rôles.
+			.userDetailsService(userDetailService) 
+		// chargement pour UserDetail et vérification du password pour l'Authenfication manager	
+			.passwordEncoder(getBCryptPasswdEncoder()); 
 	
 	 }
 ```
@@ -357,18 +397,31 @@ public class UserDetailServiceImpl implements UserDetailsService {
 ````
 
 * Code d'authentification peut se voir comme cela: 
+
 ```
 try {
 	// step-1
 	Authentication request = new UsernamePasswordAuthenticationToken(request.name, request.password);
 	// step- 2-3
-	Autheniction result = authenticationManager.authenticate(request);
+	Authentication result = authenticationManager.authenticate(request);
 	// step- 4
 	SecurityContextHolder.getContext.setAuthentication(result);
 } catch (AuthenticationException ex) {
 	...
 }
 ```
+
+
+#### UsernamePasswordAuthenticationFilter
+
+* Filtre qui la responsabilité de faire les opérations 1, 2 et 3 précédentes.
+* Le manager utilise par défaut, semble-t-il le provider suivant pour faire l'authentification.
+
+```
+org.springframework.security.authentication.dao.DaoAuthenticationProvider
+```
+
+* Question: qui fait la mise en Session ?
 
 #### AuthenticationManager
 
