@@ -1,35 +1,35 @@
 ## JWT
 
-### Définition
+### DÃ©finition
 ```
-* standard qui définit une solution compacte et autonome pour transmettre de manière sécurisée des infos 
-	entre les applications en tant qu'objet structuré au format JSon. 
-	* compacte : réduite par sa structure
-	* autonome : Token généré sur la base d'un secret : qui contient toutes les infos d'identifiation de l'utilisateur
-* Le secret n'est connu que de la partie back-end qui génère le token	
-* cette information peut être vérifiée et fiable car elle est signée numériquement
+* standard qui dÃ©finit une solution compacte et autonome pour transmettre de maniÃ¨re sÃ©curisÃ©e des infos 
+	entre les applications en tant qu'objet structurÃ© au format JSon. 
+	* compacte : rÃ©duite par sa structure
+	* autonome : Token gÃ©nÃ©rÃ© sur la base d'un secret : qui contient toutes les infos d'identifiation de l'utilisateur
+* Le secret n'est connu que de la partie back-end qui gÃ©nÃ¨re le token	
+* cette information peut Ãªtre vÃ©rifiÃ©e et fiable car elle est signÃ©e numÃ©riquement
 ```
 
 ### Structure
-* 3 parties séparés par un point : 
+* 3 parties sÃ©parÃ©s par un point : 
 	* header
 	* payload
 	* signature
 
 #### headers
-* L'en-tête se compose de deux parties : le type et l'algorithme de hashage 
+* L'en-tÃªte se compose de deux parties : le type et l'algorithme de hashage 
 
 #### payload
 
 ```
 
 * contient les claims : revendications, informations
-* déclarations concernant : une entité (généralement utilisateur) et métadonnées supplémentaires
-* 3 types de claims : enregistrées, publiques et privées
+* dÃ©clarations concernant : une entitÃ© (gÃ©nÃ©ralement utilisateur) et mÃ©tadonnÃ©es supplÃ©mentaires
+* 3 types de claims : enregistrÃ©es, publiques et privÃ©es
 
-* claims enregistrées : recommandées pour être reconnaissable au niveau de chaque application
+* claims enregistrÃ©es : recommandÃ©es pour Ãªtre reconnaissable au niveau de chaque application
 
-	* iss : (issuer) celui qui a créé le token
+	* iss : (issuer) celui qui a crÃ©Ã© le token
 	* exp: heure d'expiration
 	* sub: sujet, en general au stocke le username
 	* aud: audience - public cible - ex: web, front-end, mobile
@@ -38,9 +38,9 @@
 	* name: peut servir pour stocker le username et afficher au niveau application
 	* roles: roles du user
 
-* claims publiques : permet d'enregistrer d'autres claims qui doivent être définies dans un annuaire des jetons
+* claims publiques : permet d'enregistrer d'autres claims qui doivent Ãªtre dÃ©finies dans un annuaire des jetons
 
-* claims privées: claims personnalisés, ne rentre pas dans l'interopérabilité mais ne concerne que mes applications
+* claims privÃ©es: claims personnalisÃ©s, ne rentre pas dans l'interopÃ©rabilitÃ© mais ne concerne que mes applications
 
 ```
 
@@ -48,10 +48,10 @@
 
 ```
 * partie la plus importante
-* vérifier que l'expéditeur du jwt est celui qu'il prétend être
-* s'assurer que le message n'a pas été modifié en cours de route
-* La vérification se fait côté back-end de manière générale
-* Signature créé de la façon suivante:
+* vÃ©rifier que l'expÃ©diteur du jwt est celui qu'il prÃ©tend Ãªtre
+* s'assurer que le message n'a pas Ã©tÃ© modifiÃ© en cours de route
+* La vÃ©rification se fait cÃ´tÃ© back-end de maniÃ¨re gÃ©nÃ©rale
+* Signature crÃ©Ã© de la faÃ§on suivante:
 	HMACSHA256(base64UrlEncode(header) + "." + base64UrlEncode(payload), secret)
 	secret : connu seul de la partie-back-end
 ```
@@ -61,14 +61,14 @@
 	```
 	Authorisation: Bearer H.P.S - Bearer = Porteur
 	```
-	* Le serveur sait qu'il récupère un préfixe mais n'en tient pas compte, il le supprime puis récupère le token
+	* Le serveur sait qu'il rÃ©cupÃ¨re un prÃ©fixe mais n'en tient pas compte, il le supprime puis rÃ©cupÃ¨re le token
 
 ### Avantage
 
 ```
-* Pas besoin de cache partagé ou distribué. 
-* Chaque serveur d'application doit juste connaître le secret et donc le sécurisé.
-* Idée pour la sécurité : passé par clé publique, qui permet de vérifier la validité du token.
+* Pas besoin de cache partagÃ© ou distribuÃ©. 
+* Chaque serveur d'application doit juste connaÃ®tre le secret et donc le sÃ©curisÃ©.
+* IdÃ©e pour la sÃ©curitÃ© : passÃ© par clÃ© publique, qui permet de vÃ©rifier la validitÃ© du token.
 ```
 
 ### Stockage 
@@ -76,44 +76,44 @@
 #### LocalStorage vs SessionStorage
 
 ```
-* localStorage: partagé par toutes les instances du navigateur ; n'importe quelle application peut-lire le localstorage
-* sessionStorage: à chaque fois qu'on ouvre une fenêtre du navigateur, création d'un session storage ; dès qu'on ferme une fenêtre, il disparaît.
+* localStorage: partagÃ© par toutes les instances du navigateur ; n'importe quelle application peut-lire le localstorage
+* sessionStorage: Ã  chaque fois qu'on ouvre une fenÃªtre du navigateur, crÃ©ation d'un session storage ; dÃ¨s qu'on ferme une fenÃªtre, il disparaÃ®t.
 Dans ce cas: 
-* protège contre les attaques CSRF car jwt n'est pas stocké dans les cookies, donc pas envoyé à partir d'un lien truqué.
+* protÃ¨ge contre les attaques CSRF car jwt n'est pas stockÃ© dans les cookies, donc pas envoyÃ© Ã  partir d'un lien truquÃ©.
 * pas de protection contre la faille XSS ; un script qui arrive vers le navigateur a le droit de lire le localstorage
 ```
 
 #### Cookies
 
 ```
-* pas besoin d'écrire du code JavaScript pour envoyer le JWT
-* protection XSS : utiliser le flag HttpOnly (JavaScript n'a pas le droit de lire ce cookie) et Secure (ne peut être envoyer que par https)
+* pas besoin d'Ã©crire du code JavaScript pour envoyer le JWT
+* protection XSS : utiliser le flag HttpOnly (JavaScript n'a pas le droit de lire ce cookie) et Secure (ne peut Ãªtre envoyer que par https)
 * expose aux attaques CSRF
 ```
 
-### comment protéger CSRF - A revoir ???
+### comment protÃ©ger CSRF - A revoir ???
 
 ```
 * token est dans les cookies
-* utiliser le synchronizer token ; génére à chaque fois que le serveur envoie la réponse, dans le payload du JWT
-* envoyé vers l'utilisateur en signant le token et en envoyant le token synchronizer avec la bonne signature
-* si le token envoyé ne contient pas le CSRF ou pas le bon ; ne collera pas avec la signature
+* utiliser le synchronizer token ; gÃ©nÃ©re Ã  chaque fois que le serveur envoie la rÃ©ponse, dans le payload du JWT
+* envoyÃ© vers l'utilisateur en signant le token et en envoyant le token synchronizer avec la bonne signature
+* si le token envoyÃ© ne contient pas le CSRF ou pas le bon ; ne collera pas avec la signature
 ```
 
 ### Autres usages JWT
 
 ```
-* Formulaires en plusieurs parties : données stockées dans le token
+* Formulaires en plusieurs parties : donnÃ©es stockÃ©es dans le token
 
 * Confirmation des emails :
 	* Anciennement
-		* on crée une valeur secrète que l'on stocke en base
+		* on crÃ©e une valeur secrÃ¨te que l'on stocke en base
 		* on envoit un lien qui contient cette valeur 
-		* on demande à l'utilisateur de cliquer sur le lien et on vérifier la valeur avec la valeur en base
+		* on demande Ã  l'utilisateur de cliquer sur le lien et on vÃ©rifier la valeur avec la valeur en base
 	* JWT
-		* on crée un token qui contient la valeur et qui est signé avec la valeur
-		* on génère un lien avec le token (durée de vie limitéé)
-		* on demande à l'utilisateur de cliquer sur le lien et on vérifie le token
+		* on crÃ©e un token qui contient la valeur et qui est signÃ© avec la valeur
+		* on gÃ©nÃ¨re un lien avec le token (durÃ©e de vie limitÃ©Ã©)
+		* on demande Ã  l'utilisateur de cliquer sur le lien et on vÃ©rifie le token
 ```
 
 
