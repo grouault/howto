@@ -418,14 +418,29 @@ try {
 
 #### UsernamePasswordAuthenticationFilter
 
+````
 * Filtre qui la responsabilité de faire les opérations 1, 2 et 3 précédentes.
+* la tentative de connexion est faite par : attemptAuthentication()
+* la mise en session est faite par : AbstractAuthenticationProcessingFilter.successfulAuthentication()
+	** Note **  : UsernamePasswordAuthenticationFilter hérite de AbstractAuthenticationProcessingFilter
 * Le manager utilise par défaut, semble-t-il le provider suivant pour faire l'authentification.
+````
+
+##### attemptAuthentication()
 
 ```
-org.springframework.security.authentication.dao.DaoAuthenticationProvider
+* Récupération username et password
+	* Par défaut ces paramètres sont récupérées dans la request sous la forme suivante:
+		* request.getParameter("username")
+		* request.getParameter("password")
+* s'appuie sur le manager 'authenticationManager' pour faire l'authentification.
 ```
 
-* Question: qui fait la mise en Session ?
+##### successfulAuthentication()
+
+```
+* Par défaut, met dans la session et le context de Spring-Security l'objet Authentication.
+```
 
 #### AuthenticationManager
 

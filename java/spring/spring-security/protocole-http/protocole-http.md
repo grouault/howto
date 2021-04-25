@@ -4,6 +4,9 @@
 * [session-http](../connexion-session-cookies/sessions-http.md)
 * [jwt-http](../connexion-jwt/notes-jwt.md)
 
+### Architecture web
+![archi](0-architecture-web.PNG)
+
 ### Définition
 ```
 * Protocole qui permet de récupérer des documents du serveur
