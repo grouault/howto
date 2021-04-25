@@ -29,6 +29,10 @@ https://www.baeldung.com/spring-security-multiple-auth-providers
 https://stackoverflow.com/questions/18653294/how-to-correctly-encode-password-using-shapasswordencoder
 https://stackoverflow.com/questions/24349219/spring-security-with-multiple-authentication-providers-usernamenotfoundexcepti
 
+### Menu
+
+[Protocole HTTP](protocole-http/protocole-http.md)
+
 ### Composants Spring-Security
 
 #### SecurityContextHolder
