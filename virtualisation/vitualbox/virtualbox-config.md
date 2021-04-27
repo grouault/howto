@@ -70,44 +70,62 @@ Configuration avec plusieurs interface
 		* carte pour pouvoir accèder au réseau
 	* pour cela, il est possible de créer un adaptateur
 	
-## connection serveur à distance ssh.
+## SSH : connection serveur à distance
+```
 * sur la version Desktop, il faut installer OpenSsh
 * sudo apt-get install openssh-server
 * sur la version Server, OpenSsh est déjà installé
+```
 
 ## Installation de docker
 
 * il faut s'assurer de la version de Linux
+
+```
 > Permet de voir la version de l'OS installé
 $ cat /etc/*relesase*
+```
 
-Url pour checker les version de linux pour installer Docker.
+* Url pour checker les version de linux pour installer Docker.
+
+```
 https://docs.docker.com/engine/install/
+```
 
 * Uninstal old versions
-Older versions of Docker were called: docker, docker.io or docker-engine
+	* Older versions of Docker were called: docker, docker.io or docker-engine
+```
 $ apt-get remove docker docker-engine docker.io containerd runc
+```
 
-* Installation à partir d'un script
-Script qui fait l'installation et mise à jour de Docker.
+* Installation à partir d'un script qui fait l'installation et mise à jour de Docker.
+
+```
 > Télécharger le script
 $ curl -fsSL https://get.docker.com -o get-docker.sh
 > installer curl si besoin
 $ sudo apt-get install curl
 > Exécuter le script
 $ sudo sh get-docker.sh
+```
 	
 * checker l'installation
-$ docker version
+	```
+	$ docker version
+	```
+
 
 ## Télécharger des images pour tester
+
+
+
 * télécharger image sur DockerHub : whalesay
-$ docker run docker/whalesay cowsay exagone
 	* application simple qui permet d'afficher un message
-	* docker-pull: permet de télécharger l'image et de la mettre dans le repository local de docker (docker-engine)
-	* docker-run: vérifie si présent dans le repository local de docker
-		* Si oui, il l'instancie et l'exécute
-		* si non, il lancer le téléchargement de l'image (pull + run)
+````
+$ docker run docker/whalesay cowsay exagone
+````	
+
+
 		
 ## conteneurs / images
 * image : c'est un fichier qui contient l'ensemble des éléments permettant de packager une application.
@@ -158,15 +176,49 @@ $ docker run docker/whalesay cowsay exagone
 		* pour créer un espace processus pour le containeur.
 	
 ## container mysql
-* $ docker run --name some-mysql -e MYSQL_ROOT_PASSWORD=my-secret-pw -d mysql:tag
-* Exemple
-	docker run --name my2 -e MYSQL_ROOT_PASSWORD=root -d mysql
-	docker run --name msyql3 -e MYSQL_ROOT_PASSWORD=pwd -d mysql
-### Question : comment communiquer avec mysql une fois le conteneur mis en place ?
 
-	
+### commande installation
+
+#### générique
+
+```
+* $ docker run --name some-mysql -e MYSQL_ROOT_PASSWORD=my-secret-pw -d mysql:tag
+````
+
+#### exemple
+
+```	
+	docker run --name my2 -e MYSQL_ROOT_PASSWORD=pwd -d mysql
+````
+
+### Process d'installation
+
+## exec vs attach
+* une fois l'image téléchargé, une instance (un conteneur) est créée.
+* le conteneur démarre alors MySql
+* Question : comment communiquer avec mysql une fois le conteneur mis en place ?
+* MySql : client et Serveur MySql.
+	* on veut exécuter le client MySql dans le conteneur
+	* on veut entrer en interaction avec le conteneur
+	* on va utiliser 'exec' pour rentrer dans le contexte du conteneur et exécuter une commande
+		* option -it : 
+			* mode interactif : execution le conateneur en donnant la possibilité de rentrer en interaction avec l'utilisateur
+			* terminal : 
+				* on utilise le terminal utilisé sur vm comme console d'interaction avec le container.
+				* commse si on attachait la console au conteneur.
+			* sans cette option, le conteneur démarre, mais on ne peut voir aucun message
+		* c'est comme si on allait dans le répertoire myqsl/bin et qu'on lançait le client mysql
+		
+* Commande
+	* demande d'exécuter le client mysql dans le conteneur my2
+	```	
+	docker exec -it my2 mysql --password
+	````	
 	
 ## Commande de base
+
+###  diverses
+```
 * $ docker version
 	* voir la version de docker
 
@@ -175,7 +227,11 @@ $ docker run docker/whalesay cowsay exagone
 
 * $ sudo shutdown -h 0
 	* Arrêter la machine
+```
 
+### images
+
+```
 * $ docker images
 	* permet de voir les images installés dans le docker-host
 	* chaque image présente à un identifiant unique au niveau du docker-host: [IMAGE ID]
@@ -184,6 +240,12 @@ $ docker run docker/whalesay cowsay exagone
 * $ docker rmi <<nom_image>>
 	* permet de supprimer une image du host docker.
 	* pour ce faire, il faut s'assurer de stopper et supprimer d'abord tous les conteneurs instanciés de cette image
+
+* $ docker pull image
+	* docker-pull: permet de télécharger l'image et de la mettre dans le repository local de docker (docker-engine)
+	* docker-run: vérifie si présent dans le repository local de docker
+		* Si oui, il l'instancie et l'exécute
+		* si non, il lancer le téléchargement de l'image (pull + run)
 
 * $ docker run image
 	* Fait un pull et exécute l'image
@@ -197,7 +259,11 @@ $ docker run docker/whalesay cowsay exagone
 * $ docker run image:tag
 	* Pour spécifier la version
 		* Exemple: docker run redis:4.0
+```
 
+### conteneur
+
+```
 * $ docker ps
 	* permet de lister les conteneurs qui sont en cours d'exéution
 	* chaque conteneur créé dispose d'une identifiant unique et d'un nom de conteneur
@@ -214,4 +280,4 @@ $ docker run docker/whalesay cowsay exagone
 
 * $  sudo docker logs -t mysql3
 	* consulter les logs quand un problème sur le conteneur est constaté
-	
+```	
