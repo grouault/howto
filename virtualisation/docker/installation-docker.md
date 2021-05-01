@@ -5,17 +5,17 @@
 ### Structure
 ```
 * La structure normale :
-	* une machnie hôte (machine physique)
-	* une machine virtuelle sur la machine hôte
+	* une machnie hÃ´te (machine physique)
+	* une machine virtuelle sur la machine hÃ´te
 	* un conteneur sur la machine virtuelle
-	* une application géré par le conteneur
+	* une application gÃ©rÃ© par le conteneur
 ```
 
 ### Installation de docker
 
 * il faut s'assurer de la version de Linux
 ```
-> Permet de voir la version de l'OS installé
+> Permet de voir la version de l'OS installÃ©
 $ cat /etc/*relesase*
 ```
 
@@ -29,14 +29,14 @@ https://docs.docker.com/engine/install/
 
 
 
-* Installation à partir d'un script qui fait l'installation et mise à jour de Docker.
+* Installation Ã  partir d'un script qui fait l'installation et mise Ã  jour de Docker.
 
 ```
-> Télécharger le script
+> TÃ©lÃ©charger le script
 $ curl -fsSL https://get.docker.com -o get-docker.sh
 > installer curl si besoin
 $ sudo apt-get install curl
-> Exécuter le script
+> ExÃ©cuter le script
 $ sudo sh get-docker.sh
 ```
 
@@ -51,12 +51,12 @@ $ docker version
 ![version](installation/3-installation-check-version.PNG)
 
 
-### Télécharger des images pour tester
+### TÃ©lÃ©charger des images pour tester
 
 #### whalesay
 
 ```
-* télécharger image sur DockerHub : whalesay
+* tÃ©lÃ©charger image sur DockerHub : whalesay
 * application simple qui permet d'afficher un message
 ```
 
