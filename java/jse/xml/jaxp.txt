@@ -1,0 +1,78 @@
+# Notes - JAXP : Java API for XML Processing
+##
+
+JAXP : sous-ensemble de classes qui permet d'analyser la structure d'un document XML et d'exploiter les informations qu'il contient.
+Link:
+- http://www.ibm.com/developerworks/java/library/x-jaxp/
+- xpath : http://www.ibm.com/developerworks/library/x-javaxpathapi/index.html
+- Dom : - http://docs.oracle.com/javaee/1.4/tutorial/doc/JAXPDOM2.html
+- JDom : http://www.jdom.org/downloads/docs.html
+- Requete XPath : http://www.w3schools.com/xpath/xpath_syntax.asp
+- NameSpace : http://www.w3schools.com/xml/xml_namespaces.asp
+
+Cas utilisation
+---------------
+- Utiliser SAX pour le traitement  de gros volumes de données avec une structure xml simple.
+- DOM est plus intéressant pour les documents XML peu volumineux dont vous avez besoin d'exploiter la structure arborescente.
+
+Obtenir une instance d'un analyseur.
+------------------------------------
+XMLParserFactory factory = XMLParserFactory.newInstance();
+XMLParser parser = factory.newXMLParser();
+==> remplacer xml par sax ou dom.
+
+
+# Sax.
+##
+récupérer les informations que contient un document XML au fur et à mesure de sa lecture.
+1- obtenir le parser.
+2- créer une gestionnaire sax :
+La récupération des informations avec SAX s'effectue à l'aide d'une classe de gestionnaire qui dérive de la classe
+org.xml.sax.helpers.DefaultHandler, dans laquelle il convient de redéfinir les méthodes appelées par un analyseur SAX.
+- Méthode appelée au début et à la fin de l'analyse du document XML: startDocument() et endDocument().
+- Méthode appelée sur la balise de début et de fin d'un élément : startElement() et endElement().
+- Méthode appelée à la lecture des données textuelles d'un élément : characters().
+3- Appelle du gestionnaire sur un fichier à analyser via le parser : parser.parse("datas/facture01.xml", gestionnaireSAX);
+Les méthodes ci-dessus sont appelées chaque fois que nécessaire par l'analyseur SAX.
+
+# DOM.
+##
+- Document Object Model : api de JAXP ; package: org.w3c.dom fournit une interface pour le DOM.
+- créer en mémoire une structure arborescente équivalente à celle d'un document XML.
+- http://docs.oracle.com/javaee/1.4/tutorial/doc/JAXPDOM2.html
+
+# XPath.
+##
+- langage de reqûete, de sélection de noeuds pour les documents XML.
+- XPath s'utilise en combinaison avec JAXP.
+- package java 5 : javax.xml.xpath
+- modèle base sur deux grands type de noeuds : element et Text
+
+Principe:
+--------
+Obtenir une XPathExpression puis évaluer cette expression sur le document (DOM).
+
+XPath - DataModel : 
+La méthode evaluate est faite pour retourner un objet (Type XPath) qui sera mappé sur un objet Java:
+ - NODESET, BOOLEAN, NUMBER, STRING , NODE.
+ 
+NameSpace:
+==> un namespace c'est quoi (?)
+- un prefix associé à une URI
+- un URI : on parle de DefaultNameSpace.
+Le but est de donné au namespace un nom unique ; les espaces de noms sont là pour résoudre les problèmes de noms quand des documents xml sont 
+mélangés.
+En utilisant les préfixes, un espace de nom pour le prefix doit-être défini. Il est défini par le xmlns attribute dand le tag de début d'un élément
+ou au niveau du root élément. La déclaration de l'espace de noms a alors la structure suivante:
+xmlns:prefix="URI"
+==> Quand il est défini au niveau d'un élément, il est actif pour tous les sous-éléments.
+
+Default NameSpace :
+Un espace de nom par défaut permet de ne pas utiliser de prefix, pour tous les childs elements.
+
+NameSpace - XPath:
+------------------
+Si un élment XML a un espace de nom, l'expression XPath doit utiliser le même espace de noms.
+Si le document XML utilise le namespace par défaut, alors l'expression xpath doit utiliser un prefix même si le document cible n'en utilise pas.
+Les programme java ne sont pas des documents xml, la résolutions par espace de noms ne s'appliquent pas.
+Il convient de fournir un objet qui mappe le préfixe au namespace URI. Cet objet est une instance de l'interface "javax.xml.namespace.NamespaceContext".

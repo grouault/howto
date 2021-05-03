@@ -1,5 +1,0 @@
-# Workflow
-##
-<%-- recuperer l id du workflow --%>
-<workflowengine:getobjectworkflowprocess object="workflowAssetObj" varname="workflow:id" />
-<% System.out.println("wkflname = " + ics.GetVar("workflow:id") + " - " + ics.GetVar("wkfl:name")); %>

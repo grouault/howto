@@ -1,0 +1,14 @@
+# Bases XML.
+##
+
+Défintion:
+----------
+- sous ensemble simplifié du langage SGML.
+- fournit un format d'interchangeabilité entre les applications.
+- décrit une stucture de données organisées sous une forme hiérarchique.
+
+XML vs HTML:
+------------
+- XML est axé principalement vers la description de données.
+- HTML est axé sur la présentation et ma structure de données dans une page. Même si Html permet la mise en page basique, cette dernière est l'oeuvre des CSS.
+- La synthaxe XML est plus stricte que celle d'HTML : les noms des balises et des attributs XML sont sensibles à la casse, et tout balise XML doit être fermée.
