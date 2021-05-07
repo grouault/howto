@@ -9,20 +9,27 @@ https://www.baeldung.com/java-8-sort-lambda
 https://docs.oracle.com/javase/tutorial/java/javaOO/methodreferences.html
 
 ### Définition
-Hormis les instructions et données primitives, tout est objet en Java: classe, méthode...
-Java ne propose pas de définir 'Fonction/Méthode' en dehors des classes, ni de pousser une telle fonction en parmètre d'une méthode.
-Le seul moyen est d'utiliser une classe anonyme.
-Une lambda est une closure ou fonction anonyme dont le but principal est de passer en paramètre un certains nombre de traitements.
+<pre>
+* Hormis les instructions et données primitives, tout est objet en Java: classe, méthode...
+* Java ne propose pas de définir 'Fonction/Méthode' en dehors des classes, ni de pousser une telle fonction en parmètre d'une méthode.
+* Le seul moyen est d'utiliser une classe anonyme.
+* Une lambda est une closure ou fonction anonyme dont le but principal est de passer en paramètre un certains nombre de traitements.
+</pre>
 
 ### Programmation Fonctionnelle
-Les lambdas permettent la programmation fonctionnelle.
-Ainsi, le code prend en charge des méthodes qui prennent en paramètre une interface fonctionnelle.
-Dans ce mode de programmation, le résultat est décrit par la façon dont les traitements sont réalisés.
+<pre>
+* Les lambdas permettent la programmation fonctionnelle.
+* Ainsi, le code prend en charge des méthodes qui prennent en paramètre une interface fonctionnelle.
+* Dans ce mode de programmation, le résultat est décrit par la façon dont les traitements sont réalisés.
 Ceci permet de réduire la quantité de code à produire pour le même résultat:
+</pre>
+
 ```
 list.foreach(System.out:println)
 ```
-Dans ce code, on évite la boucle for et le code associé.
+<pre>
+Dans ce code précédent, on évite la boucle for et le code associé.
+</pre>
 
 ### Expression lambda
 * Une expression lambda est une fonction anonyme qui implémente une interface fonctionnelle.
