@@ -10,10 +10,12 @@ https://www.baeldung.com/java-8-streams
 https://github.com/eugenp/tutorials/tree/master/core-java-modules/core-java-streams-2/src/main/java/com/baeldung/reduce/application
 
 # STREAM
-Stream functionality contains classes for processing sequences of elements
-A stream() default method is added to the Collection interface and allows creating a Stream<T> 
-using any collection as an element source
-Stream<String> stream = list.stream();
+```
+* la fonctionnalité stream() contient des classes pour le traitement des séquenes d'éléménts.
+* une méthode stream() par défaut est ajoutée à l'interface Collection	
+	* permet de créer un stream en utilisant n'importe quelle collection comme source d'élément
+	* Stream<String> stream = list.stream();
+````
 
 # Stream API
 ## Stream Creation
