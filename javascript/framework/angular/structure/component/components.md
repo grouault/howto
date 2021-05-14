@@ -1,3 +1,6 @@
+[structure](../structure.md)
+[home](../../angular.md)
+
 # composant / component
 Les composants sont les blocs de construction d'une application Angular.
 Un composant se concentre sur son rôle de contrôleur.
@@ -29,3 +32,12 @@ Syntaxe:
 afficher() {
     this.display = !this.display;
 }
+
+
+# Cycle de vie
+
+# constructeur
+Il est appelé à l'instanciation de l'objet ; objet est instancié par angular de manière à être injecter.
+
+# ngOnInit
+Le composant est prêt à être présenter ; toutes les infos, tout l'écosystème qui est déjà initialisé.

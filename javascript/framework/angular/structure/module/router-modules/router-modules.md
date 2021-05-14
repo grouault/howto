@@ -1,3 +1,5 @@
+[modules](../modules.md)
+
 # RouterModule
 Module permettant de gérer la navigation au sein d'un appliction angular
 Mécanisme de traitement des routes même si on est sur SPA.

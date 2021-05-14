@@ -11,3 +11,7 @@ Annotation : détermine ce que la classe est pour angular et définit les spéci
 # Problèmatique
 ==> Robot : comment faire en sorte d'indexer une SPA?
 ==> utiliser pour faire des sites mobiles.
+
+# Menu
+
+[structure](structure/structure.md)

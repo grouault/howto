@@ -17,7 +17,7 @@ Le canal est ouvert le temps que le serveur réponde.
 import {Observable} from 'rxjs/Observable'
 
 # Composant et observable
-Le composant consomme l'observale.
+Le composant consomme l'observable.
 Fonction qui remonte un observable
 fonction rehercherFilms(titre:String): Observable<Array<Film>> { ... }
 On est bien sur un mécanisme asynchrone, je ne renvoie pas la valeur directement mais un observable qui est 
