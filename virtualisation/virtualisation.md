@@ -4,161 +4,181 @@
 
 #### Processeur
 
-```
+<pre>
 - CPU [ULA + Registre]
-	* A partir du P4, augmentation de fréquence élevé, la matière du microprocesseur chauffe, quand ça chauffe performance diminue
-	* Le mp est incapable d'augmenter ses performances avec cette fréquence
+	* Ã  partir du P4, augmentation de frÃ©quence Ã©levÃ©, la matiÃ¨re du microprocesseur chauffe
+	* quand Ã§a chauffe performance diminue
+	* le mp est incapable d'augmenter ses performances avec cette frÃ©quence
 	* la loi de Moore ne tient plus
-	* La solution pour accroitre les performances des ms ne viendrait pas d'une augementation de fréquence mais en faisant du multi-processeur
-	* Apparition des processus mutli-coeur, capable d'effectuer plusieurs instruction en même temps
+	* la solution pour accroitre les performances des ms ne viendrait pas d'une augementation de frÃ©quence 
+		mais en faisant du multi-processeur
+	* apparition des processus mutli-coeur, capable d'effectuer plusieurs instruction en mÃªme temps
 	
-- GPU : Graphical processing unit => comment accélérer le rendu graphique pour les jeux	
-	* ce qui rend puissant : architecture massivement parallèle
-	* Carte-graphique : NVidia
+- GPU : Graphical processing unit => comment accÃ©lÃ©rer le rendu graphique pour les jeux	
+	* ce qui rend puissant : architecture massivement parallÃ¨le
+	* carte-graphique : NVidia
 		- offre des milliers de petits processeur graphiques
 		- animation 3G: 30 images par s | chaque image 640 *1080, beaucoup de pixels
-		- avec 1CPU, incapable de faire un rendu en temps réel
-		- on fait le calcule avec le GPU (calcul massif parallèle)
+		- avec 1CPU, incapable de faire un rendu en temps rÃ©el
+		- on fait le calcule avec le GPU (calcul massif parallÃ¨le)
 		- important pour l'intelligence artificielle
 		- a partir de 2010, ouverture du GPU pour le calcul scientifique (calcul matricielle)
-```
+</pre>
 
-	
 #### RAM :
-
-``` 
-* données valatiles
-* instruction des programmes chargés dans la RAM
-* exécuté par le processeur
-```
+<pre>
+* donnÃ©es valatiles
+* instruction des programmes chargÃ©s dans la RAM
+* exÃ©cutÃ© par le processeur
+</pre>
 
 #### Disque Dur
-
-```
-* unités de persistence (Sata | SD)
-```
+<pre>
+* unitÃ©s de persistence (Sata | SD)
+</pre>
 
 #### BIOS | EEROM | CMOS 
-
-```
-* BIOS : premier programme qui démarre sur un PC, stocké dans mémoire morte ROM (une fois stocké, on ne peut plus modifié)
-* EEPROM : maintenant ce sont des EEPROM (ROM pragrammable, mais qu'on peut modifier par programme (voie éléctrique |flashé))
+<pre>
+* <b>BIOS</b> : premier programme qui dÃ©marre sur un PC, stockÃ© dans <b>mÃ©moire morte ROM</b> (une fois stockÃ©, on ne peut plus modifiÃ©)
+* <b>EEPROM</b>: maintenant ce sont des EEPROM (<b>ROM pragrammable</b>, mais qu'on peut modifier par programme (voie Ã©lÃ©ctrique |flashÃ©))
 	- permet d'effacer et rempacer le programme
-* CMOS : stocke l'ensemble de données de configuration de la machine dont l'option de virtualisation
+* <b>CMOS</b> : stocke l'ensemble de donnÃ©es de configuration de la machine dont l'<i>option de virtualisation</i>
+</pre>
 
-* BIOS:
-* qd l'ordinateur est mis sous tension, le système charge le bios dans la RAM et le CPU l'exécute
-* bios (basic input output system) : mini OS de base qui permet d'aller faire les éléments matériels d'E/S
-* bios est chargé en mémoire
-* opération de base d'E/S sont faites par le BIOS 
+##### BIOS et dÃ©marrage du PC:
+<pre>
+* qd l'ordinateur est mis sous tension, le systÃ¨me charge le <b>bios dans la RAM</b> et le CPU l'exÃ©cute
+* bios (basic input output system) : <b>mini OS de base</b> qui permet de gÃ©rer les Ã©lÃ©ments matÃ©riels d'E/S
+* <b>opÃ©rations</b> de base d'<b>E/S</b> sont faites par le BIOS 
+</pre>
 
-AUTO-TEST
-* le bios fait alors l'autotest de démarrage :
-	- test de fonctionnalité du matériel : si tous les éléments sont connectés
-* l'autotest de démarrage est configurable via le Setup qui permet d'accèder aux données de configuration de la machine 
+##### Auto-test et Setup
+<pre>
+* le <b>bios</b> fait alors l'<b>autotest de dÃ©marrage</b> :
+	* c'est un test de <b>fonctionnalitÃ© du matÃ©riel</b> :
+	* le bios teste si tous les Ã©lÃ©ments sont connectÃ©s
+* l'autotest de dÃ©marrage est <b>configurable via le Setup</b> qui permet d'accÃ¨der aux <b>donnÃ©es de configuration</b> de la machine 
 	Exemple de configuration :
 	* le nombre de disque dur
-	* sur quel élément booter
+	* sur quel Ã©lÃ©ment booter
 	* activer l'option de virtualisation
+</pre>
 
-BOOT
-* une fois l'autotest, setup effectué, passage au boot 	
-* boot : va vers un secteur particulier (boot) du disque dur pour démarrer l'OS
-* l'os, le bios, va le chercher dans la configuration du Setup
-* qd un OS est trouvé dans le boot, le système d'exploitation est démarré
-* l'OS va alors géré toutes les applications en permettant leur accès aux différentes ressources du PCs
-* tout est orchestré par l'OS mais qui s'appuie sur le BIOS qui fait les opérations de base
+##### Boot
+<pre>
+* une fois l'autotest, setup effectuÃ©, passage au boot 	
+* <b>boot</b> va vers un <b>secteur</b> particulier (boot) du <b>disque dur</b> pour dÃ©marrer l'<b>OS</b>
+* le bios va chercher les infos de l'OS dans la <b>configuration du Setup</b>
+* qd un OS est trouvÃ© dans l'opÃ©ration de boot, l'<b>OS est dÃ©marrÃ©</b>
+* l'<b>OS</b> va alors gÃ©rer toutes les applications 
+	 en permettant leur accÃ¨s aux diffÃ©rentes ressources du PCs
+* tout est orchestrÃ© par l'<b>OS</b> mais il <b>s'appuie sur le BIOS</b> 
+	pour faire les <b>opÃ©rations de base</b> d'E/S
 	
 * dual boot : choisir l'OS sur lequel on boot
-	* impossible d'utiliser deux OS en même temps
-```
+	* impossible d'utiliser deux OS en mÃªme temps
+</pre>
 
 #### Adapters 
-* cartes permettant de connecter le PC avec le monde extérieur
-		
+<pre>
+* cartes permettant de connecter le PC avec le monde extÃ©rieur
+	* rÃ©seau (ethernet)
+	* moniteur (vga)
+	* usb (souris, clavier)
+	* bluetooth
+	...
+</pre>		
 		
 ### Principe de la virtualisation
-```
-* comment démmarrer plusieurs OS en même temps dans une même machine	
-* VMWare: créer une application qui va créer des machines virtuelles
-* Application de virtualisation (VMware) : Hyperviseur
-* Faire fonctionner sur une même machine physique plusieurs environnements comme s'ils fonctionnent dans plusieurs machines physiques distinctes.
-```
+<pre>
+<i>Principe</i>
+* dÃ©marrer et faire fonctionner sur une mÃªme machine physique plusieurs environnements / OS
+	comme s'ils fonctionnent dans plusieurs machines physiques distinctes.
+</pre>	
+![architecture](1-definition-virtualisation.PNG)
+	
+#### application de virtualisation
+<pre>	
+<b>Hyperviseur</b> : 
+* application de virtualisation (VMware ou VirtualBox) 
+	qui va crÃ©er et gÃ©rer des <b>machines virtuelles</b>
+</pre>
+![architecture](0-architecture-virtualiation.PNG)
 
-#### Créer une machine virtuelle
+#### CrÃ©er une machine virtuelle
 
 ##### Principe
 ```
-* créer un environnement dans lequel seront créés des composants virtuels (comparaison avec le modèle objets) et non des composants physiques.
-* parmi les composants virtuels : disque dur virtuel, BIOS, tous les adaptateurs (carte réseau) 
-	Attention : sauf le processeur, CPU qui sont des ressources partagées, RAM également je pense.
+* crÃ©er un environnement dans lequel seront crÃ©Ã©s des composants virtuels (comparaison avec le modÃ¨le objets) et non des composants physiques.
+* parmi les composants virtuels : disque dur virtuel, BIOS, tous les adaptateurs (carte rÃ©seau) 
+	Attention : sauf le processeur, CPU qui sont des ressources partagÃ©es, RAM Ã©galement je pense.
 * composant virtuel = objet virtuel 
-* L'ensemble des composants virtuels permettent de créer une application/machine qui représente l'architecture physique de l'ordinateur, 
-	application qui va traduire l'architecture physique de l'ordinateur hôte mais sous forme de composants virtuels
-* Les composants virtuels vont se charger de traduire les appels d'OS ves l'OS hôte qui permet d'accéder aux ressources matérielles
-* Qd on démarre cette machine, on peut démarrer un nouveau OS qui ne connaît que les composants virtuels
-* On a donc les couches suivantes pour représenter une machine virtuelle
+* L'ensemble des composants virtuels permettent de crÃ©er une application/machine qui reprÃ©sente l'architecture physique de l'ordinateur, 
+	application qui va traduire l'architecture physique de l'ordinateur hÃ´te mais sous forme de composants virtuels
+* Les composants virtuels vont se charger de traduire les appels d'OS ves l'OS hÃ´te qui permet d'accÃ©der aux ressources matÃ©rielles
+* Qd on dÃ©marre cette machine, on peut dÃ©marrer un nouveau OS qui ne connaÃ®t que les composants virtuels
+* On a donc les couches suivantes pour reprÃ©senter une machine virtuelle
 	- couche des applications (app1, app2, ...)
-	- couche OS (OS invité)
+	- couche OS (OS invitÃ©)
 	- composants virtuels
 	- hyperviseur (application / couche de virtualisation)
-	- OS hôte - ordinateur hôte
-	- composants hardware hôte
-* qd une application veut écrire vers le disque dur, l'application écrit sur le disque dur virtuel ; 
-	le composant virtuel traduit l'opération vers une écriture physique
-* composant virtuel : c'est un proxy qui va interprété et demandé à l'hyperviseur de faire l'écriture sur disque en passant par l'OS hôte
+	- OS hÃ´te - ordinateur hÃ´te
+	- composants hardware hÃ´te
+* qd une application veut Ã©crire vers le disque dur, l'application Ã©crit sur le disque dur virtuel ; 
+	le composant virtuel traduit l'opÃ©ration vers une Ã©criture physique
+* composant virtuel : c'est un proxy qui va interprÃ©tÃ© et demandÃ© Ã  l'hyperviseur de faire l'Ã©criture sur disque en passant par l'OS hÃ´te
 ```
 
 ##### Performances et partage des ressources
 
 ```
-* on peut démarrer une ou plusieurs machines virtuelles
-* les machines virtuelles partagent les mêmes ressources
+* on peut dÃ©marrer une ou plusieurs machines virtuelles
+* les machines virtuelles partagent les mÃªmes ressources
 * chaque machine vituelle se voit allouer des ressources processeurs: CPU, RAM
 * si tout ce que l'on fait se trouve dans les machine virtuelles, pourquoi pas utiliser l'hyperviseur comme OS
-	* On a besoin de l'essentiel pour gérer les E/S
-	* l'hyperviseur peut jouer ce rôle et remplacer l'OS hôte
+	* On a besoin de l'essentiel pour gÃ©rer les E/S
+	* l'hyperviseur peut jouer ce rÃ´le et remplacer l'OS hÃ´te
 ```
 
 ### Hyperviseur
 
 ```
 C'est une couche de virtualisation qui permet :
-* assurer le contrôle des processeurs et des ressources de la machnine physique hôte
-* alloue à chaque machine virtuelle les ressources dont elle a beoin
-* s'assure que les VM ne s'interfèrent pas
+* assurer le contrÃ´le des processeurs et des ressources de la machnine physique hÃ´te
+* alloue Ã  chaque machine virtuelle les ressources dont elle a beoin
+* s'assure que les VM ne s'interfÃ¨rent pas
 * 2 types d'hyperviseur
 	- hyperviseur de type 1
-		* l'hyperviseur joue le rôle de l'OS hôte
-		* s'exécute directement sur le hardware
+		* l'hyperviseur joue le rÃ´le de l'OS hÃ´te
+		* s'exÃ©cute directement sur le hardware
 		* XEN, Oracle VM, VMware ESX
 	- hyperviseurde type 2
-		* hyperviseur se repose sur l'OS hôte
+		* hyperviseur se repose sur l'OS hÃ´te
 		* VMware WS, VMware Fusion(mac), Virtual BOX (gratuit)
 ```
 
-### Virtualisation Complète
+### Virtualisation ComplÃ¨te
 
 ```
-* permet de faire fonctionner n'importe quel OS en tant qu'invité dans la machine virtuelle
-* OS invité n'a pas conscience d'être virtualisé
+* permet de faire fonctionner n'importe quel OS en tant qu'invitÃ© dans la machine virtuelle
+* OS invitÃ© n'a pas conscience d'Ãªtre virtualisÃ©
 * OS utilise directement les composants virtuels de la VM
 * c'est la VM qui traduit les appels aux composants virtuels vers les composants physiques
-* plus simple à réaliser
+* plus simple Ã  rÃ©aliser
 ```
 
 ### Paravirtualisation
 
 ```
-* les systèmes d'exploitation doivent être modifiés pour fonctionner sur un hyperviseur de paravirutalisation 
-	* consiste à installer des drivers spécifiques
-* les modifications sont en fait des insertions de drivers permmettant de rediriger les appels systèmes au lieu de les traduire
-* En virtualisation complète, les composants virtuels interprète les appels pour les traduire vers des appels systèmes physiques
-* En paravirtualisation, les appels systèmes sont redirigés directement vers les composants physiques (via les drivers installés sur l'OC)
+* les systÃ¨mes d'exploitation doivent Ãªtre modifiÃ©s pour fonctionner sur un hyperviseur de paravirutalisation 
+	* consiste Ã  installer des drivers spÃ©cifiques
+* les modifications sont en fait des insertions de drivers permmettant de rediriger les appels systÃ¨mes au lieu de les traduire
+* En virtualisation complÃ¨te, les composants virtuels interprÃ¨te les appels pour les traduire vers des appels systÃ¨mes physiques
+* En paravirtualisation, les appels systÃ¨mes sont redirigÃ©s directement vers les composants physiques (via les drivers installÃ©s sur l'OC)
 * l'OS est conscient qu'il tourne dans une environnement virtuel
-* plus performante que la virtualisation complète
-* des drivers backends et frontends sont installés dans les OS para virtualisés
-* il est donc intelligent d'utiliser un tel mécanisme pour accéder à du materiel potentiellement très sollicité (dd, interface réseau,...)
+* plus performante que la virtualisation complÃ¨te
+* des drivers backends et frontends sont installÃ©s dans les OS para virtualisÃ©s
+* il est donc intelligent d'utiliser un tel mÃ©canisme pour accÃ©der Ã  du materiel potentiellement trÃ¨s sollicitÃ© (dd, interface rÃ©seau,...)
 * Ex: KVM, XEN, VMware ESX, Hyper-V (microsoft)
 
 ```
