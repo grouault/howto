@@ -25,7 +25,7 @@
 * A partir d'un <i>RendezVous</i>, je peux connaître <i>son Patient</i>
 </pre>
 
-#### association unideretionnelle
+#### association unidiretionnelle
 
 <pre>
 * Suivant le Sens, il n'est pas nécessaire de déclarer de référencer l'entité.
@@ -51,13 +51,16 @@
 
 ### annotation jpa @ManyToOne / @OneToMany
 <pre>
-* Permet de créer la clé-étrangère en base
+* <i>@ManyToOne</i> : <b>l'attribut</b> qui a cette annotation est une <b>colonne</b> en base qui est une <b>clé étrangère</b>
+* <i>@oneToMany</i> : <b>l'attribut</b> est une <b>collection</b> est n'est donc pas matérialisé en base comme attribut
+	* soit <b>avec</b> table d'association
+	* soit <b>sans</b> table d'association : la <b>classe</b> où figure cet attribut est <b>clé étrangère</b> dans la classe de collection
 </pre>
 
 #### JoinedColumn(name="PATIENT_ID")
 <pre>
 * permet de définir le <b>nom</b> de la <b>clé-étrangère</b>
-* si non définit, sera attribué par défaut : nom de l'attribut dans la classe plus suffixe '_ID'
+* si non définit, sera attribué par défaut : <b>nom de l'attribut</b> dans la classe <b>plus suffixe '_ID'</b>
 </pre>
 
 #### mappedBy (@OneToMany)
@@ -68,7 +71,7 @@
 		* se traduit par la création d'une <b>clé étrangère</b> dans la table <i>RendezVous</i>
 	* indique à JPA que les deux relations @oneToMany et @ManyToOne, sont la même représentation relationnelle
 	* cela lui indique, que cela se traduit par la <b>même clé-étrangère</b>
-*<b>IMPORTANT</b> : si la propriété est omise, une table d'association sera crée en base [PATIENT_RENDEZ_VOUS]
+*<b>IMPORTANT</b> : si la propriété est omise, une <b>table d'association</b> sera crée en base [PATIENT_RENDEZ_VOUS]
 </pre>
 
 #### fetch (LAZY | EAGER)
@@ -76,16 +79,16 @@
 ##### fetch=FetchType.LAZY
 <pre>
 * permet de dire à JPA/Hibernate, au chargement d'un objet <i>Patient</i>, a partir de la base de données:
-	* de ne pas charger en mémoire la liste des <i>RendezVous</i> de ce patient
+	* de <b>ne pas charger en mémoire</b> la liste des <i>RendezVous</i> de ce patient
 	* les autes informations seront remontées dans l'objet
-* la récupération se fera au moment de l'appel du <b>getter</b>
+* la <b>récupération</b> se fera au moment de l'appel du <b>getter</b>
 	* c'est un chargement à la demande
 	* au momemnt, où l'on en a besoin
 </pre>
 
 ##### fetch=FetchType.EAGER
 <pre>
-* les valeurs de la Collection sont remontées directement quand on charge le Patient
+* les <b>valeurs</b> de la <b>collection</b> sont <b>remontées directement</b> quand on charge le Patient
 * <b>inconvénient</b> : chargé en mémoire des données qui ne sont pas utilisées
 * <i>note</i> : à un intérêt dans certains cas :
 	* gestion des rôles : charger les rôles de l'utilisateur quand on récupère ses rôles

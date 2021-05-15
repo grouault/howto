@@ -80,6 +80,7 @@
 </pre>
 
 #### Adapters 
+
 <pre>
 * cartes permettant de connecter le PC avec le monde extérieur
 	* réseau (ethernet)
@@ -90,25 +91,29 @@
 </pre>		
 		
 ### Principe de la virtualisation
+
 <pre>
 <i>Principe</i>
 * démarrer et faire fonctionner sur une même machine physique plusieurs environnements / OS
 	comme s'ils fonctionnent dans plusieurs machines physiques distinctes.
 </pre>	
+
 ![architecture](1-definition-virtualisation.PNG)
 	
 #### application de virtualisation
+
 <pre>	
 <b>Hyperviseur</b> : 
 * application de virtualisation (VMware ou VirtualBox) 
 	qui va créer et gérer des <b>machines virtuelles</b>
 </pre>
+
 ![architecture](0-architecture-virtualiation.PNG)
 
 #### Créer une machine virtuelle
 
 ##### Principe
-```
+<pre>
 * créer un environnement dans lequel seront créés des composants virtuels (comparaison avec le modèle objets) et non des composants physiques.
 * parmi les composants virtuels : disque dur virtuel, BIOS, tous les adaptateurs (carte réseau) 
 	Attention : sauf le processeur, CPU qui sont des ressources partagées, RAM également je pense.
@@ -127,7 +132,8 @@
 * qd une application veut écrire vers le disque dur, l'application écrit sur le disque dur virtuel ; 
 	le composant virtuel traduit l'opération vers une écriture physique
 * composant virtuel : c'est un proxy qui va interprété et demandé à l'hyperviseur de faire l'écriture sur disque en passant par l'OS hôte
-```
+</pre>
+
 
 ##### Performances et partage des ressources
 
