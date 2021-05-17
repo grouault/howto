@@ -1,3 +1,5 @@
+[retour](../exercices.md)
+
 1- Vérifier que docker est correctement installé :
  > docker --version
  > docker run hello-world
