@@ -3,11 +3,12 @@
 
 # mot-clé
 - binding
-- programmation réactive (obervable)
+- [programmation réactive (observable)](observable/observable.md)
 - angular-cli
 - [modules](module/modules.md)
 - [components](component/components.md)
 - [provider-service](providers/providers-services.md)
+- [pipe](pipe/pipe.md)
 
 # Coder une application Angular
 - créer des composants

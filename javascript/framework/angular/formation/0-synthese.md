@@ -244,4 +244,7 @@ const routes: Routes = [
 </li>
 ```
 
+#### Création Modele, state, actions
+![modele-state-actions](./img/synthese/3-enum-modele-state-action.PNG)
+
 #### Création des services

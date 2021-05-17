@@ -1,0 +1,23 @@
+ => docker-compose : Compose : C’est un outil qui permet de définir et exécuter des applications multi-conteneurs.
+
+Consignes :
+    > faire un docker files pour construire notre images node
+    > faire un docker compose avec une image MySql et node
+    1 ) Utilisez une version 3.7
+    2 ) votre docker compose doit éxécuter le conteneur a l'aide du dockerfile précédent,
+        et une image mysql ( version : 5.7.27)
+
+        My sql :
+    3 ) indiquer que notre conteneur Mysql dois se relancer en cas d'erreur
+    4 ) déclarer le mot de passe de la bdd en tant que variable d'environnement
+    5 ) préciser le port sur conteneur Mysql
+    6 ) indiquer le script pour créer notre base de données
+
+        Node :
+    7 ) construire notre image docker avec le dockerfile
+    8 ) indiquer qu'il faut attendre que le conteneur Mysql soit éxécuter avant d'éxécuter celui-celui
+    9 ) indiquer ou se trouve les fichier de notre applications node
+    10) indiquer le port
+
+
+    BONUS: éxécuter db et node sur 2 Ip vituelle docker différentes

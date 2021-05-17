@@ -32,6 +32,7 @@
 * Exemple: Ci-après, releation unidrectionnelle
 	* dans <i>Patient</i>, je déclare la la Collection de <i>RendezVous</i>
 	* dans <i>RendezVous</i>, je n'ai pas beson de déclarer la classe <i>Patient</i>
+* Dans ce cas, une <b>table d'association</b> est créé.
 </pre>
 
 ![shema-entity-medecin](./img/mapping/2-association-unidrectionnelle.PNG)

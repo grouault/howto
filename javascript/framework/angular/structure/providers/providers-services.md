@@ -5,6 +5,7 @@
 ## Provider
 Pour angular, la notion de provider est associé à la notion de service.
 Le service se concentre sur la partie métier.
+La bonne pratique veut qu'un service renvoie un <b>Obervable</b>
 
 ## Convention de nommage d'un fichier provider
 <pre>
@@ -19,3 +20,6 @@ mon-service.service.ts
 	* sinon il faut de déclarer dans <b>app.module</b>
 	* indique que le service est <b>disponible</b> au niveau de toute <b>l'application</b>
 </pre>
+
+
+

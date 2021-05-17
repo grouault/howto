@@ -1,0 +1,43 @@
+version: '3.7'
+services:
+  # base de données
+  db:
+    # on télécharge une image mysql. Nous avons choisi une version 5.7 car  stable, plutot que la version 8
+    image: mysql:5.7.27
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+    # ce conteneur est connecté au réseau "mon_reseau". Il aura comme IP: 10.24.0.5
+    networks: 
+      mon_reseau:
+          ipv4_address: 192.168.0.6
+    ports:
+    - "3306:3306"
+    volumes: 
+    - ./bdd:/docker-entrypoint-initdb.d
+
+  # serveur applicatif
+  node:
+    # On utilise le fichier Dockerfile qui est placé dans le répertoire /back pour fabriquer le conteneur
+    build: ./back
+    networks: 
+      mon_reseau:
+          ipv4_address: 192.168.0.5
+    # indique qu'il faut démarrer le conteneur "db" avant celui-ci
+    # mais n'indique pas si MySQL a fini son chargement
+    depends_on: 
+    - db
+    volumes:
+    - "./back:/usr/src/app"
+    ports:
+    - "2000:4200"
+    environment: 
+      - "DB_HOST=192.168.0.6"
+
+# permet de configurer le réseau "virtuel" dans le docker engine
+networks:
+  mon_reseau:
+    ipam:
+      driver: default
+      config:
+        - subnet: "192.168.0.0/16"

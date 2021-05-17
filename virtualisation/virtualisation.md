@@ -1,11 +1,15 @@
 ## Virtualisation
 
+### Liens
+* [Virtual-Box](vitualbox/virtualbox-config.md)
+* [Docker](docker/docker.md)
+
 ### Structure d'un ordinateur - HardWare
 
 #### Processeur
 
 <pre>
-- CPU [ULA + Registre]
+- <b>CPU [ULA + Registre]</b>
 	* à partir du P4, augmentation de fréquence élevé, la matière du microprocesseur chauffe
 	* quand ça chauffe performance diminue
 	* le mp est incapable d'augmenter ses performances avec cette fréquence
@@ -14,7 +18,7 @@
 		mais en faisant du multi-processeur
 	* apparition des processus mutli-coeur, capable d'effectuer plusieurs instruction en même temps
 	
-- GPU : Graphical processing unit => comment accélérer le rendu graphique pour les jeux	
+- <b>GPU</b> : Graphical processing unit => comment accélérer le rendu graphique pour les jeux	
 	* ce qui rend puissant : architecture massivement parallèle
 	* carte-graphique : NVidia
 		- offre des milliers de petits processeur graphiques
@@ -114,15 +118,19 @@
 
 ##### Principe
 <pre>
-* créer un environnement dans lequel seront créés des composants virtuels (comparaison avec le modèle objets) et non des composants physiques.
+* créer un environnement dans lequel seront créés des <b>composants virtuels</b> 
+	* composant virtuel = objet virtuel  => comparaison avec le modèle objets
+	* ce ne sont pas des composants physiques.
 * parmi les composants virtuels : disque dur virtuel, BIOS, tous les adaptateurs (carte réseau) 
-	Attention : sauf le processeur, CPU qui sont des ressources partagées, RAM également je pense.
-* composant virtuel = objet virtuel 
-* L'ensemble des composants virtuels permettent de créer une application/machine qui représente l'architecture physique de l'ordinateur, 
-	application qui va traduire l'architecture physique de l'ordinateur hôte mais sous forme de composants virtuels
-* Les composants virtuels vont se charger de traduire les appels d'OS ves l'OS hôte qui permet d'accéder aux ressources matérielles
+	<i>Attention</i> : <b>sauf</b> le <b>processeur, CPU</b> qui sont des <b>ressources partagées</b>, <b>RAM</b> également je pense.
+* L'<b>ensemble</b> des <b>composants virtuels</b> permettent de créer une <b>application/machine virtuelle</b>
+	* qui représente l'architecture physique de l'ordinateur, 
+	* l'application va <b>traduire l'architecture physique</b> de l'ordinateur hôte mais sous forme de composants virtuels
+* Un <b>composant virtuel</b>  
+	* se charge de <b>traduire les appels d'OS vers l'OS hôte</b> qui permet d'accéder aux ressources matérielles
+	* c'est un <b>proxy</b> qui va interprété et <b>demandé à l'hyperviseur</b> de faire l'opération demandée en passant par l'OS hôte
 * Qd on démarre cette machine, on peut démarrer un nouveau OS qui ne connaît que les composants virtuels
-* On a donc les couches suivantes pour représenter une machine virtuelle
+* On a donc les <b>couches suivantes</b> pour représenter une machine virtuelle
 	- couche des applications (app1, app2, ...)
 	- couche OS (OS invité)
 	- composants virtuels
@@ -131,26 +139,25 @@
 	- composants hardware hôte
 * qd une application veut écrire vers le disque dur, l'application écrit sur le disque dur virtuel ; 
 	le composant virtuel traduit l'opération vers une écriture physique
-* composant virtuel : c'est un proxy qui va interprété et demandé à l'hyperviseur de faire l'écriture sur disque en passant par l'OS hôte
 </pre>
 
 
 ##### Performances et partage des ressources
 
-```
+<pre>
 * on peut démarrer une ou plusieurs machines virtuelles
 * les machines virtuelles partagent les mêmes ressources
 * chaque machine vituelle se voit allouer des ressources processeurs: CPU, RAM
-* si tout ce que l'on fait se trouve dans les machine virtuelles, pourquoi pas utiliser l'hyperviseur comme OS
+* si tout ce que l'on fait se trouve dans les machines virtuelles, pourquoi pas utiliser l'hyperviseur comme OS
 	* On a besoin de l'essentiel pour gérer les E/S
 	* l'hyperviseur peut jouer ce rôle et remplacer l'OS hôte
-```
+</pre>
 
 ### Hyperviseur
 
-```
-C'est une couche de virtualisation qui permet :
-* assurer le contrôle des processeurs et des ressources de la machnine physique hôte
+<pre>
+C'est une <b>couche de virtualisation</b> qui permet :
+* assurer le contrôle des processeurs et des ressources de la machine physique hôte
 * alloue à chaque machine virtuelle les ressources dont elle a beoin
 * s'assure que les VM ne s'interfèrent pas
 * 2 types d'hyperviseur
@@ -161,30 +168,21 @@ C'est une couche de virtualisation qui permet :
 	- hyperviseurde type 2
 		* hyperviseur se repose sur l'OS hôte
 		* VMware WS, VMware Fusion(mac), Virtual BOX (gratuit)
-```
+</pre>
+
+![architecture](2-hyperviseur-virtualisation.PNG)
 
 ### Virtualisation Complète
 
-```
-* permet de faire fonctionner n'importe quel OS en tant qu'invité dans la machine virtuelle
-* OS invité n'a pas conscience d'être virtualisé
-* OS utilise directement les composants virtuels de la VM
-* c'est la VM qui traduit les appels aux composants virtuels vers les composants physiques
-* plus simple à réaliser
-```
+![architecture](3-virtualisation-complete.PNG)
 
 ### Paravirtualisation
 
-```
-* les systèmes d'exploitation doivent être modifiés pour fonctionner sur un hyperviseur de paravirutalisation 
-	* consiste à installer des drivers spécifiques
-* les modifications sont en fait des insertions de drivers permmettant de rediriger les appels systèmes au lieu de les traduire
+<pre>
 * En virtualisation complète, les composants virtuels interprète les appels pour les traduire vers des appels systèmes physiques
 * En paravirtualisation, les appels systèmes sont redirigés directement vers les composants physiques (via les drivers installés sur l'OC)
-* l'OS est conscient qu'il tourne dans une environnement virtuel
-* plus performante que la virtualisation complète
-* des drivers backends et frontends sont installés dans les OS para virtualisés
-* il est donc intelligent d'utiliser un tel mécanisme pour accéder à du materiel potentiellement très sollicité (dd, interface réseau,...)
-* Ex: KVM, XEN, VMware ESX, Hyper-V (microsoft)
+</pre>
 
-```
+![architecture](4-paravirtualisation.PNG)
+
+

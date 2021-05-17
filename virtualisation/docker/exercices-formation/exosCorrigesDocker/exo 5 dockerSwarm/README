@@ -1,0 +1,18 @@
+TP DOCKER SWARM
+
+configurer l'hyper V : https://docs.docker.com/machine/drivers/hyper-v/
+Consignes : 
+1) créer 5 hôte machine : 2 manager et 3 worker.
+
+2) joindres les hôtes entre eux ( Attention au rôle qu'ils doivent avoir).
+
+3) mettre en place 6 serveur NGINX
+
+4) drainer le worker1
+
+5) redémarrer le worker 1:
+ docker node update --availability active worker1 
+ => Est ce qu'il y a des service qui après le démarrage ont été déplacé sur le worker1?
+ 
+6) ajouter l'image nodeJs de l'exercice précédent (2 replicas)
+=> Est ce qu'il y a des service qui ont été placé/déplacé sur le worker1?
