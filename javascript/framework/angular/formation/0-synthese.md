@@ -1,5 +1,7 @@
 # Application
 
+[home](../angular.md)
+
 ## Principe
 <pre>
 * application qui permet de gérer des produits
@@ -129,10 +131,11 @@ $ ng new web-cat-app
 
 #### configuration Proxy
 <pre>
-* il faut dire au serveur angular de transmettre toutes les urls(source) que l'on veut réaiguiller vers une autre cible
+* il faut dire au serveur angular de transmettre toutes les urls(<b>source</b>) que l'on veut réaiguiller vers une autre <b>cible</b>
 * ainsi il faut configurer un proxy avec :
 	* source : http://localhost:4200/api
 	* cible: http://localhost:3000/api
+* <i>important:</i> c'est le <b>serveur angular</b> qui fait la <b>redirection</b>
 </pre>
 
 * générer un fichier src/proxy.conf.json
@@ -163,10 +166,11 @@ $ ng new web-cat-app
 
 #### environnement
 <pre>
-* ce fichier permet de faire des configuration par environnement
-* à utiliser donc pour les variables d'environnement
-* la variable host pour la confifuration du serveur backend a été défnit.
-	* pose un problème cors, du coup, il faut passer par un proxy sur le serveur Angular.
+* <b>envrionnement.ts</b>: ce fichier permet de faire des configuration par environnement
+	* à utiliser donc pour les variables d'environnement
+	* la variable <b>host</b> pour la confifuration du serveur backend a été défnit.
+		* pose un problème <b>cors</b>, du coup, il faut passer par un <b>proxy</b> sur le <b>serveur Angular</b>.
+		* <i>cf. plus haut</i>
 </pre>
 
 #### bootstrap | JQuery 
@@ -248,3 +252,19 @@ const routes: Routes = [
 ![modele-state-actions](./img/synthese/3-enum-modele-state-action.PNG)
 
 #### Création des services
+
+### Formulaire
+
+#### Réactive Forms
+<pre>
+Erreur à la mise en place :
+error TS2322: Type 'string | undefined' is not assignable to type 'string'.
+  Type 'undefined' is not assignable to type 'string'.
+  Nécessite la correction suivante dans le fichier tslint.json
+  "angularCompilerOptions": {
+    "enableI18nLegacyMessageIdFormat": false,
+    "strictInjectionParameters": true,
+    "strictInputAccessModifiers": true,
+    "strictTemplates": false
+  }
+</pre>

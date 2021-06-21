@@ -31,6 +31,17 @@ curl --location --request POST 'https://swet-tuf.pomona-fr.grp/swet-tuf/opc/batc
 --data-urlencode 'code=cache-maintenance'
 ````
 
+* Avec commentaires
+```
+curl --trace-ascii - --location --request POST 'https://swet-tuf.pomona-fr.grp/swet-tuf/opc/batch/launch' \
+--cacert file1.pem \
+--header 'Content-Type: application/x-www-form-urlencoded' \
+--data-urlencode 'login=opcon' \
+--data-urlencode 'password=672795a51017863978e1a189ef0c492ca76347e349acbe403f919e27df958bdfa96acbf7dbb43496dca514c2827591c9' \
+--data-urlencode 'code=cache-maintenance'
+```
+
+
 * Lien util
 
 https://stackoverflow.com/questions/10079707/https-connection-using-curl-from-command-line

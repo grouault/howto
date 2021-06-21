@@ -70,6 +70,14 @@
 		* lancer une commande de base
 </pre>	
 
+#### docker build
+<pre>
+* $ docker build -t demo-web-spb .
+	* permet de constuire une image à partir d'un dockerfile
+	* -t : donner un nom à l'image
+	* . : specifier le dossier ou se trouver le fichier Dockerfile
+</pre>
+
 ### conteneur
 
 #### docker ps

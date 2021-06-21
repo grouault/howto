@@ -65,5 +65,13 @@ Code controleur:
       params => this.episode_id = params['id']
     );
   }
+  
+  constructor(
+    private activatedRoute:ActivatedRoute,
+    private productsService:ProductsService,
+    private fb:FormBuilder
+  ) {
+    this.productId = activatedRoute.snapshot.params.id;
+  }
 
 

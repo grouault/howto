@@ -101,3 +101,6 @@ $ git clean -df ==> supprimer dossier et fichier
 --> effacer les fichiers qui font parti du .gitignore 
 $ git clean -xn
 $ git clean -xdf
+
+# show origin
+git remote show origin

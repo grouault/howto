@@ -1,14 +1,24 @@
 
-[structure](../angular.md)
+[home](../angular.md)
 
 # mot-clé
-- binding
+
+- [injectable](injectable.md)
 - [programmation réactive (observable)](observable/observable.md)
-- angular-cli
 - [modules](module/modules.md)
-- [components](component/components.md)
+
 - [provider-service](providers/providers-services.md)
 - [pipe](pipe/pipe.md)
+- [directives](directives/directives.md)
+
+* Components
+
+	- [components](component/components.md)
+	- [decomposition](component/decomposition.md)	
+	
+* Formulaire
+	- [formulaire-reactiveform](formulaire/reactive-form.md)
+	- [binding](formulaire/binding.md)
 
 # Coder une application Angular
 - créer des composants

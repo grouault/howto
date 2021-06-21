@@ -159,34 +159,43 @@ public class CSIUserDetails implements UserDetails {
 #### UserDetailsService
 
 ##### définition
-```
-* classe permettant de créer un objet UserDetail pour stocker les informations de contexte de l'utilisteur.
+<pre>
+* classe permettant de <b>créer un objet UserDetail</b> pour stocker les informations de contexte de l'utilisteur.
+	* ces informations de contexte servent de base pour l'auhentification
+	* les valeurs saisies au moment de l'autentification (rest, interface utilisateur) sont comparées avec ces infos
+		de contexte
+	
 * la recherche se fait sur le paramètre 'username' pour chercher ses infos de context (données récupérées en base par exemple) 
-	* les informations à récupérer pour construire le UserDetail : username, crediential, authorities
-* doit implémenter la méthode 
+	* les informations à récupérer pour construire le UserDetail : username, credential, authorities
+
+* doit implémenter la méthode :
+	<i>public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException</i>
+
 * retourne un objet qui implémente UserDetail (ex: org.springframework.security.core.userdetails.User)
 	- return new User(appUser.getUserName(), appUser.getPassword(), authorities);
-```
+</pre>
 
 ##### PasswordEncoder
-* sert à crypter le mot de passe :
-	* à la récupération, lors de la création initial de l'objet Authentication
+<pre>
+* sert à <b>crypter</b> le mot de passe :
+	* à la récupération, lors de la <b>création</b> initial de l'objet <b>Authentication</b>
 	* au niveau de la comparaison, avec ce qui es récupérée par userDetailService
 * cela signifie, que les infos stockées pour le pwd, le soit avec le passwordEncoder
-
+</pre>
 
 ##### Implémentation
-
+<pre>
 * L'implementation se fait dans la méthode 
-	```
-	protected void configure(AuthenticationManagerBuilder auth) throws Exception
-	```
+
+	<i> protected void configure(AuthenticationManagerBuilder auth) throws Exception </i>
+	
 * Le but est de retrouver les informations pour l'authentification quand un user se loggue.
+
 * Les informations sont ainis récupérer et retourner dans un objet UserDetail de 3 façons :	
 	* reconciliation en mémoire
 	* réconciliation en base
 	* réconciliation spécifique
-	
+</pre>	
 
 
 ###### Implémentation en mémoire 
@@ -335,72 +344,90 @@ public class UserDetailServiceImpl implements UserDetailsService {
 ### Authentification 
 
 #### Authentification dans une application Web
-* Scénario dans une application web :
-```
-1- Visiter la HomePage et cliquer sur un lien
-2- Une requête est envoyée au serveur et ce dernier décide si une ressource protégée a été demandée.
-3- Comme vous n'êtes pas authentifié, le server envoie une réponse indiquant que vous devez vous authentifié:
-	* soit un code de réponse HTTP
-	* soit une redirection vers une page particulière
-4- En fonction du mécanisme d'authentification, le navigateur :
-	* redirige vers la page web pour remplir le formulaire
-	* voit comment il récupère votre identité (basic authentifiation, cookie, x.509 certificat, ...)
-5- Le naviateur envoie une réponse au seveur
-	* une requête HTTP POST contenant les informations du formulaire d'authentification
-	* un header HTTP contenant les éléments d'authentification
-6- Le serveur juge si les infos d'authentification sont valides ou non.
+
+<pre>
+1- Visiter la HomePage et <b>cliquer sur un lien</b>
+
+2- Une requête est envoyée au serveur et ce dernier décide si une <b>ressource protégée</b> a été demandée.
+
+3- Comme vous n'êtes pas authentifié, le <b>serveur</b> envoie une réponse indiquant que vous devez vous authentifié:
+	* soit un <b>code</b> de réponse <b>HTTP</b>
+	* soit une <b>redirection</b> vers une <b>page</b> particulière
+
+4- En fonction du mécanisme d'authentification, le <b>navigateur</b> :
+	* <b>redirige</b> vers la <b>page</b> web pour remplir le formulaire
+	* voit comment il <b>récupère</b> votre <b>identité</b> (basic authentifiation, cookie, x.509 certificat, ...)
+
+5- Le navigateur envoie une réponse au seveur
+	* une <b>requête HTTP POST</b> contenant les informations du formulaire d'authentification
+	* un <b>header HTTP</b> contenant les éléments d'authentification
+
+6- Le <b>serveur</b> juge si les infos d'<b>authentification</b> sont <b>valides</b> ou non.
 	* si invalide, l'utilisateur est invité à recommencer
 	* si ok, la prochaine étape s'exécute
-7- La requête originale qui a déclenché le mécanisme d'authentification est rejouée
+
+7- La <b>requête originale</b> qui a déclenché le mécanisme d'authentification est <b>rejouée</b>
 	* si les autorisations utilisateur sont suffisantes pour accéder à la ressource protégée, la ressource est présentée
 	* sinon un ocde erreur de réponse HTTP 403 (forbidden) est envoyé
-```
+</pre>
 
 #### Authentication Mechanism (Spring)
 
-* Principe
+##### Principe
 
-```
+<pre>
 * contexte : le navigateur envoie pour soumission les informations d'authentification:
 	* http form post
 	* http header
+
 * définition : 
 	* mécanisme qui est reponsable de collecter les informations d'authentification du user-agent (form-base-login and Basic Authentication)
-	* une fois collectée, un objet Authentication basé sur la requête est construit et présenté à l'AuthenticationManager
-	* le mécanisme jugera alors la requête valide, mettra l'objet Authentication dans le SecurityContextHolder 
-		et rejouera la requête qui a déclenché l'authentification.
-```
+	* une fois collectée, un objet <b>Authentication</b> basé sur la requête est construit et présenté à l'<b>AuthenticationManager</b>
+	* le mécanisme 
+		* jugera alors la requête <b>valide</b>
+		* mettra l'objet Authentication dans le <b>SecurityContextHolder</b> 
+		* rejouera la <b>requête originale</b> qui a déclenché l'authentification.
 
-* Détail
-	* Les étapes 2 et 3 sont liées : l'AuthenticationManager a besoin du UserDetailService.
-	* Par défaut, si le manager n'est pas redéfinit, celui-ci a besoin des infos de contexte de l'utisateur pour procéder à l'authentification dans la chaine des filtres de Spring-Security.
+* Détail : dans le détail qui suit:
+	* Les étapes 2 et 3 sont liées : l'<b>AuthenticationManager</b> a besoin du <b>UserDetailService</b>.
+	* Par défaut, si le manager n'est pas redéfinit, celui-ci a besoin des infos de contexte de l'utisateur 
+		pour procéder à l'authentification dans la chaine des filtres de Spring-Security.
 	* Pour cela, il utilise les données de contexte chargée avec le service UserDetailService.
+</pre>
 
-````
+##### Détail
+<pre>
 1- utilisateur se loggue avec un username et password
-	* récupération username et password, stocké dans une instance de UsernamePasswordAuthenticationToken
-	* retourne un objet Authentication light sans les Autorities
+	* récupération username et password, stocké dans une instance de <b>UsernamePasswordAuthenticationToken</b>
+	* retourne un objet <b>Authentication light</b> sans les Autorities
 	
-2- obtention des informations de contexte du user (rôle)
-	* s'appuie sur UserDetailService pour récupérer les informations du user
+2- <b>obtention</b> des <b>informations de contexte</b> du user (rôle)
+	* s'appuie sur <b>UserDetailService</b> pour récupérer les informations du user
 	* implementation de la méthode loadUserByUsername
-	* retourne un objet UserDetail
+	* retourne un objet <b>UserDetail</b>
 	
 3- le système vérifie que le password est correct
-	* le token initial est passé à une instance de AuthenticationManager pour authentification :	
-	* C'est le manager qui procède à la vérification en comparant le token avec les informations de context UserDetail.
+	* le <b>token initial</b> est passé à une instance de <b>AuthenticationManager</b> pour authentification :	
+	* C'est le manager qui procède à la vérification en <b>comparant</b> le <b>token</b> avec les informations de context <b>UserDetail</b>.
 	* implémentation de la méthode: 
-		public Authentication authenticate(Authentication authentication) throws AuthenticationException
+	
+		<i>public Authentication authenticate(Authentication authentication) throws AuthenticationException</i>
+		
 	* si KO, on bloque l'authentification
-	* l'AuthenticationManager retourne une instance Authentication (UsernamePasswordAuthenticationToken) complète construite à partir du UserDetail
+	* sinon, l'AuthenticationManager retourne un objet <b>Authentication full</b>(UsernamePasswordAuthenticationToken)  
+		complète (principal + grantedAuthority) construite à partir du UserDetail
 
-4- Authentification réussit, l'objet Authentication est stockée dans le SecurityContextHolder
+4- Authentification réussit, l'objet <b>Authentication</b> est stockée dans le <b>SecurityContextHolder</b>
 	* qui fait cette opération ? Spring Security Filter Chain par défaut.
 	* l'Authentication instance est mise dans le contexte
 	* le SecurityContextHolder contient alors un objet Authentication complet et accessible partour dans l'application.
-````
+</pre>
 
-* Code d'authentification peut se voir comme cela: 
+###### Algorithme
+
+<pre>
+* Code d'authentification peut se voir comme le pseudo-code qui suit: 
+</pre>
 
 ```
 try {
@@ -415,16 +442,25 @@ try {
 }
 ```
 
+##### Filters
+<pre>
+Suivant le mode d'authentification, Spring met en jeu différents filtres pour l'authentification basique
+C'est une chaine de filtre.
+Suivant le mode d'accès, le bon filtre sera utilisé pour faire l'authentification
+* <b>UsernamePasswordAuthenticationFilter </b>: filtre par défaut
+	Les infos (credentials) sont récupérées dans la request.
+* <b>BasicAuthenticationFilter </b>: filtre pour l'authentification basique
+</pre>
 
 #### UsernamePasswordAuthenticationFilter
 
-````
+<pre>
 * Filtre qui la responsabilité de faire les opérations 1, 2 et 3 précédentes.
 * la tentative de connexion est faite par : attemptAuthentication()
 * la mise en session est faite par : AbstractAuthenticationProcessingFilter.successfulAuthentication()
 	** Note **  : UsernamePasswordAuthenticationFilter hérite de AbstractAuthenticationProcessingFilter
 * Le manager utilise par défaut, semble-t-il le provider suivant pour faire l'authentification.
-````
+</pre>
 
 ##### attemptAuthentication()
 
@@ -607,18 +643,23 @@ public class OpConnTranslationFilter extends GenericFilterBean {
 ## Configuration
 
 ### Configuration par défaut / Désactivation
-* Par défaut, avec la dépendances spring-security, spb utilise la configuration basique
+<pre>
+* Par défaut, avec la dépendances spring-security, <b>spb utilise la configuration basique</b>
 * Authentification qui ne sert presque à rien
 * Pour la désactiver avant de personnaliser la configuration de sécurité (https://www.baeldung.com/spring-boot-security-autoconfiguration):
+</pre>
 
-1- Spring-Boot 1
-```
+
+#### Spring-Boot 1
+<pre>
 * application.properties
 security.basic.enabled=false
-```
+</pre>
 
-2- Spring Boot 2
-```
+
+#### Spring Boot 2
+<pre>
+
 * application.properties
 ##Spring-Security : désactivation de la configuration par Défaut
 ##spring.autoconfigure.exclude[0]=org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration
@@ -627,27 +668,29 @@ security.basic.enabled=false
 @EnableAutoConfiguration(exclude = {
     org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration.class
 })
-```
+</pre>
 
 ### Etablir une configuration de base : WebSecurityConfigurerAdapter
 
-```
-* Créer une classe de configuration: SecurityConfig qui étend WebSecurityConfigurerAdapter
+<pre>
+1- Créer une classe de configuration: <b>SecurityConfig</b> qui étend <b>WebSecurityConfigurerAdapter</b>
 
-* Ajouter annotations: 
-	- @Configuration 
-	- @EnableWebSecurity
+2- Ajouter <b>annotations</b>: 
+- @Configuration 
+- @EnableWebSecurity
 	
-* Redéfinir deux méthodes suivantes:
+3- Redéfinir deux méthodes suivantes:
 
-	** protected void configure(AuthenticationManagerBuilder auth) throws Exception
-	- indiquer à Spring-Security comment il va chercher les utilisateurs et les roles
-	
-	** protected void configure(HttpSecurity http) throws Exception
-	- définir les droits d'accès, les 'roots'
-	- définir les filtres
-	
-```
+<i> protected void <b>configure(AuthenticationManagerBuilder auth)</b> throws Exception</i>
+
+	* permet de faire la configuration pour l'authentification
+		* indiquer à Spring-Security comment il va chercher les utilisateurs et les roles
+
+<i> protected void <b>configure(HttpSecurity http)</b> throws Exception </i>
+	* définir routes et les droits d'accès
+		* definir quel 'route' nécessite d'être identifié avec quel utilisateur
+	* définir les filtres
+</pre>
 
 ## CSRF
 * Attention, il faut le désactiver, sinon certaines actions sont impossibles, pour une authentificatin stateless (sans les sessions)

@@ -1,4 +1,9 @@
 # directives
+
+[structure](../structure.md)
+[home](../../angular.md)
+
+## définition
 Le mécanisme d'expression (binding) n'est pas suffisant pour construire une application fonctionelle et dynamiqu
 Les directives agissent sur la vue en fonction de 
 - de variables
@@ -8,19 +13,20 @@ qui viennent du composant, du serveur...
 Suivant leur comportement, les directives agissent sur le code html : rendre visible ou non un élément, afficher des listes... 
 
 Les directives les plus courantes: ngIf, ngFor, ngStyle, ngModel, ngClass
-# ngIf
+
+## ngIf
 Conditionner l'affichage d'un élément.
 <div *ngIf="display">Hello world</div>
 
-# ngModel
+## ngModel
 [(NgModel)] lier un element html à une variable en mémoire
 
-# ngFor
+## ngFor
 <li *ngFor="let item of list">{{item}}</li>
 
-# ngStyle
+## ngStyle
 
-# ngClass
+## ngClass
 
 ########
 # Form

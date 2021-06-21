@@ -6,25 +6,30 @@
 * [installation](installation-docker.md)
 * [commandes](docker-cmd/docker-cmd.md)
 * [exercices](exercices-formation/exercices.md)
+* [docker-engine](docker-engine/docker-engine.md)
+* [dockerfile](dockerfile/dockerfile.md)
+
+### doc
+* [pdf-formation](docker.pdf)
 
 ### url
 <pre>
-# Docker 
+*  Docker 
 ==> HyperViseur : 
 
-# Définition
+* Définition
 https://www.lebigdata.fr/docker-definition
 https://guillaumebriday.fr/comprendre-et-mettre-en-place-docker
 
 
-# urls volume
+* urls volume
 https://rominirani.com/docker-on-windows-mounting-host-directories-d96f3f056a2c
 https://stackoverflow.com/questions/46529884/windows-docker-external-mount
 
-# install - docker toolbox
+* install - docker toolbox
 https://github.com/docker/toolbox/issues/636
 
-# docker-machine
+* docker-machine
 https://docs.docker.com/machine/get-started/
 </pre>
 
@@ -38,6 +43,10 @@ https://docs.docker.com/machine/get-started/
 
 ### docker-host
 ???	
+	
+	
+### image vs conteneur
+![img](img/0-img-vs-container.PNG)	
 	
 ### images 
 

@@ -1,0 +1,14 @@
+Chemin du ficher de configuration des hosts et VirtualHosts:
+
+Windows:
+--------
+C:\WINDOWS\system32\drivers\etc
+
+Linux
+-----
+/etc/hosts
+
+
+Fichier de conf sur Linux
+-------------------------
+/soft/apache2/conf/vhosts

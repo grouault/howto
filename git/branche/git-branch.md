@@ -1,6 +1,6 @@
-git branch
-==========
-## BRANCHE LOCAL 
+## git branch
+
+### BRANCHE LOCAL 
 
 # Créer une branche à partir du master sur le repo local
 >$ git branch v2.0
@@ -14,30 +14,35 @@ git branch
 # Créer la branche sur le repo distant
 >$ git push origin v2.O
  
-## BRANCHE REMOTE
+### BRANCHE REMOTE
 
-# Informations sur les branches
+#### Informations sur les branches
 >$ git remote show origin
 
-# Récupérer une branche remote qui n'existe pas en local 
----
-	
-	La situation est alors la suivante: vous avez des branches distantes que vous souhaitez rapatrier en local. 
-	Il suffit de connecter, ou track, cette branche remote à une branche locale
+#### Récupérer une branche remote qui n'existe pas en local 
+<pre>
+La situation est alors la suivante: vous avez des branches distantes que vous souhaitez rapatrier en local. 
+Il suffit de connecter, ou track, cette branche remote à une branche locale
+</pre>
 
----
-
+```
 1. premiere solution
-> $git checkout --track -b <local branch> <remote>/<tracked branch>
+$ git checkout --track -b <local branch> <remote>/<tracked branch>
+
+* Exemple:
+$ git checkout --track -b dev origin/dev
 
 2. deuxieme solution
->$ git fetch origin ==> recuperer le pointeur de la branche distante
->$ git checkout -b dev origin/dev ==> reconstuire la branche localement : dev
+$ git fetch origin ==> recuperer le pointeur de la branche distante
+$ git checkout -b dev origin/dev ==> reconstuire la branche localement : dev
+```
 
 ## FUSION - merge
+<pre>
 Fusion pour intégrer des travaux aux historiques divergeants.
 Cette commande réalise une fusion à trois branches entre les deux derniers instantanés (snaphots)
 de chaque branche et l'ancêtre le plus récent, créant un nouvel instantané (et un commit).
+</pre>
 
 # Fusionner deux branches : intégrer les données de la branche v2.0 dans master
 ==> se positionner dans master
@@ -47,15 +52,24 @@ de chaque branche et l'ancêtre le plus récent, créant un nouvel instantané (et u
 
 
 ## SUPPRIMER UNE BRANCHE
+<pre>
 > $ git branch -d the_local_branch
-> $ git push origin :the_remote_branch
-> $ git push origin --delete the_remote_branch
 
-# Commande utile
+> $ git push origin :the_remote_branch
+
+> $ git push origin --delete the_remote_branch
+</pre>
+
+## Commande utile
+<pre>
 # filter les branches de la liste suivant que vous les avez : 
+
 1- fusionnées avec la branche courante
->$ git branch --merged
+$ git branch --merged
+
 2- pas encore fusionnées avec la branche courante
->$ git branch --no-merged
+$ git branch --no-merged
+
 # lister les derniers 'commit' sur chaque branche
->$ git branch -v 
+$ git branch -v 
+</pre>

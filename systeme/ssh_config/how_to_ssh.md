@@ -1,5 +1,5 @@
 ##########
-## FEDORRA
+## FEDORA
 ##########
 # lancé le service ssh
 systemctl start sshd
