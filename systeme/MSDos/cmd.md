@@ -1,7 +1,10 @@
 
 ## kill
 taskkill /PID <PID> /F
-netstat -ano | findstr :4200
+windows
+netstat -ano | findstr :3306
+linux
+netstat -ln | grep mysql
 
 ## ping
 C:\>ping/all scel2.cite-sciences.fr

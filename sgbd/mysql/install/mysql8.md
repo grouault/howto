@@ -1,3 +1,16 @@
+## Installation de MySQL en local
+- C:\Services\devs\sgbd\mysql\8.0.21
+
+### MySQL 5.6
+- C:\Services\devs\sgbd\mysql\5.6.36
+- root / gildas
+
+## Savoir si une instance de MySql tourne 
+windows
+netstat -ano | findstr :3306
+linux
+netstat -ln | grep mysql
+
 ## Installation de MySQL5.6
 ###########
 

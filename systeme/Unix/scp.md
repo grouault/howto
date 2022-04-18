@@ -35,3 +35,9 @@ scp liferay@vm-estim-devlr2:/data/svn-trunk/estim-contacts-portlet/estim-contact
 
 ##
 svn co http://vm-estim-devlr1.citepro.cite-sciences.fr/svn/ESTIM/ESTIM-UTILS/trunk/ estim-utils-lib
+
+## BLO
+scp exploit@recblo:/opt/blo/bons_livraisons/modeles/rec/35/recto/Fond5MFD.jpg
+
+scp exploit@recblo:"/opt/blo/bons_livraisons/modeles/rec/35/recto/Fond5MFD\ logo.jpg"
+scp exploit@recblo:"'/opt/blo/bons_livraisons/modeles/rec/35/recto/Fond5MFD logo.jpg'"

@@ -54,6 +54,15 @@ ctrl shift p : commande palette
 ctrl shift 'k' : supprimer une ligne
 ctrl 'g' : accéder à la ligne/colonne
 
+maj + alt + flèche bas : duplication de la ligne vers le bas
+alt click click => actions multi-ligne
+alt shift => selection multi-ligne
+
+## commentaires
+ctrl k c
+ctrl /
+
+
 ## Fichier de configuration
 .vscode/settings.json
 C:\Users\grouault\AppData\Roaming\Code\User\settings.json
@@ -67,7 +76,13 @@ C:\Users\grouault\AppData\Roaming\Code\User\settings.json
 - Activer pour 'React'
 	Paramètre/workspace/Extensions/Emmet
 	include languate : javascript:javascriptreact
+-Faire fonctionner Emmet avec React sous VS Code
+	Si emmet ne fonctionne pas avec React, il vous faut rajouter cette ligne dans votre "setting.json" :
+	"emmet.includeLanguages": {  "javascript": "javascriptreact"   },
+Puis enregistrez, et c'est bon.	
 	
-	
-	    "javascript.validate.enable": false,
+	"javascript.validate.enable": false,
     "standard.enable": true
+	
+## extension react/redux
+rfc-tab ==> création d'un composant fonctionnelle

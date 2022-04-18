@@ -1,9 +1,13 @@
 # REDUX
 
-## Defintion
+[home](../../index-js.md)
+
+## Definition
 <pre>
 * Librairie qui implémente un certains nombre de patterns
 * au niveau SPA :
+    * state container
+    * but : ne pas tous faire dans la vue
     * permet de centraliser l'<b>état/contexte</b> de l'application dans un seul objet
     * permet de faire le <b>management du state</b>
 
@@ -19,6 +23,7 @@
 ### Store
 <pre>
 * le store est un <b>service</b> qui permet de <b>gérer</b> le <b>state</b> de l'application
+* store de redux = state de l'application
 * le store permet de <b>dispatcher</b> les <b>actions</b> dont il est destinataire
 </pre>
 <pre>
@@ -45,8 +50,10 @@
 #### définition
 <pre>
 * composant faisant partie du store
+* chaque morceau du store est le résultat d'une fonction que l'on nomme reducer
+* reducers : sont la source de données du state de l'application
 * composant qui se présent sous la forme d'une fonction pure qui est appelée par le store,
-    à chaque fois qu'une action est dispatchée.
+    à chaque fois qu'une action est dispatchée aux reducers
 
 * c'est un <b>écouteur d'évenement</b> :
     * qui est à l'écoute des évènements à destination du store (qui se produisent dans le store)
@@ -59,7 +66,10 @@
 #### principe
 <pre>
 * En <b>entrée</b>, le reducer reçoit le <b>state</b> et l'<b>action</b>
-* En <b>sortie</b>, le reducer retourne un <b>nouveau state</b>
+* En <b>sortie</b>, le reducer retourne soit :
+    * un <b>nouveau state</b>
+    * un <b>objet</b> qui est une partie du state de l'application,
+        qui est alors mappé dans une variable du state
 
 * le <b>state</b> est un objet <b>immutable</b>
     * quand une action est émise, l'action a pour but d'agir sur l'état de l'application
@@ -112,10 +122,11 @@
 </pre>
 
 
-## NgRx
+## Angular NgRx
 <pre>
 * Implementation Redux pour Angular
 * vient en complément des solutions standards pour angular
     * @input/@ouptut : partage de données synchone
     * Sub/Pub avec Subject : partage de données asynchrone
 </pre>
+
