@@ -1,5 +1,7 @@
 ## HIBERNATE
 
+[home](../index-java.md)
+
 ### Fonctionnement
 
 - [Principe](notes/principe.md)
