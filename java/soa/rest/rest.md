@@ -2,36 +2,36 @@
 
 ### serveur d'application vs Spring IOC
 
-### Les 5 règles e RESTful
-* implément les 5 rgèles REST
+### Les 5 rÃ¨gles e RESTful
+* implÃ©ment les 5 rgÃ¨les REST
 
 ### WebService REST
-C'est un objet qui est implémenté dans un langage de programmation.
-1- Client REST: requête HTTP [xml | json] ==> accept:application/json
-2- Jerset Servlet : la requête est traitée par une servlet (JerseyServlet) et aiguillé vers le WebService.
-3- Client REST : réponse HTTP (xml | json)
+C'est un objet qui est implÃ©mentÃ© dans un langage de programmation.
+1- Client REST: requÃªte HTTP [xml | json] ==> accept:application/json
+2- Jerset Servlet : la requÃªte est traitÃ©e par une servlet (JerseyServlet) et aiguillÃ© vers le WebService.
+3- Client REST : rÃ©ponse HTTP (xml | json)
 
 ### J2EE
-- est un ensemble de spécification (APIs)
-- pour utiliser l'API, il faut choisir une implémentation
-- L'implémentation de référence, c'est celle donnée par Oracle.
+- est un ensemble de spÃ©cification (APIs)
+- pour utiliser l'API, il faut choisir une implÃ©mentation
+- L'implÃ©mentation de rÃ©fÃ©rence, c'est celle donnÃ©e par Oracle.
 
 ### Spring [JAX-RS / JERSEY]
-- Spécification (API) écrit dans la norme J2EE qui permet de créer et gérer des WebService de type RESTful.
-- Pour utiliser une API, il faut une implémentation
-- **JERSEY** est l'implémentation de référence
-- CXF et REstEasy sont deux autres implémentations
+- SpÃ©cification (API) Ã©crit dans la norme J2EE qui permet de crÃ©er et gÃ©rer des WebService de type RESTful.
+- Pour utiliser une API, il faut une implÃ©mentation
+- **JERSEY** est l'implÃ©mentation de rÃ©fÃ©rence
+- CXF et REstEasy sont deux autres implÃ©mentations
 
 ####  Principe JERSEY
-> Jersey est une libairie à importer via maven par exemple.
-> C'est une servlet à configurer dans le web.xml pour traiter les requêtes REST.
+> Jersey est une libairie Ã  importer via maven par exemple.
+> C'est une servlet Ã  configurer dans le web.xml pour traiter les requÃªtes REST.
 * Jersey utilise Jackson pour faire le mapping objet | json
 * Jersey utilise JaxB pour faire le mapping objet | xml
 
 ##### Utilisation avec Spring
-> Ce n'est pas la disptatcher-servlet qui rentre en jeu. C'est une servlet à côté de Spring qui sera créer avec une utilisation conjointe de Spring.
-> Il faut dire à Spring de déployer Jersey. Il n'y a pas beson d'utiliser le web.xml car Spring permet de le faire différemment, comme une classe de configuration.
-> Deux servlets sont alors présentes dans le code.
+> Ce n'est pas la disptatcher-servlet qui rentre en jeu. C'est une servlet Ã  cÃ´tÃ© de Spring qui sera crÃ©er avec une utilisation conjointe de Spring.
+> Il faut dire Ã  Spring de dÃ©ployer Jersey. Il n'y a pas beson d'utiliser le web.xml car Spring permet de le faire diffÃ©remment, comme une classe de configuration.
+> Deux servlets sont alors prÃ©sentes dans le code.
 ```
 	@Bean
 	public ResourceConfig resourceConfig() {
@@ -42,20 +42,20 @@ C'est un objet qui est implémenté dans un langage de programmation.
 	}
 ```
 
-- **Note**: Avec Spring, JaxRS ne sert à rien car Spring MVC avec RestController fait la même chose
+- **Note**: Avec Spring, JaxRS ne sert Ã  rien car Spring MVC avec RestController fait la mÃªme chose
 
 #### annotation-Jersey
 ```
-@Path: chemin d'accès au WebService et au méthodes
-@PathParam: parmètre positionné dans l'URL
-@Produces: format que l'on va produire avec la méthode
+@Path: chemin d'accÃ¨s au WebService et au mÃ©thodes
+@PathParam: parmÃ¨tre positionnÃ© dans l'URL
+@Produces: format que l'on va produire avec la mÃ©thode
 @GET: consulter
-@POST: créer
-@PUT: mise à jour
+@POST: crÃ©er
+@PUT: mise Ã  jour
 @DELETE: suppression
 ```
 
-> Exemple d'implémentation
+> Exemple d'implÃ©mentation
 ```
 @Component
 @Path("/banque")
@@ -105,14 +105,14 @@ public class CompteRestJaxRSAPI {
 
 
 #### Configuration : Projet Maven | Jersey
-* intégré les dépendances minimum
-* intégré le plugin maven tomcat (mvn tomcat7:run)
-* configuré Jersey (web.xml)
-	- spécifié le package que Jersey doit scanner
-	- spécifié l'aiguillage des requêtes
+* intÃ©grÃ© les dÃ©pendances minimum
+* intÃ©grÃ© le plugin maven tomcat (mvn tomcat7:run)
+* configurÃ© Jersey (web.xml)
+	- spÃ©cifiÃ© le package que Jersey doit scanner
+	- spÃ©cifiÃ© l'aiguillage des requÃªtes
 	
 ### Spring [RestController]
 
 ### Spring [SpringDataRest]
 #### Principe
-Spring Data Rest a déjà créer un WS Générique qui marche pour n'importe quel enité JPA basé sur Spring-Data.
+Spring Data Rest a dÃ©jÃ  crÃ©er un WS GÃ©nÃ©rique qui marche pour n'importe quel enitÃ© JPA basÃ© sur Spring-Data.
