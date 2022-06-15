@@ -4,7 +4,8 @@
 
 ### Fonctionnement
 
-- [Principe](notes/principe.md)
+- [principe](notes/principe.md)
+- [mapping](notes/mapping.md)
 
 ### Spring-Environnement
 
