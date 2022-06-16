@@ -224,9 +224,12 @@ Règle 2:
 ### Théorie
 <pre>
 * les associations hibernate reflète les associations de la base
-* une association entre deux tables est matérialisé par une clé etrangère entre deux tables
+
+* une association entre deux tables est matérialisé par une <b>clé etrangère</b> entre deux tables
+
 * la clé étrangère est une colonne qui référence la clé primaire de l'autre table
-* la chose à savoir, c'est laquelle des deux tables référence l'autre,
+
+* <b>important</b> : la chose à savoir, c'est laquelle des deux tables référence l'autre,
     laquelle des deux possèdent la clé étrangère
 </pre>
 
@@ -245,40 +248,58 @@ Exemple Schéma 2 ok:
 
 ![schema](../img/modele-theorie-ok.png)
 
-### @JoinColumn
+
+### @ManyToOne and @OneToMany
+
+#### Association bidirectionnelle
+
+<pre>
+* Association qui permet de faire la navigation dans les 2 sens
+* accèder aux Review depuis Movie
+* accèder aux Movie depuis Review
+
+Attention : dans notre exemple
+* seul le sens Review -> Movie est matérialisée
+* le sens Movie -> Review ne l'est pas
+
+<b>Important</b> : dans une relation bidirectionnelle @OneToMany/@ManyToOne,
+la clé étrangère se trouve sur l'attribut annoté @ManyToOne.
+L'entité ayant cet attribut est l'entité <b>propriétaire</b> de la relation
+</pre>
+
+#### Mapping 
+<pre>
+* côté de l'asso avec clé
+
+    <b>@ManyToOne</b>(fetch = FetchType.LAZY)
+    @JoinColumn(name="movie_id")
+    private Movie movie;
+
+* côté de l'asso sans clé
+
+    // Dans Review, l'attribut Movie correspond à la clé étrangère
+    // Qd on sauvegarde un movie, ca va sauvegarder les reviews de ce Movie
+    <b>@OneToMany</b>(mappedBy = "movie", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List< Review > reviews;
+
+</pre>
+
+##### @JoinColumn
 <pre>
 * Cette annotation indique la clé étrangère
 * Si non renseigné, mapping implicit qui sera déduit par convention (Entité Associée_ID)
 </pre>
 
-### Fetch
+##### Fetch
 <pre>
 * permet d'indiquer le type de récupération des associations
 * Attention au FetchType par défaut
-* Hibernate s'aligne maintenant avec JPA: Eager sur @ManyToOne
+* Hibernate s'aligne maintenant avec JPA: 
+    * Eager sur @ManyToOne
+    * Lazy sur @OneToMany
+    Question ?? : Quiz
+    Par défaut dans JPA, toute association est en EAGER.
 </pre>
-
-
-
-### Association bidirectionnelle
-<pre>
-* Association qui permet de faire la navigation dans les 2 sens
-* accèder aux Review depuis Movie
-* accèder aux Movie depuis Review
-Attention : dans notre exemple
-* seul le sens Review -> Movie est matérialisée
-* le sens Movie -> Review ne l'est pas
-</pre>
-
-#### côté de l'asso sans clé
-
-##### exemple
-```
-    // Dans Review, l'attribut Movie correspond à la clé étrangère
-    // Qd on sauvegarde un movie, ca va sauvegarder les reviews de ce Movie
-    @OneToMany(mappedBy = "movie", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Review> reviews;
-```
 
 ##### cascade
 <pre>
@@ -297,3 +318,70 @@ Attention : dans notre exemple
 * indique le côté de l'assocation qui contient la clé étrangère et donc ou est fait 
     le mapping de l'association
 </pre>
+
+#### règle de la bidirection
+<pre>
+* <b>Attention</b> : la bidirection implique du code en plus
+* Il faut redéfinir les méthodes d'ajout et de suppression
+* Il est important de passer par ces méthodes
+</pre>
+
+##### Exemple de Test
+```
+@Test
+public void association_casNominal() {
+    Movie movie = new Movie().setName("Fight Club")
+                    .setCertification(Certification.INTERDIT_MOINS_12)
+                    .setDescription("Le Fight Club n'existe pas");
+    Review review1 = new Review().setAuthor("max").setContent("super film!");
+    Review review2 = new Review().setAuthor("jp").setContent("au top!");
+    movie.getReviews().add(review1);
+    movie.getReviews().add(review2);
+    repository.persist(movie);
+    }
+```
+<pre>
+<b>Analyse:</b> 
+Dans ce test les Reviews sont créés <b>sans valeur pour MOVIE_ID</b>.
+
+Pourquoi?
+C'est Review qui est <b>propriétaire</b> de la relation.
+C'est le Movie renseigné dans Review qui fait foi.
+
+A aucun moment, on a fait un review.setMovie( ... )
+<b>Solution</b> : Il faut donc penser à renseigner les deux côtés de l'associations
+</pre>
+
+##### Solution
+* Réécriture des méthodes de suppression et d'ajout
+
+```
+    public Movie addReview(Review review) {
+        if (review != null) {
+            this.reviews.add(review);
+            review.setMovie(this);
+        }
+        return this;
+    }
+
+    public Movie remmoveReview(Review review) {
+        if (review != null) {
+            this.reviews.remove(review);
+            review.setMovie(null);
+        }
+        return this;
+    }
+```
+
+* Protéger la méthodes getReviews() pour qu'elle ne soit pas utiliser pour faire un 
+  ajout de Review.
+  
+```  
+    public List<Review> getReviews() {
+        return Collections.unmodifiableList(reviews);
+    }
+
+    ==> Permet d'empêcher la modification de la liste
+    movie.getReviews.add(...) : va déclencher une RuntimeException.
+```
+
