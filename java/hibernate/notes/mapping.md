@@ -263,19 +263,19 @@ Attention : dans notre exemple
 * le sens Movie -> Review ne l'est pas
 
 <b>Important</b> : dans une relation bidirectionnelle @OneToMany/@ManyToOne,
-la clé étrangère se trouve sur l'attribut annoté @ManyToOne.
+<b>la clé étrangère</b> se trouve sur l'attribut annoté <b>@ManyToOne</b>.
 L'entité ayant cet attribut est l'entité <b>propriétaire</b> de la relation
 </pre>
 
 #### Mapping 
 <pre>
-* côté de l'asso avec clé
+* table [REVIEW] : côté de l'asso avec clé 
 
     <b>@ManyToOne</b>(fetch = FetchType.LAZY)
     @JoinColumn(name="movie_id")
     private Movie movie;
 
-* côté de l'asso sans clé
+* table [MOVIE] : côté de l'asso sans clé
 
     // Dans Review, l'attribut Movie correspond à la clé étrangère
     // Qd on sauvegarde un movie, ca va sauvegarder les reviews de ce Movie
@@ -293,12 +293,23 @@ L'entité ayant cet attribut est l'entité <b>propriétaire</b> de la relation
 ##### Fetch
 <pre>
 * permet d'indiquer le type de récupération des associations
+
 * Attention au FetchType par défaut
 * Hibernate s'aligne maintenant avec JPA: 
-    * Eager sur @ManyToOne
-    * Lazy sur @OneToMany
+    * <b>Eager sur @ManyToOne</b>
+        * il s'agit de charer l'unique entité associée
+        * il faut donc explicitement le charger en LAZY
+    * <b>Lazy sur @OneToMany</b>
+        * ici, on charge la liste, ca a donc plus de sens.
+
     Question ?? : Quiz
     Par défaut dans JPA, toute association est en EAGER.
+</pre>
+
+##### mappedBy
+<pre>
+* indique le côté de l'assocation qui contient la clé étrangère et donc ou est fait 
+    le mapping de l'association
 </pre>
 
 ##### cascade
@@ -313,11 +324,7 @@ L'entité ayant cet attribut est l'entité <b>propriétaire</b> de la relation
     * si hibernate voit une entité Review non associé à une entité Movie, il supprime l'entité Review
 </pre>
 
-##### mappedBy
-<pre>
-* indique le côté de l'assocation qui contient la clé étrangère et donc ou est fait 
-    le mapping de l'association
-</pre>
+
 
 #### règle de la bidirection
 <pre>
@@ -385,3 +392,55 @@ A aucun moment, on a fait un review.setMovie( ... )
     movie.getReviews.add(...) : va déclencher une RuntimeException.
 ```
 
+### @ManyToMany
+
+#### Principe
+<pre>
+* La relation :
+    * est matérialisée au travers d'une <b>table d'association</b> à part entière
+    * n'est présente ni dans la table Movie, ni dans la table Genre
+
+* Le <b>propriétaire</b> de l'association, c'est la table d'association
+
+* <b>Important</b> : 
+    *@ManyToMany n'est utilisable que si la table d'association n'a pas de colonnes en plus des clés étrangères
+    * on a juste une relation avec des clés étrangères
+    * on ne caractérise pas l'association
+
+</pre>
+
+![schema](../img/model_many_to_many.png)
+
+#### Entité Genre
+<pre>
+* Genre est une entité dont le l'attribut name peut être utiliser comme identifiant fonctionnelle
+* Il est unique à travers tous les genres et immuable
+* Une bonne pratique serait de ne pas autoriser la modification de NAME en
+    1/ obligeant à utiliser un constructeur spécifique genre(String name)
+    2/ en supprimant la méthode setName()
+</pre>
+
+#### Mapping: sans entité d'association
+<pre>
+* Comme la <b>table d'association n'a pas d'attributs</b> autres que les ids, 
+    on peut se permettre de ne pas la matérialiser sous forme d'entité.
+
+* Ce que l'on veut, c'est que le <b>propriétaire</b> de la relation soit <b>Movie</b>.
+
+* table [MOVIE] : Côté qui porte l'assocation
+    * quand on persiste un movie, on veut persister les genres associés
+    * pas de cascade DELETE, ni de cascade ALL
+    * si on supprime un film, on ne veut pas supprimer les genres associés
+
+
+* table [GENRE] : Côté qui ne porte pas l'association  
+</pre>
+
+##### JoinTable [name, joinColumns, inverseJoinsColumns]
+<pre>
+* permet de matérialiser la table d'association
+* il faut spécifier
+    * name: le nom de la table
+    * joinColumns: spécifier la colonne de jointure 
+    * inverseJoinColumns: spécifier la relation inverse 
+</pre>

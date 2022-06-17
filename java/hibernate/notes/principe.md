@@ -101,7 +101,11 @@
 #### Remarque
 ##### merge
 <pre>
-* faire un merge sur une entité non existante se traduit par un INSERT INTO
+* Il est possible d'utiliser merge sur les entités transientes mais cela n'est pas dans la norme.
+* Hibernate ne fera pas de Select sur les entités n'ayant pas d'id.
+* Quand on fait un merge sur une entité transiente:
+    * il y a un insert into
+    * par contre l'entité (l'id) n'est pas remonté / n'est pas changée
 </pre>
 
 #### Mauvaise pratiques
