@@ -421,26 +421,81 @@ A aucun moment, on a fait un review.setMovie( ... )
 </pre>
 
 #### Mapping: sans entité d'association
-<pre>
 * Comme la <b>table d'association n'a pas d'attributs</b> autres que les ids, 
     on peut se permettre de ne pas la matérialiser sous forme d'entité.
-
 * Ce que l'on veut, c'est que le <b>propriétaire</b> de la relation soit <b>Movie</b>.
 
+<pre>
 * table [MOVIE] : Côté qui porte l'assocation
     * quand on persiste un movie, on veut persister les genres associés
     * pas de cascade DELETE, ni de cascade ALL
     * si on supprime un film, on ne veut pas supprimer les genres associés
 
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinTable(
+        name="Movie_Genre",
+        joinColumns = {@JoinColumn(name="movie_id")},
+        inverseJoinColumns = {@JoinColumn(name="genre_id")}
+    )
+    Set<Genre> genres = new HashSet<>();
+
 
 * table [GENRE] : Côté qui ne porte pas l'association  
+
+    @ManyToMany(mappedBy = "genres")
+    private Set<Movie> movies = new HashSet<>();
+
 </pre>
 
 ##### JoinTable [name, joinColumns, inverseJoinsColumns]
 <pre>
 * permet de matérialiser la table d'association
 * il faut spécifier
+
     * name: le nom de la table
-    * joinColumns: spécifier la colonne de jointure 
-    * inverseJoinColumns: spécifier la relation inverse 
+
+    * joinColumns: 
+        * spécifier la colonne de jointure 
+        * colonne qui sera assciée à la clé primaire de l'entié propriétaire.
+
+    * inverseJoinColumns: 
+        * spécifier la relation inverse 
+        * colonne qui sera associée à la clé primaire de l'entité secondaire.
+</pre>
+
+
+### @OneToOne
+<pre>
+* Pourquoi avoir deux tables ?
+    * séparé les informations pour charger des infos à la demande
+    * cela concerne les infos consommatrices 
+</pre>
+
+
+![schema](../img/model_one_to_one.jpg)
+
+### Mapping
+<pre>
+* pas de colonne "ID" en BDD pour cette entité 
+    => pas de @GeneratedValue
+    => cet Id ne sera pas généré en base de données
+* par contre il represente la clé primaire de la table [MOVIE_DETAILS]
+  cet attribut doit être renseigné / hibernate en a besoin
+* pour le renseigner, on va faire référence au Movie : @MapsId
+    * @id sera renseigner et aura la valeur de l'id du Movie
+    * on dit que movie_id qui est clé étrangère est aussi clé primaire de la table.
+* @Mapsid : map une clé primaire (utilisable sur @ManyToOne ou @OneToOne) 
+</pre>
+
+### relation Unidirectionnelle
+<pre>
+* Si on fait une relation Movie --> MovieDetails, hibernate va automatiquement chargé MovieDetails quand on va charger Movie
+* Lors du chargement de Movie, hibernate doit savoir s'il doi initialiser MovieDetails à null ou avec un proxy.
+* Il charge pour cela MovieDetails
+ * @OneToOne : préférerz l'unidirectionnel
+   Le lazy est toutefois possible si l'association est obligatoire
+
+* Dans notre cas, le besoin est implémenté.
+* En effet, pas de mapping de MovieDetails dans Movie donc Movie n'a pas connaissance de MovieDetails.   
+* Il faudra une requête spécifique pour avoir le détails
 </pre>
