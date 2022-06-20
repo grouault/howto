@@ -55,6 +55,50 @@ SEQUENCE :
     * Si la transaction échoue et déclenche le rollback, la valeur de la séquence aura augmenté
 </pre>
 
+##### hibernate_sequence
+<pre>
+* Par défaut hiberante tentera d'utiliser la sequence "hibernate_sequence"
+* il faut donc la créer au préalable au niveau du SGBD
+</pre>
+
+```
+CREATE SEQUENCE public.hibernate_sequence INCREMENT 1 START 1 MINVALUE 1;
+```
+
+```
+  @Id
+  @GeneratedValue(strategy = GenerationType.SEQUENCE)
+  private Long id;
+```
+
+##### @SequenceGenerator
+<pre>
+* Quand c'est possible, utiliser une séquence custom par entité.
+</pre>
+
+```
+@SequenceGenerator(name="seq_id", sequenceName = "seq_utilisateur", allocationSize = 1)
+public class Utilisateur {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_id")
+    private Long id;
+```
+
+```
+@Entity
+public class User {
+  @Id
+  @GeneratedValue(generator = "user_id_seq", strategy = GenerationType.SEQUENCE)
+  @SequenceGenerator(
+      name = "user_id_seq", 
+      sequenceName = "user_id_seq", 
+      allocationSize = 50
+  )
+  private Long id;
+}
+```
+
 #### IDENTITY
 <pre>
 IDENTITY : 
@@ -475,17 +519,40 @@ A aucun moment, on a fait un review.setMovie( ... )
 ![schema](../img/model_one_to_one.jpg)
 
 ### Mapping
+
+#### @MapsId
 <pre>
 * pas de colonne "ID" en BDD pour cette entité 
     => pas de @GeneratedValue
     => cet Id ne sera pas généré en base de données
 * par contre il represente la clé primaire de la table [MOVIE_DETAILS]
   cet attribut doit être renseigné / hibernate en a besoin
+
 * pour le renseigner, on va faire référence au Movie : @MapsId
     * @id sera renseigner et aura la valeur de l'id du Movie
     * on dit que movie_id qui est clé étrangère est aussi clé primaire de la table.
+
 * @Mapsid : map une clé primaire (utilisable sur @ManyToOne ou @OneToOne) 
 </pre>
+
+#### Code
+```
+@Entity
+@Table(name="Movie_Details")
+public class MovieDetails {
+
+    @Id
+    private Long id;
+
+    @Column(length=4000)
+    private String plot;
+
+    @OneToOne
+    @MapsId
+    private Movie movie;
+```
+
+
 
 ### relation Unidirectionnelle
 <pre>
