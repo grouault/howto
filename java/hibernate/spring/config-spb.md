@@ -71,9 +71,41 @@ spring.jpa.open-in-view=false
 </dependency>
 ```
 
+
+## FlyWayDb
+
+<pre>
+Flywaydb permet de gérer les opérations liés à la base de données
+* création et modification de la structure
+* insertion / modification des données
+
+On délègue à flywaydb cette tâche que l'on ne confie pas à hibernate.
+On ne souhaite pas en effet recréer la structure et les données à chaque 
+  nouveau déploiement. 
+
+Ainsi la configuration sera la suivante 
+
+</pre>
+
 ## Tests
 
-### Configuraiton
+### Configuration de la base de données
+<pre>
+* utilisation de Spring
+  * via les profils
+  * via les properties
+
+* créer un fichier application.properties au niveau des tests
+* il vient surcharger le fichier par défaut de l'application
+
+* il faut ensuite injecter les valeurs des properties dans les fichiers de config.
+* on a plus besoin de PersistenceConfigTest ==> ???
+* Il faut donc appliquer la configuration suivante :
+    
+    properties.setProperty("hibernate.hbm2ddl.auto", "none");
+    properties.setProperty("hibernate.dialect", "org.hibernate.dialect.PostgreSQLDialect");
+
+</pre>
 
 #### utilisation des logs
 
