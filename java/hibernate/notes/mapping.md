@@ -3,26 +3,17 @@
 [home](../index.md)
 
 # Annotation
-<pre>
-* la place des annotations est importantes
-    * sur les attributs (FieldAccess)
-    * sur les getters (GetterAccess)
-* hibernate regarde ces annotations pour mapper les attributs en base
-    FieldAccess: hibernate regarde sur les attributs
-    GetterAcess: hibernate regarde sur les getters
-* Bonne pratique : mettre les annotations sur les attributs
-</pre>
 
 ### mapping implicit
 <pre>
-* sans annoation sur les attributs, hibernate regarde les attributs pour les mapper en base
+* sans annotation sur les attributs, hibernate regarde les attributs pour les mapper en base
 * tout ce qui est implicit peut être configuré
 </pre>
 
 
 ## @Entity
 <pre>
-* annotation JPA: indique une classe à persister
+* annotation JPA: indique une classe à persister ou à mettre dans le contexte de persistence
 </pre>
 
 ## @Id
@@ -36,14 +27,14 @@
     GetterAcess: hibernate regarde sur les getters
 * Bonne pratique : mettre les annotations sur les attributs
     @ID sur le champ ID plutôt que sur GETID()
-    Sinon chaque mapping qui commence par un "get" entraine un mapping
+    Sinon chaque getter (??) qui commence par un "get" entraine un mapping
     sur la base de données
 </pre>
 
 ### @GeneratedValue
 <pre>
 * représente la façon dont l'id est généré
-* il faut Sequence si possible car c'est la plus performante
+* il faut utiliser la Sequence si possible car c'est la plus performante
 </pre>
 
 #### SEQUENCE
@@ -127,7 +118,13 @@ AUTO :
 
 ## Enum and Converter
 
-### @Enumerated
+### @Enumerated: Ordinal ou String
+<pre>
+Mode: 
+    * EnumType.Ordinal : stocke en base l'ordre dans l'Enum
+    * EnumType.String : stocke en base le nom de l'Enum
+
+</pre>
 <pre>
     // Code 
     @Enumerated(EnumType.STRING)
@@ -138,14 +135,18 @@ AUTO :
 
 ####  Définition
 <pre>
+* le but du converter est de convertir la valeur stockée en base dans une énumération
 * pour mapper un type non standard
 * la conversion s'implémente dans les deux sens
-* <b>Attention</b> : si un converter est mis en place sur un attribut de type énumération
+* <b>IMPORTANT</b> : si un converter est mis en place sur un attribut de type énumération
     l'annotation @Enumerated n'a plus lieu d'être
-* le but du converter est de convertir la valeur stockée en base dans une énumération
 </pre>
 
+
+#### Exemple
+
 * Exemple d'énumération, candidate à un converter:
+
 <pre>
     TOUT_PUBLIC(1, "Tout public"),
     INTERDIT_MOINS_12(2, "Interdit au moins de 12 ans"),
@@ -156,9 +157,9 @@ AUTO :
     private String description;
 </pre>
 
-#### Exemple
+
 ```
-// autoApply=true indique que, dès qu'une entité du domaine a un attribut Certification
+// autoApply=true indique que, dès qu'une entité du modèle a un attribut Certification
 // hibernate applique le converter
 @Converter(autoApply = true)
 public class CertificationAttributeConverter implements AttributeConverter<Certification, Integer> {
@@ -212,8 +213,11 @@ Règle 2:
 * pas d'association dans equals et hashCode
 * les entités associés ne doivent jamas faire partire de ces méthodes
 </pre>
+
 ### Exemple avec un identifiant fonctionnel
-* name est un identifiant fonctionnel
+
+* name est un identifiant fonctionnel sur l'entité GENRE
+
 ```
     @Override
     public boolean equals(Object o) {
@@ -330,7 +334,7 @@ L'entité ayant cet attribut est l'entité <b>propriétaire</b> de la relation
 
 ##### @JoinColumn
 <pre>
-* Cette annotation indique la clé étrangère
+* Cette annotation indique la clé étrangère sur l'entié en cours.
 * Si non renseigné, mapping implicit qui sera déduit par convention (Entité Associée_ID)
 </pre>
 
@@ -444,31 +448,46 @@ A aucun moment, on a fait un review.setMovie( ... )
     * est matérialisée au travers d'une <b>table d'association</b> à part entière
     * n'est présente ni dans la table Movie, ni dans la table Genre
 
-* Le <b>propriétaire</b> de l'association, c'est la table d'association
+* La relation est matérialisée au travers d'une table à part entière
+* La relation n'est présente ni dans la table [MOVIE], ni dans la table [GENRE]
+* Le <b>propriétaire</b> de l'association, c'est cette table à part entière  
 
 * <b>Important</b> : 
-    *@ManyToMany n'est utilisable que si la table d'association n'a pas de colonnes en plus des clés étrangères
-    * on a juste une relation avec des clés étrangères
+    * @ManyToMany n'est utilisable que si la table d'association n'a pas de colonnes 
+      en plus des clés étrangères
     * on ne caractérise pas l'association
-
+    * on ne compte pas ajouté d'attributs par la suite
+    * on a juste une table d'association avec des clés étrangères
 </pre>
 
 ![schema](../img/model_many_to_many.png)
 
-#### Entité Genre
+#### Exemple avec l'entité [GENRE]
 <pre>
+
+## Identifiant fonctionnel
+
 * Genre est une entité dont le l'attribut name peut être utiliser comme identifiant fonctionnelle
 * Il est unique à travers tous les genres et immuable
+
 * Une bonne pratique serait de ne pas autoriser la modification de NAME en
     1/ obligeant à utiliser un constructeur spécifique genre(String name)
     2/ en supprimant la méthode setName()
-</pre>
 
-#### Mapping: sans entité d'association
+## ManyToMany
+
 * Comme la <b>table d'association n'a pas d'attributs</b> autres que les ids, 
     on peut se permettre de ne pas la matérialiser sous forme d'entité.
-* Ce que l'on veut, c'est que le <b>propriétaire</b> de la relation soit <b>Movie</b>.
 
+* Pour le mapping, il faut quand même définir :
+    * quelle entité définit la relation
+    * quelle entité définit la relatin inverse
+
+* Ici, ce que l'on veut, c'est que le <b>propriétaire</b> de la relation soit <b>Movie</b>.
+  Ce qui nous intéresse, c'est de connaître la liste des genres pour un film.
+</pre>
+
+#### code
 <pre>
 * table [MOVIE] : Côté qui porte l'assocation
     * quand on persiste un movie, on veut persister les genres associés
@@ -507,6 +526,9 @@ A aucun moment, on a fait un review.setMovie( ... )
         * colonne qui sera associée à la clé primaire de l'entité secondaire.
 </pre>
 
+
+#### Méthode addGenre, addMovie
+TODO
 
 ### @OneToOne
 <pre>
