@@ -243,11 +243,15 @@ Règle 2:
         if (this == o) return true;
         if (!(o instanceof Movie)) return false;
         Movie other = (Movie) o;
+
+        // permet de verifier les objets TRANSIENT
         if (this.getId() == null && other.getId() == null) {
             return Objects.equals(this.getName(), other.getName()) &&
                     Objects.equals(this.getDescription(), other.getDescription()) &&
                     Objects.equals(this.getCertification(), other.getCertification());
         }
+
+        // permet de veirifier les objets MANAGED
         return this.getId() != null && Objects.equals(this.getId(), other.getId());
     }
 
@@ -587,4 +591,38 @@ public class MovieDetails {
 * Dans notre cas, le besoin est implémenté.
 * En effet, pas de mapping de MovieDetails dans Movie donc Movie n'a pas connaissance de MovieDetails.   
 * Il faudra une requête spécifique pour avoir le détails
+</pre>
+
+## Hibernate-Validator
+
+### url
+[hibernate-validator](https://docs.jboss.org/hibernate/annotations/3.4/reference/fr/html/validator.html)
+
+### Principe
+<pre>
+* permet de définir des contraintes sur les entités sous forme d'annotation
+* les contraintes définies sont traduites en meta-données de mapping :
+     @NotNull ==> la colonne sera déclarée not null dans le schéma DDL généré par hibernate
+</pre>
+
+### Evenènement / Exception
+<pre>
+* Hibernate Validator a deux listeners d'évènement Hibernate intégrés
+    * PreInsertEvent
+    * PreUpdateEvent
+
+* Quand un de ces events survient, les listeners vérifieront les contraintes de l'instance de l'entité
+    et lèveront une exception si une contrainte est violée.
+
+* Les objets sont vérifiés avant les insertions et avant les mises à jour effectuées par hibernate
+
+* <b>exception</b>: de type InvaliStateException (RuntimeException) laquelle contient un
+    tableau d'InvalidValues décrivant l'échec, est levée sur une violation de contrainte
+</pre>
+
+### Validation applicative
+<pre>
+* peut être utilisé partout dans le code
+    * pour valider tout le bean
+    * pour valider une seule partie du bean
 </pre>
