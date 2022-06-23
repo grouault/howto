@@ -1,0 +1,16 @@
+## release prepare
+mvn clean -DskipTests -Darguments=-DskipTests release:prepare -Dresume=false
+
+## 
+mvn -X clean install -s C:\devs\tools\maven-3.0.3\conf\settings-lr-new.xml  
+
+# option
+verion : -Dliferay.version=6.2.3
+test   : -Dmaven.test.skip=true / -DskipTests
+
+
+# estim-search-engine / search-engine-core
+mvn clean package -Dliferay.version=6.2.3 -DskipTests
+
+# liferay deploy
+mvn clean package -Dliferay.version=6.2.3 liferay:deploy
