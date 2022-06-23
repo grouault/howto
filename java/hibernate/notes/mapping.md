@@ -196,25 +196,77 @@ public class CertificationAttributeConverter implements AttributeConverter<Certi
 </pre>
 
 ## Equals / HashCode / toString
-### Prealable
+
+### Problématique
+<pre>
+* on implémente equals/hashcode pour de bonnes raisons :
+    * comparer des entités avec des entités transientes/détachées
+    * comparer des entités avec des références
+    * utilisation des entités dans un Set.
+
+* si non redéfinit:
+    * java compare les objets sur leur idenitifiant java
+    * ne pas prendre en compte les assocations:
+        * déclenche un lazyException (erreur technique) en plus de 
+          l'erreur fonctionnelle que cela représente
+
+* avec redéfinition : 
+    * privilégié un id fonctionnel qd c'est possible.
+    * toutefois attention, car quand on manipule une reference,
+        c'est l'id qui est remonté.    
+</pre>
+
+[identité des objets](https://docs.jboss.org/hibernate/stable/core.old/reference/fr/html/persistent-classes-equalshashcode.html)
+
+### Défintion
+
+#### id fonctionnel
 <pre>
 * Un id fonctionnel est caractéristique
 * il doit impérativement être non null, immuable et unique
 </pre>
+
+#### hash
+
+<pre>
+<b> définition </b>:
+
+* un hashSet associe un objet à une adresse
+* plusieurs objets peuvent avoir la même adresse
+* adresse = hashCode de l'objet
+
+<b> problèmatique </b>:
+
+* L'état des entités ne devraient pas influencer le résultat des méthodes equals / hashcode
+
+* Que se passe-t-il quand on fait un Set.contains(entity) ?
+    * hashset va voir à l'adresse donnée par le hashcode de l'objet
+    * utilise equals pour comparer l'entité à chaque objet préent
+        à cette adresse
+
+* <b>explication : </b> une entité transiente que l'on met dans le set est 
+    renseigné avec un hash. Si l'entité est persisté, son hash va changer,
+    et l'entité ne sera plus connu du Set, en tout cas pas à la nouvelle adresse
+    généré par le nouveau hash.
+</pre>
+![img](../img/equals-hashcode.png)
+
 ### Règle
 <pre>
 Règle 1:
 * Quand une entité a un identifiant fonctionnel, il faut s'appuyer dessus
   pour implémenter les méthodes
+
 * Il faut donc repérer les entités avec et sans id fonctionnel.
   C'est ce qui permet d'écrire les equals et hashcode
 
 Règle 2:
-* pas d'association dans equals et hashCode
-* les entités associés ne doivent jamas faire partire de ces méthodes
+* Evitez les entités associées dans les méthodes toString(), equals() et hashCode()
 </pre>
 
-### Exemple avec un identifiant fonctionnel
+### Implémenter equals / hashCode
+
+#### implementation avec un identifiant fonctionnel
 
 * name est un identifiant fonctionnel sur l'entité GENRE
 
@@ -222,18 +274,19 @@ Règle 2:
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Movie)) return false;
-        Movie other = (Movie) o;
-        return Objects.equals(this.getName(), other.getName());
-    }
+        if (!(o instanceof Genre)) return false;
+        Genre other = (Genre)o;
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(this.getName());
+        // ATTENTION : comment gère-t-on la comparaison avec une référence ?
+        if (other instanceof HibernateProxy && this.getId() != null && other.getId() != null) {
+            return Objects.equals(this.id, other.getId());
+        }
+
+        return Objects.equals(this.name, other.getName());
     }
 ```
 
-### Exemple sans identifiant fonctionnel
+#### implémentation sans identifiant fonctionnel
 * equals : on se base sur l'id
 * hash : on retourne une constante
 
@@ -273,6 +326,7 @@ Règle 2:
 ```
 
 ## Association
+
 ### Théorie
 <pre>
 * les associations hibernate reflète les associations de la base
