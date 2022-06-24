@@ -680,3 +680,85 @@ public class MovieDetails {
     * pour valider tout le bean
     * pour valider une seule partie du bean
 </pre>
+
+## List ou Set
+
+### Version
+<pre>
+* version d'hibernate < 5.0.8 : utiliser des Sets car bug usr Liste
+* entité avec liste et qu'on mergeait l'entité => duplication dans les enfants
+</pre>
+[bug](https://hibernate.atlassian.net/browse/HHH-5855)
+
+### Set
+
+#### Avantage:
+<pre>
+* Set : 
+    * unicité compte
+    * tri : avec @OrderBy et @sortComparator
+
+* <b>Attention</b> : il faut bien définir le equals et hashCode
+</pre>
+
+### Liste  
+
+#### Avantage:
+<pre>
+* Liste :
+    * ordre
+    * tri
+    * performance
+</pre>
+
+### Performance
+
+#### ajout
+<pre>
+* Le set est moins performant que la liste pour ajouter un élément,
+  Hibernate doit récupérer les valeus du Set si ce dernier n'est pas initialisé
+  C'est normal, il faut vérifier que l'ajout n'est pas déjà présent dans le set.
+
+* ordre SQL
+    * Liste:
+        * insert 
+
+    * Set  
+        * Select sur tous les éléments de la liste 
+        * insert si nécessaire
+</pre>
+
+#### suppression
+<pre>
+* En suppression, le Set est plus performant que la Liste.
+* Exemple suppression d'un genre dans une Movie :
+
+* ordre SQL
+    * Set :
+        * selection du Movie
+        * selection de tous les genres associés au Movie
+        * suppression du genre associé au Movie 
+
+        Trace de logs:             
+        Hibernate: delete from Movie_Genre where movie_id=? and genre_id=?
+        10:36:32 TRACE o.h.t.d.s.BasicBinder.bind binding parameter [1] as [BIGINT] - [-1]
+        10:36:32 TRACE o.h.t.d.s.BasicBinder.bind binding parameter [2] as [BIGINT] - [-1]
+
+    * Liste :
+        * selection du Movie
+        * selection de tous les genres associés au Movie
+        * suppression de tous les genres associés au Movie
+        * ré-insertion de tous les genres qui ne sont pas à supprimer 
+
+        Trace de logs: 
+        Hibernate: delete from Movie_Genre where movie_id=?
+        10:57:21 TRACE o.h.t.d.s.BasicBinder.bind binding parameter [1] as [BIGINT] - [-1]
+        10:57:21 DEBUG o.hibernate.SQL.logStatement insert into Movie_Genre (movie_id, genre_id) values (?, ?)
+        Hibernate: insert into Movie_Genre (movie_id, genre_id) values (?, ?)
+        10:57:21 TRACE o.h.t.d.s.BasicBinder.bind binding parameter [1] as [BIGINT] - [-1]
+        10:57:21 TRACE o.h.t.d.s.BasicBinder.bind binding parameter [2] as [BIGINT] - [-2]
+        10:57:21 DEBUG o.hibernate.SQL.logStatement insert into Movie_Genre (movie_id, genre_id) values (?, ?)
+        Hibernate: insert into Movie_Genre (movie_id, genre_id) values (?, ?)
+        10:57:21 TRACE o.h.t.d.s.BasicBinder.bind binding parameter [1] as [BIGINT] - [-1]
+        10:57:21 TRACE o.h.t.d.s.BasicBinder.bind binding parameter [2] as [BIGINT] - [-3]
+</pre>

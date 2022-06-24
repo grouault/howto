@@ -144,7 +144,17 @@
 * permet de récupérer un proxy
 * L'entité se retrouve dans la session mais sous forme d'un proxy
   Cela signifie qu'il n'y a pas eu d'appel en base pour charger la donnée
+
+<b>IMPORANT</b> : dans le repository il ne faut pas mettre l'annotation @Transactional
+Sinon c'est l'équivalent d'un find(...)
 </pre>
+
+```
+    public Movie getReference(Long id) {
+        Movie proxy = entityManager.getReference(Movie.class, id);
+        return proxy;
+    }
+```
 
 #### unproxy
 <pre>
