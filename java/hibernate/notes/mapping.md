@@ -598,9 +598,9 @@ TODO
 
 ![schema](../img/model_one_to_one.jpg)
 
-### Mapping
+#### Mapping
 
-#### @MapsId
+##### @MapsId
 <pre>
 * pas de colonne "ID" en BDD pour cette entité 
     => pas de @GeneratedValue
@@ -615,7 +615,7 @@ TODO
 * @Mapsid : map une clé primaire (utilisable sur @ManyToOne ou @OneToOne) 
 </pre>
 
-#### Code
+##### Code
 ```
 @Entity
 @Table(name="Movie_Details")
@@ -632,9 +632,7 @@ public class MovieDetails {
     private Movie movie;
 ```
 
-
-
-### relation Unidirectionnelle
+#### relation Unidirectionnelle
 <pre>
 * Si on fait une relation Movie --> MovieDetails, hibernate va automatiquement chargé MovieDetails quand on va charger Movie
 * Lors du chargement de Movie, hibernate doit savoir s'il doi initialiser MovieDetails à null ou avec un proxy.
@@ -645,6 +643,253 @@ public class MovieDetails {
 * Dans notre cas, le besoin est implémenté.
 * En effet, pas de mapping de MovieDetails dans Movie donc Movie n'a pas connaissance de MovieDetails.   
 * Il faudra une requête spécifique pour avoir le détails
+</pre>
+
+
+### association-ternaire
+### @ManyToMany avec un attribut
+
+#### modele
+<pre>
+* ajout table des acteurs
+* ajout de la relation movie_actor avec l'attribut character
+    * personnage intreprété dans le movie
+* on a une entité pour la table d'association
+</pre>
+
+![modele](../img/modele-actor.png)
+
+#### clé-composite : MovieActorId
+<pre>
+* MovieActorId : une clé particulière 
+    * classe statique 
+        1- -qui représente la clé étangère
+        2- sert d'id dans la relation MovieActor
+    
+    Equals : on se base sur les deux attributs.
+
+    La particularité de cette classe est de se voir attribuer l’annotation @Embeddable (exportable). 
+    
+    Cette classe ne comportera que les champs de la clé primaire (dans notre exemple, 
+    il s’agira de ‘movie_id’ et ‘actor_id’ de la table de jointure).
+</pre>
+
+##### Code:
+```
+package com.hibernate4all.tutorial.domain;
+
+import java.io.Serializable;
+import java.util.Objects;
+import javax.persistence.Column;
+import javax.persistence.Embeddable;
+
+@Embeddable
+public class MovieActorId implements Serializable {
+
+    @Column(name = "movie_id")
+    private Long movieId;
+
+    @Column(name= "actor_id")
+    private Long actorId;
+
+    public MovieActorId() {
+    }
+
+    public MovieActorId(Long movieId, Long actorId) {
+        this.movieId = movieId;
+        this.actorId = actorId;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+
+        if (!(o instanceof MovieActorId)) {
+            return false;
+        }
+
+        MovieActorId other = (MovieActorId) o;
+        return Objects.equals(movieId, other.movieId) && Objects.equals(actorId, other.actorId);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(movieId, actorId);
+    }
+
+}
+
+```
+
+#### association : MovieActor
+<pre>
+* Entité : 
+    * MovieActor : réprésente la table d'association : [movie_actor]
+
+* Clés étrangères
+    MovieActor définit les <b>clés étrangères</b> avec 
+    <b>2 associations @ManyToOne</B> (Lazy, @MapsIds)
+
+  <b>Important : </b>
+  MovieActor est donc le propriétaire de la relation
+  Ces clés étrangères sont mappés sur la clé primaire et font
+    donc office d'ids pour la classe MovieActor
+
+* Constructeur : 
+    - constructeur par défaut => privé
+    - création d'un nouveau constructeur basé sur les deux champs
+        obligatoires de la relation : Movie et Actor    
+
+* Equals et HashCode
+    * se base juste sur Movie et Actor
+
+</pre>
+
+##### Code
+```
+@Entity
+@Table(name="movie_actor")
+public class
+MovieActor {
+
+    @EmbeddedId
+    private MovieActorId id;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @MapsId("movieId")
+    private Movie movie;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @MapsId("actorId")
+    private Actor actor;
+
+    private String character;
+
+    private MovieActor() {
+    }
+
+    public MovieActor(Movie movie, Actor actor) {
+        this.movie = movie;
+        this.actor = actor;
+        this.id = new MovieActorId(movie.getId(), actor.getId());
+    }
+
+    ...
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof MovieActorId)) return false;
+        MovieActor that = (MovieActor) o;
+        return Objects.equals(movie, that.movie)
+                && Objects.equals(actor, that.actor);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(movie, actor);
+    }
+
+```
+
+#### association Movie
+##### Code
+```
+    @OneToMany(mappedBy = "movie", cascade = CascadeType.PERSIST, orphanRemoval = true, fetch = FetchType.LAZY)
+    private List<MovieActor> moviesActors = new ArrayList<>();
+
+    public List<MovieActor> getMoviesActors() {
+        return Collections.unmodifiableList(moviesActors);
+    }
+
+    public void addActor(Actor actor, String character) {
+        MovieActor movieActor = new MovieActor(this, actor).setCharacter(character);
+        this.moviesActors.add(movieActor);
+        actor.getMoviesActors().add(movieActor);
+    }
+
+        public Movie removeActor(Actor actor) {
+        if (actor != null) {
+            for (Iterator<MovieActor> iter = moviesActors.iterator(); iter.hasNext();) {
+                MovieActor movieActor = iter.next();
+                if (movieActor.getMovie().equals(this) && movieActor.getActor().equals(actor)) {
+                    iter.remove();
+                    movieActor.getActor().getMoviesActors().remove(movieActor);
+                    movieActor.setActor(null);
+                    movieActor.setMovie(null);
+                }
+            }
+        }
+        return this;
+    }
+
+    public void updateActor(Actor actorBd, String character) {
+        Optional<MovieActor> movieActor = this.moviesActors.stream().filter(
+                ma -> ma.getActor().equals(actorBd) && ma.getMovie().equals(this)
+        ).findFirst();
+        if (!movieActor.isEmpty()) {
+            movieActor.get().setCharacter(character);
+        }
+    }
+
+```
+
+##### Note
+<pre>
+* Les opérations de CRUD sont pilotés à partir d'entité Movie.
+  On gère l'association des acteurs à un film à partir de l'entité film.
+  Ce qui fait qu'on a aucune méthode au niveau de l'entité Actor.
+
+* Pas de setter
+
+</pre>
+
+#### association Actor
+##### Code
+```
+    @OneToMany(mappedBy = "actor", orphanRemoval = true, cascade = CascadeType.ALL)
+    List<MovieActor> moviesActors = new ArrayList<>();
+
+    public List<MovieActor> getMoviesActors() {
+        return moviesActors;
+    }
+```
+
+##### Note
+<pre>
+* pas de setter
+</pre>
+
+#### Opérations CRUD
+<pre>
+<b>IMPORTANT</b>: 
+Pour toutes les opérations CRUD, il est impératif que les entités de la relation
+partage la même session
+Ainsi, l'appel aux opération CRUD, se fera à partir d'une méthode de service 
+ou repository, transactionnelle, qui aura la charge de mettre dans la session
+tous les entités liées à l'association. 
+</pre>
+
+#### Ajout un acteur :
+<pre>
+L'opération d'ajout se fera à partir d'un Movie.
+Voir la méthode addActor.
+Important : l'ajout de l'acteur est gérée des deux côtés de la relation.
+</pre>
+
+#### Supprimer un acteur :
+<pre>
+L'opération de suppression se fait à partir d'un Movie
+Voir la méthode removeActor
+Important : la suppression est gérée des deux côtés de l'application
+</pre>
+
+#### Modifier un acteur : 
+<pre>
+L'opération de modification se fait à partir d'un Movie
+Voir la méthode updateActor.
 </pre>
 
 ## Hibernate-Validator
