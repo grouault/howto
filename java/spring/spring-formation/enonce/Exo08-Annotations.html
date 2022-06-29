@@ -1,0 +1,261 @@
+<!--
+	Copyright 2013
+	Ferret Renaud
+	admin@ferretrenaud.com
+-->
+
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="Author" content="FERRET Renaud" />
+    <meta name="Description" content="Exercice de formation" />
+    <meta name="copyright" content="(C) Copyright 2013 FERRET Renaud" />
+    <meta name="distribution" content="global" />
+
+    <title>Spring - Exercice 8 - Annotations</title>
+
+    <link
+      href="./bootstrap-3.3.7-dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link href="./custom-css/custom.css" rel="stylesheet" />
+    <!-- Ne pas voir les liens lors de l'impressions -->
+    <style>
+      @media print {
+        a[href]:after {
+          content: none;
+        }
+      }
+    </style>
+    <!--[if lt IE 9]>
+      <script src="../bootstrap-3.3.7-dist/js/html5shiv.min.js"></script>
+      <script src="../bootstrap-3.3.7-dist/js/respond.min.js"></script>
+    <![endif]-->
+  </head>
+
+  <body class="container">
+    <nav class="navbar navbar-default navbar-right" id="top">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button
+            type="button"
+            class="navbar-toggle collapsed"
+            data-toggle="collapse"
+            data-target="#bs-example-navbar-collapse-1"
+            aria-expanded="false"
+          >
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#" title="Spring - Exercice 8"
+            >Spring E8</a
+          >
+        </div>
+
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+          <ul class="nav navbar-nav">
+            <li class="dropdown">
+              <a
+                href="#"
+                class="dropdown-toggle"
+                data-toggle="dropdown"
+                role="button"
+                aria-haspopup="true"
+                aria-expanded="false"
+                >1 - Annotations<span class="caret"></span
+              ></a>
+              <ul class="dropdown-menu">
+                <li><a href="#t11">1-1 Modification du code</a></li>
+                <li><a href="#t12">1-2 Test</a></li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+      </div>
+      <!-- /.container-fluid -->
+    </nav>
+    <br />
+    <div class="page-header">
+      <h1>Spring - Exercice 8 - Annotations</h1>
+      <p>Utilisation des annotations du Spring.</p>
+      <nav>
+        <ul class="pager">
+          <li class="previous" title="En condition reelle">
+            <a href="./Exo07-Declaration%20de%20Bean.html"
+              ><span aria-hidden="true">&larr;</span> Exercice Précédent</a
+            >
+          </li>
+          <li class="next" title="L'AOP">
+            <a href="./Exo09-Aspects.html"
+              >Exercice Suivant <span aria-hidden="true">&rarr;</span></a
+            >
+          </li>
+        </ul>
+      </nav>
+    </div>
+    <!-- page header -->
+
+    <section>
+      <h2 id="t1"><span class="label label-default">1</span> Annotations</h2>
+      <div class="panel panel-default panel-primary" id="t11">
+        <div class="panel-heading">
+          <h3 class="panel-title">
+            Modification du code
+            <a href="#top"
+              ><span
+                class="glyphicon glyphicon-menu-up pull-right"
+                title="Remonter"
+              ></span
+            ></a>
+          </h3>
+        </div>
+        <div class="panel-body">
+          <p>
+            Reprenez l'exercice 7, mais utilisez uniquement les annotations
+            (donc plus de déclaration de bean dans les fichiers XML hormis le
+            chargement du fichier properties).
+          </p>
+          <p>
+            Dans le cas de la classe AbstractDAO, comme les informations
+            proviennent d'un fichier properties, utilisez l'annotation
+            <a
+              target="_blank"
+              href="http://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/beans/factory/annotation/Value.html"
+              >@Value</a
+            >
+            :
+          </p>
+          <pre>
+  <a target="_blank" href="http://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/beans/factory/annotation/Value.html">@Value</a>("${db.driver}")
+  private String driver;
+  <a target="_blank" href="http://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/beans/factory/annotation/Value.html">@Value</a>("${db.url}")
+  private String url;
+  <a target="_blank" href="http://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/beans/factory/annotation/Value.html">@Value</a>("${db.login}")
+  private String login;
+  <a target="_blank" href="http://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/beans/factory/annotation/Value.html">@Value</a>("${db.password}")
+  private String password;</pre>
+          <p>
+            ${db.driver} fait référence à la clef db.driver qui se trouve dans
+            votre fichier properties. Il n'y a pas de &quot;.
+          </p>
+          <p>
+            Vous pouvez déclarer les DAO et les services comme des
+            <a
+              target="_blank"
+              href="http://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/stereotype/Component.html"
+              >@Component</a
+            >, ou être plus précis en indiquant :
+          </p>
+          <ul>
+            <li>
+              <a
+                target="_blank"
+                href="http://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/stereotype/Repository.html"
+                >@Repository</a
+              >
+              : pour les DAO
+            </li>
+            <li>
+              <a
+                target="_blank"
+                href="http://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/stereotype/Service.html"
+                >@Service</a
+              >
+              : pour les service
+            </li>
+          </ul>
+          <p>
+            Indiquez dans vos services métiers le lien qui existe avec vos DAOs
+            via l'annotation
+            <a
+              target="_blank"
+              href="http://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/beans/factory/annotation/Autowired.html"
+              >@Autowired</a
+            >. Vous pouvez la mettre sur vos attributs <b>ou</b> vos
+            constructeurs qui possèdent des paramètres <b>ou</b> vos méthodes
+            setXxxx
+          </p>
+          <p>
+            Vous ne devriez avoir qu'un seul fichier de configuration Spring qui
+            ressemblera à ceci (effacez les autres fichiers XML si besoin)
+          </p>
+          <pre>
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+                           http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd"&gt;
+
+
+  &lt;context:property-placeholder location="classpath:spring/database.properties" /&gt;
+
+  &lt;context:component-scan base-package="com.banque.dao, com.banque.service" /&gt;
+
+&lt;/beans&gt;</pre
+          >
+        </div>
+      </div>
+
+      <div class="panel panel-default panel-primary" id="t12">
+        <div class="panel-heading">
+          <h3 class="panel-title">
+            Test
+            <a href="#top"
+              ><span
+                class="glyphicon glyphicon-menu-up pull-right"
+                title="Remonter"
+              ></span
+            ></a>
+          </h3>
+        </div>
+        <div class="panel-body">
+          <p>
+            Attention ! N'oubliez pas que vous n'utilisez plus qu'un fichier de
+            configuration. Modifiez votre méthode <i>main</i> au cas où.
+          </p>
+          <p>Relancez la classe Main</p>
+        </div>
+      </div>
+    </section>
+
+    <nav>
+      <ul class="pager">
+        <li class="previous" title="En condition reelle">
+          <a
+            href="../Exo07-Declaration%20Bean/Exo07-Declaration%20de%20Bean.html"
+            ><span aria-hidden="true">&larr;</span> Exercice Précédent</a
+          >
+        </li>
+        <li class="next" title="L'AOP">
+          <a href="../Exo09-AOP/Exo09-Aspects.html"
+            >Exercice Suivant <span aria-hidden="true">&rarr;</span></a
+          >
+        </li>
+      </ul>
+    </nav>
+
+    <br /><br />
+    <footer>
+      <p class="text-center">
+        <a href="http://validator.w3.org/">
+          <img
+            src="../bootstrap-3.3.7-dist/img/HTML5_Logo_32.png"
+            alt="Valid HTML 5.0"
+          /> </a
+        ><br />
+        Copyright <span class="glyphicon glyphicon-copyright-mark"></span>
+        <a href="http://ferretrenaud.fr" target="_blank">Ferret Renaud</a> 2013
+      </p>
+    </footer>
+
+    <script src="../bootstrap-3.3.7-dist/js/jquery.min.js"></script>
+    <script src="../bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+  </body>
+</html>

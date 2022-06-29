@@ -1,0 +1,255 @@
+<!--
+	Copyright 2013
+	Ferret Renaud
+	admin@ferretrenaud.com
+-->
+
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="Author" content="FERRET Renaud" />
+    <meta name="Description" content="Exercice de formation" />
+    <meta name="copyright" content="(C) Copyright 2013 FERRET Renaud" />
+    <meta name="distribution" content="global" />
+
+    <title>Spring - Exercice 3 - Liste</title>
+
+    <link
+      href="./bootstrap-3.3.7-dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link href="./custom-css/custom.css" rel="stylesheet" />
+    <!-- Ne pas voir les liens lors de l'impressions -->
+    <style>
+      @media print {
+        a[href]:after {
+          content: none;
+        }
+      }
+    </style>
+    <!--[if lt IE 9]>
+      <script src="../bootstrap-3.3.7-dist/js/html5shiv.min.js"></script>
+      <script src="../bootstrap-3.3.7-dist/js/respond.min.js"></script>
+    <![endif]-->
+  </head>
+
+  <body class="container">
+    <nav class="navbar navbar-default navbar-right" id="top">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button
+            type="button"
+            class="navbar-toggle collapsed"
+            data-toggle="collapse"
+            data-target="#bs-example-navbar-collapse-1"
+            aria-expanded="false"
+          >
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#" title="Spring - Exercice 3"
+            >Spring E3</a
+          >
+        </div>
+
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+          <ul class="nav navbar-nav">
+            <li class="dropdown">
+              <a
+                href="#"
+                class="dropdown-toggle"
+                data-toggle="dropdown"
+                role="button"
+                aria-haspopup="true"
+                aria-expanded="false"
+                >1 - Liste<span class="caret"></span
+              ></a>
+              <ul class="dropdown-menu">
+                <li><a href="#t11">1-1 Modification de la classe Client</a></li>
+                <li>
+                  <a href="#t12">1-2 Modification du fichier XML Spring</a>
+                </li>
+                <li><a href="#t13">1-3 Test</a></li>
+                <li><a href="#t14">1-4 Bonus</a></li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+      </div>
+      <!-- /.container-fluid -->
+    </nav>
+    <br />
+    <div class="page-header">
+      <h1>Spring - Exercice 3 - Liste</h1>
+      <p>Utilisation d'une liste</p>
+      <nav>
+        <ul class="pager">
+          <li class="previous" title="Injection de dépendances">
+            <a href="./Exo02-Injection%20de%20dependances.html"
+              ><span aria-hidden="true">&larr;</span> Exercice Précédent</a
+            >
+          </li>
+          <li class="next" title="Utilisation des Properties">
+            <a href="./Exo04-Utilisation%20d'un%20properties.html"
+              >Exercice Suivant <span aria-hidden="true">&rarr;</span></a
+            >
+          </li>
+        </ul>
+      </nav>
+    </div>
+    <!-- page header -->
+    <section>
+      <h2 id="t1"><span class="label label-default">1</span> Liste</h2>
+      <div class="panel panel-default panel-primary" id="t11">
+        <div class="panel-heading">
+          <h3 class="panel-title">
+            Modification de la classe Client
+            <a href="#top"
+              ><span
+                class="glyphicon glyphicon-menu-up pull-right"
+                title="Remonter"
+              ></span
+            ></a>
+          </h3>
+        </div>
+        <div class="panel-body">
+          <p>En continuant à partir de l'exercice 2.</p>
+          <p>
+            Modifiez votre classe <b>Client</b> afin qu'il possède non pas une
+            adresse mais une liste (<a
+              href="http://docs.oracle.com/javase/8/docs/api/java/util/List.html"
+              target="_blank"
+              >java.util.List</a
+            >) d'adresses.
+          </p>
+          <pre>
+public class Client {
+  ...
+  private <a href="https://docs.oracle.com/javase/8/docs/api/java/util/List.html" target="_blank">java.util.List</a>&lt;Adresse&gt; adresses;
+  ...
+</pre>
+          <p>
+            Modifiez les deux méthodes getAdresse et setAdresse afin qu'elles
+            prennent en compte le changement.
+          </p>
+          <p>Ajustez votre méthode toString.</p>
+        </div>
+      </div>
+
+      <div class="panel panel-default panel-primary" id="t12">
+        <div class="panel-heading">
+          <h3 class="panel-title">
+            Modification du fichier XML Spring
+            <a href="#top"
+              ><span
+                class="glyphicon glyphicon-menu-up pull-right"
+                title="Remonter"
+              ></span
+            ></a>
+          </h3>
+        </div>
+        <div class="panel-body">
+          <p>
+            Modifiez la déclaration de vos beans client afin de faire usage
+            d'une liste d'adresses.
+          </p>
+          <p>Ajoutez des beans adresse si besoin</p>
+          <p>Faites usage de la balise &lt;list&gt;</p>
+        </div>
+      </div>
+
+      <div class="panel panel-default panel-primary" id="t13">
+        <div class="panel-heading">
+          <h3 class="panel-title">
+            Test
+            <a href="#top"
+              ><span
+                class="glyphicon glyphicon-menu-up pull-right"
+                title="Remonter"
+              ></span
+            ></a>
+          </h3>
+        </div>
+        <div class="panel-body">
+          <p>Lancez votre classe Main et regardez ce qui s'affiche.</p>
+        </div>
+      </div>
+
+      <div class="panel panel-default panel-primary" id="t14">
+        <div class="panel-heading">
+          <h3 class="panel-title">
+            Bonus
+            <a href="#top"
+              ><span
+                class="glyphicon glyphicon-menu-up pull-right"
+                title="Remonter"
+              ></span
+            ></a>
+          </h3>
+        </div>
+        <div class="panel-body">
+          <p>
+            Trouvez un moyen de vérifier que votre liste d'adresse est de type
+            <a
+              href="http://docs.oracle.com/javase/8/docs/api/java/util/ArrayList.html"
+              target="_blank"
+              >java.util.ArrayList</a
+            >.
+          </p>
+          <p>
+            En modifiant votre fichier spring, trouvez un moyen d'utiliser un
+            <a
+              href="http://docs.oracle.com/javase/8/docs/api/java/util/Vector.html"
+              target="_blank"
+              >java.util.Vector</a
+            >.
+          </p>
+          <p>
+            En cas d'erreur lisez attentivement les messages Spring, n'hésitez
+            pas à <b>scroller</b>.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <nav>
+      <ul class="pager">
+        <li class="previous" title="Injection de dépendances">
+          <a
+            href="../Exo02-Injection%20de%20dependances/Exo02-Injection%20de%20dependances.html"
+            ><span aria-hidden="true">&larr;</span> Exercice Précédent</a
+          >
+        </li>
+        <li class="next" title="Utilisation des Properties">
+          <a
+            href="../Exo04-Utilisation%20d'un%20properties/Exo04-Utilisation%20d'un%20properties.html"
+            >Exercice Suivant <span aria-hidden="true">&rarr;</span></a
+          >
+        </li>
+      </ul>
+    </nav>
+
+    <br /><br />
+    <footer>
+      <p class="text-center">
+        <a href="http://validator.w3.org/">
+          <img
+            src="../bootstrap-3.3.7-dist/img/HTML5_Logo_32.png"
+            alt="Valid HTML 5.0"
+          /> </a
+        ><br />
+        Copyright <span class="glyphicon glyphicon-copyright-mark"></span>
+        <a href="http://ferretrenaud.fr" target="_blank">Ferret Renaud</a> 2013
+      </p>
+    </footer>
+
+    <script src="../bootstrap-3.3.7-dist/js/jquery.min.js"></script>
+    <script src="../bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+  </body>
+</html>

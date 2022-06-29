@@ -1,0 +1,565 @@
+<!--
+	Copyright 2013
+	Ferret Renaud
+	admin@ferretrenaud.com
+-->
+
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="Author" content="FERRET Renaud" />
+    <meta name="Description" content="Exercice de formation" />
+    <meta name="copyright" content="(C) Copyright 2013 FERRET Renaud" />
+    <meta name="distribution" content="global" />
+
+    <title>Spring - Exercice 7 - Déclaration de beans</title>
+
+    <link
+      href="./bootstrap-3.3.7-dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link href="./custom-css/custom.css" rel="stylesheet" />
+    <!-- Ne pas voir les liens lors de l'impressions -->
+    <style>
+      @media print {
+        a[href]:after {
+          content: none;
+        }
+      }
+    </style>
+
+    <!--[if lt IE 9]>
+      <script src="../bootstrap-3.3.7-dist/js/html5shiv.min.js"></script>
+      <script src="../bootstrap-3.3.7-dist/js/respond.min.js"></script>
+    <![endif]-->
+  </head>
+
+  <body class="container">
+    <nav class="navbar navbar-default" id="top">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button
+            type="button"
+            class="navbar-toggle collapsed"
+            data-toggle="collapse"
+            data-target="#bs-example-navbar-collapse-1"
+            aria-expanded="false"
+          >
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#" title="Spring - Exercice 7"
+            >Spring E7</a
+          >
+        </div>
+
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+          <ul class="nav navbar-nav">
+            <li class="dropdown">
+              <a
+                href="#"
+                class="dropdown-toggle"
+                data-toggle="dropdown"
+                role="button"
+                aria-haspopup="true"
+                aria-expanded="false"
+                >1 - Installation<span class="caret"></span
+              ></a>
+              <ul class="dropdown-menu">
+                <li>
+                  <a href="#t11">1-1 Importation d'un projet dans Eclipse</a>
+                </li>
+              </ul>
+            </li>
+            <li class="dropdown">
+              <a
+                href="#"
+                class="dropdown-toggle"
+                data-toggle="dropdown"
+                role="button"
+                aria-haspopup="true"
+                aria-expanded="false"
+                >2 - Transformation du projet<span class="caret"></span
+              ></a>
+              <ul class="dropdown-menu">
+                <li><a href="#t21">2-1 Ajout du répertoire Spring</a></li>
+                <li><a href="#t22">2-2 Création des fichiers Spring</a></li>
+              </ul>
+            </li>
+            <li class="dropdown">
+              <a
+                href="#"
+                class="dropdown-toggle"
+                data-toggle="dropdown"
+                role="button"
+                aria-haspopup="true"
+                aria-expanded="false"
+                >3 - Modification des DAOs<span class="caret"></span
+              ></a>
+              <ul class="dropdown-menu">
+                <li><a href="#t31">3-1 Modification du code Java</a></li>
+                <li>
+                  <a href="#t32">3-2 Déclaration dans le fichier Spring</a>
+                </li>
+              </ul>
+            </li>
+            <li class="dropdown">
+              <a
+                href="#"
+                class="dropdown-toggle"
+                data-toggle="dropdown"
+                role="button"
+                aria-haspopup="true"
+                aria-expanded="false"
+                >4 - Modification des Services<span class="caret"></span
+              ></a>
+              <ul class="dropdown-menu">
+                <li><a href="#t41">4-1 Modification du code Java</a></li>
+                <li>
+                  <a href="#t42">4-2 Déclaration dans le fichier Spring</a>
+                </li>
+              </ul>
+            </li>
+            <li class="dropdown">
+              <a
+                href="#"
+                class="dropdown-toggle"
+                data-toggle="dropdown"
+                role="button"
+                aria-haspopup="true"
+                aria-expanded="false"
+                >5 - Modification du Main<span class="caret"></span
+              ></a>
+              <ul class="dropdown-menu">
+                <li><a href="#t51">5-1 Modification du code Java</a></li>
+                <li><a href="#t52">5-2 Test</a></li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+      </div>
+      <!-- /.container-fluid -->
+    </nav>
+    <br />
+    <div class="page-header">
+      <h1>Spring - Exercice 7 - Déclaration de beans</h1>
+      <p>
+        Utilisation du Spring dans un projet standard découpé en couches
+        Services Métiers-DAOs en JDBC.
+      </p>
+      <nav>
+        <ul class="pager">
+          <li class="previous" title="Impact du Scope">
+            <a href="./Exo06-Scope%20et%20Context.html"
+              ><span aria-hidden="true">&larr;</span> Exercice Précédent</a
+            >
+          </li>
+          <li class="next" title="Utilisation des annotations">
+            <a href="./Exo08-Annotations.html"
+              >Exercice Suivant <span aria-hidden="true">&rarr;</span></a
+            >
+          </li>
+        </ul>
+      </nav>
+    </div>
+    <!-- page header -->
+
+    <section>
+      <h2 id="t1"><span class="label label-default">1</span> Installation</h2>
+      <div class="panel panel-default panel-primary" id="t11">
+        <div class="panel-heading">
+          <h3 class="panel-title">
+            Importation d'un projet dans Eclipse
+            <a href="#top"
+              ><span
+                class="glyphicon glyphicon-menu-up pull-right"
+                title="Remonter"
+              ></span
+            ></a>
+          </h3>
+        </div>
+        <div class="panel-body">
+          <p>
+            Dans le menu Eclipse, sélectionnez Fichier/Import puis Existing
+            Maven Projects
+          </p>
+          <p>Pointez vers le projet existant Exercice7.</p>
+          <p>
+            Le projet est en
+            <a
+              href="https://maven.apache.org/"
+              title="Voir Maven"
+              target="_blank"
+              >Maven</a
+            >
+            et contient toutes les dépendances nécessaires au projet.
+          </p>
+          <p>
+            Important : Après toutes modifications faites sur le fichier
+            pom.xml, faites un clic droit sur <b>votre projet</b> puis Maven -
+            Update Project ...
+          </p>
+          <p>Vérifiez que tout compile.</p>
+          <p>
+            Installer la base MySQL avec les informations nécessaires (voir
+            répertoire db).
+          </p>
+          <p>Lancez la méthode <i>main</i> pour voir ce qui se passe.</p>
+          <p>
+            Rappel : toutes les dépendances Maven, y compris le Spring, sont
+            décrites dans le pom.xml.
+          </p>
+          <img
+            src="./bootstrap-3.3.7-dist/img/archi.png"
+            class="center-block img-responsive"
+            alt="Architecture"
+          />
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2 id="t2">
+        <span class="label label-default">2</span> Transformation du projet
+      </h2>
+      <div class="panel panel-default panel-primary" id="t21">
+        <div class="panel-heading">
+          <h3 class="panel-title">
+            Ajout du répertoire Spring
+            <a href="#top"
+              ><span
+                class="glyphicon glyphicon-menu-up pull-right"
+                title="Remonter"
+              ></span
+            ></a>
+          </h3>
+        </div>
+        <div class="panel-body">
+          <p>
+            S'il n'est pas déjà présent, ajoutez un répertoire à votre projet
+            dans src\main\resources\ :
+          </p>
+          <ul>
+            <li>
+              Clic droit sur votre projet, puis Nouveau/Répertoire (folder).
+            </li>
+            <li>Appelez le <i>spring</i>.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="panel panel-default panel-primary" id="t22">
+        <div class="panel-heading">
+          <h3 class="panel-title">
+            Création des fichiers Spring
+            <a href="#top"
+              ><span
+                class="glyphicon glyphicon-menu-up pull-right"
+                title="Remonter"
+              ></span
+            ></a>
+          </h3>
+        </div>
+        <div class="panel-body">
+          <p>
+            Dans le répertoire <i>src\main\resources\spring</i>, si les fichiers
+            n'existent pas, créez
+          </p>
+          :
+          <ul>
+            <li>
+              un premier fichier Spring <b>data-context.xml</b>, vous pouvez
+              vous inspirer du fichier mesBeans.xml des exercices 1,2,3,4,5,6.
+              Ce fichier devra répertorier tous les beans DAO.
+            </li>
+            <li>
+              un second fichier Spring <b>service-context.xml</b>. Ce fichier
+              devra répertorier tous les beans services.
+            </li>
+            <li>
+              un fichier properties, <b>database.properties</b>. Il reprendra
+              les informations qui se trouvent dans l'interface
+              com.banque.dao.IDAO
+              <pre>
+db.driver=?
+db.url=?
+db.login=?
+db.password=?</pre
+              >
+              Ajustez si besoin votre login/password.
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2 id="t3">
+        <span class="label label-default">3</span> Modification des DAOs
+      </h2>
+      <div class="panel panel-default panel-primary" id="t31">
+        <div class="panel-heading">
+          <h3 class="panel-title">
+            Modification du code Java
+            <a href="#top"
+              ><span
+                class="glyphicon glyphicon-menu-up pull-right"
+                title="Remonter"
+              ></span
+            ></a>
+          </h3>
+        </div>
+        <div class="panel-body">
+          <img
+            src="./bootstrap-3.3.7-dist/img/cdao.png"
+            class="center-block img-responsive"
+            alt="DAO"
+          />
+          <br />
+          <p>
+            Important : vous ne pourrez pas tester votre code tant que vous
+            n'aurez pas fait toutes les modifications.
+          </p>
+          <p>
+            Les informations liées à la base de données sont utilisées dans la
+            méthode getConnexion de la classe la classe
+            com.banque.dao.AbstractDAO, réfléchissez à la manière de faire
+            passer ses informations du Spring vers cette classe. Par exemple :
+          </p>
+          <ul>
+            <li>
+              En ajoutant des attributs à la classe (driver, url, login,
+              password) et des méthodes get/set associées. Note : cette solution
+              est la plus simple.
+            </li>
+            <li>
+              Ou, en ajoutant des attributs à la classe (driver, url, login,
+              password) et en les passant par le constructeur. Note : cette
+              solution aura un impact sur tous vos DAO enfants.
+            </li>
+            <li>
+              Ou, en ajoutant un attribut de type java.util.Properties ainsi que
+              ses méthodes get/set. Note : le lien avec cet attribut se fera via
+              par un PropertyFactoryBean (à ne pas confondre avec un
+              PropertyPlaceHolder) lors de votre déclaration Spring.
+            </li>
+            <li>Autre ...</li>
+          </ul>
+          <p>
+            Implémentez votre solution, ajustez le code en fonction de votre
+            choix.
+          </p>
+          <p>
+            Supprimez les constantes qui sont dans l'interface com.banque.IDAO,
+            elles sont maintenant dans votre fichier properties.
+          </p>
+          <p>
+            Nous venons de modifier la classe mère des DAO, maintenant regardez
+            les 3 DAOs enfants de l'application, au vu d'un passage à Spring,
+            voyez-vous du code à modifier ?
+          </p>
+        </div>
+      </div>
+
+      <div class="panel panel-default panel-primary" id="t32">
+        <div class="panel-heading">
+          <h3 class="panel-title">
+            Déclaration dans le fichier Spring
+            <a href="#top"
+              ><span
+                class="glyphicon glyphicon-menu-up pull-right"
+                title="Remonter"
+              ></span
+            ></a>
+          </h3>
+        </div>
+        <div class="panel-body">
+          <p>
+            Déclarez les DAOs dans le fichier spring/data-context.xml. Il y a 4
+            bean à déclarer.
+          </p>
+          <p>
+            Faites usage de l'héritage entre bean lors de vos déclarations
+            (attribut <i>parent</i> et <i>abstract</i> de la balise bean).
+          </p>
+          <p>
+            En fonction de la solution que vous avez pris, n'oubliez pas de
+            déclarer dans le fichier <b>data-context.xml</b> le bean qui charge
+            le fichier properties.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2 id="t4">
+        <span class="label label-default">4</span> Modification des Services
+      </h2>
+      <div class="panel panel-default panel-primary" id="t41">
+        <div class="panel-heading">
+          <h3 class="panel-title">
+            Modification du code Java
+            <a href="#top"
+              ><span
+                class="glyphicon glyphicon-menu-up pull-right"
+                title="Remonter"
+              ></span
+            ></a>
+          </h3>
+        </div>
+        <div class="panel-body">
+          <img
+            src="./bootstrap-3.3.7-dist/img/cservices.png"
+            class="center-block img-responsive"
+            alt="Services"
+          />
+          <br />
+          <p>
+            Dans le code actuel, les DAOs sont instanciés par les constructeurs
+            dans les classes services.
+          </p>
+          <p>
+            Nous allons les liés aux services métiers via Spring, retirez des
+            services toutes les instanciations de DAO (tous les
+            <b>new xxxDAO()</b> qui se trouvent dans le code des constructeurs
+            de services).
+          </p>
+        </div>
+      </div>
+
+      <div class="panel panel-default panel-primary" id="t42">
+        <div class="panel-heading">
+          <h3 class="panel-title">
+            Déclaration dans le fichier Spring
+            <a href="#top"
+              ><span
+                class="glyphicon glyphicon-menu-up pull-right"
+                title="Remonter"
+              ></span
+            ></a>
+          </h3>
+        </div>
+        <div class="panel-body">
+          <p>
+            Les services seront à déclarer dans un le fichier Spring
+            service-context.xml (car ils n'ont pas de <i>lien</i> avec la base
+            de données)
+          </p>
+          <p>
+            Il y a 4 beans à déclarer. Faites usage de l'héritage entre bean si
+            vous pensez que cela est utile lors de vos déclarations XML.
+          </p>
+          <p>
+            Ils seront liés à vos DAO, via une &lt;property&gt; ou un
+            &lt;constructor-arg&gt; (à vous de choisir, get/set ou paramètre de
+            constructeur).
+          </p>
+          <p>
+            N'oubliez surtout pas de déclarer les liens entre vos DAO et vos
+            services dans ce fichier.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2 id="t5">
+        <span class="label label-default">5</span> Modification du Main
+      </h2>
+      <div class="panel panel-default panel-primary" id="t51">
+        <div class="panel-heading">
+          <h3 class="panel-title">
+            Modification du code Java
+            <a href="#top"
+              ><span
+                class="glyphicon glyphicon-menu-up pull-right"
+                title="Remonter"
+              ></span
+            ></a>
+          </h3>
+        </div>
+        <div class="panel-body">
+          <p>
+            Editez votre classe com.banque.Main afin qu'elle charge vos fichiers
+            Spring dans un contexte.
+          </p>
+          <pre>
+<a target="_blank" href="https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/context/support/ClassPathXmlApplicationContext.html">ClassPathXmlApplicationContext</a> appContext = null;
+try {
+  appContext = new <a target="_blank" href="https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/context/support/ClassPathXmlApplicationContext.html">ClassPathXmlApplicationContext</a>("spring/*-context.xml");
+  ...</pre>
+          <p>Les deux fichiers seront chargés dans le même objet contexte.</p>
+          <p>
+            Au lieu d'instancier vos beans services, demandez au contexte spring
+            de les récupérer. Donc plus de new XxxxService(), mais des appels à
+            <b>appContext.getBean(...)</b> à la place. Il y a 3 getBean à
+            mettre.
+          </p>
+          <p>Pensez à fermer votre contexte Spring quoi qu'il arrive.</p>
+        </div>
+      </div>
+
+      <div class="panel panel-default panel-primary" id="t52">
+        <div class="panel-heading">
+          <h3 class="panel-title">
+            Test
+            <a href="#top"
+              ><span
+                class="glyphicon glyphicon-menu-up pull-right"
+                title="Remonter"
+              ></span
+            ></a>
+          </h3>
+        </div>
+        <div class="panel-body">
+          <p>Lancez votre classe Main et regardez ce qui s'affiche.</p>
+          <p>
+            En cas d'erreur lisez attentivement les messages Spring, n'hésitez
+            pas à <b>scroller</b>.
+          </p>
+          <p>
+            Comment feriez-vous pour garantir que vous ne faites aucun new de
+            DAO et de service dans votre projet ?
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <nav>
+      <ul class="pager">
+        <li class="previous" title="Impact du Scope">
+          <a href="./Exo06-Scope%20et%20context/Exo06-Scope%20et%20Context.html"
+            ><span aria-hidden="true">&larr;</span> Exercice Précédent</a
+          >
+        </li>
+        <li class="next" title="Utilisation des annotations">
+          <a href="./Exo08-Anotations/Exo08-Annotations.html"
+            >Exercice Suivant <span aria-hidden="true">&rarr;</span></a
+          >
+        </li>
+      </ul>
+    </nav>
+
+    <br /><br />
+    <footer>
+      <p class="text-center">
+        <a href="http://validator.w3.org/">
+          <img
+            src="./bootstrap-3.3.7-dist/img/HTML5_Logo_32.png"
+            alt="Valid HTML 5.0"
+          /> </a
+        ><br />
+        Copyright <span class="glyphicon glyphicon-copyright-mark"></span>
+        <a href="http://ferretrenaud.fr" target="_blank">Ferret Renaud</a> 2013
+      </p>
+    </footer>
+
+    <script src="./bootstrap-3.3.7-dist/js/jquery.min.js"></script>
+    <script src="./bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+  </body>
+</html>

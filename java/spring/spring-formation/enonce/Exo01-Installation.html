@@ -1,0 +1,422 @@
+<!--
+	Copyright 2013
+	Ferret Renaud
+	admin@ferretrenaud.com
+-->
+
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="Author" content="FERRET Renaud" />
+    <meta name="Description" content="Exercice de formation" />
+    <meta name="copyright" content="(C) Copyright 2013 FERRET Renaud" />
+    <meta name="distribution" content="global" />
+
+    <title>Spring - Exercice 1 - Installation</title>
+
+    <link
+      href="./bootstrap-3.3.7-dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link href="./custom-css/custom.css" rel="stylesheet" />
+    <!-- Ne pas voir les liens lors de l'impressions -->
+    <style>
+      @media print {
+        a[href]:after {
+          content: none;
+        }
+      }
+    </style>
+    <!--[if lt IE 9]>
+      <script src="../bootstrap-3.3.7-dist/js/html5shiv.min.js"></script>
+      <script src="../bootstrap-3.3.7-dist/js/respond.min.js"></script>
+    <![endif]-->
+  </head>
+
+  <body class="container">
+    <nav class="navbar navbar-default navbar-right" id="top">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button
+            type="button"
+            class="navbar-toggle collapsed"
+            data-toggle="collapse"
+            data-target="#bs-example-navbar-collapse-1"
+            aria-expanded="false"
+          >
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#" title="Spring - Exercice 1"
+            >Spring E1</a
+          >
+        </div>
+
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+          <ul class="nav navbar-nav">
+            <li class="dropdown">
+              <a
+                href="#"
+                class="dropdown-toggle"
+                data-toggle="dropdown"
+                role="button"
+                aria-haspopup="true"
+                aria-expanded="false"
+                >1 - Installation<span class="caret"></span
+              ></a>
+              <ul class="dropdown-menu">
+                <li>
+                  <a href="#t11">1-1 Importation d'un projet dans Eclipse</a>
+                </li>
+                <li><a href="#t12">1-2 Petit tour des dépendances</a></li>
+              </ul>
+            </li>
+            <li class="dropdown">
+              <a
+                href="#"
+                class="dropdown-toggle"
+                data-toggle="dropdown"
+                role="button"
+                aria-haspopup="true"
+                aria-expanded="false"
+                >2 - Première application<span class="caret"></span
+              ></a>
+              <ul class="dropdown-menu">
+                <li><a href="#t21">2-1 Création de la classe Client</a></li>
+                <li>
+                  <a href="#t22">2-2 Création du fichier XML pour Spring</a>
+                </li>
+                <li><a href="#t23">2-3 Test</a></li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+      </div>
+      <!-- /.container-fluid -->
+    </nav>
+    <br />
+    <div class="page-header">
+      <h1>Spring - Exercice 1 - Installation</h1>
+      <p>
+        Installation d'une application faisant usage de
+        <a href="https://spring.io/" target="_blank">Spring</a>. Mise en place
+        de
+        <a
+          href="https://fr.wikipedia.org/wiki/Inversion_de_contr%C3%B4le"
+          target="_blank"
+          >l'IoC</a
+        >
+      </p>
+      <nav>
+        <ul class="pager">
+          <li class="next" title="Injection de dépendances">
+            <a href="./Exo02-Injection%20de%20dependances.html"
+              >Exercice Suivant <span aria-hidden="true">&rarr;</span></a
+            >
+          </li>
+        </ul>
+      </nav>
+    </div>
+    <!-- page header -->
+
+    <section>
+      <h2 id="t1"><span class="label label-default">1</span> Installation</h2>
+      <div class="panel panel-default panel-primary" id="t11">
+        <div class="panel-heading">
+          <h3 class="panel-title">
+            Importation d'un projet dans Eclipse
+            <a href="#top"
+              ><span
+                class="glyphicon glyphicon-menu-up pull-right"
+                title="Remonter"
+              ></span
+            ></a>
+          </h3>
+        </div>
+        <div class="panel-body">
+          <p>
+            Dans le menu Eclipse, sélectionnez File/Import puis Existing Maven
+            Projects
+          </p>
+          <p>Pointez vers le projet existant Exercice1.</p>
+          <p>
+            Le projet est en
+            <a
+              href="https://maven.apache.org/"
+              title="Voir Maven"
+              target="_blank"
+              >Maven</a
+            >
+            et contient toutes les dépendances nécessaires au projet.
+          </p>
+          <p>
+            Important : Après toutes modifications faites sur le fichier
+            pom.xml, faites un clic droit sur <b>votre projet</b> puis Maven -
+            Update Project ...
+          </p>
+          <p>
+            Vérifiez que tout compile (pas de [ERROR] dans la console Maven et
+            un BUILD SUCCESS).
+          </p>
+          <p>Regardez la classe com.exo.Main pour voir ce qui se passe.</p>
+        </div>
+      </div>
+
+      <div class="panel panel-default panel-primary" id="t12">
+        <div class="panel-heading">
+          <h3 class="panel-title">
+            Petit tour des dépendances
+            <a href="#top"
+              ><span
+                class="glyphicon glyphicon-menu-up pull-right"
+                title="Remonter"
+              ></span
+            ></a>
+          </h3>
+        </div>
+        <div class="panel-body">
+          <p>Maven gère vos dépendances dans le fichier pom.xml</p>
+          <p>
+            Pour le moment nous n'avons besoin que de spring-context, mais plus
+            tard nous aurons besoin d'autre artifactId
+          </p>
+          <p>
+            Dans le cas du Spring il est recommandé de faire usage du
+            dependencyManagement qui permet de fixer les valeurs des versions.
+          </p>
+          <p>
+            Vous avez aussi une dépendance sur
+            <a href="https://logging.apache.org/log4j/2.x/" target="_blank"
+              >log4J2</a
+            >
+            et son fichier log4j2.xml
+          </p>
+          <p>
+            <b>Important</b> : pour un Spring totalement moderne il faudrait
+            faire usage de
+            <a
+              href="http://projects.spring.io/spring-boot/"
+              title="Voir Spring boot"
+              target="_blank"
+              >Spring boot</a
+            >.
+          </p>
+        </div>
+      </div>
+    </section>
+    <br />
+    <section>
+      <h2 id="t2">
+        <span class="label label-default">2</span> Première application
+      </h2>
+      <div class="panel panel-default panel-primary" id="t21">
+        <div class="panel-heading">
+          <h3 class="panel-title">
+            Création de la classe Client
+            <a href="#top"
+              ><span
+                class="glyphicon glyphicon-menu-up pull-right"
+                title="Remonter"
+              ></span
+            ></a>
+          </h3>
+        </div>
+        <div class="panel-body">
+          <p>
+            Dans le répertoire <i>src</i> créez une classe Java <b>Client</b>.
+          </p>
+          <p>Faites un clic droit sur src, puis New/class</p>
+          <ul>
+            <li><b>package</b> : com.exo</li>
+            <li><b>nom</b> : Client</li>
+            <li><b>superclass</b> : java.lang.Object</li>
+          </ul>
+          <p>Ajoutez un constructeur sans paramètre dans votre classe.</p>
+          <p>Ajoutez des attributs privés :</p>
+          <ul>
+            <li>String nom</li>
+            <li>String prenom</li>
+            <li>int age</li>
+          </ul>
+          <p>
+            Codez/générez les get/set pour chaque propriété (nom, prenom, age).
+          </p>
+          <p>
+            Surchargez la méthode toString afin d'avoir une vision claire d'une
+            instance (concaténer nom/prenom/age par exemple).
+          </p>
+        </div>
+      </div>
+
+      <div class="panel panel-default panel-primary" id="t22">
+        <div class="panel-heading">
+          <h3 class="panel-title">
+            Création du fichier XML pour Spring
+            <a href="#top"
+              ><span
+                class="glyphicon glyphicon-menu-up pull-right"
+                title="Remonter"
+              ></span
+            ></a>
+          </h3>
+        </div>
+        <div class="panel-body">
+          <p>
+            Dans le répertoire source <i>src\main\resources\spring</i> éditez le
+            fichier XML <b>mesBeans.xml</b>
+          </p>
+          <pre>
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+                           http://www.springframework.org/schema/beans/spring-beans.xsd"&gt;
+
+&lt;!-- Declarez vos bean ici --&gt;
+
+&lt;/beans&gt;</pre
+          >
+          <p>
+            Déclarez un bean client ayant comme propriétés votre nom, prénom et
+            age
+          </p>
+        </div>
+      </div>
+
+      <div class="panel panel-default panel-primary" id="t23">
+        <div class="panel-heading">
+          <h3 class="panel-title">
+            Test
+            <a href="#top"
+              ><span
+                class="glyphicon glyphicon-menu-up pull-right"
+                title="Remonter"
+              ></span
+            ></a>
+          </h3>
+        </div>
+        <div class="panel-body">
+          <p>
+            Pour tester notre fichier Spring, nous allons utiliser une classe
+            Java de lancement qui va :
+          </p>
+          <ul>
+            <li>
+              Charger le fichier XML Spring via la classe
+              <a
+                target="_blank"
+                href="http://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/context/support/ClassPathXmlApplicationContext.html"
+                >ClassPathXmlApplicationContext</a
+              >
+            </li>
+            <li>
+              Nous donner une instance de notre bean client via la méthode
+              <a
+                target="_blank"
+                href="http://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/context/support/AbstractApplicationContext.html#getBean-java.lang.Class-"
+                >getBean(...)</a
+              >
+            </li>
+            <li>Afficher notre bean client</li>
+          </ul>
+          <p>
+            Dans le répertoire <i>src\main\java\com\exo</i> éditez la classe
+            Java <b>Main</b>.
+          </p>
+          <p>
+            Ajustez le code afin qu'il récupère votre bean géré par Spring
+            (indiquez son id) :
+          </p>
+          <pre>
+package com.exo;
+
+// Attention aux import, nous sommes en log4j2
+import <a target="_blank" href="https://logging.apache.org/log4j/2.x/log4j-api/apidocs/org/apache/logging/log4j/LogManager.html">org.apache.logging.log4j.LogManager</a>;
+import <a target="_blank" href="https://logging.apache.org/log4j/2.x/log4j-api/apidocs/org/apache/logging/log4j/Logger.html">org.apache.logging.log4j.Logger</a>;
+// Import Spring
+import <a target="_blank" href="https://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/beans/BeansException.html">org.springframework.beans.BeansException</a>;
+import <a target="_blank" href="https://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/context/support/ClassPathXmlApplicationContext.html">org.springframework.context.support.ClassPathXmlApplicationContext</a>;
+
+
+public final class Main {
+  private final static <a target="_blank" href="https://logging.apache.org/log4j/2.x/log4j-api/apidocs/org/apache/logging/log4j/Logger.html">Logger</a> LOG = <a target="_blank" href="https://logging.apache.org/log4j/2.x/log4j-api/apidocs/org/apache/logging/log4j/LogManager.html">LogManager</a>.getLogger();
+
+  public static void main(String[] args) {
+    Main.LOG.debug("-- Debut -- ");
+    // Declaration du contexte Spring
+    <a target="_blank" href="https://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/context/support/ClassPathXmlApplicationContext.html">ClassPathXmlApplicationContext</a> appContext = null;
+    try {
+      // Chargement du fichier Spring
+      appContext = new <a target="_blank" href="https://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/context/support/ClassPathXmlApplicationContext.html">ClassPathXmlApplicationContext</a>("classpath:spring/mesBeans.xml");
+      // Récupération de notre instance de client
+      Client cl1 = (Client) appContext.getBean("<i>xxxxxxx</i>");
+      // Affichage
+      Main.LOG.debug(cl1.toString());
+    } catch (Exception e) {
+      Main.LOG.fatal("Erreur", e);
+      System.exit(-1);
+    } finally {
+      // Quoi qu'il arrive fermeture du contexte Spring
+      if (appContext != null) {
+        appContext.close();
+      }
+    }
+    Main.LOG.debug("-- Fin -- ");
+    System.exit(0);
+  }
+}</pre>
+          <p>
+            Important : Changez la valeur de la chaîne <i>xxxxxxx</i> en
+            fonction de l'<i>id</i> que vous avez indiqué dans VOTRE fichier
+            Spring.
+          </p>
+          <p>
+            Plus tard nous ferons des tests unitaires avec Spring, nous n'aurons
+            plus de main.
+          </p>
+          <p>Lancez l'application et regardez ce qui s'affiche.</p>
+          <p>
+            En cas d'erreur lisez attentivement les messages Spring, n'hésitez
+            pas à
+            <b><a href="https://fr.wiktionary.org/wiki/scroller">scroller</a></b
+            >.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <nav>
+      <ul class="pager">
+        <li class="next" title="Injection de dépendances">
+          <a
+            href="../Exo02-Injection%20de%20dependances/Exo02-Injection%20de%20dependances.html"
+            >Exercice Suivant <span aria-hidden="true">&rarr;</span></a
+          >
+        </li>
+      </ul>
+    </nav>
+
+    <br /><br />
+    <footer>
+      <p class="text-center">
+        <a href="http://validator.w3.org/">
+          <img
+            src="../bootstrap-3.3.7-dist/img/HTML5_Logo_32.png"
+            alt="Valid HTML 5.0"
+          /> </a
+        ><br />
+        Copyright <span class="glyphicon glyphicon-copyright-mark"></span>
+        <a href="http://ferretrenaud.fr" target="_blank">Ferret Renaud</a> 2013
+      </p>
+    </footer>
+
+    <script src="../bootstrap-3.3.7-dist/js/jquery.min.js"></script>
+    <script src="../bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+  </body>
+</html>

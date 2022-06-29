@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="Author" content="FERRET Renaud" />
+    <meta name="Description" content="Exercice de formation" />
+    <meta name="copyright" content="(C) Copyright 2013 FERRET Renaud" />
+    <meta name="distribution" content="global" />
+
+    <title>Spring - Exercice 6 - Scope et Namespace</title>
+
+    <link
+      href="./bootstrap-3.3.7-dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link href="./custom-css/custom.css" rel="stylesheet" />
+    <!-- Ne pas voir les liens lors de l'impressions -->
+    <style>
+      @media print {
+        a[href]:after {
+          content: none;
+        }
+      }
+    </style>
+
+    <!--[if lt IE 9]>
+      <script src="../bootstrap-3.3.7-dist/js/html5shiv.min.js"></script>
+      <script src="../bootstrap-3.3.7-dist/js/respond.min.js"></script>
+    <![endif]-->
+  </head>
+
+  <body class="container">
+    <nav class="navbar navbar-default navbar-right" id="top">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button
+            type="button"
+            class="navbar-toggle collapsed"
+            data-toggle="collapse"
+            data-target="#bs-example-navbar-collapse-1"
+            aria-expanded="false"
+          >
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#" title="Spring - Exercice 6"
+            >Spring E6</a
+          >
+        </div>
+
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+          <ul class="nav navbar-nav">
+            <li class="dropdown">
+              <a
+                href="#"
+                class="dropdown-toggle"
+                data-toggle="dropdown"
+                role="button"
+                aria-haspopup="true"
+                aria-expanded="false"
+                >1 - Scope<span class="caret"></span
+              ></a>
+              <ul class="dropdown-menu">
+                <li>
+                  <a href="#t11">1-1 Modification du fichier XML Spring</a>
+                </li>
+                <li><a href="#t12">1-2 Test</a></li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+      </div>
+      <!-- /.container-fluid -->
+    </nav>
+    <br />
+    <div class="page-header">
+      <h1>Spring - Exercice 6 - Scope et Namespace</h1>
+      <p>
+        Impacte du scope sur la gestion des beans et utilisation du name space
+        context.
+      </p>
+      <nav>
+        <ul class="pager">
+          <li class="previous" title="Init et Destroy">
+            <a href="./Exo05-Init%20et%20Destroy.html"
+              ><span aria-hidden="true">&larr;</span> Exercice Précédent</a
+            >
+          </li>
+          <li class="next" title="En condition reelle">
+            <a href="./Exo07-Declaration%20de%20Bean.html"
+              >Exercice Suivant <span aria-hidden="true">&rarr;</span></a
+            >
+          </li>
+        </ul>
+      </nav>
+    </div>
+    <!-- page header -->
+    <section>
+      <h2 id="t1">
+        <span class="label label-default">1</span> Utilisation de Scope et du
+        Contexte
+      </h2>
+      <div class="panel panel-default panel-primary" id="t11">
+        <div class="panel-heading">
+          <h3 class="panel-title">
+            Modification du fichier XML Spring
+            <a href="#top"
+              ><span
+                class="glyphicon glyphicon-menu-up pull-right"
+                title="Remonter"
+              ></span
+            ></a>
+          </h3>
+        </div>
+        <div class="panel-body">
+          <p>
+            Ajouter un attribut XML scope à votre bean client et adresse,
+            regardez ce qui se passe selon que vous indiquez singleton ou
+            prototype.
+          </p>
+          <p>
+            En n'oubliant pas de changer la déclaration de votre fichier XML,
+            utilisez le <b>context:property-placeholder</b> à la place du bean
+            qui charge le fichier properties.
+          </p>
+          <pre>
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       <b>xmlns:context="http://www.springframework.org/schema/context"</b>
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+                           <b>http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd</b>"&gt;
+
+
+&lt;/beans&gt;</pre>
+        </div>
+      </div>
+
+      <div class="panel panel-default panel-primary" id="t33">
+        <div class="panel-heading">
+          <h3 class="panel-title">
+            Test
+            <a href="#top"
+              ><span
+                class="glyphicon glyphicon-menu-up pull-right"
+                title="Remonter"
+              ></span
+            ></a>
+          </h3>
+        </div>
+        <div class="panel-body">
+          <p>Lancez votre classe Main et regardez ce qui s'affiche.</p>
+          <p>
+            Vous devriez constater qu'un bean ayant un scope prototype et une
+            <i>destroy-method</i> (en annotation, déclaration XML ou
+            implémentation d'interface) ne verra JAMAIS cette dernière appelée.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <nav>
+      <ul class="pager">
+        <li class="previous" title="Init et Destroy">
+          <a href="../Exo05-Init%20et%20Destroy/Exo05-Init%20et%20Destroy.html"
+            ><span aria-hidden="true">&larr;</span> Exercice Précédent</a
+          >
+        </li>
+        <li class="next" title="En condition reelle">
+          <a
+            href="../Exo07-Declaration%20Bean/Exo07-Declaration%20de%20Bean.html"
+            >Exercice Suivant <span aria-hidden="true">&rarr;</span></a
+          >
+        </li>
+      </ul>
+    </nav>
+
+    <br /><br />
+    <footer>
+      <p class="text-center">
+        <a href="http://validator.w3.org/">
+          <img
+            src="../bootstrap-3.3.7-dist/img/HTML5_Logo_32.png"
+            alt="Valid HTML 5.0"
+          /> </a
+        ><br />
+        Copyright <span class="glyphicon glyphicon-copyright-mark"></span>
+        <a href="http://ferretrenaud.fr" target="_blank">Ferret Renaud</a> 2013
+      </p>
+    </footer>
+
+    <script src="../bootstrap-3.3.7-dist/js/jquery.min.js"></script>
+    <script src="../bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+  </body>
+</html>
+
+<!--
+	Copyright 2013
+	Ferret Renaud
+	admin@ferretrenaud.com
+-->

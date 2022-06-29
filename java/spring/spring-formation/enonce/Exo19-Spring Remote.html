@@ -1,0 +1,1403 @@
+<!--
+	Copyright 2013
+	Ferret Renaud
+	admin@ferretrenaud.com
+-->
+
+<!DOCTYPE html>
+<html lang="fr">
+	<head>
+		<meta charset="utf-8"/>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+		<meta name="viewport" content="width=device-width, initial-scale=1"/>
+		<meta name="Author" content="FERRET Renaud"/>
+		<meta name="Description" content="Exercice de formation"/>
+		<meta name="copyright" content="(C) Copyright 2013 FERRET Renaud"/>
+		<meta name="distribution" content="global"/>
+
+		<title>Spring - Exercice 19 - Spring Remote</title>
+
+		<link href="../bootstrap-3.3.7-dist/css/bootstrap.min.css" rel="stylesheet"/>
+		<!-- Ne pas voir les liens lors de l'impressions -->
+		<style>
+			@media print {
+				a[href]:after {
+					content: none;
+				}
+			}
+		</style>
+
+		<!--[if lt IE 9]>
+			<script src="../bootstrap-3.3.7-dist/js/html5shiv.min.js"></script>
+			<script src="../bootstrap-3.3.7-dist/js/respond.min.js"></script>
+		<![endif]-->
+	</head>
+
+	<body class="container">
+
+		<nav class="navbar navbar-default" id="top">
+		  <div class="container-fluid">
+			<div class="navbar-header">
+			  <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			  </button>
+			  <a class="navbar-brand" href="#" title="Spring - Exercice 17">Spring E19</a>
+			</div>
+
+			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+			  <ul class="nav navbar-nav">
+				<li class="dropdown">
+				  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">1 - RMI<span class="caret"></span></a>
+				  <ul class="dropdown-menu">
+					<li><a href="#t11">1-1 Import projet</a></li>
+					<li><a href="#t12">1-2 Réalisation des services</a></li>
+					<li><a href="#t13">1-3 Déclaration des services</a></li>
+					<li><a href="#t14">1-4 Réalisation du serveur</a></li>
+					<li><a href="#t15">1-5 Déclaration du client</a></li>
+					<li><a href="#t16">1-6 Réalisation du client</a></li>
+				  </ul>
+				</li>
+
+				<li class="dropdown">
+				  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">2 - Hessian<span class="caret"></span></a>
+				  <ul class="dropdown-menu">
+					<li><a href="#t21">2-1 Import projet</a></li>
+					<li><a href="#t22">2-2 Réalisation des services</a></li>
+					<li><a href="#t23">2-3 Déclaration des services</a></li>
+					<li><a href="#t24">2-4 Déclaration du client</a></li>
+					<li><a href="#t25">2-5 Réalisation du client</a></li>
+				  </ul>
+				</li>
+
+				<li class="dropdown">
+				  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">3 - HTTP Invoker<span class="caret"></span></a>
+				  <ul class="dropdown-menu">
+					<li><a href="#t31">3-1 Import projet</a></li>
+					<li><a href="#t32">3-2 Réalisation des services</a></li>
+					<li><a href="#t33">3-3 Déclaration des services</a></li>
+					<li><a href="#t34">3-4 Déclaration du client</a></li>
+					<li><a href="#t35">3-5 Réalisation du client</a></li>
+				  </ul>
+				</li>
+
+				<li class="dropdown">
+				  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">4 - JAX-WS avec SimpleJaxWsServiceExporter<span class="caret"></span></a>
+				  <ul class="dropdown-menu">
+					<li><a href="#t41">4-1 Import projet</a></li>
+					<li><a href="#t42">4-2 Réalisation des services</a></li>
+					<li><a href="#t43">4-3 Binding avec JAX-B</a></li>
+					<li><a href="#t44">4-4 Déclaration des services</a></li>					
+					<li><a href="#t45">4-5 Réalisation du serveur</a></li>					
+					<li><a href="#t46">4-6 Déclaration du client</a></li>
+					<li><a href="#t47">4-7 Réalisation du client</a></li>
+				  </ul>
+				</li>
+
+				<li class="dropdown">
+				  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">5 - JAX-WS sans SimpleJaxWsServiceExporter<span class="caret"></span></a>
+				  <ul class="dropdown-menu">
+					<li><a href="#t51">5-1 Import projet</a></li>
+					<li><a href="#t52">5-2 Réalisation des services</a></li>
+					<li><a href="#t53">5-3 Déclaration des services</a></li>
+					<li><a href="#t54">5-4 Déclaration du client</a></li>
+					<li><a href="#t55">5-5 Réalisation du client</a></li>
+				  </ul>
+				</li>
+
+
+			  </ul>
+			</div><!-- /.navbar-collapse -->
+		  </div><!-- /.container-fluid -->
+		</nav>
+		<br/>
+		<div class="page-header">
+			<h1>Spring - Exercice 19 - Spring Remote</h1>
+			<p>Utilisation de Spring Remote.</p>
+			<nav>
+				<ul class="pager">
+					<li class="previous" title="Spring Security"><a href="../Exo17-Spring%20Security/Exo17-Spring%20Security.html"><span aria-hidden="true">&larr;</span> Exercice Précédent</a></li>
+					<li class="next" title="Spring JMX"><a href="../Exo20-Spring%20JMX/Exo20-Spring%20JMX.html">Exercice Suivant <span aria-hidden="true">&rarr;</span></a></li>
+				</ul>
+			</nav>
+		</div> <!-- page header -->
+
+		<section>
+			<h2 id="t1"><span class="label label-default">1</span> Spring Remote - RMI</h2>
+			<div class="panel panel-default panel-primary" id="t11">
+				<div class="panel-heading">
+					<h3 class="panel-title">Importation du projet dans Eclipse <a href="#top"><span class="glyphicon glyphicon-menu-up pull-right" title="Remonter"></span></a></h3>
+				</div>
+				<div class="panel-body">
+					<p>Nous allons importer un projet déjà complet sur sa partie back. Le projet est en JPA 2.0 avec Hibernate 5. </p>
+					<p>Pour importer le projet :</p>
+					<ul>
+						<li>Dans le menu Eclipse, sélectionnez File/Import puis Existing Maven Projects</li>
+						<li>Pointez vers le projet qui se trouve dans l'énoncé (en19.spring.remote<b>.rmi</b>).</li>
+					</ul>
+					<p>Important : Après toutes modifications faites sur le fichier pom.xml, faites un clic droit sur <b>votre projet</b> puis Maven - Update Project ...</p>
+					<p>Nous ne sommes pas en projet Web ici (pas de context JEE). </p>
+
+					<p>Vérifiez que tout compile (pas de [ERROR] dans la console Maven et un BUILD SUCCESS). Potentiellement, modifiez le login et ou le password d'accès à la base de données qui se trouve dans le fichier  src/main/resources/spring/database.properties</p>
+
+					<p>Rappel : Pour simplifier la manipulation, toutes les dépendances sont déjà dans le pom.xml. Il n'y a pas de dépendance particulière dans le cas du Spring Remote RMI.</p>
+        		</div>
+			</div>
+
+			<div class="panel panel-default panel-primary" id="t12">
+				<div class="panel-heading">
+					<h3 class="panel-title">Réalisation des services <a href="#top"><span class="glyphicon glyphicon-menu-up pull-right" title="Remonter"></span></a></h3>
+				</div>
+				<div class="panel-body">
+					<p>Spring remote permet de déclarer / récupérer simplement des services distants. Ici nous serons en <a href="https://docs.oracle.com/javase/tutorial/rmi/overview.html" target="_blank">RMI</a>.</p>
+					<p>Nous allons créer nos services distants RMI, qui vont bien évidement se reposer sur les services métiers que nous avons déjà réalisés.</p>
+					<p>Dans le package <b>com.banque.service.remote</b> ajoutez une interface Java qui représentera le service d'authentification, appelez la <b>IAuthentificationRemoteService</b>. </p>
+<pre>
+package com.banque.service.remote;
+
+import <a href="https://docs.oracle.com/javase/8/docs/api/java/rmi/Remote.html" target="_blank">java.rmi.Remote</a>;
+import <a href="https://docs.oracle.com/javase/8/docs/api/java/rmi/RemoteException.html" target="_blank">java.rmi.RemoteException</a>;
+
+import com.banque.entity.impl.UtilisateurEntity;
+
+public interface IAuthentificationRemoteService extends <a href="https://docs.oracle.com/javase/8/docs/api/java/rmi/Remote.html" target="_blank">Remote</a> {
+
+  public abstract UtilisateurEntity authentifier(String pLogin, String pPassword) throws <a href="https://docs.oracle.com/javase/8/docs/api/java/rmi/RemoteException.html" target="_blank">RemoteException</a>;
+}</pre>
+					<p>Cette interface hérite de l'interface RMI <a href="https://docs.oracle.com/javase/8/docs/api/java/rmi/Remote.html" target="_blank">java.rmi.Remote</a>. TOUTES ses méthodes doivent lever des exceptions de type <a href="https://docs.oracle.com/javase/8/docs/api/java/rmi/RemoteException.html" target="_blank">java.rmi.RemoteException</a>.</p>
+					<p>Notez que cette interface est un <i>copier/coller</i> de notre interface de service métier <b>com.banque.service.IAuthentificationService</b>.</p>
+
+					<p>Dans le package <b>com.banque.service.remote.impl</b> réalisez l'implémentation de cette interface. La classe portera le nom <b>AuthentificationRemoteService</b>. </p>
+					<p>Elle héritera de notre classe abstraite com.banque.service.remote.impl.AbstractRemoteService et implémentera l'interface com.banque.service.remote.IAuthentificationRemoteService. </p>
+					<p>Elle sera liée au service métier par un attribut qui sera <a href="https://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/beans/factory/annotation/Autowired.html" target="_blank">@Autorired</a> (ou qui sera injecté dans les fichiers XML). Sa méthode ne fait que de la <a href="https://en.wikipedia.org/wiki/Delegation_pattern" target="_blank">délégation</a> vers la méthode du service métier.</p>
+<pre>
+package com.banque.service.remote.impl;
+
+import <a href="https://docs.oracle.com/javase/8/docs/api/java/rmi/RemoteException.html" target="_blank">java.rmi.RemoteException</a>;
+import org.apache.logging.log4j.*;
+import <a href="https://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/beans/factory/annotation/Autowired.html" target="_blank">org.springframework.beans.factory.annotation.Autowired</a>;
+import <a href="https://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/stereotype/Controller.html" target="_blank">org.springframework.stereotype.Controller</a>;
+
+import com.banque.entity.impl.UtilisateurEntity;
+import com.banque.service.IAuthentificationService;
+import com.banque.service.remote.IAuthentificationRemoteService;
+
+<a href="https://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/stereotype/Controller.html" target="_blank">@Controller</a>
+public class AuthentificationRemoteService extends AbstractRemoteService implements IAuthentificationRemoteService {
+  private static final Logger LOG = LogManager.getLogger();
+  <a href="https://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/beans/factory/annotation/Autowired.html" target="_blank">@Autowired</a>
+  private IAuthentificationService service;
+
+  @Override
+  public UtilisateurEntity authentifier(String pLogin, String pPassword) throws <a href="https://docs.oracle.com/javase/8/docs/api/java/rmi/RemoteException.html" target="_blank">RemoteException</a> {
+    AuthentificationRemoteService.LOG.debug("Appel au service d'authentification distant avec {}", pLogin);
+    try {
+	  // Juste de la délégation
+      return service.authentifier(pLogin, pPassword);
+    } catch (Exception e) {
+      AuthentificationRemoteService.LOG.error("Erreur dans le service d'authentification distant RMI", e);
+      throw new RemoteException("Erreur", e);
+    }
+  }
+}</pre>
+					<p>Il n'y a rien de plus à faire pour le code de notre service distant d'authentification. L'annotation <a href="https://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/stereotype/Controller.html" target="_blank">@Controller</a> ne sert que pour monter le bean automatiquement dans le context spring (via le component-scan).</p>
+
+					<p>Faites de même en réalisant un service distant pour la gestion des comptes et un autre pour la gestion des opérations (classe + interface). </p>
+        		</div>
+			</div>
+
+			<div class="panel panel-default panel-primary" id="t13">
+				<div class="panel-heading">
+					<h3 class="panel-title">Déclaration des services <a href="#top"><span class="glyphicon glyphicon-menu-up pull-right" title="Remonter"></span></a></h3>
+				</div>
+				<div class="panel-body">
+					<p>Dans le dossier src/main/resources/spring ajoutez (ou éditez s'il est déjà présent) un fichier Spring rmi<b>-context.xml</b>. </p>
+					<p>Nous allons y placer tout ce qui concerne la déclaration de nos services distants RMI. </p>
+					<p>Le nom du fichier n'a pas vraiment d'importance, mais le fait qu'il se termine par -context.xml nous facilitera le montage de ce dernier dans le context Spring.</p>
+<pre>
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;beans xmlns="http://www.springframework.org/schema/beans"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:context="http://www.springframework.org/schema/context"
+  xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+  http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd"&gt;
+
+  &lt;bean class="<a href="https://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/remoting/rmi/RmiServiceExporter.html" target="_blank">org.springframework.remoting.rmi.RmiServiceExporter</a>"&gt;
+    &lt;property name="registryPort" value="1199" /&gt;
+    &lt;property name="serviceName" value="AuthentificationRemoteService" /&gt;
+    &lt;property name="service" ref="authentificationRemoteService" /&gt;
+    &lt;property name="serviceInterface" value="com.banque.service.remote.IAuthentificationRemoteService" /&gt;
+    &lt;!-- Notre service sera disponible sur l'url : rmi://localhost:1199/AuthentificationRemoteService --&gt;
+  &lt;/bean&gt;
+
+  &lt;!-- Declarez vos 2 autres services distants. --&gt;
+&lt;/beans&gt;</pre>
+					<p>Vous pouvez modifier le numéro de port de la resgistry si vous le désirez.</p>
+					<p>Déclarez à la suite les deux autres services distants que vous avez réalisé. Vous pouvez mettre en place un héritage Spring si vous le souhaitez (pour capitaliser le numéro de port de la registry par exemple). Notez que vos beans n'ont pas d'id, c'est normal, ils seront accessibles sur leur URL respectif.</p>
+					<p>Spring se charge de tout, c'est lui qui va démarrer la RMI Registry afin d'y placer nos beans. Il n'est pas nécessaire d'ajouter un <i>context:component-scan</i> car nos classes sont dans un sous package de <b>com.banque.service</b> (qui est déjà scanné par la déclaration dans le fichier data-context.xml)</p>
+
+        		</div>
+			</div>
+
+			<div class="panel panel-default panel-primary" id="t14">
+				<div class="panel-heading">
+					<h3 class="panel-title">Réalisation du serveur <a href="#top"><span class="glyphicon glyphicon-menu-up pull-right" title="Remonter"></span></a></h3>
+				</div>
+				<div class="panel-body">
+					<p>Afin de lancer notre serveur RMI nous allons réaliser une classe pourvue d'une méthode main.</p>
+<pre>
+package com.banque;
+
+import org.apache.logging.log4j.*;
+
+import <a href="https://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/context/support/ClassPathXmlApplicationContext.html" target="_blank">org.springframework.context.support.ClassPathXmlApplicationContext</a>;
+
+public final class MainServeur {
+  private static final Logger LOG = LogManager.getLogger();
+
+  <b>public static void main(String[] args)</b> {
+    MainServeur.LOG.info("-- Debut Serveur -- ");
+    // Declaration du context Spring
+    <a href="https://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/context/support/ClassPathXmlApplicationContext.html" target="_blank">ClassPathXmlApplicationContext</a> appContext = null;
+    try {
+      // Chargement des fichiers Spring (tous sauf le client)
+      appContext = new <a href="https://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/context/support/ClassPathXmlApplicationContext.html" target="_blank">ClassPathXmlApplicationContext</a>("spring/*-context.xml");
+      MainServeur.LOG.info("-- Serveur UP, appuyez sur 'Enter' pour l'arreter -- ");
+      // On ne fait rien d'autre, on attend
+      System.in.read();
+    } catch (Exception e) {
+      MainServeur.LOG.fatal("Erreur", e);
+      System.exit(-1);
+    } finally {
+      if (appContext != null) {
+        appContext.close();
+      }
+    }
+    MainServeur.LOG.info("-- Fin Serveur -- ");
+    System.exit(0);
+  }
+}</pre>
+					<p>Elle ne fait rien, hormis charger tous les fichiers Spring côté serveur.</p>
+        		</div>
+			</div>
+
+			<div class="panel panel-default panel-primary" id="t15">
+				<div class="panel-heading">
+					<h3 class="panel-title">Déclaration du client <a href="#top"><span class="glyphicon glyphicon-menu-up pull-right" title="Remonter"></span></a></h3>
+				</div>
+				<div class="panel-body">
+					<p>Pour la partie cliente, c'est le Spring qui va s'occuper automatiquement de la récupération des services distants. Vous aurez juste besoin de l'interface qui les représente.</p>
+					<p>Dans le dossier src/main/resources/spring ajoutez (ou éditez s'il est déjà présent) un fichier Spring <b>spring-client.xml</b>. </p>
+					<p>Nous allons y placer tout ce qui concerne la déclaration de nos services distants RMI mais pour la partie <b>cliente uniquement</b>. </p>
+					<p>Le nom du fichier n'a pas d'importance, mais, dans notre cas, vous ne devez pas le faire terminer par -context.xml sinon il sera aussi monté par la partie serveur (ce qui ne sert à rien).</p>
+
+<pre>
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;beans xmlns="http://www.springframework.org/schema/beans"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:context="http://www.springframework.org/schema/context"
+  xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+  http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd"&gt;
+
+  &lt;bean id="clientAuthentificationRemoteService" class="<a href="https://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/remoting/rmi/RmiProxyFactoryBean.html" target="_blank">org.springframework.remoting.rmi.RmiProxyFactoryBean</a>"&gt;
+    &lt;property name="serviceUrl" value="<b>rmi://localhost:1199/AuthentificationRemoteService</b>" /&gt;
+    &lt;property name="serviceInterface" value="com.banque.service.remote.IAuthentificationRemoteService" /&gt;
+  &lt;/bean&gt;
+
+  &lt;!-- Declarez vos deux autres services distants --&gt;
+
+&lt;/beans&gt;</pre>
+					<p>Notez que le numéro de port doit correspondre à ce que vous avez indiqué dans le fichier de configuration côté serveur.</p>
+					<p>N'oubliez pas de déclarer les deux autres services distants. </p>
+					<p>Ici, nos beans ont des id, car nous allons les récupérer via la méthode getBean pour en faire quelque chose. </p>
+        		</div>
+			</div>
+
+			<div class="panel panel-default panel-primary" id="t16">
+				<div class="panel-heading">
+					<h3 class="panel-title">Réalisation du client <a href="#top"><span class="glyphicon glyphicon-menu-up pull-right" title="Remonter"></span></a></h3>
+				</div>
+				<div class="panel-body">
+					<p>Afin de lancer notre client RMI nous allons réaliser une classe pourvue d'une méthode main.</p>
+<pre>
+package com.banque;
+
+import java.util.*;
+
+import org.apache.logging.log4j.*;
+
+import <a href="https://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/context/support/ClassPathXmlApplicationContext.html" target="_blank">org.springframework.context.support.ClassPathXmlApplicationContext</a>;
+
+import com.banque.entity.impl.*;
+import com.banque.service.remote.*;
+
+public final class MainClient {
+  private static final Logger LOG = LogManager.getLogger();
+
+  <b>public static void main(String[] args)</b> {
+    MainClient.LOG.info("-- Debut Client -- ");
+    // Declaration du context Spring
+    <a href="https://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/context/support/ClassPathXmlApplicationContext.html" target="_blank">ClassPathXmlApplicationContext</a> appContext = null;
+    try {
+      // Chargement du fichier client <b>UNIQUEMENT</b>
+      appContext = new <a href="https://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/context/support/ClassPathXmlApplicationContext.html" target="_blank">ClassPathXmlApplicationContext</a>("<b>spring/spring-client.xml</b>");
+      // On recupere nos services distants qui sont declares dans le fichier Spring
+      IAuthentificationRemoteService serviceRemoteAuth = appContext.getBean("clientAuthentificationRemoteService", IAuthentificationRemoteService.class);
+      UtilisateurEntity utilisateur = serviceRemoteAuth.authentifier("dj", "dj");
+      MainClient.LOG.info("Bonjour {} {}", utilisateur.getNom(), utilisateur.getPrenom());
+
+      ICompteRemoteService serviceRemoteCpt = appContext.getBean("clientCompteRemoteService", ICompteRemoteService.class);
+      List&lt;CompteEntity&gt; listeCpts = serviceRemoteCpt.selectAll(utilisateur.getId().intValue());
+      MainClient.LOG.info("Vous avez {} comptes",String.valueOf(listeCpts.size()));
+      // On prend deux id de comptes pour faire un virement
+      Integer[] deuxId = new Integer[2];
+      Iterator&lt;CompteEntity&gt; iter = listeCpts.iterator();
+      int id = 0;
+      while (iter.hasNext() &amp;&amp; id &lt; deuxId.length) {
+      	CompteEntity compteEntity = iter.next();
+      	deuxId[id] = compteEntity.getId();
+      	id++;
+      }
+
+      IOperationRemoteService serviceRemoteOperation = appContext.getBean("clientOperationRemoteService", IOperationRemoteService.class);
+      serviceRemoteOperation.faireVirement(utilisateur.getId().intValue(), deuxId[0].intValue(), deuxId[1].intValue(), 5d);
+      MainClient.LOG.info("Votre virement s'est bien effectue");
+    } catch (Exception e) {
+      MainClient.LOG.debug("Ne pas oublier de demarrer le MainServeur avant.");
+      MainClient.LOG.fatal("Erreur", e);
+      System.exit(-1);
+    } finally {
+      if (appContext != null) {
+        appContext.close();
+      }
+    }
+    MainClient.LOG.info("-- Fin Client-- ");
+    System.exit(0);
+  }
+}</pre>
+					<p>Vous pouvez maintenant tester, lancer le serveur puis le client afin de voir si tout fonctionne bien.</p>
+					<p>Notez que si nous avions fait deux programmes séparés (totalement indépendants), la partie cliente aurait impérativement possédé :</p>
+					<ul>
+						<li>Les classes entités (les mêmes classes que celles côté serveur)</li>
+						<li>Les interfaces qui représentent les services distants (les mêmes interfaces que celles côté serveur). </li>
+					</ul>
+        		</div>
+			</div>
+		</section>
+
+		<section>
+			<h2 id="t2"><span class="label label-default">2</span> Spring Remote - Hessian</h2>
+			<div class="panel panel-default panel-primary" id="t21">
+				<div class="panel-heading">
+					<h3 class="panel-title">Importation du projet dans Eclipse <a href="#top"><span class="glyphicon glyphicon-menu-up pull-right" title="Remonter"></span></a></h3>
+				</div>
+				<div class="panel-body">
+					<p>Nous allons importer un projet déjà complet sur sa partie back. Le projet est pur Hibernate 5 (pas de JPA). </p>
+					<p>Pour importer le projet :</p>
+					<ul>
+						<li>Dans le menu Eclipse, sélectionnez File/Import puis Existing Maven Projects</li>
+						<li>Pointez vers le projet qui se trouve dans l'énoncé (en19.spring.remote.<b>hessian</b>).</li>
+					</ul>
+					<p>Après l'import, faites un clic droit sur le projet, puis Properties (tout en bas). Dans l'onglet Targeted Runtime, cochez votre version de Tomcat.</p>
+					<p>Important : Après toutes modifications faites sur le fichier pom.xml, faites un clic droit sur <b>votre projet</b> puis Maven - Update Project ...</p>
+					<p>L'artefactId dans votre Maven sera utilisé comme nom du context pour votre application WEB. </p>
+					<p>Vérifiez que tout compile (pas de [ERROR] dans la console Maven et un BUILD SUCCESS). Potentiellement, modifiez le login et ou le password d'accès à la base de données qui se trouve dans le fichier  src/main/resources/spring/database.properties</p>
+					<p>Ajoutez un serveur d'application et déployez votre projet dedans. </p>
+
+					<p>Rappel : Pour simplifier la manipulation, toutes les dépendances sont déjà dans le pom.xml. Il y a une dépendance supplémentaire sur Hessian :</p>
+<pre>
+  &lt;dependency&gt;
+    &lt;groupId&gt;com.caucho&lt;/groupId&gt;
+    &lt;artifactId&gt;hessian&lt;/artifactId&gt;
+    &lt;version&gt;${version.hessian}&lt;/version&gt;
+  &lt;/dependency&gt;</pre>
+        		</div>
+			</div>
+
+			<div class="panel panel-default panel-primary" id="t22">
+				<div class="panel-heading">
+					<h3 class="panel-title">Réalisation des services <a href="#top"><span class="glyphicon glyphicon-menu-up pull-right" title="Remonter"></span></a></h3>
+				</div>
+				<div class="panel-body">
+					<p>Spring remote permet de déclarer / récupérer simplement des services distants. Ici nous serons sur de l'HTTP via une encapsulation réalisée par le framework Hessian.</p>
+					<p>Nous allons créer nos services distants Hessian, qui vont bien évidement se reposer sur les services métiers que nous avons déjà réalisés.</p>
+					<p>Dans le package <b>com.banque.service.remote</b> ajoutez une interface Java qui représentera le service d'authentification, appelez la <b>IAuthentificationRemoteService</b>. </p>
+<pre>
+package com.banque.service.remote;
+
+import com.banque.entity.IUtilisateurEntity;
+
+public interface IAuthentificationRemoteService {
+
+  public abstract IUtilisateurEntity authentifier(String pLogin, String pPassword) throws Exception;
+}</pre>
+					<p>Cette interface n'hérite de rien en particulier, ses méthodes ne lévent pas d'exceptions spécifiques.</p>
+					<p>Notez que cette interface est un <i>copier/coller</i> de notre interface de service métier <b>com.banque.service.IAuthentificationService</b>.</p>
+
+					<p>Dans le package <b>com.banque.service.remote.impl</b> réalisez l'implémentation de cette interface. La classe portera le nom <b>AuthentificationRemoteService</b>. </p>
+					<p>Elle héritera de notre classe abstraite com.banque.service.remote.impl.AbstractRemoteService et implémentera l'interface com.banque.service.remote.IAuthentificationRemoteService. </p>
+					<p>Elle sera liée au service métier par un attribut qui sera <a href="https://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/beans/factory/annotation/Autowired.html" target="_blank">@Autorired</a> (ou qui sera injecté dans les fichiers XML). Sa méthode ne fait que de la <a href="https://en.wikipedia.org/wiki/Delegation_pattern" target="_blank">délégation</a> vers la méthode du service métier.</p>
+<pre>
+package com.banque.service.remote.impl;
+
+import org.apache.logging.log4j.*;
+import <a href="https://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/beans/factory/annotation/Autowired.html" target="_blank">org.springframework.beans.factory.annotation.Autowired</a>;
+import <a href="https://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/stereotype/Service.html" target="_blank">org.springframework.stereotype.Controller</a>;
+
+import com.banque.entity.IUtilisateurEntity;
+import com.banque.service.IAuthentificationService;
+import com.banque.service.remote.IAuthentificationRemoteService;
+
+<a href="https://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/stereotype/Controller.html" target="_blank">@Controller</a>
+public class AuthentificationRemoteService extends AbstractRemoteService implements IAuthentificationRemoteService {
+  private static final Logger LOG = LogManager.getLogger();
+  <a href="https://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/beans/factory/annotation/Autowired.html" target="_blank">@Autowired</a>
+  private IAuthentificationService service;
+
+  @Override
+  public IUtilisateurEntity authentifier(String pLogin, String pPassword) throws Exception {
+    AuthentificationRemoteService.LOG.debug("Appel au service d'authentification distant avec {}", pLogin);
+    try {
+      // Juste de la délégation
+      return service.authentifier(pLogin, pPassword);
+    } catch (Exception e) {
+      AuthentificationRemoteService.LOG.error("Erreur dans le service d'authentification distant Hessian", e);
+      throw new RemoteException("Erreur", e);
+    }
+  }
+}</pre>
+  				<p>Il n'y a rien de plus à faire pour le code de notre service distant d'authentification. L'annotation <a href="https://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/stereotype/Controller.html" target="_blank">@Controller</a> ne sert que pour monter le bean automatiquement dans le context spring (via le component-scan).</p>
+
+					<p>Faites de même en réalisant un service distant pour la gestion des comptes et un autre pour la gestion des opérations (classe + interface). 
+					Remarque : vous pouvez vous inspirez de ce que vous avez déjà fait en RMI mais attention, nous ne sommes pas en JPA, nous faisons usage des interfaces qui représentent nos entités. </p>
+        		</div>
+			</div>
+
+			<div class="panel panel-default panel-primary" id="t23">
+				<div class="panel-heading">
+					<h3 class="panel-title">Déclaration des services <a href="#top"><span class="glyphicon glyphicon-menu-up pull-right" title="Remonter"></span></a></h3>
+				</div>
+				<div class="panel-body">
+					<p>Dans le dossier src/main/webapp/WEB-INF/web.xml ajoutez (ou éditez s'il est déjà présent) le fait que nous ferons usage du contrôleur Spring. </p>
+<pre>
+... 
+  &lt;servlet&gt;
+    &lt;servlet-name&gt;remoting&lt;/servlet-name&gt;
+    &lt;servlet-class&gt;<a href="https://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/web/servlet/DispatcherServlet.html" target="_blank">org.springframework.web.servlet.DispatcherServlet</a>&lt;/servlet-class&gt;
+    &lt;load-on-startup&gt;1&lt;/load-on-startup&gt;
+  &lt;/servlet&gt;
+
+  &lt;servlet-mapping&gt;
+    &lt;servlet-name&gt;remoting&lt;/servlet-name&gt;
+    &lt;url-pattern&gt;/remoting/*&lt;/url-pattern&gt;
+  &lt;/servlet-mapping&gt;
+...
+</pre>					
+					<p>Notez que c'est toujours le même que l'on soit en Spring MVC ou Spring Remote. Ici, tous les URLs http://localhost:8080/en19.spring.remote.hessian/<b>remoting/*</b> passeront dans par le contrôleur Spring. </p>
+					<p>Comme j'ai donné le nom <b>remoting</b> a ma servlet, Spring s'attend à trouver un fichier src/main/webapp/WEB-INF/<b>remoting-servlet.xml</b> . </p>					
+					<p>Nous allons y déclarer tout ce qui concerne la nos services distants Hessian. </p>
+<pre>
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;beans xmlns="http://www.springframework.org/schema/beans"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+  xmlns:context="http://www.springframework.org/schema/context"
+  xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+                     http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd"&gt;
+
+  &lt;context:component-scan base-package="com.banque.service.remote" /&gt;
+
+  &lt;!-- Declaration de nos trois services distants Hessian --&gt;
+  
+  &lt;bean name="/AuthentificationRemoteService" class="<a href="https://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/remoting/caucho/HessianServiceExporter.html" target="_blank">org.springframework.remoting.caucho.HessianServiceExporter</a>"&gt;
+    &lt;property name="service" ref="authentificationRemoteService" /&gt;
+    &lt;property name="serviceInterface" value="com.banque.service.remote.IAuthentificationRemoteService" /&gt;
+    &lt;!-- Notre service sera disponible sur l'url : http://localhost:8080/en19.spring.remote.hessian/remoting/AuthentificationRemoteService --&gt;
+  &lt;/bean&gt;
+
+  &lt;!-- Declarez vos deux autres services distants --&gt;
+
+&lt;/beans&gt;
+</pre>
+					<p>Le <i>name</i> représentera la fin de l'URL pour notre service distant.</p>
+					<p>L'utilisation du component-scan n'est pas obligatoire car il est déjà présent dans un autre des fichiers Spring. </p>
+					<p>Déclarez à la suite les deux autres services distants que vous avez réalisé.</p>
+					<p>Spring se charge de tout, vous devrez cependant démarrer votre serveur JEE.</p>
+
+        		</div>
+			</div>		
+
+			<div class="panel panel-default panel-primary" id="t24">
+				<div class="panel-heading">
+					<h3 class="panel-title">Déclaration du client <a href="#top"><span class="glyphicon glyphicon-menu-up pull-right" title="Remonter"></span></a></h3>
+				</div>
+				<div class="panel-body">
+					<p>Pour la partie cliente, c'est le Spring qui va s'occuper automatiquement de la récupération des services distants. Vous aurez juste besoin de l'interface qui les représente.</p>
+					<p>Dans le dossier src/main/resources/spring ajoutez (ou éditez s'il est déjà présent) un fichier Spring <b>spring-client.xml</b>. </p>
+					<p>Nous allons y placer tout ce qui concerne la déclaration de nos services distants RMI mais pour la partie <b>cliente uniquement</b>. </p>
+					<p>Le nom du fichier n'a pas d'importance, mais, dans notre cas, vous ne devez pas le faire terminer par -context.xml sinon il sera aussi monté par la partie serveur (ce qui ne sert à rien).</p>
+
+<pre>
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;beans xmlns="http://www.springframework.org/schema/beans"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+  xmlns:context="http://www.springframework.org/schema/context"
+  xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd 
+       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd"&gt;
+
+  &lt;!-- Fichier qui ne doit etre charge QUE par le client de nos services Hessian --&gt;
+  &lt;!-- On recupere nos trois beans en les declarants --&gt;
+
+  &lt;bean id="clientAuthentificationRemoteService" class="<a href="https://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/remoting/caucho/HessianProxyFactoryBean.html" target="_blank">org.springframework.remoting.caucho.HessianProxyFactoryBean</a>"&gt;
+    &lt;property name="serviceUrl" value="http://localhost:8080/en19.spring.remote.hessian/remoting/AuthentificationRemoteService" /&gt;
+    &lt;property name="serviceInterface" value="com.banque.service.remote.IAuthentificationRemoteService" /&gt;
+  &lt;/bean&gt;
+
+  &lt;!-- Declarez vos deux autres services distants --&gt;
+  
+&lt;/beans&gt;</pre>
+					<p>N'oubliez pas de déclarer les deux autres services distants. </p>
+					<p>Ici, nos beans ont des id, car nous allons les récupérer via la méthode getBean pour en faire quelque chose. </p>
+        		</div>
+			</div>
+
+			<div class="panel panel-default panel-primary" id="t25">
+				<div class="panel-heading">
+					<h3 class="panel-title">Réalisation du client <a href="#top"><span class="glyphicon glyphicon-menu-up pull-right" title="Remonter"></span></a></h3>
+				</div>
+				<div class="panel-body">
+					<p>Afin de lancer notre client Hessian nous allons réaliser une classe pourvue d'une méthode main.</p>
+<pre>
+package com.banque;
+
+import java.util.*;
+
+import org.apache.logging.log4j.*;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+import com.banque.entity.*;
+import com.banque.service.remote.*;
+
+public final class MainClient {
+
+  private static final Logger LOG = LogManager.getLogger();
+
+  public static void main(String[] args) {
+    MainClient.LOG.info("-- Debut Client -- ");
+    // Declaration du context Spring
+    ClassPathXmlApplicationContext appContext = null;
+    try {
+      // Chargement du fichier client UNIQUEMENT
+      appContext = new ClassPathXmlApplicationContext("spring/spring-client.xml");
+      // On recupere nos services distants qui sont declares dans le fichier Spring
+      IAuthentificationRemoteService serviceRemoteAuth = appContext.getBean("clientAuthentificationRemoteService", IAuthentificationRemoteService.class);
+      IUtilisateurEntity utilisateur = serviceRemoteAuth.authentifier("dj", "dj");
+      MainClient.LOG.info("Bonjour {} {}", utilisateur.getNom(), utilisateur.getPrenom());
+
+      ICompteRemoteService serviceRemoteCpt = appContext.getBean("clientCompteRemoteService",  ICompteRemoteService.class);
+      List&lt;ICompteEntity&gt; listeCpts = serviceRemoteCpt.selectAll(utilisateur.getId().intValue());
+      MainClient.LOG.info("Vous avez {} comptes",String.valueOf(listeCpts.size()));
+      Integer[] deuxId = new Integer[2];
+      Iterator&lt;ICompteEntity&gt; iter = listeCpts.iterator();
+      int id = 0;
+      while (iter.hasNext() &amp;&amp; id &lt; deuxId.length) {
+        ICompteEntity compteEntity = iter.next();
+        deuxId[id] = compteEntity.getId();
+        id++;
+      }
+
+      IOperationRemoteService serviceRemoteOperation = appContext.getBean("clientOperationRemoteService",  IOperationRemoteService.class);
+      serviceRemoteOperation.faireVirement(utilisateur.getId().intValue(), deuxId[0].intValue(), deuxId[1].intValue(), 5d);
+      MainClient.LOG.info("Votre virement s'est bien effectue");
+    } catch (Exception e) {
+      MainClient.LOG.debug("Ne pas oublier de demarrer déployer l'application web et de demarrer le serveur J2EE.");
+      MainClient.LOG.fatal("Erreur", e);
+      System.exit(-1);
+    } finally {
+      if (appContext != null) {
+        appContext.close();
+      }
+    }
+    MainClient.LOG.info("-- Fin Client-- ");
+    System.exit(0);
+  }
+}</pre>
+					<p>Vous pouvez maintenant tester, lancer le serveur JEE  puis le client afin de voir si tout fonctionne bien.</p>
+					<p>Notez que si nous avions fait deux programmes séparés (totalement indépendants), la partie cliente aurait impérativement possédé :</p>
+					<ul>
+						<li>Les interfaces + classes entités (les mêmes classes + interfaces que celles côté serveur)</li>
+						<li>Les interfaces qui représentent les services distants (les mêmes interfaces que celles côté serveur). </li>
+					</ul>
+        		</div>
+			</div>
+		</section>
+		
+		<section>
+			<h2 id="t3"><span class="label label-default">3</span> Spring Remote - HTTP Invoker</h2>
+			<div class="panel panel-default panel-primary" id="t31">
+				<div class="panel-heading">
+					<h3 class="panel-title">Importation du projet dans Eclipse <a href="#top"><span class="glyphicon glyphicon-menu-up pull-right" title="Remonter"></span></a></h3>
+				</div>
+				<div class="panel-body">
+					<p>Nous allons rester sur le même projet que Hessian. </p>
+					<p>Il y a très peu de différence entre Hessian et HTTP Invoker, vous verrez que notre code Java ne change pas d'une ligne, par contre il y aura des changements dans les fichiers XML du Spring. </p>
+        		</div>
+			</div>
+
+			<div class="panel panel-default panel-primary" id="t32">
+				<div class="panel-heading">
+					<h3 class="panel-title">Réalisation des services <a href="#top"><span class="glyphicon glyphicon-menu-up pull-right" title="Remonter"></span></a></h3>
+				</div>
+				<div class="panel-body">
+					<p>Rien de spécial à faire ici, vos services Hessians ne bougent pas.</p>
+					<p>C'est normal, il n'y a aucune référence (aucun import) vers des classes spécifiques.</p>
+        		</div>
+			</div>
+
+			<div class="panel panel-default panel-primary" id="t33">
+				<div class="panel-heading">
+					<h3 class="panel-title">Déclaration des services <a href="#top"><span class="glyphicon glyphicon-menu-up pull-right" title="Remonter"></span></a></h3>
+				</div>
+				<div class="panel-body">
+					<p>Nous sommes toujours en JEE et nous faisons toujours usage du contrôleur Spring. </p>
+					<p>Nous allons modifier le fichier src/main/webapp/WEB-INF/<b>remoting-servlet.xml</b> . </p>					
+					<p>Le <a href="https://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/remoting/caucho/HessianServiceExporter.html" target="_blank">org.springframework.remoting.caucho.HessianServiceExporter</a> se transforme en <a href="https://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/remoting/httpinvoker/HttpInvokerServiceExporter.html" target="_blank">org.springframework.remoting.httpinvoker.HttpInvokerServiceExporter</a> </p>
+<pre>
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;beans xmlns="http://www.springframework.org/schema/beans"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+  xmlns:context="http://www.springframework.org/schema/context"
+  xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+                     http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd"&gt;
+
+  &lt;context:component-scan base-package="com.banque.service.remote" /&gt;
+
+  &lt;!-- Declaration de nos trois services distants Hessian --&gt;
+  
+  &lt;bean name="/AuthentificationRemoteService" class="<a href="https://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/remoting/httpinvoker/HttpInvokerServiceExporter.html" target="_blank">org.springframework.remoting.httpinvoker.HttpInvokerServiceExporter</a>"&gt;
+    &lt;property name="service" ref="authentificationRemoteService" /&gt;
+    &lt;property name="serviceInterface" value="com.banque.service.remote.IAuthentificationRemoteService" /&gt;
+    &lt;!-- Notre service sera disponible sur l'url : http://localhost:8080/en19.spring.remote.hessian/remoting/AuthentificationRemoteService --&gt;
+  &lt;/bean&gt;
+
+  &lt;!-- Declarez vos deux autres services distants --&gt;
+
+&lt;/beans&gt;
+</pre>
+					<p>Ajustez les deux autres services distants que vous avez réalisé. </p>
+					<p>Remarque : Comme on est toujours dans le projet précédent on a gardé le même nom de context JEE, c'est pour cela qu'il y a toujours en19.spring.remote.<i>hessian</i>.</p>
+					<p>Spring se charge de tout, vous devrez cependant démarrer votre serveur JEE.</p>
+
+        		</div>
+			</div>		
+
+			<div class="panel panel-default panel-primary" id="t34">
+				<div class="panel-heading">
+					<h3 class="panel-title">Déclaration du client <a href="#top"><span class="glyphicon glyphicon-menu-up pull-right" title="Remonter"></span></a></h3>
+				</div>
+				<div class="panel-body">
+					<p>Pour la partie cliente, c'est le Spring qui va s'occuper automatiquement de la récupération des services distants. Vous aurez juste besoin de l'interface qui les représente.</p>
+					<p>Dans le dossier src/main/resources/spring ajoutez (ou éditez s'il est déjà présent) un fichier Spring <b>spring-client.xml</b>. </p>
+					<p>Nous allons remplacer le <a href="https://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/remoting/caucho/HessianProxyFactoryBean.html" target="_blank">org.springframework.remoting.caucho.HessianProxyFactoryBean</a> en <a href="https://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/remoting/httpinvoker/HttpInvokerProxyFactoryBean.html" target="_blank">org.springframework.remoting.httpinvoker.HttpInvokerProxyFactoryBean</a> . </p>
+<pre>
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;beans xmlns="http://www.springframework.org/schema/beans"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+  xmlns:context="http://www.springframework.org/schema/context"
+  xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd 
+       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd"&gt;
+
+  &lt;!-- Fichier qui ne doit etre charge QUE par le client de nos services Hessian --&gt;
+  &lt;!-- On recupere nos trois beans en les declarants --&gt;
+
+  &lt;bean id="clientAuthentificationRemoteService" class="<a href="https://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/remoting/httpinvoker/HttpInvokerProxyFactoryBean.html" target="_blank">org.springframework.remoting.httpinvoker.HttpInvokerProxyFactoryBean</a>"&gt;
+    &lt;property name="serviceUrl" value="http://localhost:8080/en19.spring.remote.hessian/remoting/AuthentificationRemoteService" /&gt;
+    &lt;property name="serviceInterface" value="com.banque.service.remote.IAuthentificationRemoteService" /&gt;
+  &lt;/bean&gt;
+
+  &lt;!-- Declarez vos deux autres services distants --&gt;
+  
+&lt;/beans&gt;</pre>
+					<p>N'oubliez pas d'ajuster les deux autres services distants. </p>
+        		</div>
+			</div>
+
+			<div class="panel panel-default panel-primary" id="t35">
+				<div class="panel-heading">
+					<h3 class="panel-title">Réalisation du client <a href="#top"><span class="glyphicon glyphicon-menu-up pull-right" title="Remonter"></span></a></h3>
+				</div>
+				<div class="panel-body">
+					<p>Afin de lancer notre client HTTP Invoker nous avons besoin d'une classe pourvue d'une méthode main. On garde la même que pour l'exercice précédant. </p>
+					<p>En effet, nos seuls changements concernent les fichiers Spring. </p>
+					<p>Vous pouvez maintenant tester, lancer le serveur JEE  puis le client afin de voir si tout fonctionne bien.</p>
+        		</div>
+			</div>
+		</section>
+		
+		<section>
+			<h2 id="t4"><span class="label label-default">4</span> Spring Remote - JAX-WS et SimpleJaxWsServiceExporter</h2>
+			<div class="panel panel-default panel-primary" id="t41">
+				<div class="panel-heading">
+					<h3 class="panel-title">Importation du projet dans Eclipse <a href="#top"><span class="glyphicon glyphicon-menu-up pull-right" title="Remonter"></span></a></h3>
+				</div>
+				<div class="panel-body">
+					<p>Nous allons importer un projet déjà complet sur sa partie back. Le projet est en JPA 2.1 avec Hibernate 5. </p>
+					<p>Pour importer le projet :</p>
+					<ul>
+						<li>Dans le menu Eclipse, sélectionnez File/Import puis Existing Maven Projects</li>
+						<li>Pointez vers le projet qui se trouve dans l'énoncé (en19.spring.remote<b>.jaxws</b>).</li>
+					</ul>
+
+					<p>Important : Après toutes modifications faites sur le fichier pom.xml, faites un clic droit sur <b>votre projet</b> puis Maven - Update Project ...</p>
+					<p>Nous ne sommes pas en projet Web ici (pas de context JEE). </p>
+
+					<p>Vérifiez que tout compile (pas de [ERROR] dans la console Maven et un BUILD SUCCESS). Potentiellement, modifiez le login et ou le password d'accès à la base de données qui se trouve dans le fichier  src/main/resources/spring/database.properties</p>
+
+					<p>Rappel : Pour simplifier la manipulation, toutes les dépendances sont déjà dans le pom.xml. Une dépendance vers org.springframework.ws a été ajouté.</p>
+        		</div>
+			</div>
+
+			<div class="panel panel-default panel-primary" id="t42">
+				<div class="panel-heading">
+					<h3 class="panel-title">Réalisation des services <a href="#top"><span class="glyphicon glyphicon-menu-up pull-right" title="Remonter"></span></a></h3>
+				</div>
+				<div class="panel-body">
+					<p>Spring remote permet de déclarer / récupérer simplement des services distants. Ici nous serons en <a href="http://docs.oracle.com/javaee/7/tutorial/doc/bnayl.html" target="_blank">JAX-WS</a>.</p>
+					<p>Nous allons utiliser un objet du Spring, le <a href="https://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/remoting/jaxws/SimpleJaxWsServiceExporter.html" target="_blank">SimpleJaxWsServiceExporter</a>, il a l'avantage de démarrer un mini serveur HTTP pour nous et va s'occuper de nos Web services. Malheureusement il ne sait gérer qu'un seul URL. Donc nous allons réaliser un seul Web service qui va s'occuper de l'authentification, la gestion des comptes, la gestion des opérations.</p>
+					<p>Dans le package <b>com.banque.service.remote</b> ajoutez une interface Java qui représentera tous nos services, appelez la <b>IBanqueRemoteService</b>. </p>
+<pre>
+package com.banque.service.remote;
+
+import java.util.*;
+
+import javax.jws.*;
+import javax.jws.soap.SOAPBinding;
+import javax.jws.soap.SOAPBinding.ParameterStyle;
+
+import com.banque.entity.impl.*;
+
+@<a href="https://docs.oracle.com/javase/8/docs/api/javax/jws/WebService.html" target="_blank">WebService</a>(serviceName = "BanqueRemoteService")
+@<a href="https://docs.oracle.com/javase/8/docs/api/javax/jws/soap/SOAPBinding.html" target="_blank">SOAPBinding</a>(style = SOAPBinding.Style.DOCUMENT, use = SOAPBinding.Use.LITERAL, parameterStyle = ParameterStyle.WRAPPED)
+public interface IBanqueRemoteService {
+  @<a href="https://docs.oracle.com/javase/8/docs/api/javax/jws/WebMethod.html" target="_blank">WebMethod</a>(operationName = "authentifier", action = "urn:authentifier")
+  @<a href="https://docs.oracle.com/javase/8/docs/api/javax/jws/WebResult.html" target="_blank">WebResult</a>(name = "user")
+  public abstract UtilisateurEntity authentifier(@<a href="https://docs.oracle.com/javase/8/docs/api/javax/jws/WebParam.html" target="_blank">WebParam</a>(name = "pLogin") String pLogin, @<a href="https://docs.oracle.com/javase/8/docs/api/javax/jws/WebParam.html" target="_blank">WebParam</a>(name = "pPassword") String pPassword) throws Exception;
+
+  @<a href="https://docs.oracle.com/javase/8/docs/api/javax/jws/WebMethod.html" target="_blank">WebMethod</a>(operationName = "select", action = "urn:select")
+  @<a href="https://docs.oracle.com/javase/8/docs/api/javax/jws/WebResult.html" target="_blank">WebResult</a>(name = "compte")
+  public abstract CompteEntity select(@<a href="https://docs.oracle.com/javase/8/docs/api/javax/jws/WebParam.html" target="_blank">WebParam</a>(name = "pUtilisateurId") int unUtilisateurId,  @<a href="https://docs.oracle.com/javase/8/docs/api/javax/jws/WebParam.html" target="_blank">WebParam</a>(name = "pCompteId") int unCompteId) throws Exception;
+
+  @<a href="https://docs.oracle.com/javase/8/docs/api/javax/jws/WebMethod.html" target="_blank">WebMethod</a>(operationName = "selectAll", action = "urn:selectAll")
+  @<a href="https://docs.oracle.com/javase/8/docs/api/javax/jws/WebResult.html" target="_blank">WebResult</a>(name = "comptes") public abstract List&lt;CompteEntity&gt; selectAll(@<a href="https://docs.oracle.com/javase/8/docs/api/javax/jws/WebParam.html" target="_blank">WebParam</a>(name = "pUtilisateurId") int unUtilisateurId) throws Exception;
+
+  @<a href="https://docs.oracle.com/javase/8/docs/api/javax/jws/WebMethod.html" target="_blank">WebMethod</a>(operationName = "selectOperation", action = "urn:selectOperation")
+  @<a href="https://docs.oracle.com/javase/8/docs/api/javax/jws/WebResult.html" target="_blank">WebResult</a>(name = "operation")
+  public abstract OperationEntity selectOperation(@<a href="https://docs.oracle.com/javase/8/docs/api/javax/jws/WebParam.html" target="_blank">WebParam</a>(name = "pUtilisateurId") int pUtilisateurId, @<a href="https://docs.oracle.com/javase/8/docs/api/javax/jws/WebParam.html" target="_blank">WebParam</a>(name = "pCompteId") int pCompteId, @<a href="https://docs.oracle.com/javase/8/docs/api/javax/jws/WebParam.html" target="_blank">WebParam</a>(name = "pOperationId") int pOperationId) throws Exception;
+
+  @<a href="https://docs.oracle.com/javase/8/docs/api/javax/jws/WebMethod.html" target="_blank">WebMethod</a>(operationName = "selectAllOperation", action = "urn:selectAllOperation")
+  @<a href="https://docs.oracle.com/javase/8/docs/api/javax/jws/WebResult.html" target="_blank">WebResult</a>(name = "operations")
+  public abstract List&lt;OperationEntity&gt; selectAllOperation(@<a href="https://docs.oracle.com/javase/8/docs/api/javax/jws/WebParam.html" target="_blank">WebParam</a>(name = "pUtilisateurId") int unUtilisateurId, @<a href="https://docs.oracle.com/javase/8/docs/api/javax/jws/WebParam.html" target="_blank">WebParam</a>(name = "pCompteId") int unCompteId) throws Exception;
+
+  @<a href="https://docs.oracle.com/javase/8/docs/api/javax/jws/WebMethod.html" target="_blank">WebMethod</a>(operationName = "selectCritereOperation", action = "urn:selectCritereOperation")
+  @<a href="https://docs.oracle.com/javase/8/docs/api/javax/jws/WebResult.html" target="_blank">WebResult</a>(name = "operations")
+  public abstract List&lt;OperationEntity&gt; selectCritere(@<a href="https://docs.oracle.com/javase/8/docs/api/javax/jws/WebParam.html" target="_blank">WebParam</a>(name = "pUtilisateurId") int unUtilisateurId, @<a href="https://docs.oracle.com/javase/8/docs/api/javax/jws/WebParam.html" target="_blank">WebParam</a>(name = "pCompteId") int unCompteId, @<a href="https://docs.oracle.com/javase/8/docs/api/javax/jws/WebParam.html" target="_blank">WebParam</a>(name = "pDateDebut") Date unDebut, @<a href="https://docs.oracle.com/javase/8/docs/api/javax/jws/WebParam.html" target="_blank">WebParam</a>(name = "pDateFin") Date uneFin, @<a href="https://docs.oracle.com/javase/8/docs/api/javax/jws/WebParam.html" target="_blank">WebParam</a>(name = "pCredit") boolean pCredit, @<a href="https://docs.oracle.com/javase/8/docs/api/javax/jws/WebParam.html" target="_blank">WebParam</a>(name = "pDebit") boolean pDebit) throws Exception;
+
+  @<a href="https://docs.oracle.com/javase/8/docs/api/javax/jws/WebMethod.html" target="_blank">WebMethod</a>(operationName = "faireVirement", action = "urn:faireVirement")
+  @<a href="https://docs.oracle.com/javase/8/docs/api/javax/jws/WebResult.html" target="_blank">WebResult</a>(name = "operations")
+  public abstract List&lt;OperationEntity&gt; faireVirement(@<a href="https://docs.oracle.com/javase/8/docs/api/javax/jws/WebParam.html" target="_blank">WebParam</a>(name = "pUtilisateurId") int unUtilisateurId,	@<a href="https://docs.oracle.com/javase/8/docs/api/javax/jws/WebParam.html" target="_blank">WebParam</a>(name = "pCompteIdSrc") int unCompteIdSrc, @<a href="https://docs.oracle.com/javase/8/docs/api/javax/jws/WebParam.html" target="_blank">WebParam</a>(name = "pCompteIdDst") int unCompteIdDst, @<a href="https://docs.oracle.com/javase/8/docs/api/javax/jws/WebParam.html" target="_blank">WebParam</a>(name = "pMontant") double unMontant) throws Exception;
+}</pre>
+					<p>Cette interface représente un web service JAX-WS. L'utilisation des annotations @<a href="https://docs.oracle.com/javase/8/docs/api/javax/jws/WebResult.html" target="_blank">WebResult</a> et @<a href="https://docs.oracle.com/javase/8/docs/api/javax/jws/WebParam.html" target="_blank">WebParam</a> n'est pas obligatoire mais rendra les tests avec <a href="https://www.soapui.org/" target="_blank">SOAP UI</a> beaucoup plus agréables. </p>
+					<p>Important : en JAX-WS il ne faut JAMAIS avoir deux méthodes avec le même nom. </p>
+
+					<p>Dans le package <b>com.banque.service.remote.impl</b> réalisez l'implémentation de cette interface. La classe portera le nom <b>BanqueRemoteServiceEndpoint</b>. </p>
+					<p>Elle implémentera l'interface com.banque.service.remote.IBanqueRemoteService et portera la suite des annotations JAX-WS. </p>
+					<p>Elle sera liée aux services métiers par des attributs qui seront <a href="https://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/beans/factory/annotation/Autowired.html" target="_blank">@Autorired</a> (ou qui seront injectés dans les fichiers XML). Ses méthodes ne font que de la <a href="https://en.wikipedia.org/wiki/Delegation_pattern" target="_blank">délégation</a> vers les méthodes des services métier.</p>
+<pre>
+package com.banque.service.remote.impl;
+
+import java.util.*;
+
+import javax.jws.WebService;
+
+import org.apache.logging.log4j.*;
+import <a href="https://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/beans/factory/annotation/Autowired.html" target="_blank">org.springframework.beans.factory.annotation.Autowired</a>;
+import <a href="https://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/stereotype/Controller.html" target="_blank">org.springframework.stereotype.Controller</a>;
+
+import com.banque.entity.impl.*;
+import com.banque.service.*;
+import com.banque.service.remote.IBanqueRemoteService;
+
+@<a href="https://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/stereotype/Controller.html" target="_blank">Controller</a>
+@<a href="https://docs.oracle.com/javase/8/docs/api/javax/jws/WebService.html" target="_blank">WebService</a>(endpointInterface = "com.banque.service.remote.IBanqueRemoteService")
+public class BanqueRemoteServiceEndpoint implements IBanqueRemoteService {
+  private static final Logger LOG = LogManager.getLogger();
+  <a href="https://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/beans/factory/annotation/Autowired.html" target="_blank">@Autowired</a>
+  private IAuthentificationService authentificationService;
+  <a href="https://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/beans/factory/annotation/Autowired.html" target="_blank">@Autowired</a>
+  private ICompteService compteService;
+  <a href="https://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/beans/factory/annotation/Autowired.html" target="_blank">@Autowired</a>
+  private IOperationService operationService;
+
+  @Override
+  public UtilisateurEntity authentifier(String pLogin, String pPassword) throws Exception {
+    BanqueRemoteServiceEndpoint.LOG.debug("Appel au service d'authentification distant avec {}", pLogin);
+    try {
+      return this.authentificationService.authentifier(pLogin, pPassword);
+    } catch (Exception e) {
+      BanqueRemoteServiceEndpoint.LOG.error("Erreur dans le service d'authentification distant JAX-WS", e);
+      throw new Exception("Erreur", e);
+    }
+  }
+  
+  // A vous de faire les autres
+}</pre>
+					<p>Complétez les autres méthodes de notre web service. L'annotation <a href="https://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/stereotype/Controller.html" target="_blank">@Controller</a> ne sert que pour monter le bean automatiquement dans le context spring (via le component-scan).</p>
+
+					<p>Remarque : le plus important est ce que l'on a déclaré dans l'interface. </p>
+					
+        		</div>
+			</div>
+			
+			<div class="panel panel-default panel-primary" id="t43">
+				<div class="panel-heading">
+					<h3 class="panel-title">Binding avec JAX-B <a href="#top"><span class="glyphicon glyphicon-menu-up pull-right" title="Remonter"></span></a></h3>
+				</div>
+				<div class="panel-body">
+					<p>Nous sommes en JAX-WS, nous allons échanger nos données en XML. Nous ferons usage de JAX-B</p>
+					<p><a href="http://www.oracle.com/technetwork/articles/javase/index-140168.html" target="_blank">JAX-B</a> est la norme Java qui permet de lire/créer des flux XML de manière automatique sans avoir besoin de librairies externes (comme <a href="http://xerces.apache.org/" target="_blank">Xerces</a>, <a href="http://dom4j.github.io/" target="_blank">Dom4J</a>, <a href="http://www.jdom.org/" target="_blank">JDom</a>, ...). </p>
+					<p>Via des annotations, elle permet de décrire les balises/attributs XML que l'on souhaite lire/écrire. </p>
+					<p>Cette norme permet de réaliser un mapping Objet Java vers fichier XML et inversement. </p>
+					<p>Les annotations les plus usuelles :</p>
+					<ul>
+						<li><b>@<a href="http://docs.oracle.com/javase/8/docs/api/javax/xml/bind/annotation/XmlRootElement.html" target="_blank">XmlRootElement</a></b> : définit le nom de la balise root de votre flux XML. A définir sur une classe Java.</li>
+						<li><b>@<a href="http://docs.oracle.com/javase/8/docs/api/javax/xml/bind/annotation/XmlAccessorType.html" target="_blank">XmlAccessorType</a></b> : définit comment JAXB doit trouver les balises/attributs. A définir sur une classe Java. </li>
+						<li><b>@<a href="http://docs.oracle.com/javase/8/docs/api/javax/xml/bind/annotation/XmlAttribute.html" target="_blank">XmlAttribute</a></b> : définit l'information comme un attribut de votre balise XML. A définir sur une méthode get/set ou un attribut de classe Java. </li>
+						<li><b>@<a href="http://docs.oracle.com/javase/8/docs/api/javax/xml/bind/annotation/XmlElement.html" target="_blank">XmlElement</a></b> : définit l'information comme une sous balise de votre balise XML. A définir sur une méthode get/set ou un attribut de classe Java. </li>
+						<li><b>@<a href="http://docs.oracle.com/javase/8/docs/api/javax/xml/bind/annotation/XmlElementWrapper.html" target="_blank">XmlElementWrapper</a></b> : dans le cas des informations multivaluées (liste, map, tableau), permet de définir une balise parentes englobants les informations. A définir sur une méthode get/set ou un attribut de classe Java. </li>
+						<li><b>@<a href="http://docs.oracle.com/javase/8/docs/api/javax/xml/bind/annotation/adapters/XmlJavaTypeAdapter.html" target="_blank">XmlJavaTypeAdapter</a>(UneClasse.class)</b> : Ou UneClasse hérite de <a href="https://docs.oracle.com/javase/8/docs/api/javax/xml/bind/annotation/adapters/XmlAdapter.html" target="_blank">javax.xml.bind.annotation.adapters.XmlAdapter</a>, permet de définir comment transformer les informations.  A définir sur une méthode get/set ou un attribut de classe Java. </li>
+					</ul>
+					<p>Ajustez vos entités afin de faire usage du JAX-B. Libre à vous de définir le format qui vous intéresse. </p>
+					<p>Attention : ne faites pas de boucles infinies (client-&gt;compte-&gt;client) dans votre binding XML. </p>
+					<p>Vous pouvez faire usage des adapter se trouvant dans le package com.banque.jax.adapter pour gérer les dates. </p>
+					
+					<p>Remarque : nous faisons ici le binding directement sur les entités, il est parfois préférable de réaliser des objets dédiés (souvent appelés DTO) qui portent le binding (en XML ou JSON). </p>
+					<p>Exemple de binding pour l'entité OperationEntity :</p>
+<pre>
+package com.banque.entity.impl;
+
+import java.sql.Timestamp;
+
+import javax.persistence.*;
+import javax.xml.bind.annotation.*;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+
+import com.banque.jax.adapter.TimestampAdapter;
+
+@Entity
+@Table(name = "operation")
+@<a href="http://docs.oracle.com/javase/8/docs/api/javax/xml/bind/annotation/XmlRootElement.html" target="_blank">XmlRootElement</a>
+@<a href="http://docs.oracle.com/javase/8/docs/api/javax/xml/bind/annotation/XmlAccessorType.html" target="_blank">XmlAccessorType</a>(XmlAccessType.NONE)
+public class OperationEntity extends AbstractEntity {
+
+  private static final long serialVersionUID = 1L;
+
+  @<a href="http://docs.oracle.com/javase/8/docs/api/javax/xml/bind/annotation/XmlAttribute.html" target="_blank">XmlAttribute</a>
+  @<a href="https://docs.oracle.com/javase/8/docs/api/javax/xml/bind/annotation/adapters/XmlJavaTypeAdapter.html" target="_blank">XmlJavaTypeAdapter</a>(value = TimestampAdapter.class)
+  @Column(name = "date", length = 19)
+  private Timestamp date;
+
+  @<a href="http://docs.oracle.com/javase/8/docs/api/javax/xml/bind/annotation/XmlAttribute.html" target="_blank">XmlAttribute</a>
+  @Column(name = "libelle", length = 250)
+  private String libelle;
+
+  @<a href="http://docs.oracle.com/javase/8/docs/api/javax/xml/bind/annotation/XmlAttribute.html" target="_blank">XmlAttribute</a>
+  @Column(name = "montant", precision = 22, scale = 0)
+  private Double montant;
+
+  @ManyToOne
+  @JoinColumn(name = "compteId", nullable = false, unique = true)
+  private CompteEntity compte;
+  
+  ...
+}</pre>
+					<p>N'oubliez pas de binder l'id de vos entités.</p>	
+        		</div>
+			</div>
+			
+			<div class="panel panel-default panel-primary" id="t44">
+				<div class="panel-heading">
+					<h3 class="panel-title">Déclaration des services <a href="#top"><span class="glyphicon glyphicon-menu-up pull-right" title="Remonter"></span></a></h3>
+				</div>
+				<div class="panel-body">
+					<p>Dans le dossier src/main/resources/spring ajoutez (ou éditez s'il est déjà présent) un fichier Spring jaxws<b>-context.xml</b>. </p>
+					<p>Nous allons y placer notre objet <a href="https://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/remoting/jaxws/SimpleJaxWsServiceExporter.html" target="_blank">SimpleJaxWsServiceExporter</a>. </p>
+
+<pre>
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;beans xmlns="http://www.springframework.org/schema/beans"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+  xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd 
+       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd"&gt;
+
+  &lt;context:component-scan base-package="com.banque.service.remote" /&gt;
+
+  &lt;!-- Le spring va nous monter l'UNIQUE WS --&gt;
+  &lt;bean class="<a href="https://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/remoting/jaxws/SimpleJaxWsServiceExporter.html" target="_blank">org.springframework.remoting.jaxws.SimpleJaxWsServiceExporter</a>"&gt;
+    &lt;!-- NE PAS OUBLIER LE '/' a la fin --&gt;
+    &lt;property name="baseAddress" value="http://localhost:8080/" /&gt;
+  &lt;/bean&gt;
+
+&lt;/beans&gt;</pre>
+					<p>Vous pouvez modifier le numéro de port si vous le désirez et même compléter l'URL.</p>
+					<p>Rappel : Cette solution ne supporte qu'un seul service. </p>
+
+        		</div>
+			</div>			
+			
+			<div class="panel panel-default panel-primary" id="t45">
+				<div class="panel-heading">
+					<h3 class="panel-title">Réalisation du serveur <a href="#top"><span class="glyphicon glyphicon-menu-up pull-right" title="Remonter"></span></a></h3>
+				</div>
+				<div class="panel-body">
+					<p>Afin de lancer notre serveur JAX-WS nous allons réaliser une classe pourvue d'une méthode main.</p>
+<pre>
+package com.banque;
+
+import org.apache.logging.log4j.*;
+import <a href="https://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/context/support/ClassPathXmlApplicationContext.html" target="_blank">org.springframework.context.support.ClassPathXmlApplicationContext</a>;
+public final class MainServeur {
+  private static final Logger LOG = LogManager.getLogger();
+
+  public static void main(String[] args) {
+    MainServeur.LOG.info("-- Debut Serveur -- ");
+    // Declaration du context Spring
+    <a href="https://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/context/support/ClassPathXmlApplicationContext.html" target="_blank">ClassPathXmlApplicationContext</a> appContext = null;
+    try {
+      // Chargement des fichiers Spring (tous sauf le client)
+      appContext = new <a href="https://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/context/support/ClassPathXmlApplicationContext.html" target="_blank">ClassPathXmlApplicationContext</a>("spring/*-context.xml");
+      MainServeur.LOG.info("-- Serveur UP, appuyez sur 'Enter' pour l'arreter -- ");
+      // On ne fait rien d'autre, on attend
+      System.in.read();
+    } catch (Exception e) {
+      MainServeur.LOG.fatal("Erreur", e);
+      System.exit(-1);
+    } finally {
+      if (appContext != null) {
+        appContext.close();
+      }
+    }
+    MainServeur.LOG.info("-- Fin Serveur -- ");
+    System.exit(0);
+  }
+}</pre>
+					<p>Elle ne fait rien, hormis charger tous les fichiers Spring côté serveur.</p>
+        		</div>
+			</div>
+
+			<div class="panel panel-default panel-primary" id="t46">
+				<div class="panel-heading">
+					<h3 class="panel-title">Déclaration du client <a href="#top"><span class="glyphicon glyphicon-menu-up pull-right" title="Remonter"></span></a></h3>
+				</div>
+				<div class="panel-body">
+					<p>Pour la partie cliente, c'est le Spring qui va s'occuper automatiquement de la récupération des services distants. Vous aurez juste besoin de l'interface qui les représente.</p>
+					<p>Dans le dossier src/main/resources/spring ajoutez (ou éditez s'il est déjà présent) un fichier Spring <b>spring-client.xml</b>. </p>
+					<p>Nous allons y placer la déclaration de notre service distant JAX-WS mais pour la partie <b>cliente uniquement</b>. </p>
+					<p>Le nom du fichier n'a pas d'importance, mais, dans notre cas, vous ne devez pas le faire terminer par -context.xml sinon il sera aussi monté par la partie serveur (ce qui ne sert à rien).</p>
+
+<pre>
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;beans xmlns="http://www.springframework.org/schema/beans"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+  xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd"&gt;
+
+  &lt;bean id="banqueRemoteWebService" class="<a href="https://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/remoting/jaxws/JaxWsPortProxyFactoryBean.html" target="_blank">org.springframework.remoting.jaxws.JaxWsPortProxyFactoryBean</a>"&gt;
+    &lt;property name="serviceInterface" value="com.banque.service.remote.IBanqueRemoteService" /&gt;
+    &lt;property name="wsdlDocumentUrl" value="http://localhost:8080/BanqueRemoteServiceEndpoint?WSDL" /&gt;
+    &lt;property name="serviceName" value="BanqueRemoteServiceEndpointService" /&gt;
+    &lt;property name="portName" value="BanqueRemoteServiceEndpointPort" /&gt;
+    &lt;property name="namespaceUri" value="http://impl.remote.service.banque.com/"/&gt;
+  &lt;/bean&gt;
+
+&lt;/beans&gt;</pre>
+					<p>Notez que le numéro de port doit correspondre à ce que vous avez indiqué dans le fichier de configuration côté serveur.</p>
+					<ul>
+						<li>serviceInterface : le nom long de l'interface</li>
+						<li>wsdlDocumentUrl : l'URL vers le <a href="https://fr.wikipedia.org/wiki/Web_Services_Description_Language" target="_blank">WSDL</a> du service</li>
+						<li>serviceName : nom de la classe + "Service" </li>
+						<li>portName : nom de la classe + "Port"  </li>
+						<li>portName : nom de la classe + "Port"  </li>
+						<li>namespaceUri : "http://" + nom inversé des packages qui conduisent à la classe + "/" </li>
+					</ul>
+					
+					<p>Ici, notre bean a un id, car nous allons le récupérer via la méthode getBean pour en faire quelque chose. </p>
+        		</div>
+			</div>
+
+			<div class="panel panel-default panel-primary" id="t47">
+				<div class="panel-heading">
+					<h3 class="panel-title">Réalisation du client <a href="#top"><span class="glyphicon glyphicon-menu-up pull-right" title="Remonter"></span></a></h3>
+				</div>
+				<div class="panel-body">
+					<p>Afin de lancer notre client JAX-WS nous allons réaliser une classe pourvue d'une méthode main.</p>
+<pre>
+package com.banque;
+
+import java.util.*;
+
+import org.apache.logging.log4j.*;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+import com.banque.entity.impl.*;
+import com.banque.service.remote.IBanqueRemoteService;
+
+public final class MainClient {
+  private static final Logger LOG = LogManager.getLogger();
+
+  public static void main(String[] args) {
+    MainClient.LOG.info("-- Debut Client -- ");
+    // Declaration du context Spring
+    ClassPathXmlApplicationContext appContext = null;
+    try {
+      // Chargement du fichier client UNIQUEMENT
+      appContext = new ClassPathXmlApplicationContext("spring/spring-client.xml");
+      IBanqueRemoteService serviceWs = (IBanqueRemoteService) appContext.getBean("banqueRemoteWebService");
+      UtilisateurEntity utilisateur = serviceWs.authentifier("dj", "dj");
+      MainClient.LOG.info("Bonjour {} {}", utilisateur.getNom(), utilisateur.getPrenom());
+
+      List&lt;CompteEntity&gt; listeCpts = serviceWs.selectAll(utilisateur.getId().intValue());
+      MainClient.LOG.info("Vous avez {} comptes",String.valueOf(listeCpts.size()));
+      // On prend deux id de comptes pour faire un virement
+      Integer[] deuxId = new Integer[2];
+      Iterator&lt;CompteEntity&gt; iter = listeCpts.iterator();
+      int id = 0;
+      while (iter.hasNext() &amp;&amp; id &lt; deuxId.length) {
+        CompteEntity compteEntity = iter.next();
+        deuxId[id] = compteEntity.getId();
+        id++;
+      }
+
+      serviceWs.faireVirement(utilisateur.getId().intValue(), deuxId[0].intValue(), deuxId[1].intValue(),  5d);
+      MainClient.LOG.info("Votre virement s'est bien effectue");
+    } catch (Exception e) {
+      MainClient.LOG.debug("Ne pas oublier de demarrer le MainServeur avant.");
+      MainClient.LOG.fatal("Erreur", e);
+      System.exit(-1);
+    } finally {
+      if (appContext != null) {
+        appContext.close();
+      }
+    }
+    MainClient.LOG.info("-- Fin Client-- ");
+    System.exit(0);
+  }
+
+}</pre>
+					<p>Vous pouvez maintenant tester, lancer le serveur puis le client afin de voir si tout fonctionne bien.</p>
+					<p>Vous pouvez aussi tester votre service avec <a href="https://www.soapui.org/" target="_blank">SOAP UI</a>.</p>
+					<p>Notez que si nous avions fait deux programmes séparés (totalement indépendants), la partie cliente aurait impérativement possédé :</p>
+					<ul>
+						<li>Les classes entités (les mêmes classes que celles côté serveur)</li>
+						<li>L'interface qui représente le service distant (la même interface que celle côté serveur). </li>
+					</ul>
+        		</div>
+			</div>
+		</section>
+
+		<section>
+			<h2 id="t5"><span class="label label-default">5</span> Spring Remote - JAX-WS sans SimpleJaxWsServiceExporter</h2>
+			<div class="panel panel-default panel-primary" id="t51">
+				<div class="panel-heading">
+					<h3 class="panel-title">Importation du projet dans Eclipse <a href="#top"><span class="glyphicon glyphicon-menu-up pull-right" title="Remonter"></span></a></h3>
+				</div>
+				<div class="panel-body">
+					<p>Nous allons importer un projet déjà complet sur sa partie back. Le projet est en JPA 2.0 avec Hibernate 5. </p>
+					<p>Pour importer le projet :</p>
+					<ul>
+						<li>Dans le menu Eclipse, sélectionnez File/Import puis Existing Maven Projects</li>
+						<li>Pointez vers le projet qui se trouve dans l'énoncé (en19.spring.remote<b>.jaxws2</b>).</li>
+					</ul>
+					<p>Après l'import, faites un clic droit sur le projet, puis Properties (tout en bas). Dans l'onglet Targeted Runtime, cochez votre version de Tomcat.</p>
+					<p>Important : Après toutes modifications faites sur le fichier pom.xml, faites un clic droit sur <b>votre projet</b> puis Maven - Update Project ...</p>
+					<p>L'artefactId dans votre Maven sera utilisé comme nom du context pour votre application WEB. </p>					
+
+					<p>Vérifiez que tout compile (pas de [ERROR] dans la console Maven et un BUILD SUCCESS). Potentiellement, modifiez le login et ou le password d'accès à la base de données qui se trouve dans le fichier  src/main/resources/spring/database.properties</p>
+					
+					<p>Ajoutez un serveur d'application et déployez votre projet dedans. </p>
+					
+					<p>Rappel : Pour simplifier la manipulation, toutes les dépendances sont déjà dans le pom.xml. Une dépendance vers org.springframework.ws a été ajouté ainsi que org.jvnet.jax-ws-commons.spring.</p>
+        		</div>
+			</div>
+
+			<div class="panel panel-default panel-primary" id="t52">
+				<div class="panel-heading">
+					<h3 class="panel-title">Réalisation des services <a href="#top"><span class="glyphicon glyphicon-menu-up pull-right" title="Remonter"></span></a></h3>
+				</div>
+				<div class="panel-body">
+					<p>Nous sommes toujours en JAX-WS, mais sans SimpleJaxWsServiceExporter. Nous allons pouvoir réaliser plusieurs services webs.</p>
+					<p>Dans le package <b>com.banque.service.remote</b> ajoutez une interface Java qui représentera le service d'authentification, appelez la <b>IAuthentificationRemoteService</b>. </p>
+<pre>
+package com.banque.service.remote;
+
+import java.util.*;
+import javax.jws.*;
+import javax.jws.soap.SOAPBinding;
+import javax.jws.soap.SOAPBinding.ParameterStyle;
+import com.banque.entity.impl.*;
+
+@<a href="https://docs.oracle.com/javase/8/docs/api/javax/jws/WebService.html" target="_blank">WebService</a>(serviceName = "AuthentificationRemoteService")
+@<a href="https://docs.oracle.com/javase/8/docs/api/javax/jws/soap/SOAPBinding.html" target="_blank">SOAPBinding</a>(style = SOAPBinding.Style.DOCUMENT, use = SOAPBinding.Use.LITERAL, parameterStyle = ParameterStyle.WRAPPED)
+public interface IAuthentificationRemoteService {
+
+  @<a href="https://docs.oracle.com/javase/8/docs/api/javax/jws/WebMethod.html" target="_blank">WebMethod</a>(operationName = "authentifier", action = "urn:authentifier")
+  @<a href="https://docs.oracle.com/javase/8/docs/api/javax/jws/WebResult.html" target="_blank">WebResult</a>(name = "user")
+  public abstract UtilisateurEntity authentifier(@<a href="https://docs.oracle.com/javase/8/docs/api/javax/jws/WebParam.html" target="_blank">WebParam</a>(name = "pLogin") String pLogin, @<a href="https://docs.oracle.com/javase/8/docs/api/javax/jws/WebParam.html" target="_blank">WebParam</a>(name = "pPassword") String pPassword) throws Exception;
+}</pre>
+
+					<p>Dans le package <b>com.banque.service.remote.impl</b> réalisez l'implémentation de cette interface. La classe portera le nom <b>AuthentificationRemoteServiceEndpoint</b>. </p>
+					<p>Elle héritera de notre classe abstraite com.banque.service.remote.impl.AbstractRemoteService et implémentera l'interface com.banque.service.remote.IAuthentificationRemoteService. </p>
+					<p>Elle sera liée au service métier par un attribut qui sera <a href="https://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/beans/factory/annotation/Autowired.html" target="_blank">@Autorired</a> (ou qui sera injecté dans les fichiers XML). Sa méthode ne fait que de la <a href="https://en.wikipedia.org/wiki/Delegation_pattern" target="_blank">délégation</a> vers la méthode du service métier.</p>
+<pre>
+package com.banque.service.remote.impl;
+
+import java.util.*;
+
+import javax.jws.WebService;
+
+import org.apache.logging.log4j.*;
+import <a href="https://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/beans/factory/annotation/Autowired.html" target="_blank">org.springframework.beans.factory.annotation.Autowired</a>;
+import <a href="https://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/stereotype/Controller.html" target="_blank">org.springframework.stereotype.Controller</a>;
+
+import com.banque.entity.impl.*;
+import com.banque.service.*;
+import com.banque.service.remote.IAuthentificationRemoteService;
+
+@<a href="https://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/stereotype/Controller.html" target="_blank">Controller</a>
+@<a href="https://docs.oracle.com/javase/8/docs/api/javax/jws/WebService.html" target="_blank">WebService</a>(endpointInterface = "com.banque.service.remote.IAuthentificationRemoteService")
+public class AuthentificationRemoteServiceEndpoint extends AbstractRemoteService implements IAuthentificationRemoteService {
+  private static final Logger LOG = LogManager.getLogger();
+  <a href="https://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/beans/factory/annotation/Autowired.html" target="_blank">@Autowired</a>
+  private IAuthentificationService authentificationService;
+
+  @Override
+  public UtilisateurEntity authentifier(String pLogin, String pPassword) throws Exception {
+    AuthentificationRemoteServiceEndpoint.LOG.debug("Appel au service d'authentification distant avec {}", pLogin);
+    try {
+      return this.authentificationService.authentifier(pLogin, pPassword);
+    } catch (Exception e) {
+      AuthentificationRemoteServiceEndpoint.LOG.error("Erreur dans le service d'authentification distant JAX-WS", e);
+      throw new Exception("Erreur", e);
+    }
+  }	
+}</pre>
+					<p>Il n'y a rien de plus à faire pour le code de notre service distant d'authentification. L'annotation <a href="https://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/stereotype/Controller.html" target="_blank">@Controller</a> ne sert que pour monter le bean automatiquement dans le context spring (via le component-scan).</p>
+
+					<p>Faites de même en réalisant un service distant pour la gestion des comptes et un autre pour la gestion des opérations (classe + interface). 
+					Remarque : vous pouvez vous inspirez de ce que vous avez déjà fait en JAX-WS. </p>
+					
+					<p><b>Important</b> : en JAX-WS il ne faut JAMAIS avoir deux méthodes de web service avec le même nom, même si elles sont dans des classes de services différents.</p>
+        		</div>
+			</div>
+
+			<div class="panel panel-default panel-primary" id="t53">
+				<div class="panel-heading">
+					<h3 class="panel-title">Déclaration des services <a href="#top"><span class="glyphicon glyphicon-menu-up pull-right" title="Remonter"></span></a></h3>
+				</div>
+				<div class="panel-body">
+					<p>Dans le dossier src/main/webapp/WEB-INF/web.xml ajoutez (ou éditez s'il est déjà présent) le fait que nous ferons usage du contrôleur WSSpringServlet. </p>
+<pre>
+... 
+  &lt;servlet&gt;
+    &lt;servlet-name&gt;WSSpringServlet&lt;/servlet-name&gt;
+    &lt;servlet-class&gt;com.sun.xml.ws.transport.http.servlet.WSSpringServlet&lt;/servlet-class&gt;
+  &lt;/servlet&gt;
+  &lt;servlet-mapping&gt;
+    &lt;servlet-name&gt;WSSpringServlet&lt;/servlet-name&gt;
+    &lt;!-- Chaque URL correspond a un url de wss:binding --&gt;
+    &lt;url-pattern&gt;/AuthentificationRemoteService&lt;/url-pattern&gt;
+    &lt;url-pattern&gt;/CompteRemoteService&lt;/url-pattern&gt;
+    &lt;url-pattern&gt;/OperationRemoteService&lt;/url-pattern&gt;
+  &lt;/servlet-mapping&gt;
+  &lt;!-- Vous pouvez aussi declarer n servlet 
+  WSSpringServlet sur un URL dedie--&gt;
+...
+</pre>					
+					<p>Contrairement à avant, nous allons pouvoir mapper plusieurs services sur plusieurs URLs. </p>
+					<p>Dans le dossier src/main/resources/spring/ ajoutez (ou éditez s'il est déjà présent) le fichier jaxws<b>-context.xml</b>. </p>
+<pre>
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;beans xmlns="http://www.springframework.org/schema/beans"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+  xmlns:context="http://www.springframework.org/schema/context"
+  <b>xmlns:wss="http://jax-ws.dev.java.net/spring/servlet" 
+  xmlns:ws="http://jax-ws.dev.java.net/spring/core"</b>
+  xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd 
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+        <b>http://jax-ws.dev.java.net/spring/core http://jax-ws.java.net/spring/core.xsd
+        http://jax-ws.dev.java.net/spring/servlet http://jax-ws.java.net/spring/servlet.xsd</b>"&gt;
+
+  &lt;context:component-scan base-package="com.banque.service.remote" /&gt;
+
+  &lt;wss:binding url="/AuthentificationRemoteService"&gt;
+    &lt;wss:service&gt;
+      &lt;ws:service bean="#authentificationRemoteServiceEndpoint" /&gt;
+    &lt;/wss:service&gt;
+  &lt;/wss:binding&gt;
+  
+  &lt;!-- Declarez vos deux autres services distants --&gt;
+
+&lt;/beans&gt;
+</pre>
+					<p>Notez l'usage de deux namespaces supplémentaires wss et ws.</p>
+					<p>L'utilisation du component-scan n'est pas obligatoire car il est déjà présent dans un autre des fichiers Spring. </p>
+					<p>Déclarez à la suite les deux autres services distants que vous avez réalisé en respectant les noms. </p>
+					<ul>
+						<li>ws:service pointe vers l'id du bean Spring (monté automatiquement par le component-scan).</li>
+						<li>url de wss:binding devra correspondre à ce que vous avez indiqué dans le fichier web.xml pour le mapping de la servlet WSSpringServlet. </li>
+					</ul>
+					<p>Spring se charge de tout, vous devrez cependant démarrer votre serveur JEE.</p>
+
+					<p>Important : nous sommes toujours en JAX, donc vos entités doivent être bindé via JAX-B. Reprenez vos entités de l'exercice précédent afin de conserver le binding XML. </p>
+        		</div>
+			</div>		
+
+			<div class="panel panel-default panel-primary" id="t54">
+				<div class="panel-heading">
+					<h3 class="panel-title">Déclaration du client <a href="#top"><span class="glyphicon glyphicon-menu-up pull-right" title="Remonter"></span></a></h3>
+				</div>
+				<div class="panel-body">
+					<p>Pour la partie cliente, c'est le Spring qui va s'occuper automatiquement de la récupération des services distants. Vous aurez juste besoin de l'interface qui les représente.</p>
+					<p>Dans le dossier src/<b>test</b>/resources/spring/ ajoutez (ou éditez s'il est déjà présent) un fichier Spring <b>spring-client.xml</b>. </p>
+					<p>Nous allons y placer tout ce qui concerne la déclaration de nos services distants JAX-WS mais pour la partie <b>cliente uniquement</b>. </p>
+					<p>Pour ne pas avoir de problème entre JAX + JPA nous sommes dans le dossier de <b>test</b>. </p>
+<pre>
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;beans xmlns="http://www.springframework.org/schema/beans"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+  xmlns:context="http://www.springframework.org/schema/context"
+  xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd 
+       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd"&gt;
+
+  &lt;!-- Fichier qui ne doit etre charge QUE par le client de nos services JAX-WS --&gt;
+  &lt;!-- On recupere nos trois beans en les declarants --&gt;
+
+  &lt;bean id="authentificationWebService" class="<a href="https://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/remoting/jaxws/JaxWsPortProxyFactoryBean.html" target="_blank">org.springframework.remoting.jaxws.JaxWsPortProxyFactoryBean</a>"&gt;
+    &lt;property name="serviceInterface" value="com.banque.service.remote.IAuthentificationRemoteService" /&gt;
+    &lt;property name="wsdlDocumentUrl" value="http://localhost:8080/en19.spring.remote.jaxws2/AuthentificationRemoteService?WSDL" /&gt;
+    &lt;property name="serviceName" value="AuthentificationRemoteServiceEndpointService" /&gt;
+    &lt;property name="portName" value="AuthentificationRemoteServiceEndpointPort" /&gt;
+    &lt;property name="namespaceUri" value="http://impl.remote.service.banque.com/" /&gt;
+  &lt;/bean&gt;
+
+  &lt;!-- Declarez vos deux autres services distants --&gt;
+  
+&lt;/beans&gt;</pre>
+					<p>N'oubliez pas de déclarer les deux autres services distants. Les rêgles sont les mêmes que dans l'exercices 4.</p>
+					<p>Ici, nos beans ont des id, car nous allons les récupérer via la méthode getBean pour en faire quelque chose. </p>
+        		</div>
+			</div>
+
+			<div class="panel panel-default panel-primary" id="t55">
+				<div class="panel-heading">
+					<h3 class="panel-title">Réalisation du client <a href="#top"><span class="glyphicon glyphicon-menu-up pull-right" title="Remonter"></span></a></h3>
+				</div>
+				<div class="panel-body">
+					<p>Nous allons faire une classe de test Junit (plutôt qu'un main).</p>
+					<p>Dans src/test/java/com/banque/test ajoutez la classe <b>TestClient.java</b> </p>
+<pre>
+package com.banque.test;
+
+import java.util.*;
+import org.apache.logging.log4j.*;
+import org.junit.*;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.*;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+
+import com.banque.entity.impl.*;
+import com.banque.service.remote.*;
+
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(name = "applicationContext", locations = { "classpath*:spring/spring-client.xml", "classpath*:spring/test-context.xml" })
+public final class TestClient {
+  private static final Logger LOG = LogManager.getLogger();
+
+  @Autowired
+  @Qualifier("authentificationWebService")
+  private IAuthentificationRemoteService serviceRemoteAuth;
+  @Autowired
+  @Qualifier("compteWebService")
+  private ICompteRemoteService serviceRemoteCpt;
+  @Autowired
+  @Qualifier("operationWebService")
+  private IOperationRemoteService serviceRemoteOperation;
+
+  @BeforeClass
+  public static void initLog() {
+    System.setProperty("log4j.configurationFile", "log4j-test.properties");
+    TestClient.LOG.warn("Ne pas oublier de demarrer le Serveur J2EE avant.");
+  }
+
+  @Test
+  public void testClient() {
+    TestClient.LOG.info("-- Debut Client -- ");
+    try {
+      UtilisateurEntity utilisateur = this.serviceRemoteAuth.authentifier("dj", "dj");
+      TestClient.LOG.info("Bonjour {} {}", utilisateur.getNom(), utilisateur.getPrenom());
+
+      List&lt;CompteEntity&gt; listeCpts = this.serviceRemoteCpt.selectAllCompte(utilisateur.getId().intValue());
+      TestClient.LOG.info("Vous avez {} comptes",String.valueOf(listeCpts.size()));
+
+      Integer[] deuxId = new Integer[2];
+      Iterator&lt;CompteEntity&gt; iter = listeCpts.iterator();
+      int id = 0;
+      while (iter.hasNext() &amp;&amp; id &lt; deuxId.length) {
+        CompteEntity compteEntity = iter.next();
+        deuxId[id] = compteEntity.getId();
+        id++;
+      }
+
+      this.serviceRemoteOperation.faireVirement(utilisateur.getId().intValue(), deuxId[0].intValue(),
+          deuxId[1].intValue(), 5d);
+      TestClient.LOG.info("Votre virement s'est bien effectue");
+    } catch (Exception e) {
+      TestClient.LOG.error("Ne pas oublier de demarrer le Serveur J2EE avant.");
+      TestClient.LOG.fatal("Erreur", e);
+      Assert.fail("Erreur " + e.getMessage());
+    }
+    TestClient.LOG.info("-- Fin Client-- ");
+  }
+
+}</pre>
+					<p>Vous pouvez maintenant tester, lancer le serveur JEE  puis la classe de test JUnit afin de voir si tout fonctionne bien.</p>
+        		</div>
+			</div>
+		</section>
+
+		
+
+		<nav>
+			<ul class="pager">
+				<li class="previous" title="Spring Security"><a href="../Exo17-Spring%20Security/Exo17-Spring%20Security.html"><span aria-hidden="true">&larr;</span> Exercice Précédent</a></li>
+				<li class="next" title="Spring JMX"><a href="../Exo20-Spring%20JMX/Exo20-Spring%20JMX.html">Exercice Suivant <span aria-hidden="true">&rarr;</span></a></li>
+			</ul>
+		</nav>
+
+		<br/><br/>
+		<footer>
+			<p class="text-center">
+				<a href="http://validator.w3.org/">
+					<img src="../bootstrap-3.3.7-dist/img/HTML5_Logo_32.png" alt="Valid HTML 5.0" />
+				</a><br/>
+				Copyright <span class="glyphicon glyphicon-copyright-mark"></span> <a href="http://ferretrenaud.fr" target="_blank">Ferret Renaud</a> 2013
+			</p>
+		</footer>
+
+		<script src="../bootstrap-3.3.7-dist/js/jquery.min.js"></script>
+		<script src="../bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+	</body>
+</html>
+
+
+

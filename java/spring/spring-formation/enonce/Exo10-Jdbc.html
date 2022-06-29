@@ -1,0 +1,577 @@
+<!--
+	Copyright 2013
+	Ferret Renaud
+	admin@ferretrenaud.com
+-->
+
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="Author" content="FERRET Renaud" />
+    <meta name="Description" content="Exercice de formation" />
+    <meta name="copyright" content="(C) Copyright 2013 FERRET Renaud" />
+    <meta name="distribution" content="global" />
+
+    <title>Spring - Exercice 10 - Jdbc et Spring</title>
+
+    <link
+      href="./bootstrap-3.3.7-dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link href="./custom-css/custom.css" rel="stylesheet" />
+    <!-- Ne pas voir les liens lors de l'impressions -->
+    <style>
+      @media print {
+        a[href]:after {
+          content: none;
+        }
+      }
+    </style>
+
+    <!--[if lt IE 9]>
+      <script src="../bootstrap-3.3.7-dist/js/html5shiv.min.js"></script>
+      <script src="../bootstrap-3.3.7-dist/js/respond.min.js"></script>
+    <![endif]-->
+  </head>
+
+  <body class="container">
+    <nav class="navbar navbar-default navbar-right" id="top">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button
+            type="button"
+            class="navbar-toggle collapsed"
+            data-toggle="collapse"
+            data-target="#bs-example-navbar-collapse-1"
+            aria-expanded="false"
+          >
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#" title="Spring - Exercice 10"
+            >Spring E10</a
+          >
+        </div>
+
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+          <ul class="nav navbar-nav">
+            <li class="dropdown">
+              <a
+                href="#"
+                class="dropdown-toggle"
+                data-toggle="dropdown"
+                role="button"
+                aria-haspopup="true"
+                aria-expanded="false"
+                >1 - JdbcTemplate<span class="caret"></span
+              ></a>
+              <ul class="dropdown-menu">
+                <li>
+                  <a href="#t11">1-1 Déclaration dans le fichier spring</a>
+                </li>
+                <li><a href="#t12">1-2 Transformation des classes Java</a></li>
+                <li><a href="#t13">1-3 Test</a></li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+      </div>
+      <!-- /.container-fluid -->
+    </nav>
+    <br />
+    <div class="page-header">
+      <h1>Spring - Exercice 10 - Jdbc et Spring</h1>
+      <p>Utilisation du JdbcTemplate.</p>
+      <nav>
+        <ul class="pager">
+          <li class="previous" title="L'AOP">
+            <a href="./Exo09-Aspects.html"
+              ><span aria-hidden="true">&larr;</span> Exercice Précédent</a
+            >
+          </li>
+          <li class="next" title="Transaction">
+            <a href="./Exo11-Transaction.html"
+              >Exercice Suivant <span aria-hidden="true">&rarr;</span></a
+            >
+          </li>
+        </ul>
+      </nav>
+    </div>
+    <!-- page header -->
+
+    <section>
+      <h2 id="t1"><span class="label label-default">1</span> JdbcTemplate</h2>
+      <div class="panel panel-default panel-primary" id="t11">
+        <div class="panel-heading">
+          <h3 class="panel-title">
+            Déclaration dans le fichier spring
+            <a href="#top"
+              ><span
+                class="glyphicon glyphicon-menu-up pull-right"
+                title="Remonter"
+              ></span
+            ></a>
+          </h3>
+        </div>
+        <div class="panel-body">
+          <p>
+            Reprenez l'exercice 8 ou 9, copiez le pom.xml qui se trouve dans cet
+            exercice.
+          </p>
+          <p>
+            Pour fonctionner en JDBC nous aurons besoin d'un
+            <a
+              target="_blank"
+              href="http://docs.spring.io/autorepo/docs/spring-framework/current/javadoc-api/org/springframework/jdbc/core/JdbcTemplate.html"
+              >JdbcTemplate</a
+            >, cet objet a lui-même besoin d'une DataSource. Tous ses objets
+            appartiennent au Spring et nous allons les déclarer dans le fichier
+            XML.
+          </p>
+          <p>
+            La data source fera usage des informations du fichier properties.
+            C'est elle qui porte la configuration d'accès aux données.
+          </p>
+          <p>
+            Vous êtes libre d'utiliser l'implémentation de DataSource de votre
+            choix, nous allons ici faire usage d'une
+            <a
+              href="https://commons.apache.org/proper/commons-dbcp/apidocs/org/apache/commons/dbcp2/BasicDataSource.html"
+              target="_blank"
+              >org.apache.commons.dbcp2.BasicDataSource</a
+            >
+            (nous aurions pu prendre un
+            <a
+              href="http://docs.spring.io/autorepo/docs/spring-framework/current/javadoc-api/org/springframework/jdbc/datasource/DriverManagerDataSource.html"
+              target="_blank"
+              >org.springframework.jdbc.datasource.DriverManagerDataSource</a
+            >).
+          </p>
+          <p>Le pom.xml ajoute les dépendances nécessaires.</p>
+          <pre>
+&lt;bean id="dataSource" destroy-method="close" class="<a href="https://commons.apache.org/proper/commons-dbcp/apidocs/org/apache/commons/dbcp2/BasicDataSource.html" target="_blank">org.apache.commons.dbcp2.BasicDataSource</a>"&gt;
+  &lt;property name="driverClassName" value="${db.driver}"/&gt;
+  &lt;property name="url" value="${db.url}"/&gt;
+  &lt;property name="username" value="${db.login}"/&gt;
+  &lt;property name="password" value="${db.password}"/&gt;
+&lt;/bean&gt;
+
+&lt;bean id="jdbcTemplate" class="<a target="_blank" href="http://docs.spring.io/autorepo/docs/spring-framework/current/javadoc-api/org/springframework/jdbc/core/JdbcTemplate.html">org.springframework.jdbc.core.JdbcTemplate</a>"&gt;
+  &lt;property name="dataSource" ref="dataSource"/&gt;
+&lt;/bean&gt;</pre>
+          <p>
+            Vous pouvez ajouter d'autres options à votre DataSource (lisez la
+            documentation, regardez les constructeurs ou les méthodes setXxxx).
+          </p>
+        </div>
+      </div>
+
+      <div class="panel panel-default panel-primary" id="t12">
+        <div class="panel-heading">
+          <h3 class="panel-title">
+            Transformation des classes Java
+            <a href="#top"
+              ><span
+                class="glyphicon glyphicon-menu-up pull-right"
+                title="Remonter"
+              ></span
+            ></a>
+          </h3>
+        </div>
+        <div class="panel-body">
+          <p>
+            La transformation des DAO ne se fera pas sans douleur, mais au final
+            il sera beaucoup plus simple à lire et à maintenir.
+          </p>
+          <p>
+            Ajoutez un attribut privé
+            <b
+              ><a
+                target="_blank"
+                href="http://docs.spring.io/autorepo/docs/spring-framework/current/javadoc-api/org/springframework/jdbc/core/JdbcTemplate.html"
+                >org.springframework.jdbc.core.JdbcTemplate</a
+              ></b
+            >
+            dans la classe AbstractDAO.
+          </p>
+          <p>Ajoutez les méthodes get/set pour cet attribut.</p>
+          <p>
+            L'objet
+            <a
+              target="_blank"
+              href="http://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/jdbc/core/JdbcTemplate.html"
+              >JdbcTemplate</a
+            >
+            est fabriqué par Spring, la data source qui va avec aussi, donc pas
+            de new dans votre classe.
+          </p>
+          <p>
+            Comme c'est la datasource qui va gérer les
+            driver/url/login/password, supprimez les attributs ainsi que les
+            get/set associés. Rectifiez vos constructeurs si besoin.
+          </p>
+          <p>
+            Liez votre attribut <b>jdbcTemplate</b> déclaré dans votre fichier
+            Spring avec votre classe abstraite de DAO Java (en
+            <a
+              target="_blank"
+              href="http://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/beans/factory/annotation/Autowired.html"
+              >@Autowired</a
+            >
+            par exemple).
+          </p>
+          <pre>
+<a target="_blank" href="http://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/beans/factory/annotation/Repository.html">@Repository</a>
+public abstract class AbstractDAO&lt;T extends IEntity&gt; implements IDAO&lt;T&gt; {
+  ...
+  <b><a target="_blank" href="http://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/beans/factory/annotation/Autowired.html">@Autowired</a></b>
+  private JdbcTemplate jdbcTemplate;
+  ...
+}</pre>
+          <p>
+            Supprimez la méthode <b>getConnexion</b> de la classe <b>et</b> de
+            l'interface IDAO. En effet, on demande tout directement au
+            JdbcTemplate nous n'avons plus besoin d'une Connexion. Attention,
+            même si c'est possible, il ne faut <u><b>JAMAIS</b></u> demander la
+            Connexion au JdbcTemplate, nous verrons pourquoi lors de la
+            réinsertion des transactions dans notre code.
+          </p>
+          <p>
+            Modifiez les méthodes afin de supprimer le paramètre Connection de
+            <b>toutes</b> les méthodes de votre classe (ainsi que de vos
+            interfaces). <b>Toutes sauf deux</b> : buildStatementForUpdate et
+            buildStatementForInsert qui ont besoin d'un objet Connection afin de
+            fabriquer le PrepareStatement.
+          </p>
+          <p>
+            Supprimez la méthode <b>handleTransaction</b> de la classe. Nous
+            verrons plus tard comment gérer les roolback et commit en
+            transactionnel, pour le moment retirez tout le code qui lui est
+            associé (plsu de finally). Les Resultset ne servent plus non plus,
+            tout va passer par le jdbcTemplate.
+          </p>
+          <p>
+            Ainsi, par exemple la méthode delete dans l'AsbstractDAO devient :
+          </p>
+          <pre>
+public boolean delete(T pUneEntite) throws ExceptionDao {
+  if (pUneEntite == null) {
+    return false;
+  }
+  AbstractDAO.LOG.debug("delete {}", pUneEntite.getClass());
+  if (pUneEntite.getId() == null) {
+    throw new ExceptionDao("L'entite n'a pas d'ID");
+  }
+  try {
+    // Tout passe par le JdbcTemplate
+    // (Requete, RowMapper si besoin, bouche trou si besoin)
+    return 1 == <b>this.getJdbcTemplate().update("delete from " + this.getTableName() + " where " + this.getPkName() + "=?;", pUneEntite.getId());</b>
+  } catch (Exception e) {
+    throw new ExceptionDao(e);
+  }
+}</pre>
+          <p>
+            Créez trois classes com.banque.dao.util.OperationJdbcMapper,
+            com.banque.dao.util.CompteJdbcMapper et
+            com.banque.dao.util.UtilisateurJdbcMapper)
+          </p>
+          <p>
+            Chacune implémente l'interface
+            <a
+              target="_blank"
+              href="http://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/jdbc/core/RowMapper.html"
+              >org.springframework.jdbc.core.RowMapper&lt;T&gt;</a
+            >, où T prendra la valeur de l'entite manipulée par le mapper,
+            respectivement com.banque.entity.IOperationEntity, ICompteEntity et
+            IUtilisateurEntity.
+          </p>
+          <p>Exemple pour CompteJdbcMapper:</p>
+          <pre>
+// Attention à vos import, on parle ici du RowMapper de Spring
+public class CompteJdbcMapper implements <a target="_blank" href="http://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/jdbc/core/RowMapper.html">org.springframework.jdbc.core.RowMapper</a>&lt;ICompteEntity&gt; {
+
+  @Override
+  public ICompteEntity mapRow(<a target="_blank" href="https://docs.oracle.com/javase/8/docs/api/java/sql/ResultSet.html">ResultSet</a> rs, int id) throws <a target="_blank" href="https://docs.oracle.com/javase/8/docs/api/java/sql/SQLException.html">SQLException</a> {
+    // ...
+    // Le code qui se trouve dans la méthode fromResultSet(ResultSet rs) du DAO concerné (ici ICompteEntity donc CompteDAO)
+    // ...
+  }
+}</pre>
+          <p>
+            Notez que le code de vos méthodes <i>mapRow</i> sera le même que
+            celui qui se trouve dans les méthodes <i>fromResultSet</i> de vos
+            DAO.
+          </p>
+          <br />
+          <p>
+            Après avoir créé vos mappers, revenez dans votre classe
+            <b>AbstractDAO</b> et supprimez la méthode :
+          </p>
+          <pre>protected abstract T fromResultSet(<a target="_blank" href="https://docs.oracle.com/javase/8/docs/api/java/sql/ResultSet.html">ResultSet</a> pR) throws <a target="_blank" href="https://docs.oracle.com/javase/8/docs/api/java/sql/SQLException.html">SQLException</a>;</pre>
+          <p>Supprimez là aussi de ses 3 enfants.</p>
+          <p>
+            Remplacez là dans votre classe <b>AbstractDAO</b> par la méthode
+            suivante qui permettra à votre AbstractDAO de récupérer un RowMapper
+            adapté aux besoins :
+          </p>
+          <pre>protected abstract <a target="_blank" href="http://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/jdbc/core/RowMapper.html">RowMapper</a>&lt;T&gt; getMapper();</pre>
+          <p>
+            Implémentez là dans vos 3 enfants. Cette méthode sert à instancier
+            le RowMapper adapté à votre DAO (OperationJdbcMapper,
+            CompteJdbcMapper, UtilisateurJdbcMapper), elle fera juste un
+            <b>new</b> du
+            <a
+              target="_blank"
+              href="http://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/jdbc/core/RowMapper.html"
+              >RowMapper</a
+            >
+            en fonction de la classe où elle se trouve.
+          </p>
+          <p>Par exemple, si on se trouve dans CompteDAO :</p>
+          <pre>
+protected abstract <a target="_blank" href="http://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/jdbc/core/RowMapper.html">RowMapper</a>&lt;ICompteEntity&gt; getMapper() {
+  return new CompteJdbcMapper();
+}
+</pre>
+          <p>
+            Recodez/rectifiez chaque méthode de vos DAO en faisant usage de
+            l'attribut <b>jdbcTemplate</b> (ou de sa méthode getJdbcTemplate()).
+            Quand la méthode rectifiée doit retourner un T ou une List&lt;T&gt;
+            faites usage de votre méthode getMapper() afin d'obtenir le
+            RowMapper adapté.
+          </p>
+          <p>
+            Rappel : vous aurez toujours besoin du
+            <a
+              target="_blank"
+              href="http://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/jdbc/core/RowMapper.html"
+              >RowMapper</a
+            >
+            dans vos méthodes de type select (utilisez les méthodes query(xxx),
+            quetyForObject(xxx)). Dans les autres méthodes (type insert, update,
+            delete), vous n'aurez pas besoin du RowMapper (vous utiliserez la
+            méthode update du JdbcTemplate).
+          </p>
+
+          <p>
+            Dans le cas des méthodes select, <b>faites attention</b> car l'usage
+            du jdbcTemplate peut générer une exception de type
+            <a
+              target="_blank"
+              href="http://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/dao/EmptyResultDataAccessException.html"
+              >EmptyResultDataAccessException</a
+            >
+            si aucun résultat n'est retourné par la requête.
+          </p>
+          <p>
+            Ce n'était pas le cas avant. En effet, quand on n'avait pas de
+            résultat on retournait null ou liste vide. Pensez, à travers une
+            gestion des exceptions correcte, à conserver ce comportement sur
+            toutes les requêtes de type select sinon les tests unitaires ne
+            passeront pas.
+          </p>
+          <p>Exemple selectLogin dans l'UtilisateurDAO.</p>
+          <pre>
+public IUtilisateurEntity selectLogin(String pLogin) throws ExceptionDao {
+  IUtilisateurEntity result = null;
+  UtilisateurDAO.LOG.debug("selectLogin sur {} pLogin={}", this.getClass(), pLogin);
+  try {
+    result = <b>this.getJdbcTemplate().queryForObject("select " + this.getAllColumnNames() + " from " + this.getTableName() + " where login=?;",
+                                                   this.getMapper(),
+                                                   pLogin);
+  } catch (<a target="_blank" href="http://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/dao/EmptyResultDataAccessException.html">EmptyResultDataAccessException</a> e) {
+    return result;
+  }</b> catch (Exception e) {
+    throw new ExceptionDao(e);
+  }
+  return result;
+}</pre>
+          <p>
+            Pour la méthode <b>insert</b> de l'AbstractDAO, nous devons gérer la
+            récupération de la clef primaire qui est autoincrémentée par la base
+            de données. Dans ce cas, nous devons passer par un
+            <a
+              target="_blank"
+              href="http://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/jdbc/core/PreparedStatementCreator.html"
+              >PreparedStatementCreator</a
+            >
+            et un
+            <a
+              target="_blank"
+              href="http://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/jdbc/support/GeneratedKeyHolder.html"
+              >KeyHolder</a
+            >
+            afin de récupérer cette information.
+          </p>
+          <p>
+            Pour rappel, chaque DAO a une méthode buildStatementForInsert qui a
+            la responsabilité de fabriquer un
+            <a
+              target="_blank"
+              href="https://docs.oracle.com/javase/8/docs/api/java/sql/PreparedStatement.html"
+              >PreparedStatement</a
+            >
+            responsable de la gestion de l'insert en base.
+          </p>
+          <p>Exemple de l'insert dans l'AsbstractDAO.</p>
+          <pre>
+public T insert(final T pUneEntite) throws ExceptionDao {
+  if (pUneEntite == null) {
+    return null;
+  }
+  AbstractDAO.LOG.debug("Insert {}", pUneEntite.getClass());
+  try {
+    // On passe par un PreparedStatementCreator
+    <a target="_blank" href="http://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/jdbc/core/PreparedStatementCreator.html">PreparedStatementCreator</a> psc = new <a target="_blank" href="http://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/jdbc/core/PreparedStatementCreator.html">PreparedStatementCreator</a>() {
+	  @Override	  
+	  public <a target="_blank" href="https://docs.oracle.com/javase/8/docs/api/java/sql/PreparedStatement.html">PreparedStatement</a> createPreparedStatement(<a target="_blank" href="https://docs.oracle.com/javase/8/docs/api/java/sql/Connection.html">Connection</a> connexion) throws <a target="_blank" href="https://docs.oracle.com/javase/8/docs/api/java/sql/SQLException.html">SQLException</a> {
+	    // Qui fait appel à notre methode buildStatementForInsert
+	    // Pour faire usage du paramètre pUneEntite dans une inner class on doit s'assurer qu'il est final
+	    return AbstractDAO.this.buildStatementForInsert(pUneEntite, connexion);
+	  }
+    };
+    <a target="_blank" href="http://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/jdbc/support/KeyHolder.html">KeyHolder</a> kh = new <a target="_blank" href="http://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/jdbc/support/GeneratedKeyHolder.html">GeneratedKeyHolder</a>();
+    this.getJdbcTemplate().update(psc, kh);
+    pUneEntite.setId(Integer.valueOf(kh.getKey().intValue()));
+  } catch (Exception e) {
+    throw new ExceptionDao(e);
+  }
+  return pUneEntite;
+}</pre>
+          <p>
+            Vous pourrez appliquer la même approche pour la méthode update
+            (c.a.d faire aussi usage d'un
+            <a
+              target="_blank"
+              href="http://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/jdbc/core/PreparedStatementCreator.html"
+              >PreparedStatementCreator</a
+            >
+            en appelant buildStatementForUpdate). La différence étant qu'il
+            n'est pas nécessaire d'utiliser le
+            <a
+              target="_blank"
+              href="http://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/jdbc/support/GeneratedKeyHolder.html"
+              >KeyHolder</a
+            >
+            dans le update (on n'a pas besoin de récupérer la clef primaire)
+          </p>
+
+          <p>
+            Ajuster le code des classes services afin qu'elle ne fasse plus
+            usage des Connexion. Pour OperationService, qui gérait une
+            transaction, nous verrons plus tard, faites <i>comme si</i> une
+            transaction avait lieu.
+          </p>
+        </div>
+      </div>
+
+      <div class="panel panel-default panel-primary" id="t13">
+        <div class="panel-heading">
+          <h3 class="panel-title">
+            Test
+            <a href="#top"
+              ><span
+                class="glyphicon glyphicon-menu-up pull-right"
+                title="Remonter"
+              ></span
+            ></a>
+          </h3>
+        </div>
+        <div class="panel-body">
+          <p>Notre premier test consistera à relancer la classe Main</p>
+          <p>
+            Si tout va bien, ajustez les tests qui sont présents dans votre
+            exercice afin d'utiliser le Spring (vérifiez les dépendances Maven
+            version JUnit et spring-test).
+          </p>
+          <p>
+            Attention : pour le moment, les tests modifient la base de données.
+          </p>
+          <pre>
+package com.banque.dao.impl;
+
+import java.util.List;
+
+import org.apache.logging.log4j.*;
+
+import org.junit.*;
+import <a target="_blank" href="http://junit.org/junit4/javadoc/4.12/org/junit/runner/RunWith.html">org.junit.runner.RunWith</a>;
+
+import <a target="_blank" href="https://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/beans/factory/annotation/Autowired.html">org.springframework.beans.factory.annotation.Autowired</a>;
+import <a target="_blank" href="https://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/test/context/ContextConfiguration.html">org.springframework.test.context.ContextConfiguration</a>;
+import <a target="_blank" href="https://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/test/context/junit4/SpringJUnit4ClassRunner.html">org.springframework.test.context.junit4.SpringJUnit4ClassRunner</a>;
+
+import com.banque.dao.ICompteDAO;
+import com.banque.dao.ex.ExceptionDao;
+import com.banque.entity.ICompteEntity;
+import com.banque.entity.impl.CompteEntity;
+
+/**
+ * Test sur la classe CompteDAO.
+ */
+<a target="_blank" href="http://junit.org/junit4/javadoc/4.12/org/junit/runner/RunWith.html">@RunWih</a>(<a target="_blank" href="https://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/test/context/junit4/SpringJUnit4ClassRunner.html">SpringJUnit4ClassRunner.class</a>)
+<a target="_blank" href="https://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/test/context/ContextConfiguration.html">@ContextConfiguration</a>(name = "applicationContext", locations = { "classpath:spring/*-context.xml" })
+public class TestCompteDAO {
+  private static final Logger LOG = LogManager.getLogger();
+  <a target="_blank" href="http://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/beans/factory/annotation/Autowired.html">@Autowired</a>
+  private ICompteDAO compteDao;
+
+  /**
+   * Test la suppression
+   */
+  <a href="http://junit.org/junit4/javadoc/4.12/org/junit/Test.html" target="_blank">@Test</a>
+  public void deleteOk() {
+    ...
+  }
+  
+  ...
+}</pre>
+          <p>
+            Vous pouvez lancer vos tests par un clic droit sur une classe ou un
+            package de tests et faire Run As - JUnit Test, vous pouvez aussi les
+            lancer par Maven, en faisant un clic droit sur votre fichier
+            pom.xml, Run As, Maven Test.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <nav>
+      <ul class="pager">
+        <li class="previous" title="L'AOP">
+          <a href="../Exo09-AOP/Exo09-Aspects.html"
+            ><span aria-hidden="true">&larr;</span> Exercice Précédent</a
+          >
+        </li>
+        <li class="next" title="Transaction">
+          <a href="../Exo11-Transaction/Exo11-Transaction.html"
+            >Exercice Suivant <span aria-hidden="true">&rarr;</span></a
+          >
+        </li>
+      </ul>
+    </nav>
+
+    <br /><br />
+    <footer>
+      <p class="text-center">
+        <a href="http://validator.w3.org/">
+          <img
+            src="../bootstrap-3.3.7-dist/img/HTML5_Logo_32.png"
+            alt="Valid HTML 5.0"
+          /> </a
+        ><br />
+        Copyright <span class="glyphicon glyphicon-copyright-mark"></span>
+        <a href="http://ferretrenaud.fr" target="_blank">Ferret Renaud</a> 2013
+      </p>
+    </footer>
+
+    <script src="../bootstrap-3.3.7-dist/js/jquery.min.js"></script>
+    <script src="../bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+  </body>
+</html>

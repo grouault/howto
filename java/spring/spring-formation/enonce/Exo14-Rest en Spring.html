@@ -1,0 +1,393 @@
+<!--
+	Copyright 2013
+	Ferret Renaud
+	admin@ferretrenaud.com
+-->
+
+<!DOCTYPE html>
+<html lang="fr">
+	<head>
+		<meta charset="utf-8"/>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+		<meta name="viewport" content="width=device-width, initial-scale=1"/>
+		<meta name="Author" content="FERRET Renaud"/>
+		<meta name="Description" content="Exercice de formation"/>
+		<meta name="copyright" content="(C) Copyright 2013 FERRET Renaud"/>
+		<meta name="distribution" content="global"/>
+
+		<title>Spring - Exercice 14 - Rest</title>
+
+		<link href="../bootstrap-3.3.7-dist/css/bootstrap.min.css" rel="stylesheet"/>
+		<!-- Ne pas voir les liens lors de l'impressions -->
+		<style>			
+			@media print {
+				a[href]:after {
+					content: none;
+				} 
+			}
+		</style>
+
+		<!--[if lt IE 9]>
+			<script src="../bootstrap-3.3.7-dist/js/html5shiv.min.js"></script>
+			<script src="../bootstrap-3.3.7-dist/js/respond.min.js"></script>
+		<![endif]-->
+	</head>
+
+	<body class="container">
+		<nav class="navbar navbar-default navbar-right" id="top">
+		  <div class="container-fluid">
+			<div class="navbar-header">
+			  <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			  </button>
+			  <a class="navbar-brand" href="#" title="Spring - Exercice 14 Rest">Spring E14 Rest</a>
+			</div>
+
+			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+			  <ul class="nav navbar-nav">
+				<li class="dropdown">
+				  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">1 - Web Service Rest<span class="caret"></span></a>
+				  <ul class="dropdown-menu">
+					<li><a href="#t11">1-1 Import projet</a></li>
+					<li><a href="#t12">1-2 Spring et les Web Services</a></li>
+					<li><a href="#t13">1-3 Une Exception en JSON pour notre Web Service</a></li>
+					<li><a href="#t14">1-4 La classe AuthentifierRestController</a></li>
+					<li><a href="#t15">1-5 L'utilisation du path</a></li>
+					<li><a href="#t16">1-6 Lister les comptes</a></li>
+					<li><a href="#t17">1-7 Lister les opérations</a></li>
+					<li><a href="#t18">1-8 Réaliser un virement</a></li>
+				  </ul>
+				</li>
+
+				<li><a href="#t2">2 - Spring Angular</a></li>
+			  </ul>
+			</div><!-- /.navbar-collapse -->
+		  </div><!-- /.container-fluid -->
+		</nav>
+		<br/>
+		<div class="page-header">
+			<h1>Spring - Exercice 14 - Spring MVC Rest</h1>
+			<p>Utilisation du Spring MVC en mode Web services Rest.</p>
+			<nav>
+				<ul class="pager">
+					<li class="previous" title="Spring MVC"><a href="../Exo14-MVC/Exo14-MVC.html"><span aria-hidden="true">&larr;</span> Exercice Précédent</a></li>
+					<li class="next" title="Spring Security"><a href="../Exo17-Spring%20Security/Exo17-Spring%20Security.html">Exercice Suivant <span aria-hidden="true">&rarr;</span></a></li>
+				</ul>
+			</nav>
+		</div> <!-- page header -->
+
+		<section>
+			<h2 id="t1"><span class="label label-default">1</span> Web Service Rest</h2>
+			<div class="panel panel-default panel-primary" id="t11">
+				<div class="panel-heading">
+					<h3 class="panel-title">Import projet <a href="#top"><span class="glyphicon glyphicon-menu-up pull-right" title="Remonter"></span></a></h3>
+				</div>
+				<div class="panel-body">
+					<p>Nous allons maintenant réaliser des web services en REST avec Spring. </p>
+					<p>Tout comme le SOAP, un Web service REST a besoin de librairies qui permettent d'implémenter la mécanique du WS. </p>
+					<p>On reprend le même code métier que précédemment, on enlève la couche de présentation web (HTML/CSS).</p>
+					<p>Pour importer le projet :</p>
+					<ul>
+						<li>Dans le menu Eclipse, sélectionnez File/Import puis Existing Maven Projects</li>
+						<li>Pointez vers le projet qui se trouve dans l'énoncé.</li>
+					</ul>
+					<p>Après l'import, faites un clic droit sur le projet, puis Properties (tout en bas)</p>
+					<p>Dans l'onglet Targeted Runtime, cochez votre version de Tomcat.</p>
+					<p>Important : Après toutes modifications faites sur le fichier pom.xml, faites un clic droit sur <b>votre projet</b> puis Maven - Update Project ...</p>
+					<p>L'artefactId dans votre Maven sera utilisé comme nom du context pour votre application. </p>
+
+					<p>Vérifiez que tout compile (pas de [ERROR] dans la console Maven et un BUILD SUCCESS).</p>
+					<p>Ajoutez un serveur d'application et déployez votre projet dedans. </p>
+					<p>Lancez votre projet et accédez à l'url <a href="http://localhost:8080/en14.spring.mvc.rest/" target="_blank">http://localhost:8080/en14.spring.mvc.rest/</a></p>
+					<p>Rappel : Pour simplifier la manipulation, toutes les dépendances sont déjà dans le pom.xml.</p>
+				</div>
+			</div>
+
+			<div class="panel panel-default panel-primary" id="t12">
+				<div class="panel-heading">
+					<h3 class="panel-title">Spring et les Web Services <a href="#top"><span class="glyphicon glyphicon-menu-up pull-right" title="Remonter"></span></a></h3>
+				</div>
+				<div class="panel-body">
+					<p>Pour indiquer au Spring que l'on souhaite réaliser des Web Services il suffit de déclarer une Servlet dans notre fichier WEB-INF/web.xml.</p>
+<pre>
+ &lt;servlet&gt;
+    &lt;servlet-name&gt;springapp&lt;/servlet-name&gt;
+    &lt;servlet-class&gt;<a target="_blank" href="http://docs.spring.io/autorepo/docs/spring-framework/current/javadoc-api/org/springframework/web/servlet/DispatcherServlet.html">org.springframework.web.servlet.DispatcherServlet</a>&lt;/servlet-class&gt;
+    &lt;load-on-startup&gt;1&lt;/load-on-startup&gt;
+  &lt;/servlet&gt;
+
+  &lt;servlet-mapping&gt;
+    &lt;servlet-name&gt;springapp&lt;/servlet-name&gt;
+    &lt;url-pattern&gt;*.smvc&lt;/url-pattern&gt;
+  &lt;/servlet-mapping&gt;</pre>
+					<p>Notez que pour le mapping de cette servlet on part sur un URL en /rest/ (ce n'est pas une obligation). </p>
+					<p>On peut ajouter le filtre Spring <a target="_blank" href="http://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/web/filter/HttpPutFormContentFilter.html">HttpPutFormContentFilter</a> qui permet de gérer les WS Rest en PUT. S'il n'est pas déjà déclaré dans votre fichier web.xml, ajoutez le.</p>
+<pre>
+  ...
+  &lt;filter&gt;
+    &lt;filter-name&gt;HttpPutFormContentFilter&lt;/filter-name&gt;
+    &lt;filter-class&gt;<a target="_blank" href="http://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/web/filter/HttpPutFormContentFilter.html">org.springframework.web.filter.HttpPutFormContentFilter</a>&lt;/filter-class&gt;
+  &lt;/filter&gt;
+  ...
+  &lt;filter-mapping&gt;
+    &lt;filter-name&gt;HttpPutFormContentFilter&lt;/filter-name&gt;
+    &lt;url-pattern&gt;/*&lt;/url-pattern&gt;
+  &lt;/filter-mapping&gt;
+  ...</pre>
+					<p>A partir du moment où le nom de la servlet Spring est <b>springapp</b> on peut créer un fichier de configuration WEB-INF/springapp<b>-servlet.xml</b></p>
+					<p>Il contiendra les directives pour notre Spring, dans notre cas il aura le code suivant. </p>
+<pre>
+&lt;beans xmlns="http://www.springframework.org/schema/beans"
+          xmlns:context="http://www.springframework.org/schema/context"
+          <b>xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"</b>
+          xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+                              http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+                              <b>http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd</b>"&gt;
+
+  &lt;!-- Indique le package qui contient nos web services REST --&gt;
+  &lt;context:component-scan base-package="com.banque.web.controller.rest" /&gt;
+
+  &lt;!-- Indique que nous allons utiliser les annotations pour notre web service --&gt;
+  &lt;mvc:annotation-driven /&gt;
+
+&lt;/beans&gt;</pre>
+				</div>
+			</div>
+
+			<div class="panel panel-default panel-primary" id="t13">
+				<div class="panel-heading">
+					<h3 class="panel-title">Une Exception en JSON pour notre Web Service <a href="#top"><span class="glyphicon glyphicon-menu-up pull-right" title="Remonter"></span></a></h3>
+				</div>
+				<div class="panel-body">
+					<p>Comme notre web service va renvoyer du JSON, il nous faut formaliser nos flux</p>
+					<p>Vous êtes libre de définir vos flux concernant les données métiers (vos entités), mais concernant les Exceptions, il est plus sage de n'en faire qu'une.</p>
+					<p>Créez la classe suivante <b>com.banque.web.controller.rest.JSONException</b> :</p>
+<pre>
+public class JSONException extends <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Exception.html" target="_blank">Exception</a> {
+  private static final long serialVersionUID = 1L;
+  private static final Logger LOG = LogManager.getLogger();
+
+  // ...
+  // Tous les constructeurs public de java.lang.Exception
+  // ...
+
+  public String toJsonString() {
+    return this.toJson().toString();
+  }
+
+  public <a target="_blank" href="http://json-lib.sourceforge.net/apidocs/net/sf/json/JSONObject.html">net.sf.json.JSONObject</a> toJson() {
+    <a target="_blank" href="http://json-lib.sourceforge.net/apidocs/net/sf/json/JSONObject.html">net.sf.json.JSONObject</a> expObj = new net.sf.json.JSONObject();
+    if (this.getCause() != null) {
+      try (PrintWriter sw = new PrintWriter(new StringWriter());) {
+        this.getCause().printStackTrace(sw);
+        expObj.put("errorCause", sw.toString());
+      } catch (Exception e) {
+        LOG.error("Erreur lors de la recuperation de la cause", e);
+      }
+    }
+    if ((this.getMessage() != null) &amp;&amp; !this.getMessage().trim().isEmpty()) {
+      expObj.put("errorMessage", this.getMessage());
+    }
+    return expObj;
+  }
+
+  @Deprecated
+  @Override
+  public String toString() {
+    return this.toJsonString();
+  }
+}</pre>
+					<p>Dans cette dernière on ajoute une méthode <b>toJson</b> qui nous permet de récupérer un objet JSON.</p>
+					<p>Une autre méthode <b>toJsonString</b> qui va donner une représentation sous forme de String JSON de notre exception.</p>
+					<p>Notez que l'on rend aussi deprecated la méthode toString de l'exception qui ne doit pas servir.</p>
+				</div>
+			</div>
+
+			<div class="panel panel-default panel-primary" id="t14">
+				<div class="panel-heading">
+					<h3 class="panel-title">La classe AuthentifierRestController <a href="#top"><span class="glyphicon glyphicon-menu-up pull-right" title="Remonter"></span></a></h3>
+				</div>
+				<div class="panel-body">
+					<p>Réaliser la classe <b>AuthentifierRestController</b>, placez là dans le package <b>com.banque.web.controller.rest</b>.</p>
+					<p>Attention, il est important que votre classe soit dans ce package car c'est celui que nous avons indiqué dans le fichier WEB-INF/springapp-servlet.xml lors de l'utilisation du component-scan.</p>
+					<p>Cette classe devra réaliser l'authentification en Web Service Rest. </p>
+					<p>Cette classe sera annotée comme étant un controleur de type Rest @<a target="_blank" href="http://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/web/bind/annotation/RestController.html">RestController</a> en Spring 4 (@<a target="_blank" href="http://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/stereotype/Controller.html">Controller</a> en Spring &lt; 4). </p>
+					<p>Elle devra aussi indiquer l'URL de mapping associé au service via l'annotation @<a href="http://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/web/bind/annotation/RequestMapping.html" target="_blank">RequestMapping</a>("/authentifier").</p>
+					<p>Important : le service sera donc disponible sur <i>/rest</i>/authentifier, <i>/rest</i> provenant du mapping de la servlet (fichier WEB-INF/web.xml). </p>
+					<br/>
+					<p>Pour fonctionner elle aura besoin du service IAuthentificationService</p>
+					<p>En Spring, cette dépendance sera codée de la manière suivante :</p>
+<pre>
+@<a target="_blank" href="http://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/web/bind/annotation/RestController.html">RestController</a>
+@<a href="http://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/web/bind/annotation/RequestMapping.html" target="_blank">RequestMapping</a>("/authentifier")
+public class AuthentifierRestController {
+
+  @<a href="http://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/beans/factory/annotation/Autowired.html" target="_blank">Autowired</a>
+  private IAuthentificationService authenticationService;
+
+  ...
+}</pre>
+					<p>Ajoutons une méthode à cette classe afin de réaliser l'authentification. </p>
+<pre>
+@<a href="http://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/web/bind/annotation/RequestMapping.html" target="_blank">RequestMapping</a>(value="/byparam",
+                method = { <a href="http://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/web/bind/annotation/RequestMethod.html" target="_blank">RequestMethod</a>.GET, <a href="http://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/web/bind/annotation/RequestMethod.html" target="_blank">RequestMethod</a>.PUT, <a href="http://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/web/bind/annotation/RequestMethod.html" target="_blank">RequestMethod</a>.POST },
+                produces = <a href="http://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/http/MediaType.html" target="_blank">MediaType</a>.APPLICATION_JSON_VALUE)
+public @<a target="_blank" href="http://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/web/bind/annotation/ResponseBody.html">ResponseBody</a> <a target="_blank" href="http://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/http/ResponseEntity.html">ResponseEntity</a>&lt;String&gt; authentifierByParam(@<a target="_blank" href="http://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/web/bind/annotation/RequestParam.html">RequestParam</a>(name = "login", required = true) String login,
+                                                                @<a target="_blank" href="http://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/web/bind/annotation/RequestParam.html">RequestParam</a>(name = "password", required = true) String password) {
+  ...
+}</pre>
+					<p>On retrouve l'annotation @<a href="http://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/web/bind/annotation/RequestMapping.html" target="_blank">RequestMapping</a> qui nous permet d'indiquer le format de notre web service, ici on fait passer les informations sur l'URL en tant que paramètres. </p>
+					<p>On complete via l'attribut value notre URL avec /byparam, on aura un URL : /rest/authentifier/byparam</p>
+					<p>L'attribut <b>method</b> permet d'indiquer le protocol HTTP utilisé par notre web service (ici PUT ou GET ou POST), l'attribut <b>produces</b> indique le résultat de notre web service (ici du JSON). </p>
+					<p>L'annotation @<a target="_blank" href="http://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/web/bind/annotation/ResponseBody.html">ResponseBody</a> nous permet de faire usage de la classe <a target="_blank" href="http://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/http/ResponseEntity.html">ResponseEntity&lt;T&gt;</a> du Spring qui va contenir le flux de retour ainsi qu'un HTTP Status. </p>
+					<p>L'annotation @<a target="_blank" href="http://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/web/bind/annotation/RequestParam.html">RequestParam</a> indique que les paramètres HTTP seront directement disponibles en tant que paramètres de méthodes.
+					Vous pouvez indiquer required = true (ou false) afin que Spring gère les erreurs dans le cas où le paramètre n'est pas présent.
+					Vous pouvez indiquer default = <i>uneValeur</i> afin que Spring affecte une valeur par défaut si le paramètre n'est pas présent.</p>
+					<p>Ici on fait usage de @RequestParam avec des String, mais vous pouvez faire usage du typage que vous voulez. Attention, c'est Spring qui gère la transformation. </p>
+					<p>Les méthodes de votre Web service peuvent aussi avoir le paramètre HttpServletRequest, HttpSession, HttpServletResponse (mais ce n'est pas conseillé). </p>
+					<p>Réalisez le code de la méthode qui : </p>
+					<ul>
+						<li>vérifie que login et password ne sont pas vides (le null étant géré par le Spring), sinon renvoie un objet <a target="_blank" href="http://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/http/ResponseEntity.html">ResponseEntity</a>&lt;String&gt;(new JSONException("Usage is /login=Xxx&amp;password=Yyyy").toJsonString(), <a href="http://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/http/HttpStatus.html" target="_blank">HttpStatus</a>.BAD_REQUEST); </li>
+						<li>fait appel à la méthode authentifier de l'objet authenticationService qui retourne un objet IUtilisateurEntity si tout est ok ou lève une exception si il y a un problème. </li>
+						<li>transforme l'objet IUtilisateurEntity en objet JSon (le projet fait usage de la libraire net.sf.json, mais vous pouvez en prendre une autre si vous voulez). C'est à vous de fabriquer l'objet Json en fonction de vos besoins, ici faites simple (par exemple {"login":"df","nom":"Fargis","prenom":"Denis","id":1}). </li>
+						<li>renvoie un objet ResponseEntity&lt;String&gt;(monObjJson.toString(), <a href="http://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/http/HttpStatus.html" target="_blank">HttpStatus</a>.OK);</li>
+					</ul>
+					<p>Voici un exemple de construction d'objet <a target="_blank" href="http://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/http/ResponseEntity.html">ResponseEntity</a>. Notez qu'à la place de notre JSONException vous pouvez placer un JSONObject ou JSONArray. </p>
+<pre>
+<a target="_blank" href="http://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/http/ResponseEntity.html">ResponseEntity</a>&lt;String&gt; reponse = new <a target="_blank" href="http://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/http/ResponseEntity.html">ResponseEntity</a>&lt;String&gt;(
+          new JSONException("Un probleme vient de survenir").toJsonString(), <a href="http://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/http/HttpStatus.html" target="_blank">HttpStatus</a>.BAD_REQUEST);</pre>
+					<p>Testez votre web service <a href="http://localhost:8080/en14.spring.mvc.rest/rest/authentifier/byparam?login=df&amp;password=df">http://localhost:8080/en14.spring.mvc.rest/rest/authentifier/byparam?login=df&amp;password=df</a> peut, par exemple donner : {"login":"df","nom":"Fargis","prenom":"Denis","id":1} </p>
+					<p>Si vous ne voulez pas développer vous-même votre mapping Json, vous pouvez faire usage de la librairie <a href="http://wiki.fasterxml.com/JacksonHome" target="_blank">Jackson</a> qui s'en chargera pour vous, votre méthode peut alors renvoyer n'importe quel objet. </p>
+				</div>
+			</div>
+
+			<div class="panel panel-default panel-primary" id="t16">
+				<div class="panel-heading">
+					<h3 class="panel-title">L'utilisation du path <a href="#top"><span class="glyphicon glyphicon-menu-up pull-right" title="Remonter"></span></a></h3>
+				</div>
+				<div class="panel-body">
+					<p>Si vous souhaitez récupérer des informations du path associé à votre web service, vous pouvez faire usage de l'annotation @<a target="_blank" href="http://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/web/bind/annotation/PathVariable.html">PathVariable</a></p>
+					<p>Ajoutez la méthode suivante à votre web service :</p>
+<pre>
+@<a href="http://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/web/bind/annotation/RequestMapping.html" target="_blank">RequestMapping</a>(value = "/byurl/{login}/{password}",
+                method = <a href="http://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/web/bind/annotation/RequestMethod.html" target="_blank">RequestMethod</a>.GET,
+                produces = <a href="http://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/http/MediaType.html" target="_blank">MediaType</a>.APPLICATION_JSON_VALUE)
+public  @<a target="_blank" href="http://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/web/bind/annotation/ResponseBody.html">ResponseBody</a> <a target="_blank" href="http://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/http/ResponseEntity.html">ResponseEntity</a>&lt;String&gt; authentifierByUrl(@<a target="_blank" href="http://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/web/bind/annotation/PathVariable.html">PathVariable</a> String login,
+                                                              @<a target="_blank" href="http://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/web/bind/annotation/PathVariable.html">PathVariable</a> String password) {
+  ...
+}</pre>
+					<p>On retrouve l'annotation @RequestMapping qui nous permet d'indiquer le format de notre web service, ici on fait passer les informations dans l'URL en tant que variables (et non pas des paramètres).
+					Notez aussi que l'on a complété l'url, qui devient http://localhost:8080/en14.spring.mvc.rest/rest/authentifier/<b>byurl</b>/df/df</p>
+					<p>Ce web service ne sera disponible que sur du GET il retournera du JSON. </p>
+					<p>L'annotation @PathVariable indique que les informations dans l'URL seront directement disponibles en tant que paramètres de méthodes. Contrairement à @RequestParam il n'est pas possible de donner une valeur par défaut.</p>
+					<p>Réalisez le même code que dans la méthode précédente. Attention, les <i>@PathVariable</i> peuvent être vides.</p>
+					<p>Testez votre web service <a href="http://localhost:8080/en14.spring.mvc.rest/rest/authentifier/byurl/df/df">http://localhost:8080/en14.spring.mvc.rest/rest/authentifier/byurl/df/df</a> peut, par exemple donner : {"login":"df","nom":"Fargis","prenom":"Denis","id":1} </p>
+				</div>
+			</div>
+
+			<div class="panel panel-default panel-primary" id="t17">
+				<div class="panel-heading">
+					<h3 class="panel-title">Lister les comptes <a href="#top"><span class="glyphicon glyphicon-menu-up pull-right" title="Remonter"></span></a></h3>
+				</div>
+				<div class="panel-body">
+					<p>Réaliser une nouvelle classe de web service qui devra lister les comptes d'un client.</p>
+					<p>Elle sera liée au service métier ICompteService.</p>
+					<p>La méthode devra obligatoirement prendre un id d'utilisateur en paramètre et retourner <b>un</b> objet JSON qui contiendra : </p>
+					<ul>
+						<li>le nombre d'élément retourné</li>
+						<li>l'id de l'utilisateur</li>
+						<li>les éléments comptes sous forme d'objet JSON (c.a.d un JSONArray de JSONObject représentant chacun un CompteEntity) . </li>
+					</ul>
+					<p>Vous êtes libre sur le choix du protocole ainsi que de l'URL. </p>
+				</div>
+			</div>
+
+			<div class="panel panel-default panel-primary" id="t18">
+				<div class="panel-heading">
+					<h3 class="panel-title">Lister les opérations <a href="#top"><span class="glyphicon glyphicon-menu-up pull-right" title="Remonter"></span></a></h3>
+				</div>
+				<div class="panel-body">
+					<p>Réaliser une nouvelle classe de web service qui devra lister les opérations d'un compte en fonction de plusieurs critères de recherche.</p>
+					<p>Elle sera liée au service métier IOperationService.</p>
+					<p>La méthode devra obligatoirement prendre un id d'utilisateur en paramètre ainsi qu'un id de compte.
+					Optionnellement, elle pourra accepter deux dates (une de début et une de fin) et une information concernant le type des opérations demandées (crédit et/ou débit). </p>
+					<p>Elle retournera un objet JSON qui contiendra </p>
+					<ul>
+						<li>le nombre d'élément retourné</li>
+						<li>l'id de l'utilisateur</li>
+						<li>l'id du compte</li>
+						<li>les éléments opérations sous forme d'objet JSON (c.a.d un JSONArray de JSONObject représentant chacun une OperationEntity) . </li>
+					</ul>
+					<p>Vous êtes libre sur le choix du protocole ainsi que de l'URL. </p>
+				</div>
+			</div>
+
+			<div class="panel panel-default panel-primary" id="t19">
+				<div class="panel-heading">
+					<h3 class="panel-title">Réaliser un virement <a href="#top"><span class="glyphicon glyphicon-menu-up pull-right" title="Remonter"></span></a></h3>
+				</div>
+				<div class="panel-body">
+					<p>Réaliser une nouvelle classe de web service qui devra lister réaliser un virement entre deux comptes.</p>
+					<p>Elle sera aussi liée au service métier IOperationService.</p>
+					<p>La méthode devra obligatoirement prendre sur l'URL (= @PathVariable) un id d'utilisateur et en paramètre un id de compte source, un id de compte destination et un montant. </p>
+					<p>Elle retournera un JSON qui contiendra le nombre d'élément retourné, les éléments opérations sous forme d'objet JSON,
+					l'id de l'utilisateur ainsi que celui du compte source et destination. </p>
+					<p>Le service devra être réalisé en PUT uniquement (vous devrez le tester avec SOAP-UI ou un plugin dans votre navigateur). </p>
+				</div>
+			</div>
+		</section>
+
+		<section>
+			<h2 id="t2"><span class="label label-default">2</span> Spring et Angular</h2>
+			<div class="panel panel-default panel-primary">
+				<div class="panel-body">
+					<p>Vous trouverez dans la correction de l'exercice 14 une version qui fait usage d'<a href="https://angularjs.org/" target="_blank">Angular</a> v1.5. </p>
+					<p>Les Webs services sont légèrement modifiés afin de prendre en compte la réception d'objets/flux Json en lieu et place de paramètres. </p>
+					<p>Pour cela on ajoute à l'annotation @<a href="http://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/web/bind/annotation/RequestMapping.html" target="_blank">RequestMapping</a> une information : consumes = <a href="http://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/http/MediaType.html" target="_blank">MediaType</a>.APPLICATION_JSON_VALUE</p>
+<pre>
+@<a href="http://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/web/bind/annotation/RequestMapping.html" target="_blank">RequestMapping</a>(method = { RequestMethod.POST },
+                produces = <a href="http://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/http/MediaType.html" target="_blank">MediaType</a>.APPLICATION_JSON_VALUE,
+                consumes = <a href="http://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/http/MediaType.html" target="_blank">MediaType</a>.APPLICATION_JSON_VALUE)
+public @<a target="_blank" href="http://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/web/bind/annotation/ResponseBody.html">ResponseBody</a> <a target="_blank" href="http://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/http/ResponseEntity.html">ResponseEntity</a>&lt;String&gt; authentifierPost(@<a href="http://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/web/bind/annotation/RequestBody.html" target="_blank">RequestBody</a> LoginBean loginBean, <a href="https://docs.oracle.com/javaee/7/api/javax/servlet/http/HttpSession.html" target="_blank">HttpSession</a> session) {
+  // LoginBean vient du client sous forme de flux JSon
+  // Le Spring s'occupera de la transformation JSon vers Object via le framework Jackson
+  ...
+}</pre>
+					<p>Pour les WS <b>qui ne sont pas</b> en GET, on fait aussi usage de l'annotation @<a href="http://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/web/bind/annotation/RequestBody.html" target="_blank">RequestBody</a> qui permet de récupérer les informations Json en provenance de Angular. </p>
+					<p>Dans l'exemple de code c'est la librairie <a href="http://wiki.fasterxml.com/JacksonHome" target="_blank">Jackson</a> qui se chargera de transformer le stream JSON en un objet LoginBean. <p>
+					<p>Si l'on préfère gérer son flux à la main, il suffit d'indiquer que le paramètre est une String. </p>					
+					<p>Dans cet exemple, on fait usage de deux librairies Json</p>
+					<ul>
+						<li><a href="http://wiki.fasterxml.com/JacksonHome" target="_blank">Jackson</a> qui permet de transformer les flux Json en provenance d'angular vers nos beans Java (<i>flux en entrée</i>). Il fonctionne de manière totalement automatique, il suffit que les JARs soient présents.</li>
+						<li><a href="http://json-lib.sourceforge.net/" target="_blank">Json Lib</a> qui fabrique le flux de retour (<i>flux en sortie</i>). Dans ce cas, rien n'est automatique on fabrique nous-même notre flux via notre code. </li>
+					</ul>
+					<p>Remarque : nous aurions pu utiliser Jackson pour l'ensemble des flux, dans ce cas le code serait encore plus simple. </p>
+				</div>
+			</div>
+		</section>
+
+		<nav>
+			<ul class="pager">
+				<li class="previous" title="Spring MVC"><a href="../Exo14-MVC/Exo14-MVC.html"><span aria-hidden="true">&larr;</span> Exercice Précédent</a></li>
+				<li class="next" title="Spring Security"><a href="../Exo17-Spring%20Security/Exo17-Spring%20Security.html">Exercice Suivant <span aria-hidden="true">&rarr;</span></a></li>
+			</ul>
+		</nav>
+
+		<br/><br/>
+		<footer>
+			<p class="text-center">
+				<a href="http://validator.w3.org/">
+					<img src="../bootstrap-3.3.7-dist/img/HTML5_Logo_32.png" alt="Valid HTML 5.0" />
+				</a><br/>
+				Copyright <span class="glyphicon glyphicon-copyright-mark"></span> <a href="http://ferretrenaud.fr" target="_blank">Ferret Renaud</a> 2013
+			</p>
+		</footer>
+
+		<script src="../bootstrap-3.3.7-dist/js/jquery.min.js"></script>
+		<script src="../bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+	</body>
+</html>
+

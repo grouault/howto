@@ -1,0 +1,312 @@
+<!--
+	Copyright 2013
+	Ferret Renaud
+	admin@ferretrenaud.com
+-->
+
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="Author" content="FERRET Renaud" />
+    <meta name="Description" content="Exercice de formation" />
+    <meta name="copyright" content="(C) Copyright 2013 FERRET Renaud" />
+    <meta name="distribution" content="global" />
+
+    <title>Spring - Exercice 9 - Aspects</title>
+
+    <link
+      href="./bootstrap-3.3.7-dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link href="./custom-css/custom.css" rel="stylesheet" />
+    <!-- Ne pas voir les liens lors de l'impressions -->
+    <style>
+      @media print {
+        a[href]:after {
+          content: none;
+        }
+      }
+    </style>
+
+    <!--[if lt IE 9]>
+      <script src="../bootstrap-3.3.7-dist/js/html5shiv.min.js"></script>
+      <script src="../bootstrap-3.3.7-dist/js/respond.min.js"></script>
+    <![endif]-->
+  </head>
+
+  <body class="container">
+    <nav class="navbar navbar-default navbar-right" id="top">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button
+            type="button"
+            class="navbar-toggle collapsed"
+            data-toggle="collapse"
+            data-target="#bs-example-navbar-collapse-1"
+            aria-expanded="false"
+          >
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#" title="Spring - Exercice 9"
+            >Spring E9</a
+          >
+        </div>
+
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+          <ul class="nav navbar-nav">
+            <li class="dropdown">
+              <a
+                href="#"
+                class="dropdown-toggle"
+                data-toggle="dropdown"
+                role="button"
+                aria-haspopup="true"
+                aria-expanded="false"
+                >1 - Aspects<span class="caret"></span
+              ></a>
+              <ul class="dropdown-menu">
+                <li><a href="#t11">1-1 Du log partout</a></li>
+                <li><a href="#t12">1-2 Ajout d'un fichier Spring</a></li>
+                <li><a href="#t13">1-3 Test</a></li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+      </div>
+      <!-- /.container-fluid -->
+    </nav>
+    <br />
+    <div class="page-header">
+      <h1>Spring - Exercice 9 - AOP</h1>
+      <p>Ecriture d'un aspect.</p>
+      <nav>
+        <ul class="pager">
+          <li class="previous" title="Utilisation des annotations">
+            <a href="./Exo08-Annotations.html"
+              ><span aria-hidden="true">&larr;</span> Exercice Précédent</a
+            >
+          </li>
+          <li class="next" title="JdbcTemplate">
+            <a href="./Exo10-Jdbc.html"
+              >Exercice Suivant <span aria-hidden="true">&rarr;</span></a
+            >
+          </li>
+        </ul>
+      </nav>
+    </div>
+    <!-- page header -->
+
+    <section>
+      <h2 id="t1"><span class="label label-default">1</span> Aspects</h2>
+      <div class="panel panel-default panel-primary" id="t11">
+        <div class="panel-heading">
+          <h3 class="panel-title">
+            Du log partout
+            <a href="#top"
+              ><span
+                class="glyphicon glyphicon-menu-up pull-right"
+                title="Remonter"
+              ></span
+            ></a>
+          </h3>
+        </div>
+        <div class="panel-body">
+          <p>
+            On veut réaliser un aspect qui fera un log avant et après chaque
+            méthode de chaque classe de type service métier.
+          </p>
+          <p>
+            En repartant de l'exercice précédent, prenez le fichier pom.xml qui
+            se trouve dans l'exercice 9 et écrasez le vôtre.
+          </p>
+          <p>Créez une classe Java <b>com.banque.aop.LogAspect</b></p>
+          <p>Dans votre classe Java LogAspect, ajoutez deux méthodes :</p>
+          <ul>
+            <li>public void logBefore(JoinPoint jp)</li>
+            <li>public void logAfter(JoinPoint jp)</li>
+          </ul>
+          <pre>
+package com.banque.aop;
+
+// Attention à vos import
+import org.apache.logging.log4j.*;
+import org.aspectj.lang.*;
+import org.aspectj.lang.annotation.*;
+
+public class LogAspect {
+  private final static Logger LOG = LogManager.getLogger();
+
+  public void logBefore(JoinPoint jp) {
+    LogAspect.LOG.info("Passage avant {} {}", jp.getTarget(), jp.getSignature());
+  }
+
+  public void logAfter(JoinPoint jp) {
+    LogAspect.LOG.info("Passage apres {} {}", jp.getTarget(), jp.getSignature());
+  }
+}</pre
+          >
+          <p>
+            Ajoutez les annotations qui vont vous permettre de faire fonctionner
+            l'aspect.
+          </p>
+          <ul>
+            <li>
+              <a
+                target="_blank"
+                href="https://eclipse.org/aspectj/doc/next/aspectj5rt-api/org/aspectj/lang/annotation/Aspect.html"
+                >@Aspect</a
+              >
+              : sur votre classe
+            </li>
+            <li>
+              <a
+                target="_blank"
+                href="https://eclipse.org/aspectj/doc/next/aspectj5rt-api/org/aspectj/lang/annotation/Before.html"
+                >@Before</a
+              >
+              : sur votre méthode logBefore
+            </li>
+            <li>
+              <a
+                target="_blank"
+                href="https://eclipse.org/aspectj/doc/next/aspectj5rt-api/org/aspectj/lang/annotation/After.html"
+                >@After</a
+              >
+              : sur votre méthode logAfter
+            </li>
+          </ul>
+          <p>
+            Attention dans la description du <i>execute</i> on veut toutes les
+            méthodes des classes services (classes qui héritent de
+            com.banque.service.impl.AbstractService).
+          </p>
+          Rappel :
+          <ul>
+            <li><b>*</b> signifie un paramètre</li>
+            <li><b>..</b> signifie 0 à n paramètre(s)</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="panel panel-default panel-primary" id="t12">
+        <div class="panel-heading">
+          <h3 class="panel-title">
+            Ajout d'un fichier Spring
+            <a href="#top"
+              ><span
+                class="glyphicon glyphicon-menu-up pull-right"
+                title="Remonter"
+              ></span
+            ></a>
+          </h3>
+        </div>
+        <div class="panel-body">
+          <p>
+            Les aspects se définissant par le namespace aop, nous allons créer
+            un fichier Spring spécifique pour leurs définitions.
+          </p>
+          <p>
+            Ajoutez un fichier <b>aop-context.xml</b> dans le répertoire source
+            <i>spring</i>.
+          </p>
+          <pre>
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       <b>xmlns:aop="http://www.springframework.org/schema/aop"</b>
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+                           <b>http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd</b>"&gt;
+
+	&lt;aop:aspectj-autoproxy/&gt;
+
+	&lt;bean id="logAll" class="com.banque.aop.LogAspect"/&gt;
+
+&lt;/beans&gt;</pre>
+          <p>
+            Remarque : si vous ne voulez pas avoir à déclarer votre bean
+            <i>logAll</i>, ajoutez simplement une annotation
+            <a
+              target="_blank"
+              href="http://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/stereotype/Component.html"
+              >@Component</a
+            >
+            dessus et ajuster votre component-scan en conséquence.
+          </p>
+        </div>
+      </div>
+
+      <div class="panel panel-default panel-primary" id="t13">
+        <div class="panel-heading">
+          <h3 class="panel-title">
+            Test
+            <a href="#top"
+              ><span
+                class="glyphicon glyphicon-menu-up pull-right"
+                title="Remonter"
+              ></span
+            ></a>
+          </h3>
+        </div>
+        <div class="panel-body">
+          <p>
+            Modifiez votre méthode main, faites attention, n'oubliez pas que
+            vous utilisez deux fichiers de configuration (un pour votre aspect,
+            un autre pour le reste).
+          </p>
+          <p>Relancez la classe Main</p>
+          <p>
+            Attention : dès que vous avez des aspect, l'usage des interfaces
+            n'est plus une option, sinon vous aurez des erreurs.
+          </p>
+          <p>
+            Pour aller plus loin :
+            <a
+              href="https://eclipse.org/aspectj/doc/next/adk15notebook/printable.html"
+              target="_blank"
+              >AspectJ Notebook</a
+            >
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <nav>
+      <ul class="pager">
+        <li class="previous" title="Utilisation des annotations">
+          <a href="../Exo08-Anotations/Exo08-Annotations.html"
+            ><span aria-hidden="true">&larr;</span> Exercice Précédent</a
+          >
+        </li>
+        <li class="next" title="JdbcTemplate">
+          <a href="../Exo10-JDBC/Exo10-Jdbc.html"
+            >Exercice Suivant <span aria-hidden="true">&rarr;</span></a
+          >
+        </li>
+      </ul>
+    </nav>
+
+    <br /><br />
+    <footer>
+      <p class="text-center">
+        <a href="http://validator.w3.org/">
+          <img
+            src="../bootstrap-3.3.7-dist/img/HTML5_Logo_32.png"
+            alt="Valid HTML 5.0"
+          /> </a
+        ><br />
+        Copyright <span class="glyphicon glyphicon-copyright-mark"></span>
+        <a href="http://ferretrenaud.fr" target="_blank">Ferret Renaud</a> 2013
+      </p>
+    </footer>
+
+    <script src="../bootstrap-3.3.7-dist/js/jquery.min.js"></script>
+    <script src="../bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+  </body>
+</html>

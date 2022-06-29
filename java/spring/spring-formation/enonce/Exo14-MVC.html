@@ -1,0 +1,546 @@
+<!--
+	Copyright 2013
+	Ferret Renaud
+	admin@ferretrenaud.com
+-->
+
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="Author" content="FERRET Renaud" />
+    <meta name="Description" content="Exercice de formation" />
+    <meta name="copyright" content="(C) Copyright 2013 FERRET Renaud" />
+    <meta name="distribution" content="global" />
+
+    <title>Spring - Exercice 14 - Spring MVC</title>
+
+    <link
+      href="./bootstrap-3.3.7-dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link href="./custom-css/custom.css" rel="stylesheet" />
+    <!-- Ne pas voir les liens lors de l'impressions -->
+    <style>
+      @media print {
+        a[href]:after {
+          content: none;
+        }
+      }
+    </style>
+
+    <!--[if lt IE 9]>
+      <script src="../bootstrap-3.3.7-dist/js/html5shiv.min.js"></script>
+      <script src="../bootstrap-3.3.7-dist/js/respond.min.js"></script>
+    <![endif]-->
+  </head>
+
+  <body class="container">
+    <nav class="navbar navbar-default navbar-right" id="top">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button
+            type="button"
+            class="navbar-toggle collapsed"
+            data-toggle="collapse"
+            data-target="#bs-example-navbar-collapse-1"
+            aria-expanded="false"
+          >
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#" title="Spring - Exercice 14"
+            >Spring E14</a
+          >
+        </div>
+
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+          <ul class="nav navbar-nav">
+            <li class="dropdown">
+              <a
+                href="#"
+                class="dropdown-toggle"
+                data-toggle="dropdown"
+                role="button"
+                aria-haspopup="true"
+                aria-expanded="false"
+                >1 - Installation<span class="caret"></span
+              ></a>
+              <ul class="dropdown-menu">
+                <li>
+                  <a href="#t11">1-1 Importation du projet dans Eclipse</a>
+                </li>
+                <li><a href="#t12">1-2 Analyse du projet et ajustement</a></li>
+              </ul>
+            </li>
+            <li class="dropdown">
+              <a
+                href="#"
+                class="dropdown-toggle"
+                data-toggle="dropdown"
+                role="button"
+                aria-haspopup="true"
+                aria-expanded="false"
+                >2 - Utiliser MVC sur la page Login<span class="caret"></span
+              ></a>
+              <ul class="dropdown-menu">
+                <li><a href="#t21">2-1 Déclaration dans le web.xml</a></li>
+                <li><a href="#t22">2-2 Modification des classes Java</a></li>
+                <li><a href="#t23">2-3 Modification de la page JSP</a></li>
+                <li><a href="#t24">2-4 Tests</a></li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+      </div>
+      <!-- /.container-fluid -->
+    </nav>
+    <br />
+    <div class="page-header">
+      <h1>Spring - Exercice 14 - Spring MVC</h1>
+      <p>Spring MVC en mode JSP-Servlet.</p>
+      <nav>
+        <ul class="pager">
+          <li class="previous" title="Hibernate">
+            <a href="./Exo12-Hibernate.html"
+              ><span aria-hidden="true">&larr;</span> Exercice Précédent</a
+            >
+          </li>
+          <li class="next" title="Spring MVC Rest">
+            <a href="./Exo14-Rest%20en%20Spring.html"
+              >Exercice Suivant <span aria-hidden="true">&rarr;</span></a
+            >
+          </li>
+        </ul>
+      </nav>
+    </div>
+    <!-- page header -->
+
+    <section>
+      <h2 id="t1"><span class="label label-default">1</span> Installation</h2>
+      <div class="panel panel-default panel-primary" id="t11">
+        <div class="panel-heading">
+          <h3 class="panel-title">
+            Importation du projet dans Eclipse
+            <a href="#top"
+              ><span
+                class="glyphicon glyphicon-menu-up pull-right"
+                title="Remonter"
+              ></span
+            ></a>
+          </h3>
+        </div>
+        <div class="panel-body">
+          <p>
+            Vous allez récupérer un nouveau projet qui fait exactement la même
+            chose que l'ancien, mais avec un frontal web
+          </p>
+          <p>Pour importer le projet :</p>
+          <ul>
+            <li>
+              Dans le menu Eclipse, sélectionnez File/Import puis Existing Maven
+              Projects
+            </li>
+            <li>
+              Pointez vers le projet qui se trouve dans le répertoire de
+              l'énoncé.
+            </li>
+          </ul>
+          <p>
+            Après l'import, faites un clic droit sur le projet, puis Properties
+            (tout en bas)
+          </p>
+          <p>Dans l'onglet Targeted Runtime, cochez votre version de Tomcat.</p>
+          <p>
+            Important : Après toutes modifications faites sur le fichier
+            pom.xml, faites un clic droit sur <b>votre projet</b> puis Maven -
+            Update Project ...
+          </p>
+          <p>
+            L'artefactId dans votre Maven sera utilisé comme nom du context pour
+            votre application.
+          </p>
+
+          <p>
+            Vérifiez que tout compile (pas de [ERROR] dans la console Maven et
+            un BUILD SUCCESS).
+          </p>
+          <p>
+            Ajoutez un serveur d'application et déployez votre projet dedans.
+          </p>
+          <p>
+            Lancez votre projet et accédez à l'url
+            <a href="http://localhost:8080/en14.spring.mvc/" target="_blank"
+              >http://localhost:8080/en14.spring.mvc/</a
+            >
+          </p>
+          <p>
+            Rappel : Pour simplifier la manipulation, toutes les dépendances
+            sont déjà dans le pom.xml.
+          </p>
+          <img
+            src="../bootstrap-3.3.7-dist/img/archi2.png"
+            class="center-block img-responsive"
+            alt="Architecture"
+          />
+        </div>
+      </div>
+
+      <div class="panel panel-default panel-primary" id="t12">
+        <div class="panel-heading">
+          <h3 class="panel-title">
+            Analyse du projet et ajustement
+            <a href="#top"
+              ><span
+                class="glyphicon glyphicon-menu-up pull-right"
+                title="Remonter"
+              ></span
+            ></a>
+          </h3>
+        </div>
+        <div class="panel-body">
+          <p>
+            En projet Web, les fichiers Spring sont chargés par le context web
+            de la manière suivante :
+          </p>
+          <pre>
+  &lt;!-- Dans le web.xml  --&gt;
+  &lt;context-param&gt;
+    &lt;param-name&gt;contextConfigLocation&lt;/param-name&gt;
+    &lt;!-- Indiquez l'ensemble des fichiers a charger --&gt;
+    &lt;param-value&gt;classpath*:*-context.xml&lt;/param-value&gt;
+  &lt;/context-param&gt;
+  ...
+  &lt;listener&gt;
+    &lt;listener-class&gt;<a target="_blank" href="https://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/web/context/ContextLoaderListener.html">org.springframework.web.context.ContextLoaderListener</a>&lt;/listener-class&gt;
+  &lt;/listener&gt;</pre>
+          <p>
+            On peut, par exemple, le récupérer dans ses objets Java de la
+            manière suivante :
+          </p>
+          <div class="text source-text">
+            <pre class="de1">
+  // Dans un objet Web qui peut accéder aux scope Application (une servlet par exemple)
+  protected final <a target="_blank" href="https://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/web/context/WebApplicationContext.html">WebApplicationContext</a> getSpringContext() {
+    <a target="http://docs.oracle.com/javaee/7/api/javax/servlet/ServletContext.html" target="_blank">ServletContext</a> servletContext = super.getServletContext();
+    return <a target="_blank" href="https://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/web/context/support/WebApplicationContextUtils.html">WebApplicationContextUtils</a>.getRequiredWebApplicationContext(servletContext);
+  }
+</pre>
+          </div>
+          <p>
+            Mais on pourrait aussi faire usage des annotations (<a
+              href="https://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/stereotype/Autowired.html"
+              target="_blank"
+              >@Autowired</a
+            >
+            sur nos attributs représentés par des interfaces). Dans ce cas,
+            n'oubliez pas d'ajuster votre component-scan.
+          </p>
+          <p>
+            Modifiez les classes xxxServlet afin qu'elles récupèrent les
+            services métiers (par annotation ou directement par le
+            WebApplicationContext). Il ne doit pas y avoir de
+            <i>new XxxxService()</i> dans vos servlet, jamais, c'est au Spring
+            de les instancier.
+          </p>
+          <p>Lancez l'application pour vérifier qu'elle fonctionne bien.</p>
+        </div>
+      </div>
+    </section>
+    <section>
+      <h2 id="t2">
+        <span class="label label-default">2</span> Utiliser MVC sur la page
+        Login
+      </h2>
+      <div class="panel panel-default panel-primary" id="t21">
+        <div class="panel-heading">
+          <h3 class="panel-title">
+            Déclaration dans le web.xml
+            <a href="#top"
+              ><span
+                class="glyphicon glyphicon-menu-up pull-right"
+                title="Remonter"
+              ></span
+            ></a>
+          </h3>
+        </div>
+        <div class="panel-body">
+          <p>
+            Pour utiliser Spring MVC il faut déclarer le contrôleur spring dans
+            son fichier WEB-INF\web.xml.
+          </p>
+          <pre>
+ &lt;servlet&gt;
+    &lt;servlet-name&gt;springapp&lt;/servlet-name&gt;
+    &lt;servlet-class&gt;<a target="_blank" href="https://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/web/servlet/DispatcherServlet.html">org.springframework.web.servlet.DispatcherServlet</a>&lt;/servlet-class&gt;
+    &lt;load-on-startup&gt;1&lt;/load-on-startup&gt;
+  &lt;/servlet&gt;
+
+  &lt;servlet-mapping&gt;
+    &lt;servlet-name&gt;springapp&lt;/servlet-name&gt;
+    &lt;url-pattern&gt;*.smvc&lt;/url-pattern&gt;
+  &lt;/servlet-mapping&gt;</pre>
+          <p>
+            On indique au Spring que seul les URLs qui se terminent par
+            <i>.smvc</i> seront à prendre en compte par le Spring MVC.
+          </p>
+          <p>Il faut ensuite créer le fichier de configuration Spring MVC.</p>
+          <p>
+            Créez le fichier WEB-INF\<b>springapp</b>-servlet.xml (par défaut,
+            le nom du fichier doit être le même que celui indiqué dans
+            servlet-name et se trouver dans WEB-INF).
+          </p>
+          <pre>
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       <b>xmlns:mvc="http://www.springframework.org/schema/mvc"</b>
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+                           http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+                           <b>http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd</b>"&gt;
+
+    &lt;context:component-scan base-package="com.banque.web" /&gt;
+
+    &lt;mvc:annotation-driven /&gt;
+
+    &lt;!-- permet de simplifier l'ecriture dans le code Java --&gt;
+    &lt;bean class="<a target="_blank" href="https://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/web/servlet/view/InternalResourceViewResolver.html">org.springframework.web.servlet.view.InternalResourceViewResolver</a>"&gt;
+      &lt;property name="viewClass" value="<a target="_blank" href="https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/web/servlet/view/InternalResourceViewResolver.html">org.springframework.web.servlet.view.JstlView</a>"/&gt;
+      &lt;property name="prefix" value="/" /&gt;
+      &lt;property name="suffix" value=".jsp" /&gt;
+    &lt;/bean&gt;
+&lt;/beans&gt;</pre>
+          <p>
+            Comme vous le voyez nous allons utiliser les annotations (car les
+            classes Controller sont deprecated)
+          </p>
+        </div>
+      </div>
+
+      <div class="panel panel-default panel-primary" id="t22">
+        <div class="panel-heading">
+          <h3 class="panel-title">
+            Modifications des classes Java
+            <a href="#top"
+              ><span
+                class="glyphicon glyphicon-menu-up pull-right"
+                title="Remonter"
+              ></span
+            ></a>
+          </h3>
+        </div>
+        <div class="panel-body">
+          <p>
+            Changez l'héritage de la classe AbstractServlet et ajoutez si besoin
+            (c.a.d si vous ne voulez pas utiliser les annotations
+            <a
+              href="https://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/stereotype/Autowired.html"
+              target="_blank"
+              >@Autowired</a
+            >) la méthode getSpringContext.
+          </p>
+          <pre>
+<a href="https://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/stereotype/Controller.html" target="_blank">@Controller</a>
+public abstract class AbstractController  {
+  private final static Logger LOG = LogManager.getLogger();
+  private static final long serialVersionUID = 1L;
+
+  protected AbstractController() {
+    super();
+  }
+
+  // Vous pouvez aussi retirer cette méthode si vous préférez les annotations (<a href="https://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/stereotype/Autowired.html" target="_blank">@Autowired</a>)
+  protected final <a target="_blank" href="https://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/web/context/WebApplicationContext.html">WebApplicationContext</a> getSpringContext(<a target="_blank" href="http://docs.oracle.com/javaee/7/api/javax/servlet/http/HttpServletRequest.html">HttpServletRequest</a> request) {
+    return <a target="_blank" href="https://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/web/context/support/WebApplicationContextUtils.html">WebApplicationContextUtils</a>.getRequiredWebApplicationContext(request.getServletContext());
+  }
+  ...
+}</pre>
+          <p>
+            Ajustez le code de la méthode service de votre classe
+            LoginController afin de la diviser en deux méthodes :
+          </p>
+          <pre>
+<a href="https://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/stereotype/Controller.html" target="_blank">@Controller</a>
+<a href="https://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/stereotype/SessionAttributes.html" target="_blank">@SessionAttributes</a>({ "utilisateur" })
+public class LoginController extends AbstractController {
+  ...  
+  <a href="https://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/web/bind/annotation/RequestMapping.html" target="_blank">@RequestMapping</a>(value = "/login.smvc", method = <a href="https://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/web/bind/annotation/RequestMethod.html" target="_blank">RequestMethod</a>.GET)
+  public String showLogin(<a href="https://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/ui/Model.html" target="_blank">Model</a> model) {
+    LoginController.LOG.debug("--&gt; Passage dans showLogin");
+    model.addAttribute("loginBean", new LoginBean());
+    return "login";
+  }
+  ...  
+  <a href="https://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/web/bind/annotation/RequestMapping.html" target="_blank">@RequestMapping</a>(value = "/dologin.smvc", method = <a href="https://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/web/bind/annotation/RequestMethod.html" target="_blank">RequestMethod</a>.POST)
+  public String doLogin(<a href="https://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/web/bind/annotation/ModelAttribute.html" target="_blank">@ModelAttribute</a>("loginBean") LoginBean loginBean, <a href="https://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/validation/BindingResult.html" target="_blank">BindingResult</a> bindingResult, <a href="https://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/ui/ModelMap.html" target="_blank">ModelMap</a> modelMap) {
+
+    LoginController.LOG.debug("--&gt; Passage dans doLogin");
+    try {
+      LoginController.LOG.debug("-- doLogin login={}", loginBean.getLogin());
+      IUtilisateurEntity utilisateur = this.service.authentifier(loginBean.getLogin(), loginBean.getPassword());
+      // Si tout va bien on sauvegarde l'entite dans la session
+      // c'est l'annotation @SessionAttributes qui fait le lien avec la session
+      LoginController.LOG.debug("-- doLogin login={} resultat={}", loginBean.getLogin(), utilisateur);
+      modelMap.addAttribute("utilisateur", utilisateur);
+    } catch (MauvaisMotdepasseException e) {
+      bindingResult.reject("error.wrong.password");
+      LoginController.LOG.error("Erreur:", e);
+      return "login";
+    } catch (UtilisateurInconnuException e) {
+      bindingResult.reject("error.user.unknown");
+      LoginController.LOG.error("Erreur:", e);
+      return "login";
+    } catch (Exception e) {
+      String msg = e.getMessage() != null ? e.getMessage() : e.getClass().getName();
+      bindingResult.reject("error.technical", new Object[] { msg }, msg);
+      LoginController.LOG.error("Erreur:", e);
+      return "login";
+    }
+    return "menu";
+  }
+}</pre>
+          <p>
+            La première méthode gère l'affichage de la page Login, la seconde
+            s'occupe de la soumission du formulaire.
+          </p>
+          <p>
+            Ici c'est le Spring qui va se charger de fabriquer le bean LoginBean
+          </p>
+          <p>
+            C'est l'annotation
+            <a
+              target="_blank"
+              href="https://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/web/bind/annotation/SessionAttributes.html"
+              >@SessionAttributes</a
+            >
+            qui indique le scope pour la clef <i>utilisateur</i>
+          </p>
+          <p>
+            Notez que quand on retourne "login" (ou "menu"), le
+            <a
+              target="_blank"
+              href="https://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/web/servlet/view/InternalResourceViewResolver.html"
+              >InternalResourceViewResolver</a
+            >
+            fabrique l'URL "/"+"login"+".jsp"
+          </p>
+        </div>
+      </div>
+
+      <div class="panel panel-default panel-primary" id="t23">
+        <div class="panel-heading">
+          <h3 class="panel-title">
+            Modification de la page JSP
+            <a href="#top"
+              ><span
+                class="glyphicon glyphicon-menu-up pull-right"
+                title="Remonter"
+              ></span
+            ></a>
+          </h3>
+        </div>
+        <div class="panel-body">
+          <p>
+            Modifiez la page Jsp, ajoutez la directive d'import de la taglib
+            <i>form</i> de Spring
+          </p>
+          <pre>
+  ...
+  &lt;%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %&gt;
+  ...</pre
+          >
+          <p>
+            Modifiez la page login.jsp afin que le formulaire pointe vers votre
+            contrôleur et changez la balise &lt;form ...&gt; en form:form:
+          </p>
+          <pre>
+  ...
+  &lt;form:form action="dologin.smvc" method="post" modelAttribute="loginBean"&gt;
+  ...
+  &lt;/form:form&gt;
+  ...</pre
+          >
+          <p>
+            Attention : le name et l'id du formulaire seront égaux aux noms du
+            bean model (ici loginBean). Rectifiez le bouton qui fait un submit
+            Javascript.
+          </p>
+          <p>Modifiez les input :</p>
+          <pre>
+  ...
+  &lt;tr&gt;
+    &lt;td&gt;Nom d'utilisateur&lt;/td&gt;
+    &lt;td&gt;&lt;form:input path="login"  /&gt;&lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;&lt;td colspan="2"&gt;&nbsp;&lt;/td&gt;&lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td&gt;Mot de passe&lt;/td&gt;
+    &lt;td&gt;&lt;form:password path="password" size="20"/&gt;&lt;/td&gt;
+  &lt;/tr&gt;
+  ...</pre
+          >
+        </div>
+      </div>
+
+      <div class="panel panel-default panel-primary" id="t24">
+        <div class="panel-heading">
+          <h3 class="panel-title">
+            Tests
+            <a href="#top"
+              ><span
+                class="glyphicon glyphicon-menu-up pull-right"
+                title="Remonter"
+              ></span
+            ></a>
+          </h3>
+        </div>
+        <div class="panel-body">
+          <p>
+            Relancez l'application. N'oubliez pas de rectifier la page index.jsp
+            afin qu'elle renvoie vers l'URL /login.smvc. En Spring MVC vous ne
+            devez pas appeler une JSP en direct, vous devez toujours passer par
+            son contrôleur.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <nav>
+      <ul class="pager">
+        <li class="previous" title="Hibernate">
+          <a href="../Exo12-Hibernate/Exo12-Hibernate.html"
+            ><span aria-hidden="true">&larr;</span> Exercice Précédent</a
+          >
+        </li>
+        <li class="next" title="Spring MVC Rest">
+          <a href="../Exo14-MVC-Rest/Exo14-Rest%20en%20Spring.html"
+            >Exercice Suivant <span aria-hidden="true">&rarr;</span></a
+          >
+        </li>
+      </ul>
+    </nav>
+
+    <br /><br />
+    <footer>
+      <p class="text-center">
+        <a href="http://validator.w3.org/">
+          <img
+            src="../bootstrap-3.3.7-dist/img/HTML5_Logo_32.png"
+            alt="Valid HTML 5.0"
+          /> </a
+        ><br />
+        Copyright <span class="glyphicon glyphicon-copyright-mark"></span>
+        <a href="http://ferretrenaud.fr" target="_blank">Ferret Renaud</a> 2013
+      </p>
+    </footer>
+
+    <script src="../bootstrap-3.3.7-dist/js/jquery.min.js"></script>
+    <script src="../bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+  </body>
+</html>

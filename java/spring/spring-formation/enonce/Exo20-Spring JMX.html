@@ -1,0 +1,572 @@
+<!--
+	Copyright 2013
+	Ferret Renaud
+	admin@ferretrenaud.com
+-->
+
+<!DOCTYPE html>
+<html lang="fr">
+	<head>
+		<meta charset="utf-8"/>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+		<meta name="viewport" content="width=device-width, initial-scale=1"/>
+		<meta name="Author" content="FERRET Renaud"/>
+		<meta name="Description" content="Exercice de formation"/>
+		<meta name="copyright" content="(C) Copyright 2013 FERRET Renaud"/>
+		<meta name="distribution" content="global"/>
+
+		<title>Spring - Exercice 20 - Spring JMX</title>
+
+		<link href="../bootstrap-3.3.7-dist/css/bootstrap.min.css" rel="stylesheet"/>
+		<!-- Ne pas voir les liens lors de l'impressions -->
+		<style>			
+			@media print {
+				a[href]:after {
+					content: none;
+				} 
+			}
+		</style>
+
+		<!--[if lt IE 9]>
+			<script src="../bootstrap-3.3.7-dist/js/html5shiv.min.js"></script>
+			<script src="../bootstrap-3.3.7-dist/js/respond.min.js"></script>
+		<![endif]-->
+	</head>
+
+	<body class="container">
+
+		<nav class="navbar navbar-default navbar-right" id="top">
+		  <div class="container-fluid">
+			<div class="navbar-header">
+			  <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			  </button>
+			  <a class="navbar-brand" href="#" title="Spring - Exercice 17">Spring E20</a>
+			</div>
+
+			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+			  <ul class="nav navbar-nav">
+				<li class="dropdown">
+				  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">1 - JMX<span class="caret"></span></a>
+				  <ul class="dropdown-menu">
+					<li><a href="#t11">1-1 Import projet</a></li>
+					<li><a href="#t12">1-2 Classe Calculatrice</a></li>
+					<li><a href="#t13">1-3 Déclaration du RMI Registry</a></li>
+					<li><a href="#t14">1-4 Déclaration du bean JMX</a></li>
+					<li><a href="#t15">1-5 Réalisation du serveur</a></li>
+					<li><a href="#t16">1-6 Réalisation du client</a></li>
+				  </ul>
+				</li>
+
+				<li class="dropdown">
+				  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">2 - Annotations<span class="caret"></span></a>
+				  <ul class="dropdown-menu">
+					<li><a href="#t21">2-1 Classe Calculatrice</a></li>
+					<li><a href="#t22">2-2 Déclaration du bean JMX</a></li>
+				  </ul>
+				</li>
+
+				<li class="dropdown">
+				  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">3 - Notifications<span class="caret"></span></a>
+				  <ul class="dropdown-menu">
+					<li><a href="#t31">3-1 Listener et Filter</a></li>
+					<li><a href="#t32">3-2 Déclaration des notifications</a></li>
+					<li><a href="#t33">3-3 Publisher</a></li>
+				  </ul>
+				</li>
+								
+			  </ul>
+			</div><!-- /.navbar-collapse -->
+		  </div><!-- /.container-fluid -->
+		</nav>
+		<br/>
+		<div class="page-header">
+			<h1>Spring - Exercice 20 - Spring JMX</h1>
+			<p>Utilisation de Spring JMX.</p>
+			<p><a href="http://docs.oracle.com/javase/tutorial/jmx/overview/index.html" target="_blank">JMX</a> est la norme Java qui permet de mettre à disposition des beans dans un programme afin de les manipuler à distance à travers différents protocoles. </p>
+			<p>Vous pouvez obtenir plus d'exemples <a href="https://docs.oracle.com/javase/8/docs/technotes/guides/jmx/examples.html" target="_blank">ici</a> et <a href="https://www.jmdoudoux.fr/java/dej/chap-spring_JMX.htm" target="_blank">ici</a>.</p>			
+			<nav>
+				<ul class="pager">
+					<li class="previous" title="Spring Remote"><a href="../Exo19-Spring%20Remote/Exo19-Spring%20Remote.html"><span aria-hidden="true">&larr;</span> Exercice Précédent</a></li>
+				</ul>
+			</nav>
+		</div> <!-- page header -->
+
+		<section>
+			<h2 id="t1"><span class="label label-default">1</span> Spring JMX</h2>
+			<div class="panel panel-default panel-primary" id="t11">
+				<div class="panel-heading">
+					<h3 class="panel-title">Importation du projet dans Eclipse <a href="#top"><span class="glyphicon glyphicon-menu-up pull-right" title="Remonter"></span></a></h3>
+				</div>
+				<div class="panel-body">
+					<p>Nous allons importer un projet simple déjà configuré. </p>
+					<p>Pour importer le projet :</p>
+					<ul>
+						<li>Dans le menu Eclipse, sélectionnez File/Import puis Existing Maven Projects</li>
+						<li>Pointez vers le projet qui se trouve dans l'énoncé.</li>
+					</ul>
+					<p>Important : Après toutes modifications faites sur le fichier pom.xml, faites un clic droit sur <b>votre projet</b> puis Maven - Update Project ...</p>
+					<p>Rappel : Pour simplifier la manipulation, toutes les dépendances sont déjà dans le pom.xml. Il n'y a pas de dépendance particulière dans le cas du Spring JMX.</p>
+					<p>Vérifiez que tout compile (pas de [ERROR] dans la console Maven et un BUILD SUCCESS).</p>
+        		</div>
+			</div>
+
+			<div class="panel panel-default panel-primary" id="t12">
+				<div class="panel-heading">
+					<h3 class="panel-title">Classe Calculatrice <a href="#top"><span class="glyphicon glyphicon-menu-up pull-right" title="Remonter"></span></a></h3>
+				</div>
+				<div class="panel-body">
+					<p>Créez une nouvelle classe <b>fr.jmx.Calculatrice</b>, son rôle sera de représenter une calculatrice. Elle aura le comportement suivant :</p>
+					<ul>
+						<li>Un attribut dernierResultat de type double.</li>
+						<li>Les constructeurs qui vous semblent importants. Attention, JMX a besoin d'un constructeur public sans paramètre pour fonctionner.</li>
+						<li>La méthode get/set adaptée sur l'attribut dernierResultat.</li>
+						<li>La méthode <b>public double add(double c1, double c2)</b> qui retourne c1+c2 et place aussi le résultat dans dernierResultat.</li>
+						<li>La méthode <b>public double sub(double c1, double c2)</b> qui retourne c1-c2 et place aussi le résultat dans dernierResultat.</li>
+						<li>La méthode <b>public double mult(double c1, double c2)</b> qui retourne c1*c2 et place aussi le résultat dans dernierResultat.</li>
+						<li>La méthode <b>public double div(double c1, double c2)</b> qui retourne c1/c2 et place aussi le résultat dans dernierResultat.</li>
+					</ul>
+					<p>Créez une nouvelle interface <b>fr.jmx.ICalculatrice</b>, son rôle sera de représenter la classe fr.jmx.Calculatrice. Générez l'interface via Eclipse, menu refactor/extract interface. </p>
+					<p>Remarque : contrairement aux normes JMX standard, en Spring il n'est pas obligatoire de respecter la norme JMX, cette interface n'a donc pas obligation de s"appeler <i>Calculatrice</i><b>MBean</b>.</p>
+        		</div>
+			</div>
+
+			<div class="panel panel-default panel-primary" id="t13">
+				<div class="panel-heading">
+					<h3 class="panel-title">Déclaration du RMI Registry <a href="#top"><span class="glyphicon glyphicon-menu-up pull-right" title="Remonter"></span></a></h3>
+				</div>
+				<div class="panel-body">
+					<p>Nous devons placer notre bean dans un espace accessible. Nous allons demander à Spring de créer une RMI registry afin d'y déposer notre bean.</p>
+					<p>Dans le dossier src/main/resources/spring créer (ou éditer si il existe) le fichier rmi<b>-context.xml</b>. </p>
+					<p>Il contiendra la déclaration de notre RMI Registry.</p>
+<pre>
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;beans xmlns="http://www.springframework.org/schema/beans"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+  xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd 
+                      http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd"&gt;
+
+
+  &lt;bean id="rmiRegistry" class="<a href="http://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/remoting/rmi/RmiRegistryFactoryBean.html" target="_blank">org.springframework.remoting.rmi.RmiRegistryFactoryBean</a>"&gt;
+    &lt;property name="port" value="10099" /&gt;
+  &lt;/bean&gt;
+  
+  &lt;bean class="<a href="http://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/jmx/support/ConnectorServerFactoryBean.html" target="_blank">org.springframework.jmx.support.ConnectorServerFactoryBean</a>" depends-on="rmiRegistry"&gt;
+    &lt;property name="serviceUrl" value="service:jmx:rmi://localhost/jndi/rmi://localhost:10099/myconnector" /&gt;
+  &lt;/bean&gt;
+
+&lt;/beans&gt;</pre>
+					<p><i>depends-on</i> indique au Spring de fabriquer le bean ConnectorServerFactoryBean TOUJOURS APRES celui qui porte l'id <i>rmiRegistry</i>. </p>
+					<p>Vous pouvez choisir le numéro de port de votre choix. Vous pouvez aussi modifier la valeur <i>myconnector</i>. </p>
+					<p>L'url présenté (service:jmx:rmi://localhost/jndi/rmi://localhost:10099/myconnector) sera indispensable pour nous connecter à notre RMI registry (via la jconsole par exemple). </p>
+        		</div>
+			</div>
+
+			<div class="panel panel-default panel-primary" id="t14">
+				<div class="panel-heading">
+					<h3 class="panel-title">Déclaration du bean JMX <a href="#top"><span class="glyphicon glyphicon-menu-up pull-right" title="Remonter"></span></a></h3>
+				</div>
+				<div class="panel-body">
+					<p>Nous allons maintenant réaliser un fichier Spring afin de déclarer notre bean JMX.</p>
+					<p>Dans le dossier src/main/resources/spring créer (ou éditer si il existe) le fichier jmx<b>-context.xml</b>. </p>
+<pre>
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;beans xmlns="http://www.springframework.org/schema/beans"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+  xmlns:context="http://www.springframework.org/schema/context"
+  xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd 
+                      http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd"&gt;
+
+    &lt;!-- Declarartion du bean JMX --&gt;
+   &lt;bean id="jmxCalculatrice" class="fr.jmx.Calculatrice"&gt;  
+      &lt;description&gt;Bean calculatrice&lt;/description&gt;  
+   &lt;/bean&gt;  
+  
+   &lt;!-- On export notre bean --&gt;
+   &lt;bean class="<a href="http://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/jmx/export/MBeanExporter.html" target="_blank">org.springframework.jmx.export.MBeanExporter</a>"&gt;  
+      &lt;property name="beans"&gt;  
+         &lt;map&gt;  
+            &lt;entry key="monApplication:type=mesBeans,name=MaCalculatrice" value-ref="jmxCalculatrice" /&gt;  
+         &lt;/map&gt;  
+      &lt;/property&gt;  
+      &lt;property name="assembler"&gt;
+        &lt;bean class="<a href="http://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/jmx/export/assembler/SimpleReflectiveMBeanInfoAssembler.html" target="_blank">org.springframework.jmx.export.assembler.SimpleReflectiveMBeanInfoAssembler</a>" /&gt;  
+      &lt;/property&gt;  
+   &lt;/bean&gt;
+
+&lt;/beans&gt;</pre>
+
+					<p>La valeur de l'attribut <i>key</i> doit être unique et représente l'adresse de votre bean dans l'annuaire JMX.</p>
+					<p>L'attribut <i>assembler</i> peux prendre plusieurs valeur, ici avec le <a href="http://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/jmx/export/assembler/SimpleReflectiveMBeanInfoAssembler.html" target="_blank">org.springframework.jmx.export.assembler.SimpleReflectiveMBeanInfoAssembler</a> Spring va regarder l'objet calculatrice et exporter (rendre visible dans la console JMX) toutes les méthodes publiques ainsi que les propriétés. Vous pouvez opter pour une autre classe : </p>
+					<ul>
+						<li><a target="_blank" href="http://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/jmx/export/assembler/InterfaceBaseMBeanInfoAssembler.html">InterfaceBaseMBeanInfoAssembler</a> : expose les propriétés et les méthodes du MBean définies dans une interface</li>
+						<li><a target="_blank" href="http://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/jmx/export/assembler/MetadataMBeanInfoExporter.html">MetadataMBeanInfoExporter</a> : utilise des annotations pour déterminer les propriétés et les opérations du MBean à exposer (nous l'utiliserons plus loin)</li>
+						<li><a target="_blank" href="http://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/jmx/export/assembler/MethodExclusionMBeanInfoAssembler.html">MethodExclusionMBeanInfoAssembler</a> : expose toutes les propriétés et les méthodes du MBean sauf celles précisées</li>
+						<li><a target="_blank" href="http://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/jmx/export/assembler/MethodNameBasedMBeanInfoAssembler.html">MethodNameBasedMBeanInfoAssembler</a> : expose toutes les méthodes précisées du MBean. Les méthodes de type getters/setters sont exposées comme des propriétés JMX</li>
+					</ul>
+        		</div>
+			</div>
+
+			<div class="panel panel-default panel-primary" id="t15">
+				<div class="panel-heading">
+					<h3 class="panel-title">Réalisation du serveur <a href="#top"><span class="glyphicon glyphicon-menu-up pull-right" title="Remonter"></span></a></h3>
+				</div>
+				<div class="panel-body">
+					<p>Nous avons besoin d'une classe pourvue d'une méthode main afin de lancer notre RMI registry et d'y placer notre bean.</p>
+					<p>Cette classe est déjà présente, c'est fr.MainServeur.</p>
+<pre>
+package fr;
+
+import org.apache.logging.log4j.*;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+public final class MainServeur {
+  private static final Logger LOG = LogManager.getLogger();
+
+  public static void main(String[] args) {
+    MainServeur.LOG.debug("-- Debut Serveur -- ");
+    ClassPathXmlApplicationContext appContext = null;
+    try {
+      appContext = new ClassPathXmlApplicationContext("classpath*:spring/*-context.xml");
+      MainServeur.LOG.info("Appuyez sur 'Enter' pour arrêter le serveur.");
+      System.in.read();
+    } catch (Exception e) {
+      MainServeur.LOG.fatal("Erreur", e);
+      System.exit(-1);
+    } finally {
+      if (appContext != null) {
+        appContext.close();
+      }
+    }
+    MainServeur.LOG.debug("-- Fin Serveur -- ");
+    System.exit(0);
+  }
+}</pre>
+					<p>Elle ne fait rien hormis charger le context Spring avec nos deux fichiers de configurations rmi et jmx <i>-context.xml</i>.</p>
+        		</div>
+			</div>
+
+			<div class="panel panel-default panel-primary" id="t16">
+				<div class="panel-heading">
+					<h3 class="panel-title">Réalisation du client <a href="#top"><span class="glyphicon glyphicon-menu-up pull-right" title="Remonter"></span></a></h3>
+				</div>
+				<div class="panel-body">
+					<p>A ce stade, vous pouvez lancer la classe fr.MainServeur et vous connecter à votre bean JMX via la jconsole. </p>
+					<p>Pour lancer cette dernière, ouvrez un shell (ou Invité de commandes sous Windows), tapez jconsole. </p>
+					<p>Si vous avez lancé le shell <b>en tant qu'administrateur</b>, vous pouvez directement double cliquer sur le <b>Local Process</b> qui a le nom de votre classe (fr.MainServeur). Sinon, si vous n'avez pas lancé le shell <b>en tant qu'administrateur</b>, indiquez dans <b>Remote Process</b> l'URL de votre RMI registry (ici service:jmx:rmi://localhost/jndi/rmi://localhost:10099/myconnector). </p>
+					<img src="../bootstrap-3.3.7-dist/img/jconsole.png" class="center-block img-responsive" alt="Console" />
+					<p>Si rien ne se passe quand vous tapez <b>jconsole</b>, allez dans le répertoire <b>bin</b> de votre JDK et relancez la commande (ou ajustez votre variable PATH en y incluant le %JAVA_HOME%\bin). </p>
+					<p>Allez sur l'onglet MBeans et retrouvez votre bean Calculatrice. </p>
+					<img src="../bootstrap-3.3.7-dist/img/jconsole2.png" class="center-block img-responsive" alt="Console" />
+					<br/><br/>
+					
+					<p>Maintenant, si vous voulez récupérer votre bean JMX dans du code client Java, nous aurons besoin de deux choses :</p>
+					<ul>
+						<li>la déclaration de notre bean Calculatrice client. Afin que le Spring puisse aller nous le chercher dans la RMI registry et nous permette de jouer avec.</li>
+						<li>une classe Java pourvue d'une méthode main dans laquelle nous pourrons manipuler notre bean client.</li>
+					</ul>
+					<p>Dans le dossier src/main/resources/spring créer (ou éditer si il existe) le fichier spring-client.xml. </p>
+<pre>
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;beans xmlns="http://www.springframework.org/schema/beans"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+  xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd 
+                      http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd"&gt;
+
+  &lt;bean id="serverConnection" class="<a target="_blank" href="http://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/jmx/support/MBeanServerConnectionFactoryBean.html">org.springframework.jmx.support.MBeanServerConnectionFactoryBean</a>"&gt;
+    &lt;!-- On indique l'URL du serveur RMI que l'on a cree pour notre RMI Registry --&gt;
+    &lt;property name="serviceUrl" value="service:jmx:rmi://localhost/jndi/rmi://localhost:10099/myconnector" /&gt;
+  &lt;/bean&gt;
+
+  &lt;bean id="calculatriceJMXProxy" class="<a target="_blank" href="http://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/jmx/access/MBeanProxyFactoryBean.html">org.springframework.jmx.access.MBeanProxyFactoryBean</a>"&gt;
+    &lt;property name="server" ref="serverConnection" /&gt;
+    &lt;!-- On replace l'object name que l'on a donne a notre bean JMX --&gt;
+    &lt;property name="objectName" value="monApplication:type=mesBeans,name=MaCalculatrice" /&gt;
+    &lt;property name="proxyInterface" value="fr.jmx.ICalculatrice" /&gt;
+  &lt;/bean&gt;
+
+&lt;/beans&gt;</pre>
+					<p>Le bean <i>serverConnection</i> permet d'accéder à la RMI registry, le bean <i>calculatriceJMXProxy</i> est notre lien vers le bean JMX qui s'y trouve.</p>
+					<p>Vous pouvez maintenant réaliser la classe Java fr.Mainclient et sa méthode main qui va simplement charger ce fichier de configuration dans un context Spring et en tirer (faire un getBean) notre bean JMX<i>calculatriceJMXProxy</i>. Profitez en pour lui faire réaliser des opérations et regarder sur la jconsole si tout est cohérent.</p>
+        		</div>
+			</div>
+		</section>
+		
+		<section>
+			<h2 id="t2"><span class="label label-default">2</span> Annotations</h2>
+			<div class="panel panel-default panel-primary" id="t21">
+				<div class="panel-heading">
+					<h3 class="panel-title">Classe Calculatrice <a href="#top"><span class="glyphicon glyphicon-menu-up pull-right" title="Remonter"></span></a></h3>
+				</div>
+				<div class="panel-body">
+					<p>Vous pouvez continuer sur l'exercice précédent. Nous allons faire la même chose en faisant usage des annotations Spring. Ce faisant nous aurons plus de moyen de controller notre <i>assembler</i>.</p>
+					<p>Reprenez la classe fr.Calculatrice</p>
+<pre>
+package fr.jmx;
+
+import org.apache.logging.log4j.*;
+import org.springframework.jmx.export.annotation.*;
+import org.springframework.stereotype.Component;
+
+@<a target="_blank" href="http://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/stereotype/Component.html">Component</a>
+@<a target="_blank" href="http://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/jmx/export/annotation/ManagedResource.html">ManagedResource</a>(objectName = "monApplication:type=mesBeans,name=MaCalculatrice", description = "Ma calculatrice JMX")
+public class Calculatrice implements ICalculatrice {
+  private static final Logger LOG = LogManager.getLogger();
+
+
+  @Override
+  @<a target="_blank" href="http://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/jmx/export/annotation/ManagedOperation.html">ManagedOperation</a>(description = "Additionne deux chiffres")
+  @<a target="_blank" href="http://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/jmx/export/annotation/ManagedOperationParameters.html">ManagedOperationParameters</a>(
+    { @<a target="_blank" href="http://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/jmx/export/annotation/ManagedOperationParameter.html">ManagedOperationParameter</a>(name = "c1", description = "Le premier chiffre"),
+      @<a target="_blank" href="http://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/jmx/export/annotation/ManagedOperationParameter.html">ManagedOperationParameter</a>(name = "c2", description = "Le second chiffre") })
+  public double add(double c1, double c2) {
+    Calculatrice.LOG.debug("{}+{}", c1, c2);
+    double resultat = c1 + c2;
+    this.dernierResultat = resultat;
+    return resultat;
+  }
+
+  // ...
+  // Faites les autres méthodes (mult, sub, div)
+  // ...
+
+  @Override
+  @<a target="_blank" href="http://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/jmx/export/annotation/ManagedAttribute.html">ManagedAttribute</a>(description = "Le dernier resultat", defaultValue = "0")
+  public double getDernierResultat() {
+    return this.dernierResultat;
+  }
+}
+</pre>
+					<p>Le code peut être différent selon ce que vous avez déjà codé. </p>
+					<ul>
+						<li>@<a target="_blank" href="http://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/stereotype/Component.html">Component</a> : afin de ne pas avoir à déclarer explicitement notre bean dans le fichier XML, un component-scan suffira.</li>
+						<li>@<a target="_blank" href="http://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/jmx/export/annotation/ManagedResource.html">ManagedResource</a> permet d'indiquer le nom de notre bean JMX (le <i>key</i> qui était dans notre fichier XML)</li>
+						<li>@<a target="_blank" href="http://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/jmx/export/annotation/ManagedOperation.html">ManagedOperation</a> permet d'indiquer que la méthode est visible en tant que méthode de bean JMX. </li>
+						<li>@<a target="_blank" href="http://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/jmx/export/annotation/ManagedOperationParameters.html">ManagedOperationParameters</a> pour indiquer les paramètres visibles en tant qu'élément JMX. </li>
+						<li>@<a target="_blank" href="http://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/jmx/export/annotation/ManagedOperationParameter.html">ManagedOperationParameter</a> pour décrire chacun des paramètres gérables en JMX</li>
+						<li>@<a target="_blank" href="http://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/jmx/export/annotation/ManagedAttribute.html">ManagedAttribute</a> pour indiquer que c'est une propriété JMX. Peut se placer sur l'attribut (&lt;=&gt; get/set) ou sur la/les méthodes get et/ou set. </li>
+					</ul>
+					<p>L'interface ICalculatrice ne change pas le moins du monde. </p>
+ 				</div>
+			</div>
+
+			<div class="panel panel-default panel-primary" id="t22">
+				<div class="panel-heading">
+					<h3 class="panel-title">Déclaration du bean JMX <a href="#top"><span class="glyphicon glyphicon-menu-up pull-right" title="Remonter"></span></a></h3>
+				</div>
+				<div class="panel-body">
+					<p>Le fichier rmi-context.xml ne bouge pas.</p>
+					<p>Nous allons modifier le fichier jmx-context.xml afin de lui indiquer que nous faisons usage des annotations.</p>
+<pre>
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;beans xmlns="http://www.springframework.org/schema/beans"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:context="http://www.springframework.org/schema/context"
+  xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd 
+                      http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd"&gt;
+
+  &lt;context:component-scan base-package="fr.jmx"/&gt;
+
+  &lt;bean class="<a target="_blank" href="http://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/jmx/export/MBeanExporter.html">org.springframework.jmx.export.MBeanExporter</a>"&gt;
+    &lt;!-- Notre bean sera exporte tout seul --&gt;
+    &lt;property name="autodetect" value="true"/&gt;
+
+    &lt;!-- Afin de respecter ce qui est dans @ManagedResource et le nom de nos beans --&gt;
+    &lt;property name="namingStrategy"&gt;
+      &lt;bean class="<a target="_blank" href="http://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/jmx/export/naming/MetadataNamingStrategy.html">org.springframework.jmx.export.naming.MetadataNamingStrategy</a>"&gt;
+        &lt;property name="attributeSource" ref="jmxAttributeSource"/&gt;
+      &lt;/bean&gt;
+    &lt;/property&gt;
+    
+	&lt;!-- Afin de respecter ce qui est dans @@ManagedOperation, @ManagedOperationParameters, @ManagedAttribute et les autres --&gt;
+    &lt;property name="assembler"&gt;
+      &lt;bean class="<a target="_blank" href="http://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/jmx/export/assembler/MetadataMBeanInfoAssembler.html">org.springframework.jmx.export.assembler.MetadataMBeanInfoAssembler</a>"&gt;
+        &lt;property name="attributeSource" ref="jmxAttributeSource"/&gt;
+      &lt;/bean&gt;
+    &lt;/property&gt;
+  &lt;/bean&gt;
+  
+  &lt;bean id="jmxAttributeSource" class="<a target="_blank" href="http://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/jmx/export/annotation/AnnotationJmxAttributeSource.html">org.springframework.jmx.export.annotation.AnnotationJmxAttributeSource</a>"/&gt;
+  
+&lt;/beans&gt;</pre>
+					<p>Dans cet exemple, nous avons la main sur tout. </p>
+					<p>Vous pouvez aussi utiliser la version courte associée au namespace context, qui fera exactement la même chose :</p>
+<pre>
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;beans xmlns="http://www.springframework.org/schema/beans"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+  xmlns:context="http://www.springframework.org/schema/context"
+  xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd 
+                      http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd"&gt;
+
+  &lt;context:component-scan base-package="fr.jmx"/&gt;
+
+  &lt;context:mbean-export/&gt;
+
+&lt;/beans&gt;</pre>
+					<p>Il n'y a rien d'autre à modifier, relancez votre MainServeur, allez voir votre jconsole, relancez votre MainClient.</p>
+ 				</div>
+			</div>
+		</section>
+
+		<section>
+			<h2 id="t3"><span class="label label-default">3</span> Notifications</h2>
+			<div class="panel panel-default panel-primary" id="t31">
+				<div class="panel-heading">
+					<h3 class="panel-title">Listener et Filter <a href="#top"><span class="glyphicon glyphicon-menu-up pull-right" title="Remonter"></span></a></h3>
+				</div>
+				<div class="panel-body">
+					<p>Vous pouvez réaliser des objets qui seront à l'écoute des notifications JMX.</p>
+					<p>Pour cela vous avez deux interfaces Java standards JMX (elles n'appartiennent pas à Spring) : </p>
+					<ul>
+						<li><a target="_blank" href="https://docs.oracle.com/javase/8/docs/api/javax/management/NotificationListener.html">javax.management.NotificationListener</a> qui indique que vous êtes à l'écoute des notifications JMX. Il faudra simplement implémenter sa méthode <i>handleNotification</i>. </li>
+						<li><a target="_blank" href="https://docs.oracle.com/javase/8/docs/api/javax/management/NotificationFilter.html">javax.management.NotificationFilter</a> qui permet de filtrer les notifications JMX qui vous intéressent. Il faudra simplement implémenter sa méthode <i>isNotificationEnabled</i>. </li>
+					</ul>
+					<p>Créez une nouvelle classe Java fr.jmx.log.LogNotificationListener qui devra faire un log en info sur toutes les notifications JMX de type <a target="_blank" href="https://docs.oracle.com/javase/8/docs/api/javax/management/AttributeChangeNotification.html">javax.management.AttributeChangeNotification</a></p>
+<pre>
+package fr.jmx.log;
+
+import javax.management.*;
+import org.apache.logging.log4j.*;
+
+public class LogNotificationListener implements <a target="_blank" href="https://docs.oracle.com/javase/8/docs/api/javax/management/NotificationListener.html">NotificationListener</a>, <a target="_blank" href="https://docs.oracle.com/javase/8/docs/api/javax/management/NotificationFilter.html">NotificationFilter</a> {
+  private static final long serialVersionUID = 1L;
+
+  private static final Logger LOG = LogManager.getLogger();
+
+  @Override
+  public void handleNotification(<a target="_blank" href="https://docs.oracle.com/javase/8/docs/api/javax/management/Notification.html">Notification</a> pNotification, Object pHandback) {
+    // A vous de faire le code
+  }
+
+  @Override
+  public boolean isNotificationEnabled(<a target="_blank" href="https://docs.oracle.com/javase/8/docs/api/javax/management/Notification.html">Notification</a> pNotification) {
+    // A vous de faire le code
+  }
+}</pre>					
+ 				</div>
+			</div>
+
+			<div class="panel panel-default panel-primary" id="t32">
+				<div class="panel-heading">
+					<h3 class="panel-title">Déclaration des notifications <a href="#top"><span class="glyphicon glyphicon-menu-up pull-right" title="Remonter"></span></a></h3>
+				</div>
+				<div class="panel-body">
+					<p>Nous devons indiquer au Spring que notre classe LogNotificationListener existe.</p>
+					<p>Modifiez le fichier jmx-context.xml, malheureusement la version courte n'est pas utilisable.</p>
+<pre>
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;beans xmlns="http://www.springframework.org/schema/beans"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:context="http://www.springframework.org/schema/context"
+  xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd 
+                      http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd"&gt;
+
+  &lt;context:component-scan base-package="fr.jmx"/&gt;
+
+  &lt;bean class="org.springframework.jmx.export.MBeanExporter"&gt;
+    &lt;property name="autodetect" value="true"/&gt;
+    
+    &lt;property name="namingStrategy"&gt; ... &lt;/property&gt;
+    
+    &lt;property name="assembler"&gt; ... &lt;/property&gt;
+    
+    <b>&lt;!-- TOUS les beans exporte seront 'ecoutes' par le listener ci dessous --&gt;
+    &lt;property name="notificationListenerMappings"&gt;
+      &lt;map&gt;
+        &lt;entry key="*"&gt;
+          &lt;bean class="fr.jmx.log.LogNotificationListener"/&gt;
+        &lt;/entry&gt;
+      &lt;/map&gt;
+    &lt;/property&gt;
+	</b>
+  &lt;/bean&gt;
+  
+  &lt;bean id="jmxAttributeSource" ... /&gt;
+
+&lt;/beans&gt;</pre>
+					<p>On ajoute ici simplement une valeur à la propriété <i>notificationListenerMappings</i> de notre bean MBeanExporter.</p>
+					<p>L'attribut <i>key</i> permet d'indiquer les beans visés par la classe de listener. Ici <b>*</b> pour tous les beans, on aurait aussi pu indiquer le name de notre bean Calculatrice afin que seul lui soit concerné.</p>
+					<p>Si vous relancez votre serveur et jouez avec votre bean Calculatrice vous ne verrez rien de spécial, en effet pour le moment notre bean Calculatrice n'envoie aucune notification.</p>
+ 				</div>
+			</div>
+		
+			<div class="panel panel-default panel-primary" id="t33">
+				<div class="panel-heading">
+					<h3 class="panel-title">Publisher <a href="#top"><span class="glyphicon glyphicon-menu-up pull-right" title="Remonter"></span></a></h3>
+				</div>
+				<div class="panel-body">
+					<p>Nous devons explicitement coder quand et comment notre classe Calculatrice va envoyer ses notifications.</p>
+					<p>Pour cela elle devra :</p>
+					<ul>
+						<li>implémenter l'interface Spring <a target="_blank" href="http://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/jmx/export/notification/NotificationPublisherAware.html">org.springframework.jmx.export.notification.NotificationPublisherAware</a> et sa méthode <i>setNotificationPublisher</i></li>
+						<li>avoir un attribut de type <a target="_blank" href="http://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/jmx/export/notification/NotificationPublisher.html">org.springframework.jmx.export.notification.NotificationPublisher</a> qui lui sera injecté via la méthode <i>setNotificationPublisher</i></li>
+						<li>envoyer ses notifications via son attribut de type <a target="_blank" href="http://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/jmx/export/notification/NotificationPublisher.html">org.springframework.jmx.export.notification.NotificationPublisher</a> quand elle le décidera. </li>						
+					</ul>
+					<p>Ajuster le code de la Calculatrice afin qu'elle respecte l'ensemble des contraintes. </p>
+<pre>
+package fr.jmx;
+
+import javax.management.AttributeChangeNotification;
+
+import org.springframework.jmx.export.annotation.*;
+import org.springframework.jmx.export.notification.*;
+import org.springframework.stereotype.Component;
+
+@Component
+@ManagedResource(objectName = "monApplication:type=mesBeans,name=MaCalculatrice", description = "Ma calculatrice JMX")
+public class Calculatrice implements ICalculatrice, <a target="_blank" href="http://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/jmx/export/notification/NotificationPublisherAware.html">NotificationPublisherAware</a> {
+  // ... 
+
+  private <a target="_blank" href="http://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/jmx/export/notification/NotificationPublisher.html">NotificationPublisher</a> publisher;
+  
+  // ...   
+  
+  @Override
+  public void setNotificationPublisher(<a target="_blank" href="http://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/jmx/export/notification/NotificationPublisher.html">NotificationPublisher</a> pNotificationPublisher) {
+    this.publisher = pNotificationPublisher;
+  }
+  
+  // ... 
+  public double add(double c1, double c2) {
+    // ... 
+    <a target="_blank" href="https://docs.oracle.com/javase/8/docs/api/javax/management/AttributeChangeNotification.html">AttributeChangeNotification</a> notification = new <a target="_blank" href="https://docs.oracle.com/javase/8/docs/api/javax/management/AttributeChangeNotification.html">AttributeChangeNotification</a>(...);
+    // ... 
+    this.publisher.sendNotification(notification);
+    return resultat;
+  }
+
+  // ... 
+}</pre>
+					<p>Relancez votre serveur, votre client, vous devriez voir vos notifications maintenant.</p>
+ 				</div>
+			</div>
+			
+		</section>
+		
+		<nav>
+			<ul class="pager">
+				<li class="previous" title="Spring Remote"><a href="../Exo19-Spring%20Remote/Exo19-Spring%20Remote.html"><span aria-hidden="true">&larr;</span> Exercice Précédent</a></li>
+			</ul>
+		</nav>
+
+		<br/><br/>
+		<footer>
+			<p class="text-center">
+				<a href="http://validator.w3.org/">
+					<img src="../bootstrap-3.3.7-dist/img/HTML5_Logo_32.png" alt="Valid HTML 5.0" />
+				</a><br/>
+				Copyright <span class="glyphicon glyphicon-copyright-mark"></span> <a href="http://ferretrenaud.fr" target="_blank">Ferret Renaud</a> 2013
+			</p>
+		</footer>
+
+		<script src="../bootstrap-3.3.7-dist/js/jquery.min.js"></script>
+		<script src="../bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+	</body>
+</html>
+
+
+

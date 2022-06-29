@@ -1,0 +1,616 @@
+<!--
+	Copyright 2013
+	Ferret Renaud
+	admin@ferretrenaud.com
+-->
+
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="Author" content="FERRET Renaud" />
+    <meta name="Description" content="Exercice de formation" />
+    <meta name="copyright" content="(C) Copyright 2013 FERRET Renaud" />
+    <meta name="distribution" content="global" />
+
+    <title>Spring - Exercice 12 - Hibernate</title>
+
+    <link
+      href="./bootstrap-3.3.7-dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link href="./custom-css/custom.css" rel="stylesheet" />
+    <!-- Ne pas voir les liens lors de l'impressions -->
+    <style>
+      @media print {
+        a[href]:after {
+          content: none;
+        }
+      }
+    </style>
+
+    <!--[if lt IE 9]>
+      <script src="../bootstrap-3.3.7-dist/js/html5shiv.min.js"></script>
+      <script src="../bootstrap-3.3.7-dist/js/respond.min.js"></script>
+    <![endif]-->
+  </head>
+
+  <body class="container">
+    <nav class="navbar navbar-default" id="top">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button
+            type="button"
+            class="navbar-toggle collapsed"
+            data-toggle="collapse"
+            data-target="#bs-example-navbar-collapse-1"
+            aria-expanded="false"
+          >
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#" title="Spring - Exercice 12"
+            >Spring E12</a
+          >
+        </div>
+
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+          <ul class="nav navbar-nav">
+            <li class="dropdown">
+              <a
+                href="#"
+                class="dropdown-toggle"
+                data-toggle="dropdown"
+                role="button"
+                aria-haspopup="true"
+                aria-expanded="false"
+                >1 - Installation<span class="caret"></span
+              ></a>
+              <ul class="dropdown-menu">
+                <li>
+                  <a href="#t11">1-1 Importation du projet dans Eclipse</a>
+                </li>
+              </ul>
+            </li>
+            <li class="dropdown">
+              <a
+                href="#"
+                class="dropdown-toggle"
+                data-toggle="dropdown"
+                role="button"
+                aria-haspopup="true"
+                aria-expanded="false"
+                >2 - Transformation du projet<span class="caret"></span
+              ></a>
+              <ul class="dropdown-menu">
+                <li><a href="#t21">2-1 Ajout du répertoire Spring</a></li>
+                <li>
+                  <a href="#t22">2-2 Création des fichiers pour Spring</a>
+                </li>
+              </ul>
+            </li>
+            <li class="dropdown">
+              <a
+                href="#"
+                class="dropdown-toggle"
+                data-toggle="dropdown"
+                role="button"
+                aria-haspopup="true"
+                aria-expanded="false"
+                >3 - Modification des DAOs<span class="caret"></span
+              ></a>
+              <ul class="dropdown-menu">
+                <li><a href="#t31">3-1 Modification du code Java</a></li>
+                <li>
+                  <a href="#t32">3-2 Déclaration dans le fichier Spring</a>
+                </li>
+              </ul>
+            </li>
+            <li class="dropdown">
+              <a
+                href="#"
+                class="dropdown-toggle"
+                data-toggle="dropdown"
+                role="button"
+                aria-haspopup="true"
+                aria-expanded="false"
+                >4 - Modification des Services<span class="caret"></span
+              ></a>
+              <ul class="dropdown-menu">
+                <li><a href="#t41">4-1 Modification du code Java</a></li>
+                <li>
+                  <a href="#t42">4-2 Déclaration dans le fichier Spring</a>
+                </li>
+              </ul>
+            </li>
+            <li class="dropdown">
+              <a
+                href="#"
+                class="dropdown-toggle"
+                data-toggle="dropdown"
+                role="button"
+                aria-haspopup="true"
+                aria-expanded="false"
+                >5 - Modification du Main<span class="caret"></span
+              ></a>
+              <ul class="dropdown-menu">
+                <li><a href="#t51">5-1 Modification du code Java</a></li>
+                <li><a href="#t52">5-2 Test</a></li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+      </div>
+      <!-- /.container-fluid -->
+    </nav>
+    <br />
+    <div class="page-header">
+      <h1>Spring - Exercice 12 - Hibernate</h1>
+      <p>Spring et Hibernate.</p>
+      <nav>
+        <ul class="pager">
+          <li class="previous" title="Transaction">
+            <a href="./Exo11-Transaction.html"
+              ><span aria-hidden="true">&larr;</span> Exercice Précédent</a
+            >
+          </li>
+          <li class="next" title="Spring JPA">
+            <a href="./Exo13-JPA.html"
+              >Exercice Suivant <span aria-hidden="true">&rarr;</span></a
+            >
+          </li>
+        </ul>
+      </nav>
+    </div>
+    <!-- page header -->
+
+    <section>
+      <h2 id="t1"><span class="label label-default">1</span> Installation</h2>
+      <div class="panel panel-default panel-primary" id="t11">
+        <div class="panel-heading">
+          <h3 class="panel-title">
+            Importation du projet dans Eclipse
+            <a href="#top"
+              ><span
+                class="glyphicon glyphicon-menu-up pull-right"
+                title="Remonter"
+              ></span
+            ></a>
+          </h3>
+        </div>
+        <div class="panel-body">
+          <p>
+            Vous allez récupérer un nouveau projet qui fait exactement la même
+            chose que l'ancien, mais en Hibernate 4 (ou 5). Nous allons le lier
+            à Spring
+          </p>
+          <p>Pour importer le projet :</p>
+          <ul>
+            <li>
+              Dans le menu Eclipse, sélectionnez File/Import puis Existing Maven
+              Projects
+            </li>
+            <li>Pointez vers l'un des projets dans l'énoncé.</li>
+          </ul>
+          <p>
+            Important : Après toutes modifications faites sur le fichier
+            pom.xml, faites un clic droit sur <b>votre projet</b> puis Maven -
+            Update Project ...
+          </p>
+          <p>
+            Vérifiez que tout compile (pas de [ERROR] dans la console Maven et
+            un BUILD SUCCESS).
+          </p>
+          <p>
+            Lancez le main pour voir ce qui se passe. Ajustez le login/password
+            de la base de données si besoin, ils se trouvent dans le fichier
+            hibernate.cfg.xml qui se trouve dans le répertoire de source
+            src/main/resources/hibernate.
+          </p>
+          <p>
+            Rappel : Pour simplifier la manipulation, toutes les dépendances
+            sont déjà dans le pom.xml.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2 id="t2">
+        <span class="label label-default">2</span> Transformation du projet
+      </h2>
+      <div class="panel panel-default panel-primary" id="t21">
+        <div class="panel-heading">
+          <h3 class="panel-title">
+            Ajout du répertoire Spring
+            <a href="#top"
+              ><span
+                class="glyphicon glyphicon-menu-up pull-right"
+                title="Remonter"
+              ></span
+            ></a>
+          </h3>
+        </div>
+        <div class="panel-body">
+          <p>
+            S'il n'est pas déjà présent, ajoutez un répertoire à votre projet
+            dans src\main\resources\ :
+          </p>
+          <ul>
+            <li>
+              Clic droit sur votre projet, puis Nouveau/Répertoire (folder).
+            </li>
+            <li>Appelez le <i>spring</i>.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="panel panel-default panel-primary" id="t22">
+        <div class="panel-heading">
+          <h3 class="panel-title">
+            Création des fichiers Spring
+            <a href="#top"
+              ><span
+                class="glyphicon glyphicon-menu-up pull-right"
+                title="Remonter"
+              ></span
+            ></a>
+          </h3>
+        </div>
+        <div class="panel-body">
+          <p>
+            Dans le répertoire <i>spring</i>, inspirez-vous des exercices
+            précédents pour créer vos fichiers Spring.
+          </p>
+          <p>
+            Créez un fichier properties, database.properties au niveau du
+            répertoire spring. Sortez les informations du fichier
+            hibernate.cfg.xml Ajustez si besoin votre login/password.
+          </p>
+          <pre>
+# Informations classiques
+db.driver=com.mysql.jdbc.Driver
+db.url=jdbc:mysql://localhost/banque?useSSL=false
+db.login=root
+db.password=
+
+# Informations pour Hibernate
+hibernate.dialect=<a href="https://docs.jboss.org/hibernate/orm/current/javadocs/org/hibernate/dialect/MySQL5InnoDBDialect.html" target="_blank">org.hibernate.dialect.MySQL5InnoDBDialect</a>
+hibernate.connection.pool_size=20
+hibernate.cache.provider_class=org.hibernate.cache.internal.NoCacheProvider
+hibernate.cache.use_second_level_cache=false</pre>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2 id="t3">
+        <span class="label label-default">3</span> Modification des DAOs
+      </h2>
+      <div class="panel panel-default panel-primary" id="t31">
+        <div class="panel-heading">
+          <h3 class="panel-title">
+            Modification du code Java
+            <a href="#top"
+              ><span
+                class="glyphicon glyphicon-menu-up pull-right"
+                title="Remonter"
+              ></span
+            ></a>
+          </h3>
+        </div>
+        <div class="panel-body">
+          <p>
+            Supprimez la classe Java (com.banque.util.HibernateSessionFactory et
+            le package com.banque.util).
+          </p>
+          <p>
+            Ajoutez à la classe AbstractDAO un attribut privé sessionFactory de
+            type
+            <a
+              href="https://docs.jboss.org/hibernate/orm/current/javadocs/org/hibernate/SessionFactory.html"
+              target="_blank"
+              >org.hibernate.SessionFactory</a
+            >
+            et potentiellement des méthodes get/set.
+          </p>
+          <p>
+            Modifiez le code en conséquence, supprimez tous les paramètres de
+            type <i>org.hibernate.Session</i> de vos méthodes de DAO (n'oubliez
+            pas les interfaces).
+          </p>
+          <p>
+            C'est votre attribut sessionFactory qui devra vous fournir au besoin
+            une variable locale de type
+            <a
+              href="https://docs.jboss.org/hibernate/orm/current/javadocs/org/hibernate/Session.html"
+              target="_blank"
+              >org.hibernate.Session</a
+            >
+            via la méthode <b>getCurrentSession</b>() de la SessionFactory.
+          </p>
+          <p>Exemple de transformation :</p>
+          <pre>
+// Nouveau code
+public T insert(T uneEntite) throws ExceptionDao {
+  if (uneEntite == null) {
+    return null;
+  }
+  try {
+    <a href="https://docs.jboss.org/hibernate/orm/current/javadocs/org/hibernate/Session.html" target="_blank">Session</a> pSession = this.getSessionFactory().<b><a target="_blank" href="https://docs.jboss.org/hibernate/orm/current/javadocs/org/hibernate/SessionFactory.html#getCurrentSession--">getCurrentSession</a></b>();
+    pSession.save(uneEntite);
+  } catch (Exception e) {
+    throw new ExceptionDao(e);
+  }
+  return uneEntite;
+}</pre>
+          <p>
+            Soyez <u>très attentif</u> au fait que l'on appelle la méthode
+            <b
+              ><a
+                target="_blank"
+                href="https://docs.jboss.org/hibernate/orm/current/javadocs/org/hibernate/SessionFactory.html#getCurrentSession--"
+                >getCurrentSession</a
+              >()</b
+            >
+            et non plus
+            <i
+              ><a
+                target="_blank"
+                href="https://docs.jboss.org/hibernate/orm/current/javadocs/org/hibernate/SessionFactory.html#openSession--"
+                >openSession</a
+              >()</i
+            >
+            de la SessionFactory.
+          </p>
+          <p>
+            C'est le Spring qui va se charger du close de la session Hibernate,
+            c'est pour cela que le bloque de finally est supprimé.
+          </p>
+        </div>
+      </div>
+
+      <div class="panel panel-default panel-primary" id="t32">
+        <div class="panel-heading">
+          <h3 class="panel-title">
+            Déclaration dans le fichier Spring
+            <a href="#top"
+              ><span
+                class="glyphicon glyphicon-menu-up pull-right"
+                title="Remonter"
+              ></span
+            ></a>
+          </h3>
+        </div>
+        <div class="panel-body">
+          <p>
+            Selon vos orientations (annotation ou déclaration), déclarez les DAO
+            (dans un fichier data-context.xml ou en annotation @Repository)
+          </p>
+          <p>
+            Remarque : la classe com.banque.util.HibernateSessionFactory
+            n'existant plus, elle est remplacée par la déclaration suivante en
+            hibernate <u>4</u>:
+          </p>
+          <pre>
+  ...
+  &lt;!-- Remplace la classe com.banque.util.HibernateSessionFactory. Exemple pour Hibernate4 --&gt;
+  &lt;bean id="sessionFactory" class="<a target="_blank" href="http://docs.spring.io/autorepo/docs/spring-framework/current/javadoc-api/org/springframework/orm/hibernate4/LocalSessionFactoryBean.html">org.springframework.orm.hibernate4.LocalSessionFactoryBean</a>"&gt;
+    &lt;property name="dataSource" ref="dataSource" /&gt;
+    &lt;property name="mappingResources"&gt;
+      &lt;list&gt;
+        &lt;value&gt;hibernate/utilisateur.hbm.xml&lt;/value&gt;
+        ...
+      &lt;/list&gt;
+    &lt;/property&gt;
+    &lt;property name="hibernateProperties"&gt;
+      &lt;props&gt;
+        &lt;prop key="hibernate.dialect"&gt;${hibernate.dialect}&lt;/prop&gt;
+        ...
+      &lt;/props&gt;
+    &lt;/property&gt;
+  &lt;/bean&gt;
+  ...</pre>
+          <p>
+            N'oubliez pas de lier votre sessionFactory à votre AbstractDAO (par
+            fichier XML ou annotation).
+          </p>
+          <p>Faut-il déclarer le bean qui charge le fichier properties ?</p>
+          <p>
+            N'oubliez pas non plus votre DataSource. Elle sera liée à votre
+            sessionFactory.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2 id="t4">
+        <span class="label label-default">4</span> Modification des Services
+      </h2>
+      <div class="panel panel-default panel-primary" id="t41">
+        <div class="panel-heading">
+          <h3 class="panel-title">
+            Modification du code Java
+            <a href="#top"
+              ><span
+                class="glyphicon glyphicon-menu-up pull-right"
+                title="Remonter"
+              ></span
+            ></a>
+          </h3>
+        </div>
+        <div class="panel-body">
+          <p>
+            Dans le code actuel, les DAO sont instanciés dans les classes
+            services.
+          </p>
+          <p>
+            Retirez ses liens afin de les faire gérer par Spring (plus de new,
+            indiquez les liens dans vos fichiers XML ou par annotations).
+          </p>
+          <p>
+            A la vue du code doit-on ajouter des contraintes transactionnelles
+            ?.
+          </p>
+        </div>
+      </div>
+
+      <div class="panel panel-default panel-primary" id="t42">
+        <div class="panel-heading">
+          <h3 class="panel-title">
+            Déclaration dans le fichier Spring
+            <a href="#top"
+              ><span
+                class="glyphicon glyphicon-menu-up pull-right"
+                title="Remonter"
+              ></span
+            ></a>
+          </h3>
+        </div>
+        <div class="panel-body">
+          <p>
+            Si vous n'avez pas opté pour les annotations, créez un fichier XML
+            <b>service-context.xml</b>, sinon n'oubliez pas le
+            context:component-scan
+          </p>
+          <p>
+            Pour la remise en place du transactionnel, n'oubliez pas que
+            contrairement au JDBC, le transactionManager sera de la classe
+            org.springframework.orm.hibernate<b>X</b>.HibernateTransactionManager,
+            ou X représente la version de hibernate.
+          </p>
+          <p>
+            Notez aussi que ce dernier n'est plus lié à une DataSource mais à la
+            sessionFactory :
+          </p>
+          <pre>
+  ...
+  &lt;!-- Exemple pour Hibernate4 --&gt;
+  &lt;bean id="transactionManager" class="<a target="_blank" href="http://docs.spring.io/autorepo/docs/spring-framework/current/javadoc-api/org/springframework/orm/hibernate4/HibernateTransactionManager.html">org.springframework.orm.hibernate4.HibernateTransactionManager</a>"&gt;
+    &lt;property name="sessionFactory" ref="sessionFactory" /&gt;
+  &lt;/bean&gt;
+  ...</pre>
+          <p>
+            Pensez à replacer la mécanique transactionnelle dans vos services
+            métiers, utilisez les aspects ou les annotations.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2 id="t5">
+        <span class="label label-default">5</span> Modification du Main
+      </h2>
+      <div class="panel panel-default panel-primary" id="t51">
+        <div class="panel-heading">
+          <h3 class="panel-title">
+            Modification du code Java
+            <a href="#top"
+              ><span
+                class="glyphicon glyphicon-menu-up pull-right"
+                title="Remonter"
+              ></span
+            ></a>
+          </h3>
+        </div>
+        <div class="panel-body">
+          <p>
+            Editez votre classe com.banque.Main afin qu'elle charge vos fichiers
+            Spring dans un contexte.
+          </p>
+          <pre>
+ClassPathXmlApplicationContext appContext = null;
+try {
+  appContext = new ClassPathXmlApplicationContext("spring/*-context.xml");
+  ...</pre
+          >
+          <p>Les fichiers seront chargés dans le même objet contexte.</p>
+          <p>
+            Au lieu d'instancier vos beans services, demandez au contexte spring
+            de les récupérer. Donc plus de new XxxxService(), mais des appels à
+            <b>appContext.getBean(...)</b> à la place. Il y a 3 getBean à
+            mettre.
+          </p>
+          <p>Pensez à fermer votre contexte Spring quoi qu'il arrive.</p>
+        </div>
+      </div>
+
+      <div class="panel panel-default panel-primary" id="t52">
+        <div class="panel-heading">
+          <h3 class="panel-title">
+            Test
+            <a href="#top"
+              ><span
+                class="glyphicon glyphicon-menu-up pull-right"
+                title="Remonter"
+              ></span
+            ></a>
+          </h3>
+        </div>
+        <div class="panel-body">
+          <p>Ajustez les tests JUnit afin qu'ils utilisent le Spring.</p>
+          <p>
+            Lancez vos classes de test (ou même tous les packages de test) en
+            tant que test JUnit (Run As - Junit Test) et regardez le résultat.
+          </p>
+          <p>
+            Via Maven, lancez le goal test à partir du fichier pom.xml : clic
+            droit, Run As - Maven Test
+          </p>
+          <p>
+            Rappel : dans le cas des tests sur les <b>DAO</b>, il est
+            indispensable (surtout dans le cas d'Hibernate ou JPA) de marquer
+            l'annotation
+            <a
+              target="_blank"
+              href="https://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/transaction/annotation/Transactional.html"
+              >@Transactional</a
+            >
+            (ou tout autre mécanique associée aux transactionnels) sur la classe
+            (ou les méthodes) de test. Ce n'est pas utile dans le cas des
+            services, car vos classes services sont, en principe, déjà marquées
+            comme transactionnelles.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <nav>
+      <ul class="pager">
+        <li class="previous" title="Transaction">
+          <a href="../Exo11-Transaction/Exo11-Transaction.html"
+            ><span aria-hidden="true">&larr;</span> Exercice Précédent</a
+          >
+        </li>
+        <li class="next" title="Spring JPA">
+          <a href="../Exo13-JPA/Exo13-JPA.html"
+            >Exercice Suivant <span aria-hidden="true">&rarr;</span></a
+          >
+        </li>
+      </ul>
+    </nav>
+
+    <br /><br />
+    <footer>
+      <p class="text-center">
+        <a href="http://validator.w3.org/">
+          <img
+            src="../bootstrap-3.3.7-dist/img/HTML5_Logo_32.png"
+            alt="Valid HTML 5.0"
+          /> </a
+        ><br />
+        Copyright <span class="glyphicon glyphicon-copyright-mark"></span>
+        <a href="http://ferretrenaud.fr" target="_blank">Ferret Renaud</a> 2013
+      </p>
+    </footer>
+
+    <script src="../bootstrap-3.3.7-dist/js/jquery.min.js"></script>
+    <script src="../bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+  </body>
+</html>

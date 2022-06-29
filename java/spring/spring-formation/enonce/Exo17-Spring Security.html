@@ -1,0 +1,443 @@
+<!--
+	Copyright 2013
+	Ferret Renaud
+	admin@ferretrenaud.com
+-->
+
+<!DOCTYPE html>
+<html lang="fr">
+	<head>
+		<meta charset="utf-8"/>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+		<meta name="viewport" content="width=device-width, initial-scale=1"/>
+		<meta name="Author" content="FERRET Renaud"/>
+		<meta name="Description" content="Exercice de formation"/>
+		<meta name="copyright" content="(C) Copyright 2013 FERRET Renaud"/>
+		<meta name="distribution" content="global"/>
+
+		<title>Spring - Exercice 17 - Spring Security</title>
+
+		<link href="../bootstrap-3.3.7-dist/css/bootstrap.min.css" rel="stylesheet"/>
+		<!-- Ne pas voir les liens lors de l'impressions -->
+		<style>			
+			@media print {
+				a[href]:after {
+					content: none;
+				} 
+			}
+		</style>
+
+		<!--[if lt IE 9]>
+			<script src="../bootstrap-3.3.7-dist/js/html5shiv.min.js"></script>
+			<script src="../bootstrap-3.3.7-dist/js/respond.min.js"></script>
+		<![endif]-->
+	</head>
+
+	<body class="container">
+
+		<nav class="navbar navbar-default navbar-right" id="top">
+		  <div class="container-fluid">
+			<div class="navbar-header">
+			  <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			  </button>
+			  <a class="navbar-brand" href="#" title="Spring - Exercice 17">Spring E17</a>
+			</div>
+
+			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+			  <ul class="nav navbar-nav">
+				<li class="dropdown">
+				  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">1 - Spring Security<span class="caret"></span></a>
+				  <ul class="dropdown-menu">
+					<li><a href="#t11">1-1 Import projet</a></li>
+					<li><a href="#t12">1-2 Règle de gestion simplifiée</a></li>
+					<li><a href="#t13">1-3 Configuration du projet</a></li>
+					<li><a href="#t14">1-4 Spécification des règles</a></li>
+					<li><a href="#t15">1-5 Réalisation du token d’authentification</a></li>
+					<li><a href="#t16">1-6 Réalisation du service d’authentification</a></li>
+					<li><a href="#t17">1-7 Branchement avec notre action de login</a></li>
+					<li><a href="#t18">1-8 Branchement avec notre action de logout</a></li>
+					<li><a href="#t19">1-9 Les actions qui ont besoin de l’utilisateur</a></li>
+				  </ul>
+				</li>
+				<li class="dropdown">
+				  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">2 - Cross-Site Request Forgery<span class="caret"></span></a>
+				  <ul class="dropdown-menu">
+					<li><a href="#t21">2-1 Côté Spring</a></li>
+					<li><a href="#t22">2-2 Côté Java</a></li>
+					<li><a href="#t23">2-3 Côté JSP</a></li>
+				  </ul>
+				</li>
+
+
+			  </ul>
+			</div><!-- /.navbar-collapse -->
+		  </div><!-- /.container-fluid -->
+		</nav>
+		<br/>
+		<div class="page-header">
+			<h1>Spring - Exercice 17 - Spring Security</h1>
+			<p>Utilisation de Spring Security.</p>
+			<nav>
+				<ul class="pager">
+					<li class="previous" title="Spring MVC Rest"><a href="../Exo14-MVC-Rest/Exo14-Rest%20en%20Spring.html"><span aria-hidden="true">&larr;</span> Exercice Précédent</a></li>
+					<li class="next" title="Spring Remote"><a href="../Exo19-Spring%20Remote/Exo19-Spring%20Remote.html">Exercice Suivant <span aria-hidden="true">&rarr;</span></a></li>
+				</ul>
+			</nav>
+		</div> <!-- page header -->
+
+		<section>
+			<h2 id="t1"><span class="label label-default">1</span> Spring Security</h2>
+			<div class="panel panel-default panel-primary" id="t11">
+				<div class="panel-heading">
+					<h3 class="panel-title">Importation du projet dans Eclipse <a href="#top"><span class="glyphicon glyphicon-menu-up pull-right" title="Remonter"></span></a></h3>
+				</div>
+				<div class="panel-body">
+					<p>Nous allons reprendre notre projet en Spring-MVC et y ajouter de la sécurité de manière automatique grâce à Spring Security. </p>
+					<p>Pour importer le projet :</p>
+					<ul>
+						<li>Dans le menu Eclipse, sélectionnez File/Import puis Existing Maven Projects</li>
+						<li>Pointez vers le projet qui se trouve dans l'énoncé.</li>
+					</ul>
+					<p>Après l'import, faites un clic droit sur le projet, puis Properties (tout en bas)</p>
+					<p>Dans l'onglet Targeted Runtime, cochez votre version de Tomcat.</p>
+					<p>Important : Après toutes modifications faites sur le fichier pom.xml, faites un clic droit sur <b>votre projet</b> puis Maven - Update Project ...</p>
+					<p>L'artefactId dans votre Maven sera utilisé comme nom du context pour votre application. </p>
+
+					<p>Vérifiez que tout compile (pas de [ERROR] dans la console Maven et un BUILD SUCCESS).</p>
+					<p>Ajoutez un serveur d'application et déployez votre projet dedans. </p>
+					<p>Lancez votre projet et accédez à l'url <a href="http://localhost:8080/en17.spring.security/" target="_blank">http://localhost:8080/en17.spring.security/</a></p>
+					<p>Rappel : Pour simplifier la manipulation, toutes les dépendances sont déjà dans le pom.xml.</p>
+
+					<p>Le projet est le même que dans l'exercice 14, on a ajouté une action (un contrôleur) de logOut dans les classes Java et dans la page menu.jsp. </p>
+        		</div>
+			</div>
+
+			<div class="panel panel-default panel-primary" id="t12">
+				<div class="panel-heading">
+					<h3 class="panel-title">Règle de gestion simplifiée <a href="#top"><span class="glyphicon glyphicon-menu-up pull-right" title="Remonter"></span></a></h3>
+				</div>
+				<div class="panel-body">
+					<p>Pour cet exemple, seuls les utilisateurs connectés pourront accéder aux site web.</p>
+					<p>Mais, tout le monde doit pouvoir accéder à la page login (et l’action login) ainsi que les ressources web statiques (images, css, js)</p>
+					<p>En allant regarder dans le package com.banque.web.controller, repérez les URLs des actions visées. </p>
+        		</div>
+			</div>
+
+			<div class="panel panel-default panel-primary" id="t13">
+				<div class="panel-heading">
+					<h3 class="panel-title">Configuration du projet <a href="#top"><span class="glyphicon glyphicon-menu-up pull-right" title="Remonter"></span></a></h3>
+				</div>
+				<div class="panel-body">
+					<p>Ajoutez dans votre fichier WEB-INF/web.xml le listener Spring Security</p>
+<pre>
+&lt;!-- Filtre de Spring Security --&gt;
+&lt;filter&gt;
+  &lt;filter-name&gt;springSecurityFilterChain&lt;/filter-name&gt;
+  &lt;filter-class&gt;<a target="_blank" href="http://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/web/filter/DelegatingFilterProxy.html">org.springframework.web.filter.DelegatingFilterProxy</a>&lt;/filter-class&gt;
+&lt;/filter&gt;
+&lt;filter-mapping&gt;
+  &lt;filter-name&gt;springSecurityFilterChain&lt;/filter-name&gt;
+  &lt;url-pattern&gt;/*&lt;/url-pattern&gt;
+&lt;/filter-mapping&gt;</pre>
+					<p>Ajoutez dans votre dossier spring un nouveau fichier de configuration qui sera dédié à Spring security.</p>
+					 <p>Remarques : </p>
+					 <ul>
+						<li>Le fichier devra porter un nom xxxx-context.xml car le web.xml charge tous les fichiers *-context.xml</li>
+						<li>Le fichier aura un namespace différent des fichiers spring standard car cela simplifie grandement son écriture </li>
+					 </ul>
+					 <p>Template de fichier Spring security : </p>
+<pre>
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;beans:beans
+    <b>xmlns="http://www.springframework.org/schema/security"
+    xmlns:beans="http://www.springframework.org/schema/beans"</b>
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+                        <b>http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd</b>"&gt;
+
+&lt;/beans:beans&gt;</pre>
+        		</div>
+			</div>
+
+			<div class="panel panel-default panel-primary" id="t14">
+				<div class="panel-heading">
+					<h3 class="panel-title">Spécification des règles <a href="#top"><span class="glyphicon glyphicon-menu-up pull-right" title="Remonter"></span></a></h3>
+				</div>
+				<div class="panel-body">
+					<p>Dans votre nouveau fichier de configuration Spring, ajoutez les règles qui concernent les ressources sans besoin de sécurisation.</p>
+					<p>Par exemple :</p>
+<pre>
+...
+  &lt;http pattern="/" security="none" /&gt;
+  &lt;http pattern="/index.jsp" security="none" /&gt;
+  &lt;http pattern="/login.jsp" security="none" /&gt;
+  ...
+  &lt;http pattern="/css/**" security="none" /&gt;
+...</pre>
+
+					<p>Indiquez ensuite les URLs qui ont besoin de sécurisation :</p>
+<pre>
+...
+&lt;http auto-config="false" use-expressions="true"&gt;
+  &lt;intercept-url pattern="/*.smvc" access="hasRole('ROLE_USER')"  /&gt;
+  &lt;intercept-url pattern="/menu.jsp" access="hasRole('ROLE_USER')" /&gt;
+  &lt;!-- On ne veut pas acceder aux JSP en direct --&gt;
+  &lt;intercept-url pattern="/comptes/**" access="hasRole('NEVER')" /&gt;
+  ...
+&lt;/http&gt;
+...</pre>
+					<p>Notez que dans cet exemple, on autorise l’accès à la page menu.jsp en directe. Les URLs *.smvc sont les URL associés à Spring-MVC (vos actions).</p>
+					<p>On référence ici deux rôles : ROLE_USER et NEVER. </p>
+
+					<p>Toujours dans le bloc http de configuration, indiquez les éléments qui concernent la page de login :</p>
+<pre>
+&lt;http auto-config="false" use-expressions="true"&gt;
+  ...
+  &lt;form-login login-page="/login.smvc"
+              login-processing-url="/dologin.smvc"
+              username-parameter="login"
+              password-parameter="password" /&gt;
+&lt;/http&gt;</pre>
+					<p>Vérifiez bien que le nom de l’action Spring-MVC est correcte et que les champs login et password sont bien les names de vos input HTML.</p>
+
+					<p>Toujours dans le bloc http de configuration, indiquez l’élément qui concerne la déconnection</p>
+<pre>
+&lt;http auto-config="false" use-expressions="true"&gt;
+  ...
+  &lt;logout logout-url="/dologout.smvc" delete-cookies="JSESSIONID" /&gt;
+&lt;/http&gt;</pre>
+
+					<p>Comme on récupère une application déjà opérationnelle, on a déjà un service d'authentification. On va en faire usage, mais pas directement car il ne gère pas les rôles. </p>
+					<p>A la suite du bloc http, indiquez le service métier qui aura la charge de faire l’authentification. Vous devez préciser :</p>
+					<ul>
+					  <li>Son id Spring (déclaré en annotation ou via configuration XML)</li>
+					  <li>Une classe de type <a href="http://docs.spring.io/spring-security/site/docs/current/apidocs/org/springframework/security/authentication/AuthenticationProvider.html" target="_blank">org.springframework.security.authentication.AuthenticationProvider</a></li>
+					</ul>
+<pre>
+&lt;authentication-manager&gt;
+    &lt;authentication-provider ref="customAuthenticationProvider" /&gt;
+&lt;/authentication-manager&gt;</pre>
+        		</div>
+			</div>
+
+			<div class="panel panel-default panel-primary" id="t15">
+				<div class="panel-heading">
+					<h3 class="panel-title">Réalisation du token d’authentification <a href="#top"><span class="glyphicon glyphicon-menu-up pull-right" title="Remonter"></span></a></h3>
+				</div>
+				<div class="panel-body">
+					<p>Avant de réaliser notre AuthenticationProvider nous aurons besoin d’une classe qui portera les informations nécessaires à Spring security.</p>
+					<p>Réalisez une classe CustomUserDetail qui va hériter de <a target="_blank" href="http://docs.spring.io/autorepo/docs/spring-security/current/apidocs/org/springframework/security/authentication/UsernamePasswordAuthenticationToken.html">org.springframework.security.authentication.UsernamePasswordAuthenticationToken</a></p>
+					<p>Surchargez les constructeurs et ajoutez une méthode setDetail et getDetail.</p>
+					<p>Elles vont nous permettre de transporter l’entité qui représente la personne connectée.</p>
+<pre>
+public void setDetail(IUtilisateurEntity aUser) {
+  super.setDetail<u>s</u>(aUser);
+}
+
+public IUtilisateurEntity getDetail() {
+  return (IUtilisateurEntity) super.getDetail<u>s</u>();
+}</pre>
+					<p>Notez que votre classe parente a une méthode setDetail<u>s</u> et getDetail<u>s</u> avec un s.</p>
+        		</div>
+			</div>
+
+			<div class="panel panel-default panel-primary" id="t16">
+				<div class="panel-heading">
+					<h3 class="panel-title">Réalisation du service d’authentification <a href="#top"><span class="glyphicon glyphicon-menu-up pull-right" title="Remonter"></span></a></h3>
+				</div>
+				<div class="panel-body">
+					<p>Le projet gérait déjà l’authentification à travers le service com.banque.service.impl.AuthentificationService</p>
+					<p>Mais, pour l’intégrer à Spring on va devoir faire une classe qui implémente l’interface <a href="http://docs.spring.io/spring-security/site/docs/current/apidocs/org/springframework/security/authentication/AuthenticationProvider.html" target="_blank">org.springframework.security.authentication.AuthenticationProvider</a></p>
+					<p>Réaliser une nouvelle classe Java, qui peut hériter de AuthentificationService (ou en être composée) mais qui doit implémenter <a href="http://docs.spring.io/spring-security/site/docs/current/apidocs/org/springframework/security/authentication/AuthenticationProvider.html" target="_blank">AuthenticationProvider</a>.</p>
+					<p>Dans la méthode authenticate, récupérez le login et le password :</p>
+<pre>
+public Authentication authenticate(Authentication authentication) throws AuthenticationException {
+	String name = authentication.getName();
+	String password = authentication.getCredentials().toString();
+  ...
+  // Ici on fait appel a la methode de notre service AuthentificationService
+  ...
+  // On fabrique un CustomUserDetail avec sa liste de rôle
+  ...
+  // La gestion des exceptions devra prendre en compte les classes héritières de AuthenticationException
+  ...
+  // En resultat on retourne le CustomUserDetail avec toutes les informations utiles
+}</pre>
+					<p>Appelez la méthode authentifier de la classe AuthentificationService</p>
+					<p>Elle vous retournera un objet IUtilisateurEntity si tout va bien.</p>
+					<p>Créez un objet GrantAuthority avec le role ROLE_USER, créez une collection de GrantAuthority et placez le rôle que vous avez créé dedans</p>
+<pre>
+GrantedAuthority ga = new SimpleGrantedAuthority("ROLE_USER");
+Collection&lt;GrantedAuthority&gt; roles = new ArrayList&lt;GrantedAuthority&gt;(1);
+roles.add(ga);</pre>
+					<p>Créez un objet CustomUserDetail donnez-lui toutes les informations nécessaires, n’oubliez pas sa liste de rôles.</p>
+					<p>Gérez les exceptions en faisant usage des enfants de <a target="_blank" href="http://docs.spring.io/spring-security/site/docs/current/apidocs/org/springframework/security/core/AuthenticationException.html">org.springframework.security.core.AuthenticationException</a></p>
+        		</div>
+			</div>
+
+			<div class="panel panel-default panel-primary" id="t17">
+				<div class="panel-heading">
+					<h3 class="panel-title">Branchement avec notre action de login <a href="#top"><span class="glyphicon glyphicon-menu-up pull-right" title="Remonter"></span></a></h3>
+				</div>
+				<div class="panel-body">
+					<p>Modifiez le code de la classe responsable du login : com.banque.web.controller.LoginController</p>
+					<p>Elle sera liée (autowired) avec notre nouvelle classe qui implémente AuthenticationProvider</p>
+					<p>Dans sa méthode doLogin, elle va fabriquer un objet UsernamePasswordAuthenticationToken à partir du login et du password de votre page login. </p>
+					<p>Elle appellera ensuite la méthode authenticate de la classe AuthenticationProvider afin de récupérer un CustomUserDetail</p>
+					<p>Elle placera cet objet dans le context Spring :</p>
+<pre>SecurityContextHolder.getContext().setAuthentication(unCustomUserDetail);</pre>
+					<p>Elle devra ensuite placer en session HTTP le context spring :</p>
+<pre>session.setAttribute(HttpSessionSecurityContextRepository.SPRING_SECURITY_CONTEXT_KEY, SecurityContextHolder.getContext());</pre>
+					<p>Attention : nous sommes en Spring-MVC, il faudra donc faire usage de l'objet ModelMap et s'assurer que la clef est annotée comme étant en session </p>
+<pre>
+@Controller
+@SessionAttributes(names = { HttpSessionSecurityContextRepository.SPRING_SECURITY_CONTEXT_KEY })
+public class LoginControllerWithSS extends AbstractController {
+  ...
+  @RequestMapping(value = "/dologin.smvc", method = RequestMethod.POST)
+  public String doLogin(@ModelAttribute("loginBean") LoginBean loginBean, ModelMap modelMap, BindingResult bindingResult) {
+    ...
+    modelMap.addAttribute(HttpSessionSecurityContextRepository.SPRING_SECURITY_CONTEXT_KEY, SecurityContextHolder.getContext());
+    ...
+  }
+}</pre>
+        		</div>
+			</div>
+
+			<div class="panel panel-default panel-primary" id="t18">
+				<div class="panel-heading">
+					<h3 class="panel-title">Branchement avec notre action de logout <a href="#top"><span class="glyphicon glyphicon-menu-up pull-right" title="Remonter"></span></a></h3>
+				</div>
+				<div class="panel-body">
+					<p>Cette action va tout simplement retirer de la session HTTP le context spring</p>
+<pre>
+@Controller
+@SessionAttributes(names = { HttpSessionSecurityContextRepository.SPRING_SECURITY_CONTEXT_KEY })
+public class LogoutController extends AbstractController {
+  ...
+  @RequestMapping(value = "/dologout.smvc", method = RequestMethod.GET)
+  public String doLogout(ModelMap modelMap, HttpServletRequest request, SessionStatus status) {
+    LogoutController.LOG.debug("--&gt; Passage dans doLogout");
+    modelMap.remove(HttpSessionSecurityContextRepository.SPRING_SECURITY_CONTEXT_KEY);
+    status.setComplete();
+    try {
+      // Permet de netoyer la session en J2EE classique
+      request.logout();
+    } catch (ServletException e) {
+      LogoutController.LOG.error("Error in logout", e);
+    }
+    return "index";
+  }
+}</pre>
+					<p>Attention : nous sommes en Spring-MVC, il faudra donc faire usage de l'objet ModelMap et s'assurer que la clef est annotée comme étant en session </p>
+        		</div>
+			</div>
+
+			<div class="panel panel-default panel-primary" id="t19">
+				<div class="panel-heading">
+					<h3 class="panel-title">Les actions qui ont besoin de l’utilisateur <a href="#top"><span class="glyphicon glyphicon-menu-up pull-right" title="Remonter"></span></a></h3>
+				</div>
+				<div class="panel-body">
+					<p>Les actions qui récupéraient directement l’utilisateur de la session ne peuvent plus le faire.
+					Elles peuvent cependant récupérer le context spring et via la méthode getDetail de votre CustomUserDetail accéder aux informations. </p>
+<pre>
+<a target="_blank" href="http://docs.spring.io/autorepo/docs/spring-security/current/apidocs/org/springframework/security/core/context/SecurityContext.html">SecurityContext</a> sc = <a target="_blank" href="http://docs.spring.io/spring-security/site/docs/current/apidocs/org/springframework/security/core/context/SecurityContextHolder.html">SecurityContextHolder</a>.getContext();
+if (sc != null) {
+  Authentication auth = sc.getAuthentication();
+  if (auth != null) {
+    IUtilisateurEntity iu = (IUtilisateurEntity) auth.getDetails();
+    // utilisation de iu
+  }
+}</pre>
+ 				</div>
+			</div>
+		</section>
+		<section>
+			<h2 id="t2"><span class="label label-default">2</span> Cross-Site Request Forgery</h2>
+			<div class="panel panel-default panel-primary" id="t21">
+				<div class="panel-heading">
+					<h3 class="panel-title">Côté Spring <a href="#top"><span class="glyphicon glyphicon-menu-up pull-right" title="Remonter"></span></a></h3>
+				</div>
+				<div class="panel-body">
+					<p>Afin de garantir une plus forte sécurité nous allons ajouter la gestion <a target="_blank" href="https://fr.wikipedia.org/wiki/Cross-Site_Request_Forgery">CSRF</a> à notre site. </p>
+					<p>Il suffit d'ajouter l'option à notre fichier XML spring chargé de Spring security</p>
+<pre>
+  &lt;!-- URL securise --&gt;
+  &lt;http auto-config="false" use-expressions="true"&gt;
+    ...
+    &lt;csrf disabled="false"/&gt;
+  &lt;/http&gt;</pre>
+					<p>Si vous ne souhaitez pas avoir un message horrible de la part de Spring, il faudra gérer vous même les erreurs en indiquant un access-denied-handler toujours dans le fichier de configuration</p>
+<pre>
+  &lt;!-- URL securise --&gt;
+  &lt;http auto-config="false" use-expressions="true"&gt;
+    ...
+    &lt;access-denied-handler ref="myAccessDeniedHandler"/&gt;
+  &lt;/http&gt;</pre>
+					<p>On fait référence à un bean Spring qui sera déclaré quelque part (annotation ou configuration) sous l'id myAccessDeniedHandler</p>
+ 				</div>
+			</div>
+
+			<div class="panel panel-default panel-primary" id="t22">
+				<div class="panel-heading">
+					<h3 class="panel-title">Côté Java <a href="#top"><span class="glyphicon glyphicon-menu-up pull-right" title="Remonter"></span></a></h3>
+				</div>
+				<div class="panel-body">
+					<p>Si vous avez déclaré un access-denied-handler vous devez le coder</p>
+					<p>Cet objet devra implémenter l'interface <a target="_blank" href="http://docs.spring.io/spring-security/site/docs/current/apidocs/org/springframework/security/web/access/AccessDeniedHandler.html">org.springframework.security.web.access.AccessDeniedHandler</a></p>
+<pre>
+@Override
+public void handle(HttpServletRequest request, HttpServletResponse response, AccessDeniedException exception) throws IOException, ServletException {
+  if (exception instanceof MissingCsrfTokenException) {
+    LOG.error("MissingCsrfTokenException error -&gt; redirection page login", exception);
+  } else {
+    LOG.error("error -&gt; redirection page login", exception);
+  }
+  request.getRequestDispatcher("index.jsp").forward(request, response);
+}</pre>
+ 				</div>
+			</div>
+
+			<div class="panel panel-default panel-primary" id="t23">
+				<div class="panel-heading">
+					<h3 class="panel-title">Côté JSP <a href="#top"><span class="glyphicon glyphicon-menu-up pull-right" title="Remonter"></span></a></h3>
+				</div>
+				<div class="panel-body">
+					<p>Dans tous vos formulaires de JSP il faudra ajouter un champ caché qui va porter le CSRF token</p>
+<pre>
+&lt;form:form action="xxx" method="post" modelAttribute="xxx"&gt;
+  &lt;input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/&gt;
+  ...
+&lt;/form:form&gt;</pre>
+				</div>
+			</div>
+		</section>
+
+		<nav>
+			<ul class="pager">
+				<li class="previous" title="Spring MVC Rest"><a href="../Exo14-MVC-Rest/Exo14-Rest%20en%20Spring.html"><span aria-hidden="true">&larr;</span> Exercice Précédent</a></li>
+				<li class="next" title="Spring Remote"><a href="../Exo19-Spring%20Remote/Exo19-Spring%20Remote.html">Exercice Suivant <span aria-hidden="true">&rarr;</span></a></li>
+			</ul>
+		</nav>
+
+		<br/><br/>
+		<footer>
+			<p class="text-center">
+				<a href="http://validator.w3.org/">
+					<img src="../bootstrap-3.3.7-dist/img/HTML5_Logo_32.png" alt="Valid HTML 5.0" />
+				</a><br/>
+				Copyright <span class="glyphicon glyphicon-copyright-mark"></span> <a href="http://ferretrenaud.fr" target="_blank">Ferret Renaud</a> 2013
+			</p>
+		</footer>
+
+		<script src="../bootstrap-3.3.7-dist/js/jquery.min.js"></script>
+		<script src="../bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+	</body>
+</html>
+
+
+
