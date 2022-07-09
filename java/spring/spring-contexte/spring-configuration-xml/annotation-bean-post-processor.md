@@ -44,12 +44,16 @@ Java
 
 This post-processor includes support for the PostConstruct and PreDestroy annotations - as init annotation and destroy annotation, respectively - through inheriting from InitDestroyAnnotationBeanPostProcessor with pre-configured annotation types.
 
-Fichier de configuration spring : XML
+### Fichier de configuration spring : XML
 
+```
+    <!-- Indiquez à Spring que vous faites usage des annotations @PreDestroy et @PostConstruct -->
     <bean class="org.springframework.context.annotation.CommonAnnotationBeanPostProcessor" />
+```
 
-Java:
+### Java:
 
+```
     @PostConstruct
     public void initialize() {
         Adresse.LOG.info("init dans Adresse");
@@ -59,6 +63,7 @@ Java:
     public void destroy() {
         Adresse.LOG.info("destroy dans Adresse");
     }
+```
 
 ## InitializingBean
 
@@ -113,3 +118,7 @@ Note : quand on fait un new, spring a déjà instancier une instance signleton e
 On peut utiliser: javax.servlet.ServletContext.
 La classe voulant faire usage de l'application-context devra implémenter l'interface : ServletContextAware
 `org.springframework.web.context.ServletContextAware`
+
+```
+
+```

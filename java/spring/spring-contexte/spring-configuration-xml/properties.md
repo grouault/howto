@@ -4,7 +4,20 @@
 
 ## XML
 
-#### Configuration des fichiers XML avec un fichier de properties
+### PropertyPlaceholder
+
+#### Principe
+
+<pre>
+Permet de charger le fichier de propriete au niveau du fichier xml
+Les propriétés peuvent alors être interprétés dans le xml de configuration
+
+A utiliser quand
+- module spring-context n’est pas disponible (c’est-à-dire que l’on utilise l’API BeanFactory de Spring par opposition à ApplicationContext
+
+</pre>
+
+#### en déclarant le beans
 
 1- créez un fichier properties à la racine de votre répertoire spring
 
@@ -38,7 +51,7 @@
 
     </beans>
 
-#### Configuration des fichiers XML avec un fichier de properties
+#### balise : <context:property-placeholder />
 
 Autre configuration : avec dans la déclartion xml, le spring-context :
 xmlns:http://www.springframework.org/schema/context/spring-context.xsd
@@ -65,6 +78,30 @@ xmlns:http://www.springframework.org/schema/context/spring-context.xsd
 
 Note:
 @value : permet de récupérer une valeur chargée par un property-placeholder.
+
+### PropertiesFactoryBean
+
+#### Principe
+
+<pre>
+Permet de récupérer les propriétés dans une classe Java
+</pre>
+
+#### config xml
+
+```
+	<bean id="dataBaseProperties" class="org.springframework.beans.factory.config.PropertiesFactoryBean">
+		<property name="location" value="spring/database.properties" />
+	</bean>
+```
+
+### code Java
+
+```
+Properties dataBaseConfig = appContext.getBean("dataBaseProperties", Properties.class);
+Main.LOG.debug("bdd.driver = " + dataBaseConfig.getProperty("bdd.driver"));
+Main.LOG.debug("bdd.url = " + dataBaseConfig.getProperty("bdd.url"));
+```
 
 ## @annotation
 
