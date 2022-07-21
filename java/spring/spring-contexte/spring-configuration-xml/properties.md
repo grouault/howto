@@ -11,10 +11,7 @@
 <pre>
 Permet de charger le fichier de propriete au niveau du fichier xml
 Les propriétés peuvent alors être interprétés dans le xml de configuration
-
-A utiliser quand
-- module spring-context n’est pas disponible (c’est-à-dire que l’on utilise l’API BeanFactory de Spring par opposition à ApplicationContext
-
+Les propriiétés sont accessibles dans les classe java par @annotation
 </pre>
 
 #### en déclarant le beans
@@ -54,6 +51,8 @@ A utiliser quand
 #### balise : <context:property-placeholder />
 
 Autre configuration : avec dans la déclartion xml, le spring-context :
+
+```
 xmlns:http://www.springframework.org/schema/context/spring-context.xsd
 
     <?xml version="1.0" encoding="UTF-8"?>
@@ -75,16 +74,27 @@ xmlns:http://www.springframework.org/schema/context/spring-context.xsd
     </bean>
 
     </beans>
+```
 
-Note:
-@value : permet de récupérer une valeur chargée par un property-placeholder.
+<pre>
+IMPORTANT :
+@value : permet de récupérer une valeur chargée par un property-placeholder dans une classe java :
+
+	@Value("${bdd.driver}")
+	private String bddDriver;
+
+</pre>
 
 ### PropertiesFactoryBean
 
 #### Principe
 
 <pre>
-Permet de récupérer les propriétés dans une classe Java
+* Permet de récupérer les propriétés dans une classe Java
+* A utiliser quand le module spring-context n’est pas disponible 
+  - c’est-à-dire que l’on utilise l’API BeanFactory de Spring par opposition à ApplicationContext
+  - on ne peut pas dans ce cas utiliser les annotations < context:component-scan ... >
+  - mais on peut alors injecter le properties dans un bean définit en XML
 </pre>
 
 #### config xml
@@ -95,7 +105,7 @@ Permet de récupérer les propriétés dans une classe Java
 	</bean>
 ```
 
-### code Java
+#### code Java
 
 ```
 Properties dataBaseConfig = appContext.getBean("dataBaseProperties", Properties.class);
@@ -105,8 +115,11 @@ Main.LOG.debug("bdd.url = " + dataBaseConfig.getProperty("bdd.url"));
 
 ## @annotation
 
-- @PropertySource
-- @Value:
+<pre>
+- @PropertySource : pour charger le fichier de propriétés au niveau de la classe
+
+- @Value: pour récupérer les valeurs du fichier de propriétés
+</pre>
 
 Exemple:
 

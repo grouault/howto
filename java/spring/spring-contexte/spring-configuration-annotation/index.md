@@ -1,10 +1,12 @@
 # liste des @annotations
-[retour](https://github.com/grouault/spring-tutorial/blob/master/spring-contexte/notes/INDEX.md)
-[prec](https://github.com/grouault/spring-tutorial/blob/master/spring-contexte/notes/configuration.annotation.md)
+
+[retour](../index.md)
+[prec](../configuration.annotation.md)
 
 Configuration par annotation
+
 ```
-Stéréotype: 
+Stéréotype:
 @Component / @Repository / @Service / @Controller / @RestController / @Configuration
 
 Injection
@@ -17,7 +19,9 @@ Scope et discrimination
 Property-placeholder
 @Value
 ```
+
 Cycle de vie (annotation):
+
 ```
 1- Détection des beans : Scan des annotations @Component
 2- BeanFactoryPostProcessor
@@ -26,17 +30,20 @@ Cycle de vie (annotation):
 ```
 
 ## @Autowired
-* injection par constructeur
-* injection par méthode setXxxx
-* injection par membre  / attribut
-## @Qualifier / @Primary
-* pour lever les ambiguités quand plusieurs beans de même type sont sélectionnables par Spring.
-* bonnes pratiques: si possible ne pas préciser les noms des composants / il est rare de définir plusieurs implémentations pour un même bean au sein d'un contexte applicatif.
 
+- injection par constructeur
+- injection par méthode setXxxx
+- injection par membre / attribut
+
+## @Qualifier / @Primary
+
+- pour lever les ambiguités quand plusieurs beans de même type sont sélectionnables par Spring.
+- bonnes pratiques: si possible ne pas préciser les noms des composants / il est rare de définir plusieurs implémentations pour un même bean au sein d'un contexte applicatif.
 
 ## traitement post-processeurs
-[voir](https://github.com/grouault/spring-tutorial/blob/master/spring-contexte/notes/spring-configuration-xml/annotation-bean-post-processor.md)
+
+[voir](../spring-configuration-xml/annotation-bean-post-processor.md)
 
 ## properties
-[voir](https://github.com/grouault/spring-tutorial/blob/master/spring-contexte/notes/spring-configuration-xml/properties.md)
 
+[voir](../spring-configuration-xml/properties.md)
