@@ -1,4 +1,4 @@
-# JdbcTemplate
+# Prise en charge de JDBC par Spring : JdbcTemplate
 
 [retour](./../index-spring-jdbc.md)
 

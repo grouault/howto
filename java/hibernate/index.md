@@ -9,5 +9,6 @@
 
 ### Spring-Environnement
 
+- [config-orm](spring/config-orm.md)
 - [config-spb](spring/config-spb.md)
 - [config-log](spring/config-log.md)

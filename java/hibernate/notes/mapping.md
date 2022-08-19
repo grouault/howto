@@ -5,26 +5,47 @@
 # Annotation
 
 ### mapping implicit
+
 <pre>
 * sans annotation sur les attributs, hibernate regarde les attributs pour les mapper en base
 * tout ce qui est implicit peut être configuré
 </pre>
 
-
 ## @Entity
+
 <pre>
 * annotation JPA: indique une classe à persister ou à mettre dans le contexte de persistence
 </pre>
 
 ## @Id
+
+### Règle
+
+<pre>
+* <b>chaque classe d'entité doit définir une propripété qui identifie l'entité de manière unique</b>
+* il est conseillé de choisir un identifiant généré automatiquement
+    * pas de signification métier
+    * ne sera jamais modifié
+
+* cet identifiant sert aussi à connaître l'état de l'entité
+    * si sa valeur est null : l'entité est nouvelle et non sauvegardée
+      la requête sql pour la persistance sera alors une insertion
+    * sinon il s'agit d'une mise à jour
+    
+* il faut donc lui attribuer un type (wrappper) : Integer ou Long
+</pre>
+
 ### Note
+
 <pre>
 * la place des annotations est importantes
     * sur les attributs (FieldAccess)
     * sur les getters (GetterAccess)
+
 * hibernate regarde ces annotations pour mapper les attributs en base
     FieldAccess: hibernate regarde sur les attributs
     GetterAcess: hibernate regarde sur les getters
+
 * Bonne pratique : mettre les annotations sur les attributs
     @ID sur le champ ID plutôt que sur GETID()
     Sinon chaque getter (??) qui commence par un "get" entraine un mapping
@@ -32,12 +53,14 @@
 </pre>
 
 ### @GeneratedValue
+
 <pre>
 * représente la façon dont l'id est généré
 * il faut utiliser la Sequence si possible car c'est la plus performante
 </pre>
 
 #### SEQUENCE
+
 <pre>
 SEQUENCE : 
     * utilise une séquence en base de données
@@ -47,6 +70,7 @@ SEQUENCE :
 </pre>
 
 ##### hibernate_sequence
+
 <pre>
 * Par défaut hiberante tentera d'utiliser la sequence "hibernate_sequence"
 * il faut donc la créer au préalable au niveau du SGBD
@@ -63,6 +87,7 @@ CREATE SEQUENCE public.hibernate_sequence INCREMENT 1 START 1 MINVALUE 1;
 ```
 
 ##### @SequenceGenerator
+
 <pre>
 * Quand c'est possible, utiliser une séquence custom par entité.
 </pre>
@@ -82,8 +107,8 @@ public class User {
   @Id
   @GeneratedValue(generator = "user_id_seq", strategy = GenerationType.SEQUENCE)
   @SequenceGenerator(
-      name = "user_id_seq", 
-      sequenceName = "user_id_seq", 
+      name = "user_id_seq",
+      sequenceName = "user_id_seq",
       allocationSize = 50
   )
   private Long id;
@@ -91,6 +116,7 @@ public class User {
 ```
 
 #### IDENTITY
+
 <pre>
 IDENTITY : 
     * Similaire à la séquence : mécanisme de génération est associé à la table
@@ -99,6 +125,7 @@ IDENTITY :
 </pre>
 
 #### TABLE
+
 <pre>
 TABLE : 
     * Très peu utilisé
@@ -106,12 +133,14 @@ TABLE :
 </pre>
 
 #### AUTO
+
 <pre>
 AUTO : 
     * Hibernate choisit en fonction de la base de données
 </pre>
 
 #### @Transient
+
 <pre>
 * pour ne pas mapper un attribut
 </pre>
@@ -119,6 +148,7 @@ AUTO :
 ## Enum and Converter
 
 ### @Enumerated: Ordinal ou String
+
 <pre>
 Mode: 
     * EnumType.Ordinal : stocke en base l'ordre dans l'Enum
@@ -133,7 +163,8 @@ Mode:
 
 ### Converter
 
-####  Définition
+#### Définition
+
 <pre>
 * le but du converter est de convertir la valeur stockée en base dans une énumération
 * pour mapper un type non standard
@@ -142,10 +173,9 @@ Mode:
     l'annotation @Enumerated n'a plus lieu d'être
 </pre>
 
-
 #### Exemple
 
-* Exemple d'énumération, candidate à un converter:
+- Exemple d'énumération, candidate à un converter:
 
 <pre>
     TOUT_PUBLIC(1, "Tout public"),
@@ -156,7 +186,6 @@ Mode:
     private Integer key;
     private String description;
 </pre>
-
 
 ```
 // autoApply=true indique que, dès qu'une entité du modèle a un attribut Certification
@@ -181,6 +210,7 @@ public class CertificationAttributeConverter implements AttributeConverter<Certi
 ```
 
 #### Config
+
 <pre>
 * ajouter le converter au niveau du package to scan de l'entity manager
     
@@ -189,6 +219,7 @@ public class CertificationAttributeConverter implements AttributeConverter<Certi
 </pre>
 
 ### Bonne pratique
+
 <pre>
 * La bonne pratique, c'est d'avoir un entier stocké en base et dans le code, une
     énumération qui fait le lien entre les entiers et les valeurs de l'énumération
@@ -198,6 +229,7 @@ public class CertificationAttributeConverter implements AttributeConverter<Certi
 ## Equals / HashCode / toString
 
 ### Problématique
+
 <pre>
 * on implémente equals/hashcode pour de bonnes raisons :
     * comparer des entités avec des entités transientes/détachées
@@ -221,6 +253,7 @@ public class CertificationAttributeConverter implements AttributeConverter<Certi
 ### Défintion
 
 #### id fonctionnel
+
 <pre>
 * Un id fonctionnel est caractéristique
 * il doit impérativement être non null, immuable et unique
@@ -249,9 +282,11 @@ public class CertificationAttributeConverter implements AttributeConverter<Certi
     et l'entité ne sera plus connu du Set, en tout cas pas à la nouvelle adresse
     généré par le nouveau hash.
 </pre>
+
 ![img](../img/equals-hashcode.png)
 
 ### Règle
+
 <pre>
 Règle 1:
 * Quand une entité a un identifiant fonctionnel, il faut s'appuyer dessus
@@ -268,7 +303,7 @@ Règle 2:
 
 #### implementation avec un identifiant fonctionnel
 
-* name est un identifiant fonctionnel sur l'entité GENRE
+- name est un identifiant fonctionnel sur l'entité GENRE
 
 ```
     @Override
@@ -287,8 +322,9 @@ Règle 2:
 ```
 
 #### implémentation sans identifiant fonctionnel
-* equals : on se base sur l'id
-* hash : on retourne une constante
+
+- equals : on se base sur l'id
+- hash : on retourne une constante
 
 ```
     @Override
@@ -328,6 +364,7 @@ Règle 2:
 ## Association
 
 ### Théorie
+
 <pre>
 * les associations hibernate reflète les associations de la base
 
@@ -340,20 +377,22 @@ Règle 2:
 </pre>
 
 ### Exemple
+
 <pre>
 * un Movie peut avoir plusieurs Review
 </pre>
 
 Exemple Schéma 1 faux:
-* si la clé étrangère est dans Movie, il est impossible de renseigner plusieurs Review
+
+- si la clé étrangère est dans Movie, il est impossible de renseigner plusieurs Review
 
 ![schema](../img/modele-theorie-ko.png)
 
 Exemple Schéma 2 ok:
-* les 2 lignes dans Review vont référencées la clé dans Movie
+
+- les 2 lignes dans Review vont référencées la clé dans Movie
 
 ![schema](../img/modele-theorie-ok.png)
-
 
 ### @ManyToOne and @OneToMany
 
@@ -373,7 +412,8 @@ Attention : dans notre exemple
 L'entité ayant cet attribut est l'entité <b>propriétaire</b> de la relation
 </pre>
 
-#### Mapping 
+#### Mapping
+
 <pre>
 * table [REVIEW] : côté de l'asso avec clé 
 
@@ -391,12 +431,14 @@ L'entité ayant cet attribut est l'entité <b>propriétaire</b> de la relation
 </pre>
 
 ##### @JoinColumn
+
 <pre>
 * Cette annotation indique la clé étrangère sur l'entié en cours.
 * Si non renseigné, mapping implicit qui sera déduit par convention (Entité Associée_ID)
 </pre>
 
 ##### Fetch
+
 <pre>
 * permet d'indiquer le type de récupération des associations
 
@@ -413,26 +455,28 @@ L'entité ayant cet attribut est l'entité <b>propriétaire</b> de la relation
 </pre>
 
 ##### mappedBy
+
 <pre>
 * indique le côté de l'assocation qui contient la clé étrangère et donc ou est fait 
     le mapping de l'association
 </pre>
 
 ##### cascade
+
 <pre>
 * on propage les actions effectuées sur l'entité vers l'association (Ex: Persist, Delete)
 </pre>
 
 ##### orphanRemoval
+
 <pre>
 * true : évite les orphelins
     * par exemple si on fait review.setMovie(null)
     * si hibernate voit une entité Review non associé à une entité Movie, il supprime l'entité Review
 </pre>
 
-
-
 #### règle de la bidirection
+
 <pre>
 * <b>Attention</b> : la bidirection implique du code en plus
 * Il faut redéfinir les méthodes d'ajout et de suppression
@@ -440,6 +484,7 @@ L'entité ayant cet attribut est l'entité <b>propriétaire</b> de la relation
 </pre>
 
 ##### Exemple de Test
+
 ```
 @Test
 public void association_casNominal() {
@@ -453,6 +498,7 @@ public void association_casNominal() {
     repository.persist(movie);
     }
 ```
+
 <pre>
 <b>Analyse:</b> 
 Dans ce test les Reviews sont créés <b>sans valeur pour MOVIE_ID</b>.
@@ -466,7 +512,8 @@ A aucun moment, on a fait un review.setMovie( ... )
 </pre>
 
 ##### Solution
-* Réécriture des méthodes de suppression et d'ajout
+
+- Réécriture des méthodes de suppression et d'ajout
 
 ```
     public Movie addReview(Review review) {
@@ -486,10 +533,10 @@ A aucun moment, on a fait un review.setMovie( ... )
     }
 ```
 
-* Protéger la méthodes getReviews() pour qu'elle ne soit pas utiliser pour faire un 
+- Protéger la méthodes getReviews() pour qu'elle ne soit pas utiliser pour faire un
   ajout de Review.
-  
-```  
+
+```
     public List<Review> getReviews() {
         return Collections.unmodifiableList(reviews);
     }
@@ -501,6 +548,7 @@ A aucun moment, on a fait un review.setMovie( ... )
 ### @ManyToMany
 
 #### Principe
+
 <pre>
 * La relation :
     * est matérialisée au travers d'une <b>table d'association</b> à part entière
@@ -521,6 +569,7 @@ A aucun moment, on a fait un review.setMovie( ... )
 ![schema](../img/model_many_to_many.png)
 
 #### Exemple avec l'entité [GENRE]
+
 <pre>
 
 ## Identifiant fonctionnel
@@ -546,6 +595,7 @@ A aucun moment, on a fait un review.setMovie( ... )
 </pre>
 
 #### code
+
 <pre>
 * table [MOVIE] : Côté qui porte l'assocation
     * quand on persiste un movie, on veut persister les genres associés
@@ -569,6 +619,7 @@ A aucun moment, on a fait un review.setMovie( ... )
 </pre>
 
 ##### JoinTable [name, joinColumns, inverseJoinsColumns]
+
 <pre>
 * permet de matérialiser la table d'association
 * il faut spécifier
@@ -584,23 +635,24 @@ A aucun moment, on a fait un review.setMovie( ... )
         * colonne qui sera associée à la clé primaire de l'entité secondaire.
 </pre>
 
-
 #### Méthode addGenre, addMovie
+
 TODO
 
 ### @OneToOne
+
 <pre>
 * Pourquoi avoir deux tables ?
     * séparé les informations pour charger des infos à la demande
     * cela concerne les infos consommatrices 
 </pre>
 
-
 ![schema](../img/model_one_to_one.jpg)
 
 #### Mapping
 
 ##### @MapsId
+
 <pre>
 * pas de colonne "ID" en BDD pour cette entité 
     => pas de @GeneratedValue
@@ -616,6 +668,7 @@ TODO
 </pre>
 
 ##### Code
+
 ```
 @Entity
 @Table(name="Movie_Details")
@@ -633,6 +686,7 @@ public class MovieDetails {
 ```
 
 #### relation Unidirectionnelle
+
 <pre>
 * Si on fait une relation Movie --> MovieDetails, hibernate va automatiquement chargé MovieDetails quand on va charger Movie
 * Lors du chargement de Movie, hibernate doit savoir s'il doi initialiser MovieDetails à null ou avec un proxy.
@@ -645,11 +699,12 @@ public class MovieDetails {
 * Il faudra une requête spécifique pour avoir le détails
 </pre>
 
-
 ### association-ternaire
+
 ### @ManyToMany avec un attribut
 
 #### modele
+
 <pre>
 * ajout table des acteurs
 * ajout de la relation movie_actor avec l'attribut character
@@ -660,6 +715,7 @@ public class MovieDetails {
 ![modele](../img/modele-actor.png)
 
 #### clé-composite : MovieActorId
+
 <pre>
 * MovieActorId : une clé particulière 
     * classe statique 
@@ -675,6 +731,7 @@ public class MovieDetails {
 </pre>
 
 ##### Code:
+
 ```
 package com.hibernate4all.tutorial.domain;
 
@@ -724,6 +781,7 @@ public class MovieActorId implements Serializable {
 ```
 
 #### association : MovieActor
+
 <pre>
 * Entité : 
     * MovieActor : réprésente la table d'association : [movie_actor]
@@ -748,6 +806,7 @@ public class MovieActorId implements Serializable {
 </pre>
 
 ##### Code
+
 ```
 @Entity
 @Table(name="movie_actor")
@@ -795,7 +854,9 @@ MovieActor {
 ```
 
 #### association Movie
+
 ##### Code
+
 ```
     @OneToMany(mappedBy = "movie", cascade = CascadeType.PERSIST, orphanRemoval = true, fetch = FetchType.LAZY)
     private List<MovieActor> moviesActors = new ArrayList<>();
@@ -837,6 +898,7 @@ MovieActor {
 ```
 
 ##### Note
+
 <pre>
 * Les opérations de CRUD sont pilotés à partir d'entité Movie.
   On gère l'association des acteurs à un film à partir de l'entité film.
@@ -847,7 +909,9 @@ MovieActor {
 </pre>
 
 #### association Actor
+
 ##### Code
+
 ```
     @OneToMany(mappedBy = "actor", orphanRemoval = true, cascade = CascadeType.ALL)
     List<MovieActor> moviesActors = new ArrayList<>();
@@ -858,11 +922,13 @@ MovieActor {
 ```
 
 ##### Note
+
 <pre>
 * pas de setter
 </pre>
 
 #### Opérations CRUD
+
 <pre>
 <b>IMPORTANT</b>: 
 Pour toutes les opérations CRUD, il est impératif que les entités de la relation
@@ -873,6 +939,7 @@ tous les entités liées à l'association.
 </pre>
 
 #### Ajout un acteur :
+
 <pre>
 L'opération d'ajout se fera à partir d'un Movie.
 Voir la méthode addActor.
@@ -880,13 +947,15 @@ Important : l'ajout de l'acteur est gérée des deux côtés de la relation.
 </pre>
 
 #### Supprimer un acteur :
+
 <pre>
 L'opération de suppression se fait à partir d'un Movie
 Voir la méthode removeActor
 Important : la suppression est gérée des deux côtés de l'application
 </pre>
 
-#### Modifier un acteur : 
+#### Modifier un acteur :
+
 <pre>
 L'opération de modification se fait à partir d'un Movie
 Voir la méthode updateActor.
@@ -895,9 +964,11 @@ Voir la méthode updateActor.
 ## Hibernate-Validator
 
 ### url
+
 [hibernate-validator](https://docs.jboss.org/hibernate/annotations/3.4/reference/fr/html/validator.html)
 
 ### Principe
+
 <pre>
 * permet de définir des contraintes sur les entités sous forme d'annotation
 * les contraintes définies sont traduites en meta-données de mapping :
@@ -905,6 +976,7 @@ Voir la méthode updateActor.
 </pre>
 
 ### Evenènement / Exception
+
 <pre>
 * Hibernate Validator a deux listeners d'évènement Hibernate intégrés
     * PreInsertEvent
@@ -920,6 +992,7 @@ Voir la méthode updateActor.
 </pre>
 
 ### Validation applicative
+
 <pre>
 * peut être utilisé partout dans le code
     * pour valider tout le bean
@@ -929,15 +1002,18 @@ Voir la méthode updateActor.
 ## List ou Set
 
 ### Version
+
 <pre>
 * version d'hibernate < 5.0.8 : utiliser des Sets car bug usr Liste
 * entité avec liste et qu'on mergeait l'entité => duplication dans les enfants
 </pre>
+
 [bug](https://hibernate.atlassian.net/browse/HHH-5855)
 
 ### Set
 
 #### Avantage:
+
 <pre>
 * Set : 
     * unicité compte
@@ -946,9 +1022,10 @@ Voir la méthode updateActor.
 * <b>Attention</b> : il faut bien définir le equals et hashCode
 </pre>
 
-### Liste  
+### Liste
 
 #### Avantage:
+
 <pre>
 * Liste :
     * ordre
@@ -959,6 +1036,7 @@ Voir la méthode updateActor.
 ### Performance
 
 #### ajout
+
 <pre>
 * Le set est moins performant que la liste pour ajouter un élément,
   Hibernate doit récupérer les valeus du Set si ce dernier n'est pas initialisé
@@ -974,6 +1052,7 @@ Voir la méthode updateActor.
 </pre>
 
 #### suppression
+
 <pre>
 * En suppression, le Set est plus performant que la Liste.
 * Exemple suppression d'un genre dans une Movie :

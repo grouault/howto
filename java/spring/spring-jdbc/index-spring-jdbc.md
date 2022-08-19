@@ -4,6 +4,8 @@
 
 ### [jdbc](./jdbc/readme.md)
 
-### [jdbc-template](./jdbc/jdbctemplate.md)
+### [jdbc-spring](./jdbc/jdbctemplate.md)
 
 ### [transaction](./transaction/readme.md)
+
+### [exception](./exceptions.md)

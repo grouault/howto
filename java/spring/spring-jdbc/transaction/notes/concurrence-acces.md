@@ -4,10 +4,23 @@
 
 ## 1. Propriétés ACID des transactions
 
-- Atomicité (rollback)
+<pre>
+- Atomicité (rollback) :
+  Une transaction est opération atomique qui garantit que toutes les actions sont 
+  entièrement exécutées ou qu'elle n'ont aucun effet
+
 - Cohérence
-- Isolation ()
+  Pour une transaction validées, les données et ressources sont alors dans un état
+  cohérent d'un point de vue métier.
+
+- Isolation 
+  * contexte : plusieurs transactions peuvent manipuler le même jeu de données
+  * chaque transaction doit être isolée des autres afin d'éviter la corruption de données
+
 - Durabilité (commit)
+  * pour une transaction terminée, les résultats doivent survivre à toute panne du système
+
+</pre>
 
 ## 2. Problèmes consécutifs à une concurrence sans controle
 

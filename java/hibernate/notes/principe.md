@@ -3,6 +3,7 @@
 [home](../index.md)
 
 ### 3 règles d'or
+
 <pre>
 - toujours connaître l'état de la <b>session/contexte de persistence</b>
   - savoir si on est ou pas dans une session
@@ -13,26 +14,33 @@
 ### Définition
 
 #### hibernate
+
 <pre>
 - c'est un orm : intermédiaire entre applis et la base de données
 - l'orm permet de gérer un contexte de persistence
 </pre>
 
 #### session hibernate = contexte de persistence
+
 <pre>
 - une session c'est quoi ? :
   - contexte de persistence : ensemble des entités géréés par hibernate
   - physiquement c'est une map < classe+ID, entité >
   - une entité géré par hibernate se trouve dans la session dans la map
+
+- interface principale de persistance :
+  c'est l'objet qui permet de manipuler les entités hibernate
 </pre>
 
 #### entity et données
+
 <pre>
 * une entité est une classe Java mappé directement sur un objet physique de la base de données.
 * ainsi, une entité est un POJO qui correspond à un enregistrement de la table.
 </pre>
 
 #### entityManager
+
 <pre>
 - permet de déclencher des actions sur les entités
 - ces actions permettent entre autre de changer l'état d'une entité
@@ -41,9 +49,11 @@
 #### les états JPAs
 
 ##### schéma
+
 ![schema](../img/hibernate-lifecycle.jpg)
 
 ##### transient
+
 <pre>
 - entité non connu du contexte de persistence
 - concerne les nouveaux objets (new)
@@ -53,6 +63,7 @@
 </pre>
 
 ##### managed
+
 <pre>
 - état indiquant que l'entité est gérée par hibernate, 
 - elle est dans la session
@@ -67,6 +78,7 @@
 </pre>
 
 ##### removed
+
 <pre>
 - état indiquant à hibernate que l'entité doit être supprimé de la base
 
@@ -79,6 +91,7 @@
 </pre>
 
 ##### detached
+
 <pre>
 - une entité peut être retirée du contexte de persistence
 
@@ -99,7 +112,9 @@
 </pre>
 
 #### Remarque
+
 ##### merge
+
 <pre>
 * Il est possible d'utiliser merge sur les entités transientes mais cela n'est pas dans la norme.
 * Hibernate ne fera pas de Select sur les entités n'ayant pas d'id.
@@ -109,6 +124,7 @@
 </pre>
 
 #### Mauvaise pratiques
+
 <pre>
 1- ID
 - Il ne faut jamais déterminé l'id de manière programmatique. C'est hibernate qui s'en occupe.
@@ -125,21 +141,23 @@
     L'opération peut alors être gourmande en CPU
 </pre>
 
-
-####  proxy
+#### proxy
 
 ##### définition
+
 <pre>
 - un proxy est une référence vers une entité de la base qui n'est pas complètement chargée,
     mais chargeable à la demande si la session hibernate est encore ouverte.
 </pre>
 
 ##### lazy loading
+
 <pre>
 - le lazy-loading ne peut donc se faire que pour des entités dans un état 'MANAGED'
 </pre>
 
 ##### getReference() -
+
 <pre>
 * permet de récupérer un proxy
 * L'entité se retrouve dans la session mais sous forme d'un proxy
@@ -157,15 +175,16 @@ Sinon c'est l'équivalent d'un find(...)
 ```
 
 #### unproxy
+
 <pre>
 * sert à forcer le chargement du prox
 hibernat.unproxy(proxy)
 </pre>
 
-
 ### Dirty checking
 
 #### Définition
+
 <pre>
 - Fonctionnalité du contexte de persistence qui concerne les entités managed
 - permet de faire la mise à jour des données et donc
@@ -175,6 +194,7 @@ hibernat.unproxy(proxy)
 </pre>
 
 #### Principe :
+
 <pre>
   Hibernate maintient en plus de la session, un <b>snaphot</b> qui est une photographie des entités au
   chargement. 
@@ -183,10 +203,10 @@ hibernat.unproxy(proxy)
   Attention : Hibernate met à jour toute l'entité même si un seul champ a été modifié.
 </pre>
 
-
 ### Cache
 
 #### Session : cache de premier niveau
+
 <pre>
 - si on demande des objets à Hibernate, hibernate va d'abord les chercher dans son cache
 
@@ -199,10 +219,10 @@ hibernat.unproxy(proxy)
   - C'est à hibernate de savoir qu'un objet est sale
 </pre>
 
-
 ### Flush
 
 #### Définition
+
 <pre>
 - permet de synchroniser la session avec la base de données
 - force l'entity manager a envoyé ses modifications à la base de données
@@ -214,6 +234,7 @@ hibernat.unproxy(proxy)
 ##### flushMode = auto
 
 ###### definition
+
 <pre>
 - le FlushMode permet de paraméter le flush
 - la stratégie par défaut est le mode AUTO
@@ -223,6 +244,7 @@ hibernat.unproxy(proxy)
 </pre>
 
 ###### remarque
+
 <pre>
 * Attention : sans l'utilisation de JPA, le flushMode AUTO avec hibernate
   ne flush pas les query sql native du type:
@@ -230,14 +252,17 @@ hibernat.unproxy(proxy)
 </pre>
 
 ##### flushMode = commit
+
 ```
 properties.setProperty("org.hibernate.flushMode","COMMIT");
 ```
+
 <pre>
 * le flush ne se fait qu'au commit
 </pre>
 
 #### Comment ?
+
 <pre>
 url
 https://docs.jboss.org/hibernate/orm/5.4/userguide/html_single/Hibernate_User_Guide.html#flushing-order
@@ -246,14 +271,11 @@ Décrit la file d'attente des opérations qu'hibernate exécute lors d'un flush
 hibernate commence par insérer, puis modifier et supprimer les entités.
 </pre>
 
-
 ### Transaction
 
 #### @Transactional
 
 - Spring va ouvrir une session avec la Transaction
-
-
 
 ### Hibernate et Event
 

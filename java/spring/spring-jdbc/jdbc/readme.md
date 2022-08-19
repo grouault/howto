@@ -65,9 +65,9 @@ Pour implémenter une opération JDBC de consultation, il faut ajouter ces deux 
 
 ## connection
 
-### récupération
+### création
 
-#### à partir Driver JDBC
+#### Driver JDBC
 
 <pre>
 Un driver est une implémentation des interfaces pour un SGBDR donné.
@@ -86,26 +86,28 @@ Connection connection = DriverManager.getConnection("jdbc:mysql://localhost/test
 
 </pre>
 
-#### à partir d'une dataSource
+#### dataSource
+
+##### principe
 
 <pre>
 * interface javax.sql.DataSource est définie par les spécifications de JDBC qui représente une "source de données".
-
 * Cette source de données est en fait une simple fabrique de connexion vers la source de données physique.
+</pre>
 
-* Implémentations :
-  * basiques : ces implémentations produisent des instance de Connection normales,
+##### implémentations
+
+<pre>
+  * basiques : implémentations qui produisent des instance de Connection normales,
       telles que l'on pourrait les obtenir avec DriverManager
 
       * DriverManagerDataSource ==> Spring : ouvre une nouvelle connexion à chaque demande
 
   * Pool de connexions : ces implémentations produisent des instances qui appartiennent à un Pool
-
       * BasicDataSource => Apache DBCP
-
 </pre>
 
-#### Exemple
+##### Exemple
 
 ```
 <!-- Declaration de notre data source -->
@@ -143,7 +145,33 @@ Elle laisse au driver JDBC, le soin de transmettre les valeurs des objets au for
 Peut être utilisé plusieurs fois / concurrence / multi-thread
 </pre>
 
-## Transaction
+## Transaction JDBC
+
+### Validation automatique
+
+<pre>
+* Lorsque la mise à jour d'une base de données se fait avec JDBC, chaque requête SQL est par défaut
+  validée immédiatement
+</pre>
+
+### Validation par transaction
+
+#### principe
+
+<pre>
+JDBC prend en charge une stratégie élémentaire de gestion des transactions qui consiste à invoquer
+explicitement les méthodes commit() et rollback() sur une connexion.
+Pour gérer les transactions, il faut désactiver le mode autoCommit à partir de la connection.
+
+Inconvénient : ce code est porpre à JDBC.
+
+Spring propose donc un ensemble d'outils transactionnels indépendants de la technologie :
+* gestionnaire de transaction
+* template de transaction
+* la gestion des transactions par déclaration
+</pre>
+
+#### code
 
 ```
 Connection conn = DriverManager.getConnection(BDD_URL, BDD_LOGIN, BDD_PWD);
@@ -176,49 +204,3 @@ try
 }
 conn.setAutoCommit(true);
 ```
-
-## Exception
-
-### Principe
-
-#### API JDBC
-
-<pre>
-* API JDBC lance une exception vérifiée java.sql.SQLException 
-  ==> qui doit être intercepté.
-</pre>
-
-#### Spring JDBC
-
-<pre>
-* Les exceptions lancées par Spring-Jdbc sont des sous-classes de DataAccessException : 
-  - exception de type RuntimeException qu'il n'est pas obligatoire d'intercepter
-  - classe racine de toutes les exceptions dans le module Spring
-
-* les classes du framework interceptent l'exception SQLException à notre place et l'enveloppe
-  dans une des sous classes de DataAccessException qu'il n'est pas obligatoire d'intercepter.
- 
-* Comment Spring-JDBC peut-il savoir quelle execption concrète peu de la hiérarchie DataAccessException
-  peut-être lancée ?
-    * il examine les propriétésde l'exception SQLException :
-      - errorCode
-      - sqlState   
-
-* Ces propriétés sont accessibles depuis l'exception Spring:
-
-    try {
-
-      ...
-      
-    } catch (DataAccessException e) {
-      SQLException sqle = (sQLException) e.getCause();
-      log.info(sqle.getErrorCode());
-      log.info(sqle.getSQLState())
-    }
-
-*  Dans les méthodes des DAOs, il est inutile :
-- d'entourer le code avec un bloc try/catch
-- de déclarer le lancement d'une exception dans les signatures
-
-* Question : comment gérer les exceptionx aux niveaux des DAOs? Services?
-</pre>

@@ -2,6 +2,8 @@
 
 [home](../index-java.md)
 
+### [spring-aop](./spring-aop/index-spring-aop.md)
+
 ### [spring-contexte](./spring-contexte/index.md)
 
 ### spring-batch
