@@ -1,8 +1,11 @@
-Visual Studio Code Configuration
+# Visual Studio Code Configuration
+
+[retour](../../index-js.md)
 
 ## Espace de travail
+
 <pre>
-* correspond à un workspace Eclipse
+* correspond Ã  un workspace Eclipse
 * on peut configurer VSCode pour un espace de travail
 	* fichier de conf dans l'espace de travail
 * on peut ajouter des 'projets | dossier' dans l'espace de travail
@@ -32,8 +35,9 @@ Visual Studio Code Configuration
 </pre>
 
 ### Angular
+
 <pre>
-* pour faire tourner @angular/cli => ng sous VSCode, il faut exécuter VSCode en tant qu'administrateur
+* pour faire tourner @angular/cli => ng sous VSCode, il faut exï¿½cuter VSCode en tant qu'administrateur
 	1- Right click the shortcut or app/exe
 	2- Go to properties
 	3- Compatibility tab
@@ -42,47 +46,88 @@ Visual Studio Code Configuration
 
 ## Raccourci clavier
 
-# Paramètre
-ctrl '+' : 
+### general
 
-# Correction automatique
-alt 'F8' : voir la consigne de correcton
-ctrl ';' : voir la correction proposer par le linter
-
-ctrl 'ù' : terminal
+<pre>
+ctrl shift Ã¹ : terminal
 ctrl shift p : commande palette
 ctrl shift 'k' : supprimer une ligne
-ctrl 'g' : accéder à la ligne/colonne
+ctrl 'g' : accÃ©der Ã  la ligne/colonne
+</pre>
 
-maj + alt + flèche bas : duplication de la ligne vers le bas
+### ParamÃ¨tre
+
+<pre>
+ctrl '+' : paramÃ¨tre
+</pre>
+
+### Correction automatique
+
+<pre>
+alt 'F8' : voir la consigne de correcton
+ctrl ';' : voir la correction proposer par le linter
+</pre>
+
+### duplication code
+
+<pre>
+maj + alt + flÃ¨che bas : duplication de la ligne vers le bas
 alt click click => actions multi-ligne
 alt shift => selection multi-ligne
+</pre>
 
-## commentaires
+### Formatage du code
+
+<pre>
+alt + shift + f : formatter le code
+</pre>
+
+### commentaires
+
+<pre>
 ctrl k c
 ctrl /
-
+</pre>
 
 ## Fichier de configuration
+
+<pre>
 .vscode/settings.json
 C:\Users\grouault\AppData\Roaming\Code\User\settings.json
+</pre>
+
+### tabulation
+
+<pre>
+editor.tabSize => 2
+</pre>
 
 ## Linter ==> Standardjs
 
 ## Snippet ==> Standardjs - snippet
 
 ## Emmet
-- Permet d'obtenir des raccourcis de code. 
+
+<a href="https://code.visualstudio.com/docs/editor/emmet" target="_blank">reference</a>
+
+<pre>
+- Permet d'obtenir des raccourcis de code.
+
 - Activer pour 'React'
-	Paramètre/workspace/Extensions/Emmet
-	include languate : javascript:javascriptreact
+  ParamÃ¨tre/workspace/Extensions/Emmet
+  include language : javascript:javascriptreact
+
 -Faire fonctionner Emmet avec React sous VS Code
-	Si emmet ne fonctionne pas avec React, il vous faut rajouter cette ligne dans votre "setting.json" :
-	"emmet.includeLanguages": {  "javascript": "javascriptreact"   },
-Puis enregistrez, et c'est bon.	
-	
-	"javascript.validate.enable": false,
-    "standard.enable": true
-	
+  Si emmet ne fonctionne pas avec React, il vous faut rajouter cette ligne dans votre "setting.json" :
+  "emmet.includeLanguages": { "javascript": "javascriptreact" },
+  "javascript.validate.enable": false,
+  "standard.enable": true
+</pre>
+
 ## extension react/redux
-rfc-tab ==> création d'un composant fonctionnelle
+
+## ES7-React/Redux extension
+
+<pre>
+rfc-tab ==> crÃ©ation d'un composant fonctionnelle
+</pre>

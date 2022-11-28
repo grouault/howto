@@ -6,7 +6,16 @@
 
 [doc.spring](https://docs.spring.io/spring/docs/4.1.x/spring-framework-reference/html/jdbc.html#jdbc-JdbcTemplate-idioms)
 
-## principe
+## Problématique
+
+<pre>
+Une opération JDBC de mise à jour ou de consultation nécessite plusieurs opérations qui sont répétitives.
+Spring JDBC offrent des méthodes templates qui :
+* prennent en charge la procédure globale
+* de remplacer les phases qui nous intérèsse
+</pre>
+
+## Principe
 
 <pre>
 * La classe JdbcTemplate déclare plusieurs méthodes <b>query()</b> surchargées qui contrôlent le 
@@ -18,11 +27,29 @@
 
 * Pour la phase d'extraction des données, plusieurs manières sont proposés.	
 
+</pre>
+
+## Transaction et Connexion
+
+<pre>
+<b> Connexion </b>:
 * par rapport à un projet pur Jdbc, jdbctemplate gère la connexion.
 * On supprime donc la méthode getConnexion
 
-* Transaction : Plus de gestion des transactions explicit
+<b> Transaction </b>:
+Transaction : Plus de gestion des transactions explicit non plus.
+Par défaut, la connexion et donc la transaction est géré automatiquement.
 
+Pour avoir un contrôle plus fin sur la transaction, il faut passer par spring-transaction.
+
+Spring propose donc un ensemble d'outils transactionnels indépendants de la technologie :
+* template de transaction
+* la gestion des transactions par déclaration avec un gestionnaire de transaction
+
+Ainsi pour bénéficier des transactions sur du code spring-jdbc, il faut :
+* soit utiliser le transaction-manager de manière programmatique
+* soit utiliser un template transactionnel
+* soit utiliser spring-aop pour gérer les méthodes transactionnelles
 </pre>
 
 ## XML Config
@@ -82,7 +109,8 @@
 <pre>
 - La connexion est gérée par la classe JdbcTemplate
 - Toutes les méthodes n'ont pas besoin de la connexion mais y accède via jdbctemplate
-- Certaines méthodes prennent en paramètre la connexion (classe anonyme), mais sont appelées par des méthodes de jdbctemplate
+- Certaines méthodes prennent en paramètre la connexion (classe anonyme), mais sont appelées par des méthodes
+  de jdbctemplate
 </pre>
 
 ```
@@ -98,7 +126,8 @@ PreparedStatementCreator psc = new PreparedStatementCreator() {
 @Override
 protected PreparedStatement buildStatementForInsert(IOperationEntity pUneEntite, Connection connexion)
 		throws SQLException {
-	String request = "insert into " + this.getTableName() + " (libelle, montant, date, compteId) values (?,?,?,?);";
+	String request = "insert into " + this.getTableName() + " (libelle, montant, date, compteId)
+		values (?,?,?,?);";
 	PreparedStatement ps = connexion.prepareStatement(request, Statement.RETURN_GENERATED_KEYS);
 	ps.setString(1, pUneEntite.getLibelle());
 	ps.setDouble(2, pUneEntite.getMontant().doubleValue());

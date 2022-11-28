@@ -9,6 +9,29 @@
   ==> qui doit être intercepté.
 </pre>
 
+### API Hibernate
+
+<pre>
+* API lance des exceptions du type HibernateException
+</pre>
+
+### API JPA
+
+<pre>
+* API lance des exceptions du type PersistenceException
+</pre>
+
+### Spring et les exceptions
+
+<pre>
+Quand ont utilise Spring, il y a un wrapping des exceptions par Spring.
+Spring renvoie alors une exception de type DataAccessExcepion.
+C'est une exception du type Runtime.
+
+Question : Sur quelle couche se fait le wrapping ?
+Au niveau du Repository et de l'annotation @Repository.
+</pre>
+
 ### Spring JDBC
 
 <pre>
@@ -42,6 +65,22 @@
 - de déclarer le lancement d'une exception dans les signatures
 
 * Question : comment gérer les exceptionx aux niveaux des DAOs? Services?
+</pre>
+
+### Rollback
+
+<pre>
+Un rollback est déclenché qaund une exception est déclenchée.
+Néanmoins, dans les cas suivants, on n'a pas d'excetion :
+
+- les checked exceptions
+- certaines exceptions runtime de persistence:
+  > NoResultException
+  > NonUniqueResultException
+  > LockTimeOutException
+  > QueryTimeOutException
+- les exceptions délcarées dnans NoRollBackFor
+
 </pre>
 
 ### Gestion des exceptions dans les transactions

@@ -1,4 +1,7 @@
+[retour](./index-certificats.md)
+
 ## Enjeu SSL / TLS
+
 <pre>
 * Chiffrer : cacher les informations afin que personne n'identifie ces informations
 * Identifier : s'assurer que l'ordinateur avec lequel on cummunique est bien le bon
@@ -8,9 +11,10 @@
 
 ### Type de Cryptographie
 
-
 #### Cryptographie asymétrique
-##### Principe 
+
+##### Principe
+
 <pre>
 * échange entre un client et un serveur.
 * le serveur possède
@@ -34,7 +38,9 @@
 </pre>
 
 #### Cryptographie symétrique
-##### Principe 
+
+##### Principe
+
 <pre>
 Plutôt que d'avoir deux clés comme dans la crypto asymétrique :
 	* seul <b>une seul clé indentique</b> est partagée entre le client et le serveur
@@ -70,8 +76,8 @@ Plutôt que d'avoir deux clés comme dans la crypto asymétrique :
 	
 </pre>
 
-
 ##### Schéma des clé symétrique
+
 <pre>
 * voila les infos que je veux envoyé :
 	* infos que je souhaite postées
@@ -130,7 +136,6 @@ Plutôt que d'avoir deux clés comme dans la crypto asymétrique :
 
 ![img](img/cle-symetrique-7.PNG)
 
-
 <pre>
 * le client :
 	* recoit les données chiffées 
@@ -147,13 +152,15 @@ Plutôt que d'avoir deux clés comme dans la crypto asymétrique :
 ### Certificat
 
 #### définition
+
 <pre>
 * <b>certificat </b> : on peut imaginer cela comme une <b>carte d'identité</b> pour ton serveur
 	* contient diverses informations
 	* permet de s'assurer que vous êtes bien la personne que tu prétends être
-</pre>	
+</pre>
 
 #### génération
+
 <pre>	
 * <b>autorité de certification (AC)</b> : comme pour une carte d'identité où on va en mairie,
 	on passe par une autorité de certification capable de délivrer des certificats
@@ -172,12 +179,13 @@ Plutôt que d'avoir deux clés comme dans la crypto asymétrique :
 			<b>la clé publique de l'autorité de certification</b>
 			
 </pre>
- 
+
 ![img](img/ac-0.PNG)
- 
+
 #### Certifcat intermédiaire et racine
 
 ##### Certificat intermédiaire
+
 <pre>
 * L'autorité de certification envoie en général
 	* le certificat
@@ -185,6 +193,7 @@ Plutôt que d'avoir deux clés comme dans la crypto asymétrique :
 </pre>
 
 ##### Certificat racine
+
 <pre>
 * Problème : de nombreux organismes délivrent des certificats
 * il a fallu définir des autorités de certification racine limités et reconnue comme de confiance
@@ -199,11 +208,12 @@ Plutôt que d'avoir deux clés comme dans la crypto asymétrique :
 	* le certificat de l'AC intermédiaire a été établit par une AC racine
 
 <i>voir schéma ci-dessous</i>
-</pre> 
+</pre>
 
- ![img](img/ac-1.PNG)
+![img](img/ac-1.PNG)
 
 #### Principe de fonctionnement : chaine de confiance
+
 <pre>
 <i>Scénario</i>
 * le serveur envoie au client : 
@@ -239,8 +249,9 @@ Plutôt que d'avoir deux clés comme dans la crypto asymétrique :
 			car j'arrive à le déchiffrer avec la clé publique d'un autre certificat de confiance
 	
 </pre>
-	
+
 #### Tentative d'usurpation d'identité
+
 <pre>
 
 <i>Scénario</i> :
@@ -254,8 +265,9 @@ Plutôt que d'avoir deux clés comme dans la crypto asymétrique :
 	* ce qui est impossible
 	
 </pre>
- 
+
 #### Handshake
+
 <pre>
 * handshake : 
 	* étapes mises en place avant le premier échange de données 

@@ -16,11 +16,18 @@
 - Isolation 
   * contexte : plusieurs transactions peuvent manipuler le même jeu de données
   * chaque transaction doit être isolée des autres afin d'éviter la corruption de données
+  * une transaction ne voit pas les modifs d'une autre (voir les différents paramétrages)
 
 - Durabilité (commit)
   * pour une transaction terminée, les résultats doivent survivre à toute panne du système
 
+<b>Important</b>:
+- Atomicité, Cohérence et Durabilité sont absolues.
+- L'isolation est relative et paramétrable.
+
 </pre>
+
+![acid](../img/acid.PNG)
 
 ## 2. Problèmes consécutifs à une concurrence sans controle
 
@@ -96,3 +103,151 @@ Recouvrable <== Eviter les annulation en cascade <== stricte
 ```
 
 ## 3. Les niveaux d'isolation
+
+![isolation](../img/isolation-level.PNG)
+
+### READ COMMITED
+
+<pre>
+- la transaction peut être influencée par les commits des autres tx.
+- si une données est commitée par une autre tx, elle est visible.
+</pre>
+
+### REPEATABLE READ
+
+<pre>
+- ce qui a été lu ne sera pas changé par une autre tx.
+</pre>
+
+### SERIALISABLE
+
+<pre>
+* comme si les tx s'effectuait les unes après les autres.
+* une tx concurrent qui modifie la même donnée sera rejeté si elle est 
+  dans ce mode.
+</pre>
+
+## 4- PostGreSQL
+
+### Commandes
+
+```
+show transaction isolation level;
+
+set transaction isolation level read committed;
+set transaction isolation level repeatable read;
+set transaction isolation level serializable;
+```
+
+## 5- Hibernate
+
+### dead-lock
+
+#### problématique
+
+<pre>
+hibernate peut faire du dead-lock
+Scénario
+* 2 session en parallèle qui font de la modification sur au moins 2 entités identique
+* l'ordre des modifications n'est pas garanti
+* application à fort volume de modification
+</pre>
+
+#### solution
+
+<pre>
+* dire à hibernate d'ordonner les inserts et update par id.
+* Possible avec ces propriétés
+  HIBERNATE.ORDER_INSERTS
+  HIBERNATE.ORDER_UPDATES
+</pre>
+
+### Lock-Optimiste
+
+#### Problématique
+
+<pre>
+A utiliser, quand deux tx concurrentes mettent à jour les mêmes données.
+La dernière transaction committé écrase les modifs de la première
+==> LAST COMMIT WINS
+
+Adapté à ce qui est CRUD, dans un environnement où les modifs sont peu nombreuses
+et  qu'il y a peu de concurrence d'accès.
+</pre>
+
+#### Solution - hibernate
+
+<pre>
+* mettre une gestion de version sur l'entité
+* quand on fait une mise à jour sur l'entité, on espère jusqu'au dernier moment
+  qu'il n'y ait pas eu de mise à jour sur l'entité.
+* s'il y a eu une modif, une exception est levée
+</pre>
+
+```
+@Version
+private short version
+```
+
+<pre>
+- Tx 1:
+  La transaction est validée et le numéro de version est incrémentée.
+</pre>
+
+```
+Hibernate:
+    update
+        Movie
+    set
+        certification=?,
+        description=?,
+        name=?,
+        version=?
+    where
+        id=?
+        and version=?
+16:52:51 TRACE o.h.t.d.s.BasicBinder.bind binding parameter [1] as [INTEGER] - [1]
+16:52:51 TRACE o.h.t.d.s.BasicBinder.bind binding parameter [2] as [VARCHAR] - [desc from admin 1]
+16:52:51 TRACE o.h.t.d.s.BasicBinder.bind binding parameter [3] as [VARCHAR] - [Inception]
+16:52:51 TRACE o.h.t.d.s.BasicBinder.bind binding parameter [4] as [SMALLINT] - [1]
+16:52:51 TRACE o.h.t.d.s.BasicBinder.bind binding parameter [5] as [BIGINT] - [-1]
+16:52:51 TRACE o.h.t.d.s.BasicBinder.bind binding parameter [6] as [SMALLINT] - [0]
+```
+
+<pre>
+- Tx: 2:
+
+- Pour cette transaction, la base de données ne va pas trouvée de lignes à mettre à jour
+  car le numéro de veresion a été incrémentée dans la transaction 1.
+- elle indique a hibernate qu'aucune ligne n'a été mise à jour.
+- hibernate va comprendre qu'il y a une mise à jour concurrente et va levé une excetpion
+  <b>StaleStateException</b>
+</pre>
+
+```
+Hibernate:
+    update
+        Movie
+    set
+        certification=?,
+        description=?,
+        name=?,
+        version=?
+    where
+        id=?
+        and version=?
+16:53:43 TRACE o.h.t.d.s.BasicBinder.bind binding parameter [1] as [INTEGER] - [1]
+16:53:43 TRACE o.h.t.d.s.BasicBinder.bind binding parameter [2] as [VARCHAR] - [desc from admin 2]
+16:53:43 TRACE o.h.t.d.s.BasicBinder.bind binding parameter [3] as [VARCHAR] - [Inception]
+16:53:43 TRACE o.h.t.d.s.BasicBinder.bind binding parameter [4] as [SMALLINT] - [1]
+16:53:43 TRACE o.h.t.d.s.BasicBinder.bind binding parameter [5] as [BIGINT] - [-1]
+16:53:43 TRACE o.h.t.d.s.BasicBinder.bind binding parameter [6] as [SMALLINT] - [0]
+16:53:43 DEBUG o.s.o.j.JpaTransactionManager.doRollbackOnCommitException Initiating transaction rollback after commit exception
+
+org.springframework.orm.ObjectOptimisticLockingFailureException:
+Batch update returned unexpected row count from update [0]; actual row count: 0; expected: 1;
+statement executed: update Movie set certification=?description=?, name=?, version=? where id=? and version=?;
+nested exception is org.hibernate.StaleStateException:
+  Batch update returned unexpected row count from update [0]; actual row count: 0; expected: 1; statement executed: update Movie set certification=?, description=?, name=?, version=? where id=? and version=?
+
+```

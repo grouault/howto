@@ -1,3 +1,5 @@
+[retour](./index-intellij.md)
+
 ## ctrl + alt + o
 
 <pre>
@@ -16,4 +18,16 @@ ctrl + alt + souris
 <pre>
 - beaucoup d'options utils
 - permet d'implémenter interface
+</pre>
+
+## ctrl + alt + v
+
+<pre>
+permet de créer la référence avec son type
+</pre>
+
+## ctrl + maj + U
+
+<pre>
+mettre en majuscule
 </pre>

@@ -1,4 +1,4 @@
-## spring-transaction
+# spring-transaction
 
 [retour](./../readme.md)
 
@@ -145,6 +145,87 @@ Inconvénient:
 - par déclartion avec l'annotation @Transactionnal
 
 [declarative-transaction](./spring-transaction-declarative.md)
+
+### @Transactional
+
+#### définition
+
+<pre>
+Cette annotation permet de déclarer une connexion.
+
+Ce qui se passe au niveau du SGBD :
+  * elle ne démarre pas immédiatement une transaction 
+  * elle ouvre une connexion ou recupère une connection dans le pool
+    suivant la configuration
+  * désactive le mode auto-commit de la connection
+  * démarre une transaction si besoin
+
+Ce qui se passe au niveau application Spring / Hibernate:
+ * Spring ouvre une session hibernate.
+ * En même temps, il initialise une transaction qui n'est pas
+   forcément répercuté au niveau de la base. Par contre, dèq qu'une opération
+   mettant en jeu l'entityManager est réalisé, la transaction est créer au 
+   niveau de la base.
+
+Note:
+  En parallèle, la méthode find fonctionne en autocommit:
+  * créer une connexion
+  * exécute la requête
+  * ferme la connexion
+
+<b> IMPORTANT </b>:
+ * @Transactionnal prend une connexion au pool
+ * avec Spring, il faut donc l'utiliser quand c'est nécessaire.
+
+</pre>
+
+#### proxy
+
+<pre>
+@Transactionnal fonctionne ave les proxies, il faut donc faire attention où sont 
+positionnés les annotations
+* les services doivent être injecté par Spring ; ils sont ainsi proxifiés par Spring.
+* les services transactionnels doivent porter l'annotation.
+</pre>
+
+## Configuration des tx
+
+### Propagation
+
+<pre>
+REQUIRED:
+  * par défaut
+  * spring crée une tx s'il n'en trouve pas
+SUPPORT:
+  * prend la tx en cours si elle existe
+  * sinon spring n'en créé pas
+MANDATORY:
+  * exception si pas de tx en cours
+NEVER: 
+  * s'il y a une tx, il y aura une exception
+REQUIRED_NEW:
+  * tx ou non, spring créé une nouvelle tx
+</pre>
+
+### Isolation
+
+[niveau d'isolation](../notes/concurrence-acces.md#3-les-niveaux-disolation)
+
+### readonly=true
+
+<pre>
+* empêche tout modification en base de données
+  => déclenche une exception pour toute modification
+* optimise mémoire et CPU en désactivant le système de dirty-checking
+</pre>
+
+## Exceptions et tx
+
+[excption](../../exceptions.md)
+
+## Concurrence d'accès.
+
+[transaction - concurrence](../notes/concurrence-acces.md)
 
 ## urls
 

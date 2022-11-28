@@ -1,5 +1,7 @@
 ## JAVA
 
+[retour](../index-howto.md)
+
 ### hibernate
 
 - [hibernate](hibernate/index.md)
@@ -15,3 +17,11 @@
 ### junit
 
 - [junit](junit/index-junit.md)
+
+### Autres
+
+- [certificat](./certificats/index-certificats.md)
+
+- [eclipse](./eclipse/)
+
+- [intellij](./intellij/raccourci-clavier.md)

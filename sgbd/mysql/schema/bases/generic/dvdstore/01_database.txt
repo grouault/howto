@@ -1,0 +1,8 @@
+Pour créer la base DVDSTORE
+Demarrer Mysql dans les services si ce n'est pas fait automatiquement
+
+Se connecter avec un client type DBeaver en root, COURSSPRING ou COURSDB
+Ouvrir un editeur SQL et executer les commandes suivantes :
+
+CREATE DATABASE `DVDSTORE` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
+

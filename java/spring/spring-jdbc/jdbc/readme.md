@@ -63,65 +63,9 @@ Pour implémenter une opération JDBC de consultation, il faut ajouter ces deux 
 8- Nettoyer l'objet de requête de connexion
 </pre>
 
-## connection
+## Définition
 
-### création
-
-#### Driver JDBC
-
-<pre>
-Un driver est une implémentation des interfaces pour un SGBDR donné.
-
-Pour obtenir une connexion, il faut:
-
-1- le chargement de la classe du driver par la JVM
-  Note : La méthode Driver.registerDriver() contient un initialiseur static qui permet de signaler 
-    la classe comme driver JDBC au niveau de la JVM.
-  Ce chargement permmet alors l'établissement d'une connexion.
-2- Récupération de la Connexion
-
-Soit le code: 
-Class.forName("com.mysql.jdbc.Driver")
-Connection connection = DriverManager.getConnection("jdbc:mysql://localhost/test","login","mdp")
-
-</pre>
-
-#### dataSource
-
-##### principe
-
-<pre>
-* interface javax.sql.DataSource est définie par les spécifications de JDBC qui représente une "source de données".
-* Cette source de données est en fait une simple fabrique de connexion vers la source de données physique.
-</pre>
-
-##### implémentations
-
-<pre>
-  * basiques : implémentations qui produisent des instance de Connection normales,
-      telles que l'on pourrait les obtenir avec DriverManager
-
-      * DriverManagerDataSource ==> Spring : ouvre une nouvelle connexion à chaque demande
-
-  * Pool de connexions : ces implémentations produisent des instances qui appartiennent à un Pool
-      * BasicDataSource => Apache DBCP
-</pre>
-
-##### Exemple
-
-```
-<!-- Declaration de notre data source -->
-<bean id="dataSource" destroy-method="close" class="org.apache.commons.dbcp2.BasicDataSource">
-    <property name="driverClassName" value="${db.driver}" />
-    <property name="url" value="${db.url}" />
-    <property name="username" value="${db.login}" />
-    <property name="password" value="${db.password}" />
-    <property name="initialSize" value="2" />
-    <property name="maxActive" value="5" />
-</bean>
-```
-
-### Définition
+### connection
 
 <pre>
 La classe java.sql.DriverManager fournit la méthode getConnexion().
@@ -137,7 +81,9 @@ Principales méthodes :
 - close / isClosed
 </pre>
 
-#### prepareStatement
+[getConnexion](../../spring-jdbc/transaction/connexion.md#driver-jdbc)
+
+### prepareStatement
 
 <pre>
 Méthode qui précompilent une instruction SQL paramétrée.
@@ -150,8 +96,8 @@ Peut être utilisé plusieurs fois / concurrence / multi-thread
 ### Validation automatique
 
 <pre>
-* Lorsque la mise à jour d'une base de données se fait avec JDBC, chaque requête SQL est par défaut
-  validée immédiatement
+Lorsque la mise à jour d'une base de données se fait avec JDBC, chaque requête SQL 
+est par défaut validée immédiatement
 </pre>
 
 ### Validation par transaction
@@ -165,10 +111,8 @@ Pour gérer les transactions, il faut désactiver le mode autoCommit à partir d
 
 Inconvénient : ce code est porpre à JDBC.
 
-Spring propose donc un ensemble d'outils transactionnels indépendants de la technologie :
-* gestionnaire de transaction
-* template de transaction
-* la gestion des transactions par déclaration
+Solution: il faut utiliser les solutions offertes par spring-transaction.
+
 </pre>
 
 #### code

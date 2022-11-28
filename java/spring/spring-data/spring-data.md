@@ -1,66 +1,21 @@
-## Pagination
-```
-		// recuperation par pagination
-		// on récupère la page 1 avec 2 éléments par page
-		Page<Produit> produits = produitRepository.findAll(PageRequest.of(1, 2));
-		System.out.println(produits.getSize());
-		System.out.println(produits.getTotalElements());
-		System.out.println(produits.getTotalPages());
-		
-		produits.getContent().forEach(p -> {
-			System.out.println(p.toString());
-		});
-```
+# Spring-Data
 
-## Recherche
+[retour](../index-spring.md)
 
-#### findByDesignation
-* find : select * from Produit
-* ByDesignation: where designation
+[spring-boot](../spring-boot/spb-index.md)
 
-```
-public interface ProduitRepository extends JpaRepository<Produit, Long> {
+## hibernate / jpa
 
-	public List<Produit> findByDesignation();
-	
-}
-```
+### [hibernate](../../hibernate/index.md)
 
-#### findByDesignationContains
-* contains : like %...%
+## Spring-data
 
-```
-	public interface ProduitRepository extends JpaRepository<Produit, Long> {
+### [principe](./spring-data-principe.md)
 
-		public Page<Produit> findByDesignationContains(String mc, Pageable pageable);
-		
-	}
-```
+### <a href="https://docs.spring.io/spring-data/jpa/docs/1.7.1.RELEASE/reference/html/#jpa.query-methods.at-query">reference</a>
 
-* Code appelant :
+### <a href="./Formation%20Spring%20Data-2017.pdf" target="_blank">doc-Pdf</a>
 
-```
-	// recuperation de tous Produits.
-	Page<Produit> produits = produitRepository.findByDesignationContains("Imprimante", PageRequest.of(0, 2));
-	produits.getContent().forEach(p -> {
-		System.out.println(p.toString());
-	});
-```
+## project
 
-#### Query
-
-* Query hql
-
-```
-	/**
-	 * recherche par designation et prix minimum
-	 * 
-	 * @param mc
-	 * @param prix
-	 * @param pageable
-	 * @return
-	 */
-	@Query("select p from Produit p where p.designation like :x and p.prix>:y")
-	public Page<Produit> chercherParDesignationEtPrixMinimum(
-			@Param("x")String mc, @Param("y") double prix, Pageable pageable);
-```
+#### [hospital](./jpa/mapping-assocation.md)

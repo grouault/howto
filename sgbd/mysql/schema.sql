@@ -18,3 +18,5 @@ CREATE USER 'customtype'@'localhost' IDENTIFIED BY 'customtype';
 GRANT USAGE ON * . * TO 'customtype'@'localhost' IDENTIFIED BY 'customtype';
 CREATE DATABASE IF NOT EXISTS `customtype`;
 GRANT ALL PRIVILEGES ON `customtype` . * TO 'customtype'@'localhost';
+
+

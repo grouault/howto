@@ -688,10 +688,12 @@ public class MovieDetails {
 #### relation Unidirectionnelle
 
 <pre>
-* Si on fait une relation Movie --> MovieDetails, hibernate va automatiquement chargé MovieDetails quand on va charger Movie
-* Lors du chargement de Movie, hibernate doit savoir s'il doi initialiser MovieDetails à null ou avec un proxy.
+* Si on fait une relation Movie --> MovieDetails, hibernate va automatiquement chargé MovieDetails 
+quand on va charger Movie
+* Lors du chargement de Movie, hibernate doit savoir s'il doit initialiser MovieDetails à null 
+ou avec un proxy.
 * Il charge pour cela MovieDetails
- * @OneToOne : préférerz l'unidirectionnel
+ * @OneToOne : préférez l'unidirectionnel
    Le lazy est toutefois possible si l'association est obligatoire
 
 * Dans notre cas, le besoin est implémenté.
@@ -935,7 +937,7 @@ Pour toutes les opérations CRUD, il est impératif que les entités de la relat
 partage la même session
 Ainsi, l'appel aux opération CRUD, se fera à partir d'une méthode de service 
 ou repository, transactionnelle, qui aura la charge de mettre dans la session
-tous les entités liées à l'association. 
+toutes les entités liées à l'association. 
 </pre>
 
 #### Ajout un acteur :
@@ -1085,4 +1087,52 @@ Voir la méthode updateActor.
         Hibernate: insert into Movie_Genre (movie_id, genre_id) values (?, ?)
         10:57:21 TRACE o.h.t.d.s.BasicBinder.bind binding parameter [1] as [BIGINT] - [-1]
         10:57:21 TRACE o.h.t.d.s.BasicBinder.bind binding parameter [2] as [BIGINT] - [-3]
+</pre>
+
+### jointure
+
+<pre>
+Dans le cadre d'une jointure, la requête exécutée sera la même.
+Néanmoins l'interprétation qu'en fera Hibernate pour peupler l'objet résultant
+pourra être différent.
+Cela dépent du produit cartésien généré par la jointure et son interpréation
+avec hibernate.
+Avec une Liste chaque ligne du produit cartésien sera comptabilisé pour un
+enregistrement.
+Avec un Set, comme un élément est unique, hibernate veillera a ce que deux
+enregistrements identiques ne soient pas inséré dans le Set.
+Dans tous les cas, si des jointures sont à faire avec plusieurs attributs de type
+Liste ou Set, l'utilisation d'un Set est plus simple dans l'écriture de la requête.
+Avec des listes, il faudra passer par des requêtes supplémentaires. 
+
+</pre>
+
+## Exemple
+
+| Film      | Review   | Genre   |
+| --------- | -------- | ------- |
+| Inception | Review 1 | Drama 1 |
+| Inception | Review 2 | Drama 1 |
+| Inception | Review 1 | Drama 2 |
+| Inception | Review 2 | Drama 2 |
+
+<pre>
+Avec Liste :
+1 objet inception avec une
+
+- List(Review) => 4 items
+- List(Drama) => 4 items
+
+Avec Set :
+1 objet inception avec une
+
+- Set(Review) => 2 items
+- Set(Drama) => 2 items
+</pre>
+
+### Conversion
+
+<pre>
+On peut définir des Set au niveau de la couche hibernate.
+Au niveau de la couche service, on peut créer des DTOs avec des listes.
 </pre>

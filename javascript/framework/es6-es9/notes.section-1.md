@@ -1,4 +1,4 @@
-[home](../../index-js.md)
+[home](./es6-es9.md)
 
 ## Ecmascript
 
@@ -136,18 +136,203 @@ permet d'extraire des données d'un tableau ou d'un objet pour obtenir des varia
 
 ## Tableaux
 
-- push : ajout un élément à la fin du tableau
-- pop : supprime un élément à la fin du tableau
-- slice : réalise une copie
-- map : réalise une copie + une transformation
-- findIndex : prend une fonction de callback en paramètre
-  remonte le premier élément trouvé par la condition remplit dans le callback.
-- find : idem 'findIndex' mais remonte la valeur.
-- entries : s'applique sur objet itérable style 'tableau' mais pas un objet.
+### from
+
+<pre>
+Array.from({length:5}).map( ... );
+==> permet de créér un tableau avec chaque 
+élément prenant la valeu <b>undefined</b>
+</pre>
+
+### includes
+
+<pre>
+permet de tester la present d'un elément dans le tableau
+el : string ou objet
+</pre>
+
+```
+  const addInputs = (el) => {
+    if (el && !inputsPwd.current.includes(el)) {
+      inputsPwd.current.push(el);
+    }
+  };
+```
+
+### map
+
+#### principe
+
+<pre>
+- réalise une copie + une transformation
+- retourn un nouvel objet
+</pre>
+
+#### exemple
+
+```
+  const officers = [
+    { id: 20, name: 'Captain Piett' },
+    { id: 24, name: 'General Veers' },
+    { id: 56, name: 'Admiral Ozzel' },
+    { id: 88, name: 'Commander Jerjerrod' },
+  ];
+
+  // What you need
+  // [20, 24, 56, 88]
+  const ids = officers.map((officer) => officer.id);
+```
+
+#### react
+
+<b>key</b>: il faut une clé unique quand on manipule
+une liste pour que React se retrouve dans les éléments.
+Cette clé sert à savoir quel élément est impacté lors
+d'un ajout, suppression ou modification.
+
+</pre>
+
+### findIndex
+
+<pre>
+prend une fonction de callback en paramètre
+ remonte le premier élément trouvé par la condition remplit dans le callback.
+</pre>
+
+### find
+
+<pre>
+idem 'findIndex' mais remonte la valeur
+</pre>
+
+### filter
+
+#### principe
+
+<pre>
+* sur un tableau permet de ne retenir que certains éléments du tableau
+* permet donc de <b> supprimer </b> des éléments du tableau
+* Si la fonction Rollback retourne 'true', l'élément courant est dans 
+le tableau résultant.
+</pre>
+
+#### exemple
+
+```
+  pilots = [
+    {
+      id: 2,
+      name: 'Wedge Antilles',
+      faction: 'Rebels',
+    },
+    {
+      id: 8,
+      name: 'Ciena Ree',
+      faction: 'Empire',
+    },
+    {
+      id: 40,
+      name: 'Iden Versio',
+      faction: 'Empire',
+    },
+    {
+      id: 66,
+      name: 'Thane Kyrell',
+      faction: 'Rebels',
+    },
+  ];
+
+  const rebels = pilots.filter((p) => p.faction === 'Rebels');
+  const empire = pilots.filter((p) => p.faction === 'Empire');
+```
+
+### entries
+
+<pre>
+s'applique sur objet itérable style 'tableau' mais pas un objet.
   Pour un tableau de valeur, permet de remonter l'index + valeur.
   s'utiliser avec for...of.
-- includes : permet de trouver un élément dans un tableau (chaine de caractère)
-- splice : supprimer ou ajouter un élément dans le tableau.
+</pre>
+
+### includes
+
+<pre>
+permet de trouver un élément dans un tableau (chaine de caractère)
+</pre>
+
+### push
+
+<pre>
+ajout un élément à la fin du tableau
+</pre>
+
+### pop
+
+<pre>
+supprime un élément à la fin du tableau
+</pre>
+
+### reduce
+
+#### principe
+
+<pre>
+* générer une simple valeur à partir d'un tableau
+* passe le résultat du callback (l’accumulateur) d’un élément de tableau à l’autre.
+</pre>
+
+#### exemple
+
+```
+  // pilote avec leurs nombre d'années d'expérience
+  var pilots = [
+    {
+      id: 10,
+      name: 'Poe Dameron',
+      years: 14,
+    },
+    {
+      id: 2,
+      name: "Temmin 'Snap' Wexley",
+      years: 30,
+    },
+    {
+      id: 41,
+      name: 'Tallissan Lintra',
+      years: 16,
+    },
+    {
+      id: 99,
+      name: 'Ello Asty',
+      years: 22,
+    },
+  ];
+
+  // avoir le nombre total d'années d'experience
+  const nbYearsTotal = pilots.reduce(
+    (accumulator, p) => p.years + accumulator,
+    0
+  );
+  console.log('nb years total = ', nbYearsTotal);
+
+  // nombre d'années d'experience moyenne
+  const average =
+    pilots.reduce((accumulator, p) => p.years + accumulator, 0) / pilots.length;
+  console.log('average = ', average);
+
+  // pilote avec le plus d'experience
+  const mostExperiencePilot = pilots.reduce(
+    (oldest, p) => (p.years > (oldest.years || 0) ? p : oldest),
+    {}
+  );
+```
+
+### slice
+
+<pre>
+* réalise une copie
+* supprimer ou ajouter un élément dans le tableau.
+</pre>
 
 ## Paramètre par défaut de fonction
 
@@ -164,23 +349,6 @@ Permet de passer une fonction 2 en paramètre d'une autre fonction 1.
 Fonction 2 exécuter au moment de l'appel de la fonction 1
 Dans quel cadre une fonction de rappel est utilisée ?
 Pour réaliser des traitements avant le lancement d'une autre fonction.
-
-## Promise / Fonction asynchrone
-
-<pre>
-* Fonction qui se déroule de façon asynchrone
-* permet d'évitéer les callbacks successifs et leur imbrication
-</pre>
-
-```
-const promise = new Promise(function (resolve, reject) {
-  resolve('Tout va bien');
-});
-console.log('Promise = ', promise);
-promise.then(function (res) {
-  console.log('res = ', res);
-});
-```
 
 ## Import && Export
 
@@ -221,12 +389,21 @@ console.log('value 2 = ', value);
 
 ## Object
 
+### structure
+
 ```
+// structure
 const user = {
-    firstName='titi';
+    firstName:'titi';
+    surName: 'gogo'
 }
-// ajouter/modifier un attribut
+```
+
+### ajouter/modifier un attribut
+
+```
 user.lastName = 'toto';
+
 // supprimer un attribut
 delete user.firstName;
 ```
@@ -241,9 +418,37 @@ const monClone = Object.assign({}, objToClone, {c:3});
 // spred operator
 const objToClone = {a:1, b:2};
 const monClone = {...objToClone, c:3, d:4};
-
-
 ```
+
+### Objects
+
+<pre>
+* permet de manipuler un objet
+</pre>
+
+#### keys/ values
+
+<pre>
+const user = {
+    firstName:'titi';
+    surName: 'gogo'
+}
+
+const key = Object.keys(monObjet)[0];
+key => 'firstName'
+
+const value = Object.keys(monObjet)[0];
+value = 'titi';
+
+</pre>
+
+#### entries
+
+<pre>
+const [key, value] = Object.entries(monObjet)[0];
+key => 'firstName';
+value = 'titi';
+</pre>
 
 ## Prototype
 
