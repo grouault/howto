@@ -78,7 +78,7 @@ Exploité dans la librairie: spring-beans
 <pre>
 Permet de faire :
 - l'injection de dépendance en utilisant l'attribut ref.
-- cet attribut référence un autre l'id d'un autre bean
+- cet attribut référence un autre id d'un autre bean
 </pre>
 
 ##### value

@@ -2,14 +2,6 @@
 
 [retour](../index-spring.md)
 
-## http - définition
-
-## [protocole http](./http/protocole-http/protocole-http.md)
-
-### [session-http](./http/connexion-session-cookies/sessions-http.md)
-
-### [jwt-http](./http/connexion-jwt/notes-jwt.md)
-
 ## spring-security
 
 ### théorie

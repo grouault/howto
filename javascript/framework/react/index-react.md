@@ -6,10 +6,14 @@
 
 - [fondamentaux](formation/n0.react-fondamentaux.md)
 - [cours](formation/n1-react-cours.md)
-- [hook](formation/hook.md)
+- [hook](formation/cours/hook.md)
 - [Formulaire](formation/cours/formulaire.md)
 - [react-router](formation/cours/react-router.md)
 - [axios](formation/cours/axios.md)
+
+### Components
+
+- [components](formation/components/components.md)
 
 ### es6-es9
 

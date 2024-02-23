@@ -54,7 +54,6 @@ ctrl shift p : commande palette
 ctrl shift 'k' : supprimer une ligne
 ctrl 'g' : accéder à la ligne/colonne
 </pre>
-
 ### Paramètre
 
 <pre>

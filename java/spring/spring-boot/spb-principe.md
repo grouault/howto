@@ -1,8 +1,8 @@
-## Spring-Boot
+# Spring-Boot
 
 [retour](./spb-index.md)
 
-### principe
+## principe
 
 <pre>
 Convention over configuration
@@ -12,14 +12,33 @@ Convention over configuration
 
 ![archispring](./img/3-spring-boot.PNG)
 
+### fatjar
 <pre>
-- Fatjar: le build embarque un serveur d'application
-- Starter: spring/maven importe les dépendances pour les briques utilisées (web, data...)
+Fatjar: le build embarque un serveur d'application
 </pre>
 
-#### @SpringBootApplication
+#### ContextPath
+<pre>
+contextPath = ""
+- identifie le serveur Tomcat 
+- identifie l'application
+Car on a qu'une application sur le tomcat
+</pre>
 
-##### pom: autoconfigure
+### starter
+<pre>
+Starter: spring/maven importe les dépendances pour les briques utilisées (web, data...)
+Avec le <b>starter</b>, l'infrastructure est embarquée pour démarrer la fonctionnalité.
+Une implémentation par défaut est utilisé.
+Cela permet d'éviter les erreurs de type:
+* NoClassDefoundError
+* NoSuchMethodExeption
+car une implémentation par défaut est présente.
+</pre>
+
+### @SpringBootApplication
+
+#### pom: autoconfigure
 
 ```
   <dependency>
@@ -29,7 +48,7 @@ Convention over configuration
   </dependency>
 ```
 
-##### principe
+#### principe
 
 <pre>
 L'annotation @SpringBootApplication inclue les annotations
@@ -57,31 +76,92 @@ args: argument de la machine virtuelle pour configurer SpringBoot au besoin.
 
 </pre>
 
-##### @EnableAutoConfiguration
+### @EnableAutoConfiguration
 
 <pre>
-Avec cette annotatin, Spring va partir à la recherche dans les librairies
-du projet de certaines classes annotées @Configuration.
+D'une part, il faut différencier:
+* la config applicative (celle de notre application)
+* la configuration des autres packages, des dépendances: autoconfiguration
 
-Ces classes qui ne sont pas dans nos packages ne sont pas détectés par le @ComponentScan.
+La configuration applicative est prioritaire.
+La configuration automatique ne s'applique que si un bean n'existe pas.
+
+Avec cette annotation, Spring va partir à la recherche dans les <b>librairies
+du projet</b> de certaines classes annotées <b>@Configuration</b>.
+
+Ces <b>classes</b> qui <b>ne sont pas dans nos packages</b> ne sont pas détectés par le <b>@ComponentScan</b>.
+
+<i>Exemple: Configuration du parent </i>
 Pour la configuration automatique du tomcat par exemple, c'est une configuration détectée
 dans une classe de la dépendance <i>spring-boot-starter-web</i> qui est recherchée.
-Cette classe fait le travail de configuration du tomcat. 
+Cette classe fait le travail de <b>configuration</b> du tomcat. 
+
+IMPORTANT: 
+Qu'est ce qui fait que Spring-Boot va créer ou non les beans?
+@ConditionalOnMissingBean
+@ConditionalOnClass
+@ConditionalOnBean
 </pre>
 
-#### application.properties
+#### AutoConfigure
 
+##### principe
 <pre>
-SpringBoot fait bien plus que lancer une classe exécutable
-Par défaut SpringBoot essaie de trouver un fichier de ressource application.properties à la racine du classpath.
-Pas besoin de déclarer ce fichier.
-</pre>
+La configuration automatique ne s'applique que sur des infrastructures
+connues de spring-boot
+
+Toutes les classes de configurations à scanner et qui
+vont être traités se trouve dans la dépendance:
+
+<b>org.springframework.boot.autoconfigure</b>
+
+Dans le jar, il faut consulter le fichier
+
+META-INF/Spring/
+  org.springframework.boot.autoconfigure.AutoConfigurationImport
+
+Ancien mode:
+spring.factories(spring.properties??) : la liste des fichiers étaient dans une variable
 
 </pre>
 
-### spb et maven
+##### création
+<pre>
+Il est possible de se créer ses propres classes d'autoconfiguration
 
-#### gestion du cycle de vie de l'application avec maven
+Il faut créer:
+- sa classe de configuration hors de la config applicative
+- recréer dans le folder Resource, la structure :
+
+META-INF/Spring/
+  org.springframework.boot.autoconfigure.AutoConfigurationImport
+
+</pre>
+
+#### @ConditionalOnMissingBean
+<pre>
+s'exécute que si dans le context de Spring, cet objet
+n'existe pas en tant que bean
+
+Exemple: 
+ProrpertyPlaceHolderConfigurer:
+  => spring-context => autoconfigure
+</pre>
+
+#### @ConditionalOnClass
+<pre>
+test si des classes sont dans le classpath
+</pre>
+
+#### @ConditionalOnBean
+<pre>
+Est crée qui si le bean est dans le classPath
+Donc, le starter est définit.
+</pre>
+
+## spb et maven
+
+### gestion du cycle de vie de l'application avec maven
 
 <pre>
 La gestion est assuré par les starters
@@ -103,7 +183,7 @@ managed dependencies:
 Le starter Web, permet par exemple de démarrer un tomcat.
 </pre>
 
-#### questions
+### questions
 
 #### Question 1:
 
@@ -141,9 +221,9 @@ La réponse est liée à la section suivante et au plugin maven.
 Il facilite le build, le déploiement et l'exécution de l'application.
 </pre>
 
-#### spring-boot-maven-plugin
+### spring-boot-maven-plugin
 
-##### pom.xml
+#### pom.xml
 
 ```
 <build>
@@ -189,9 +269,9 @@ dans le packaging:
 
 </pre>
 
-### spb web starter
+## spb web starter
 
-#### pom.xml
+### pom.xml
 
 ```
 <dependency>
@@ -200,7 +280,7 @@ dans le packaging:
 </dependency>
 ```
 
-#### principe
+### principe
 
 <pre>
 Rien n'empêche une appli java de démarrer un conteneur de servlet
@@ -215,7 +295,7 @@ Deux questions:
 	quand on modifie le contenu static?
 </pre>
 
-#### fichier static
+### fichier static
 
 <pre>
 urls:
@@ -227,7 +307,7 @@ mettre les pages dans un répertoire
 	- index.html
 </pre>
 
-#### configurer un autre serveur que tomcat
+### configurer un autre serveur que tomcat
 
 ```
 <dependency>
@@ -247,6 +327,55 @@ mettre les pages dans un répertoire
 </dependency>
 ```
 
-### application.properties
+## application.properties
 
 <a href="https://docs.spring.io/spring-boot/docs/current/reference/html/application-properties.html" target="_blank">liste des propriétés</a>
+
+
+<pre>
+* Fichier de ressource application.properties à la racine du classpath.
+* sert à stocker les clés techniques
+
+S'il est nécessaire d'ajoute des clés particulières, il faut les 
+enregistrer de la manière suivante :
+
+Ressources/META-INF/
+  additional-spring-configuration-metadata.json
+==> Voir exemple dans un starter
+
+Pour tout ajout de clés métier et non technique, et qui ressort
+de la configuration applicative, il faut utiliser un autre 
+fichier de propriétés.
+</pre>
+
+## logs
+<pre>
+Autoconfiguration: 
+la configuration est portée par défaut par une configuration embarquée
+par défaut c'est logback.xml qui est configuré.
+</pre>
+
+## starters
+
+### spring.cloud
+<pre>
+infrastructure proposé par Spring Boot pour mettre en oeuvre une architecture MicroService.
+Solution sur plusieurs serveurs distribuées à base de micro-services (redondance service, partage de charge)
+</pre>
+
+### hateoas
+<pre>
+* embarque les liens des entités liées
+* n'embarque pas les structures JSons des entitiés associées
+</pre>
+
+### halexplorer
+<pre>
+swagger: contrôleur explicite
+halexplorer: contrôleur implicite créé par Spring
+</pre>
+
+## profiles
+<pre>
+spring.profiles.active=dev
+</pre>

@@ -7,8 +7,8 @@ dangereux, consommateur en terme de ressource
 
 jamais indexer, jamais enregistrer par git
 
-racine du dépot : > .gitignore
-stocke les fichiers, type de fichier ou patterne de fichier à ignorer
+racine du dï¿½pot : > .gitignore
+stocke les fichiers, type de fichier ou patterne de fichier ï¿½ ignorer
 config.json
 *.log
 build/

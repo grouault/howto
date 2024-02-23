@@ -13,14 +13,10 @@
 - [requêtage](notes/requetage.md)
 
 ### Spring-Environnement
-
-- [config-orm](spring/config-orm.md)
-- [config-sgbd](spring/config-sgbd.md)
+- [config-hibernate(spring-maven)](spring/config-hibernate.md)
+- [config-orm(théorie)](spring/config-orm.md)
 - [config-log](spring/config-log.md)
-
-### Spring-data
-
-[spring-data](../spring/spring-data/spring-data.md)
+- [spring-data](../spring/spring-data/spring-data.md)
 
 ### application movie
 

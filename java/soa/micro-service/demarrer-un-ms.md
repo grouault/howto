@@ -4,7 +4,7 @@
 
 #### 1- Spring Boot librairie
 
-Les librairies maven � installer :
+Les librairies maven 0 installer :
 
 ```
 	* Spring-web
@@ -18,15 +18,18 @@ Les librairies maven � installer :
 #### 2 Couche DAO
 
 ##### 2.1 Composant de couche DAO
+<pre>
+Spring Data et JPA pour faciliter le mapping objet/Relationnel
 
-    - Base de donn�es H2
-    - Entity JPA
-    - ProduitRepository : utilisation de l'impl�mentation SpringData bas� sur JPA (JpaRepository)
-    - JPA est une impl�mentation : utilisation de l'impl�mentation Hibernate
+	- Base de donn2es H2
+	- Entity JPA
+	- ProduitRepository : utilisation de l'implémentation SpringData basé sur JPA (JpaRepository)
+	- JPA est une implémentation : utilisation de l'implémentation Hibernate
+</pre>
 
 ##### 2.2 entity
 
-> Cr�er l'entit� JPA avec Lombok, annotation JPA
+> Créer l'entité JPA avec Lombok, annotation JPA
 
 ```
 @Entity
@@ -44,7 +47,8 @@ public class Produit {
 
 ##### 2.2 reposoitory
 
-> Repository Spring Data : cr�ation d'une interface qui h�rit� de JpaRepository (mapping objet-relationnel se fait � ce nivau l�)
+> Repository Spring Data : création d'une interface qui hérite de JpaRepository 
+	(mapping objet-relationnel se fait à ce nivau là)
 
 - RestController
 
@@ -63,22 +67,38 @@ public interface ProduitRepository extends JpaRepository<Produit, Long> {
 }
 ```
 
-#### 3- Couche Web
+#### 3- Couche Service
 
-##### 3.1- RestController
+##### DTO
+<pre>
+Les entités JPA sont des objets lourds.
+Ils sont surveillés par le framework en mémoire.
+Ce sont donc des objets qui consomment de la ressource et on a pas
+intérêt à ce qu'il se trouve au niveau de la couche web.
 
-    * Cr�ation d'une classe ProduitRestService avec l'annotation @RestController
-    * Injection des d�pendance sur le repository
-    * Cr�ation des m�thodes REST
+DTO; objet plus léger adapté à la partie UI :
+- supprimer les attributs inutiles
+- les relations
+- les annotations
+</pre>
 
-##### 3.2- Spring Data Rest
 
-    * Toutes les m�thodes accessibles via JpaRepository sont accessibles via RESTfull via un WebService
-    * Le WS permet d'acc�der aux fonctionnalit�s expos�es par l'interface JpaRepository.
+#### 4- Couche Web
 
-#### 4 Configuration
+##### 4.1- RestController
 
-#### 4.1 application.properties
+    * Création d'une classe ProduitRestService avec l'annotation @RestController
+    * Injection des dépendance sur le repository
+    * Création des méthodes REST
+
+##### 4.2- Spring Data Rest
+
+    * Toutes les méthodes accessibles via JpaRepository sont accessibles via RESTfull via un WebService
+    * Le WS permet d'accéder aux fonctionnalités exposées par l'interface JpaRepository.
+
+#### 5 Configuration
+
+#### 5.1 application.properties
 
 > La configuration se fait dans le fichier de configuration application.properties
 
@@ -87,9 +107,9 @@ spring.datasource.url=jdbc:h2:mem:testDB
 server.port=8082
 ```
 
-#### 4.2 annotation config
+#### 5.2 annotation config
 
-> Pour instancier certains composants aux d�marrage de l'application si n�cessaire
+> Pour instancier certains composants aux démarrage de l'application si nécessaire
 
 ```
 @Configuration
@@ -111,30 +131,28 @@ public class MyConfig {
 	    return xmlConverter;
 	}
 
-
-
 }
 ```
 
-#### 5 Application
+#### 6 Application
 
 > Un WebService est une application qui doit booter rapidement.
 
-##### 5.1 Cr�er et lancer l'application
+##### 6.1 Créer et lancer l'application
 
 ```
-	* Cr�er une classe application qui contient la m�thode main
+	* Créer une classe application qui contient la méthode main
 
 	* SpringBoot fournit une Classe, une application @SpringBootApplication dans lequel on a le code:
 		SpringApplication.run( ... )
 
-	* Spring d�marre alors l'application :
-		- scanne les classes pour d�tecter les annotations
+	* Spring démarre alors l'application :
+		- scanne les classes pour détecter les annotations
 		- lit le fichier de properties pour configurer le ms
-		- essaie de d�marrer en un minimum de temps
+		- essaie de démarrer en un minimum de temps
 ```
 
-##### 5.2 Exemple
+##### 6.2 Exemple
 
 ```
 @SpringBootApplication

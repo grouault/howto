@@ -1,0 +1,183 @@
+{
+  "main": {
+    "id": "111d9084ff4350fc",
+    "type": "split",
+    "children": [
+      {
+        "id": "9c51f94ae24b6db1",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "80b0f5de7e627386",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "java/hibernate/spring/config-hibernate.md",
+                "mode": "preview",
+                "source": false
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "78fc1f3d2bab7ece",
+    "type": "split",
+    "children": [
+      {
+        "id": "2bfcf94289a2bbee",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "a88f51cefb87ce7d",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical"
+              }
+            }
+          },
+          {
+            "id": "a0e157dbbb9313d2",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "tag",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              }
+            }
+          },
+          {
+            "id": "1c3807b82c1eb1fb",
+            "type": "leaf",
+            "state": {
+              "type": "bookmarks",
+              "state": {}
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "right": {
+    "id": "25649e30fdf7ebf7",
+    "type": "split",
+    "children": [
+      {
+        "id": "445a3d0c96cb322b",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "3f25bf28fe97ea1c",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "java/hibernate/spring/config-hibernate.md",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              }
+            }
+          },
+          {
+            "id": "fe37d4cb5ff76448",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "file": "java/hibernate/spring/config-hibernate.md",
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              }
+            }
+          },
+          {
+            "id": "a1f4551d4444ac3b",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true
+              }
+            }
+          },
+          {
+            "id": "c28eb3b596e1ebc3",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "file": "java/hibernate/spring/config-hibernate.md"
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "switcher:Ouvrir le sélecteur rapide": false,
+      "graph:Ouvrir la vue graphique": false,
+      "canvas:Créer une nouvelle toile": false,
+      "daily-notes:Ouvrir la note quotidienne": false,
+      "templates:Insérer le modèle": false,
+      "command-palette:Ouvrir la palette de commandes": false
+    }
+  },
+  "active": "80b0f5de7e627386",
+  "lastOpenFiles": [
+    "java/hibernate/index.md",
+    "java/hibernate/notes/principe.md",
+    "java/index-java.md",
+    "index-howto.md",
+    "javascript/framework/react/formation/cours/hook.md",
+    "javascript/framework/react/formation/orsys/notes.md",
+    "javascript/framework/react/index-react.md",
+    "javascript/framework/next.js/next.js.md",
+    "java/reactor/WebFlux.md",
+    "java/reactor/img/publisher-consumer.PNG",
+    "git/base/git-checkout.md",
+    "git/branche/git-branch.md",
+    "git/utils/git-clean.md",
+    "git/utils/git-ignore.md",
+    "git/how-to-config-proxy.md",
+    "git/commande_de_base.md",
+    "java/spring/spring-mvc/spring-mvc.md",
+    "java/spring/spring-mvc/rest-mvc.md",
+    "java/soa/micro-service/demarrer-un-ms.md",
+    "java/reactor/img",
+    "java/reactor/Nouveau dossier",
+    "java/reactor",
+    "java/Nouveau dossier",
+    "html/cours/css/notes-css.md",
+    "java/jse/java8features/streamApi/notes-stream.md",
+    "javascript/framework/react/formation/orsys/notes-jours2.md",
+    "javascript/framework/react/formation/cours/formulaire.md",
+    "javascript/langage/typescript/typescript.md",
+    "javascript/index-js.md",
+    "java/spring/spring-boot/spb-utils.md",
+    "java/spring/spring-boot/spb-index.md"
+  ]
+}

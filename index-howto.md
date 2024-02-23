@@ -16,8 +16,6 @@
 
 ### [git](./git/)
 
-### [virtualisation](./virtualisation/virtualisation.md)
-
 ### [sgbd](./sgbd/)
 
-### [systeme](./systeme/)
+### [systeme](./systeme/index-systeme.md)

@@ -15,6 +15,17 @@
 * Spring data propose donc un mécanisme pour avoir le moins de code à maintenir
 </pre>
 
+
+## Annotations
+<pre>
+Dans la classe configuration (@Configuration), il convient d'utiliser
+les annotation suivantes :
+
+<b>@EnableTransactionManagement</b>: prendre en compte les transactions dans JPA
+<b>@EnableJpaRepositories</b>: prendre en compte les repose JPA - SpringData
+==> Classe qui étende JPARepository
+</pre>
+
 ## persistance
 
 ### principe
@@ -28,7 +39,7 @@ Sans Spring-Data, on est obligé de faire la configuration
 
 Spring-Data permet de s'affranchir de cette configuration.
 
-Le fichier <b><a href="./hibernate/persistance-config.java" target="_blanck">persistence-config</a></b>
+Le fichier <b><a href="../../hibernate/spring/config/persistance-config.java" target="_blank">persistence-config</a></b>
 peut être remplacé par des propriétés du fichier application.properties
 
 Du fichier PersistenceConfig, les <b>annotations</b> suivantes sont activées automatiquement
@@ -81,7 +92,7 @@ spring.jpa.hibernate.ddl-auto=none | validate | create | update | create-drop
 
 <pre>
 Fichier JPA / Hibernate :
-<b><a href="./hibernate/persistance-config.java" target="_blanck">MovieRepositoryTest</a></b>
+<b><a href="../../hibernate/spring/tests/MovieRepositoryTest.java" target="_blanck">MovieRepositoryTest</a></b>
 
 en Spring-Data : On a plus besoin des annotations:
 - @ContextConfiguration
@@ -155,6 +166,19 @@ public interface MedecinRepository extends JpaRepository<Medecin, Long> {
     List<MovieDetails> findAll();
 }
 ```
+
+##### Par exemplaire: @Exemple
+<pre>
+Le principe n'est de remonter dans la requête que les exemplaires
+valorisés des occurences que l'on recherche.
+</pre>
+
+###### Exemple
+```
+// on recherche un livre dont seul l'année est renseigné.
+repository.findAll (Example.of(new Livre(null, 1991, "auteur"))
+```
+
 
 #### requête complexe
 

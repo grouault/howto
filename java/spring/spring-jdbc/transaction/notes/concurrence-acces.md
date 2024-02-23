@@ -106,6 +106,12 @@ Recouvrable <== Eviter les annulation en cascade <== stricte
 
 ![isolation](../img/isolation-level.PNG)
 
+### READ UNCOMMITED
+<pre>
+* niveau d'isolation où voir les changements d'isolation est autorisé.
+* pas conseillé, assez dangereux
+</pre>
+
 ### READ COMMITED
 
 <pre>
@@ -138,12 +144,45 @@ set transaction isolation level read committed;
 set transaction isolation level repeatable read;
 set transaction isolation level serializable;
 ```
+<pre>
+* non implémenté par certaines bases:
+  - POSTGRE
+</pre>
 
-## 5- Hibernate
+
+## 5- Lock
+
+### Lock
+
+#### principe
+<pre>
+* 2 transactions différentes qui s'exécute au même moment:
+- T1 et T2 modifie le même enregistrement 
+- T1 pause un verrou sur l'enregistrement et génère donc un lock
+  de l'enregistrement.
+- T2 sera bloqué jusqu'à :
+  - commit ou rollback de T1
+  - ou au timeout de Transaction
+</pre>
+
+#### isolation
+<pre>
+<b>read-committed</b>: 
+==>la dernière transaction aura raison
+
+<b>repeatable-read</b>: sera en erreur
+<b>serialisazble</b>: sera en erreur
+==> ERREUR: n'a pas pu sérialiser un accès à cause d'une mise à jour en parallèle
+</pre>
 
 ### dead-lock
 
 #### problématique
+<pre>
+* un deadlock, c'est quand deux transactions veulent un verrou que l'autre possède.
+</pre>
+
+#### hibernate
 
 <pre>
 hibernate peut faire du dead-lock
@@ -175,7 +214,7 @@ Adapté à ce qui est CRUD, dans un environnement où les modifs sont peu nombre
 et  qu'il y a peu de concurrence d'accès.
 </pre>
 
-#### Solution - hibernate
+#### Hibernate
 
 <pre>
 * mettre une gestion de version sur l'entité

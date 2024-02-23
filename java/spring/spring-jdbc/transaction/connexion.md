@@ -47,6 +47,11 @@ Pour obtenir une connexion, il faut:
   Ce chargement permmet alors l'établissement d'une connexion.
 
 2- Récupération de la Connexion
+
+<b>Important :</b>
+On met le driver au scope Runtime pour MySQL.
+On n'utilise pas directement les classes du driver dans le code.
+<a href="../../spring-boot/spb-utils.md#config-par-base" target="_blank">driver</a>
 </pre>
 
 ```
@@ -112,7 +117,7 @@ Connection connection = DriverManager.getConnection("jdbc:mysql://localhost/test
     pas adapaté en environnement multithread.
 </pre>
 
-- config Spring
+##### xml
 
 ```
     <bean id="dataSource" destroy-method="close" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
@@ -121,9 +126,94 @@ Connection connection = DriverManager.getConnection("jdbc:mysql://localhost/test
         <property name="username" value="${db.login}" />
         <property name="password" value="${db.password}" />
     </bean>
+
 ```
 
+##### java-config
+```
+    @Bean
+    public DataSource dataSource() {
+        DriverManagerDataSource dataSource = new DriverManagerDataSource();
+        dataSource.setDriverClassName("org.postgresql.Driver");
+        dataSource.setUrl(dataBaseUrl);
+        dataSource.setUsername("postgres");
+        dataSource.setPassword("admin");
+        return dataSource;
+    }
+
+    ou
+
+	@Bean
+	public DataSource getDataSource(){
+        DataSourceBuilder<?> dataSourceBuilder = DataSourceBuilder.create();
+        dataSourceBuilder.driverClassName("org.postgresql.Driver").url(dataBaseUrl).username("postgres").password("admin");
+        return dataSourceBuilder.build();
+	
+	}
+```
+
+#### spring-boot
+
+##### principe
+
+<pre>
+Pour obtenir une connexion, il faut au minimum la librairie
+spring-jdbc que l'on peut obtenir avec les dépendances:
+- JDBC API
+- Spring Data JPA
+- Spring Data JDBC
+
+La dépendance ajoutée dans le pom est la suivante;
+spring-boot-starter-jdbc
+
+
+</pre>
+
 #### pool de Connexion
+
+##### principe
+
+<pre>
+Comment va-t-on obtenir une connexion à la base?
+On exploite une datasource, avec un pool de connexion, instancier par Spring.
+Une seule instance de datasource comme il se doit pour toute l'application
+
+Il faut dire à Spring comment instancier la datasource
+<b>Spring :</b>
+- fichier xml
+- java-config via un bean de configuration
+    <i>
+	@Bean
+	public DataSource getDataSource(){
+        DataSourceBuilder<?> dataSourceBuilder = DataSourceBuilder.create();
+        dataSourceBuilder.driverClassName("org.postgresql.Driver").url(dataBaseUrl).username("postgres").password("admin");
+        return dataSourceBuilder.build();
+	
+	}
+    </i>
+
+<b>SpringBoot :</b>
+L'Autoconfiguration permet de paramètrer une datasource par défault
+Spring-Boot: permet de faire cela nativement.
+Spring dispose déjà un bean de configuration capable d'instancier une datasource
+sur la base de propriétés se trouvant dans le fichier application.properties
+
+* permet de se passer du fichier java.config quand on a une seule classe de configuration.
+
+<a href="../../spring-boot/spb-utils.md#base-de-données" target="_blank">Spring-Boot</a>
+
+Exemple:
+<i>
+spring.datasource.url=jdbc:mysql://localhost:3306/dvdstore?useSSL=false
+spring.datasource.username=dvdstore
+spring.datasource.password=1234
+spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
+</i>
+
+Par défaut, Spring-boot tire le pool de connexion HikariCP
+Tiré automatiquement par le starter spring-boot-starter-jdbc
+
+</pre>
 
 ##### Apache DBCP
 

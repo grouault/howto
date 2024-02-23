@@ -4,6 +4,16 @@
 
 - [liste des @annotations](./spring-configuration-annotation/index.md)
 
+## principe
+<pre>
+Le règles à repecter peuvent être les suivantes:
+* @Component: pour créer les composants applicatifs
+* @Value: pour configurer les composants applicatifs à partir
+  de @PropertyPlaceHolder
+* @Configuration: pour créer des beans Spring qui nous permettent
+  d'utiliser une fonctionnalité proposé par Spring.
+</pre>
+
 ## Injection via les annotations
 
 ### @Autowired injection des dépendances
@@ -45,6 +55,15 @@ sans l'injection des composants enfants.
 * S'utilise pour injecter une valeur dans une propriété avec une clé de configuration
 * la clé de configuration pointe sur une valeur stockée dans un fichier de propriété
 </pre>
+
+```
+<bean id="adresse1" class="com.exo.beans.Adresse">
+  <property name="rue" value="${addr1.rue}" />
+  <property name="codePostal" value="${addr1.codePostal}" />
+  <property name="ville" value="${addr1.ville}" />
+  <property name="pays" value="${addr1.pays}" />
+</bean>
+```
 
 ## Stéréotype
 
@@ -97,11 +116,13 @@ scanner au niveau des types de composants:
 
 #### Scan à partir de fichier Java
 
-##### Annotation
+##### Annotation: @ComponentScan
 
+###### Principe
 ```
 // stereotype
 @ComponentScan("com.banque")
+* récursivité sur le package et les sous-packages
 ```
 
 ##### Exemple

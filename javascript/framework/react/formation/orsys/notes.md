@@ -138,42 +138,6 @@ console.log(f, g); // 5 6
     * interface pour typer les props
 </pre>
 
-## RENDER : Dom Virtuel et State
-
-<pre>
-* Mise à jour du state
-* Pour modifier le DOM, on passe par le State
-* Le state met à jour le DOM Virtuel qui met à jour le DOM
-* Important : Différence entre réinterpréter et réafficher dans le DOM
-    * la réinterprétation n'est pas problèmatique pour REACT 
-      - elle ne coûte pas chère.
-    * l'affichage du DOM coûte plus chère
-    REACT peut donc interpréter moulte fois le code, il ne réaffiche que 
-        les élements HTMLs qui ont été modifiés  
-
-*<b> Attention </b>, dans la méthode RENDER, à chaque rerendu : : 
-    - Pour un objet de style présent, recréation d'un objet mis en mémoire 
-    - Pour une arrow function, nouvelle référence mise en mémoire   
-</pre>
-
-### uuid
-
-<pre>
-Le pouvoir de React réside dans son processus de réconciliation robuste. 
-
-Lorsque nous utilisons JSX pour créer ou mettre à jour des composants, 
-React crée son propre DOM virtuel. 
-Il compare ce DOM virtuel au DOM réel dans le navigateur, calculant 
-le moins de changements nécessaires pour mettre à jour le DOM réel 
-pour correspondre au DOM virtuel. 
-
-Parfois, nous utilisons plusieurs instances du même composant au même endroit. 
-Comme les multiples instances d’un composant 'TodoItem' dans un composant 'TodoList'. 
-Lorsque cela se produit, les clés uniques sont très importantes, car elles permettent 
-à React de différencier ces composants similaires, et de cibler ceux qui peuvent 
-avoir besoin d’être mis à jour individuellement, au lieu de les ré-afficher tous.
-</pre>
-
 ## Autres
 
 <pre>

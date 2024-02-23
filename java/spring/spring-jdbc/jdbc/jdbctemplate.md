@@ -4,13 +4,13 @@
 
 ## url
 
-[doc.spring](https://docs.spring.io/spring/docs/4.1.x/spring-framework-reference/html/jdbc.html#jdbc-JdbcTemplate-idioms)
+<a href="https://docs.spring.io/spring/docs/4.1.x/spring-framework-reference/html/jdbc.html#jdbc-JdbcTemplate-idioms" target="_blank">docs spring</a>
 
 ## Problématique
 
 <pre>
 Une opération JDBC de mise à jour ou de consultation nécessite plusieurs opérations qui sont répétitives.
-Spring JDBC offrent des méthodes templates qui :
+<b>Spring JDBC</b> offrent des méthodes templates qui :
 * prennent en charge la procédure globale
 * de remplacer les phases qui nous intérèsse
 </pre>
@@ -27,7 +27,39 @@ Spring JDBC offrent des méthodes templates qui :
 
 * Pour la phase d'extraction des données, plusieurs manières sont proposés.	
 
+
+Que fait JdbcTemplate:
+- effectue les requêtes
+- exploite la datasource
+- en récupère une connexion
+- gère les potentiels erreurs
 </pre>
+
+## pom.xml
+
+<pre>
+JdbcTemplate est une classe de <b>Spring-Jdbc</b>
+Il faut donc la dépendance associée
+</pre>
+
+### Spring
+
+```
+<dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-jdbc</artifactId>
+      <version>5.2.6.RELEASE</version>
+</dependency>
+```
+
+### Spring-boot
+
+```
+<dependency>
+	<groupId>org.springframework.boot</groupId>
+	<artifactId>spring-boot-starter-jdbc</artifactId>
+</dependency>
+```
 
 ## Transaction et Connexion
 
@@ -107,7 +139,7 @@ Ainsi pour bénéficier des transactions sur du code spring-jdbc, il faut :
 ### Gestion de la connection
 
 <pre>
-- La connexion est gérée par la classe JdbcTemplate
+- La <b>connexion</b> est gérée par la classe JdbcTemplate
 - Toutes les méthodes n'ont pas besoin de la connexion mais y accède via jdbctemplate
 - Certaines méthodes prennent en paramètre la connexion (classe anonyme), mais sont appelées par des méthodes
   de jdbctemplate
@@ -137,21 +169,22 @@ protected PreparedStatement buildStatementForInsert(IOperationEntity pUneEntite,
 }
 ```
 
-### Sans Spring
+### sans injection
 
 <pre>
 * il faut créer explicitement l'instance de JdbcTemplate en passant l'objet dataSource
 </pre>
 
-### Avec Spring
-
-#### injection classique
+### injection JdbcTemplate
 
 <pre>
 * la création d'une nouvelle instance de JdbcTemplate à chaque utilisation est peu efficace.
 * la classe JdbcTemplate est conçue pour être sûr vis à vis des threads.
 * il faut donc en créer une seule instance dans le conteneur et l'injecter au besoin.
+
 </pre>
+
+##### xml
 
 ```
 <!-- spring jdbc -->
@@ -165,14 +198,42 @@ protected PreparedStatement buildStatementForInsert(IOperationEntity pUneEntite,
 </bean>
 ```
 
-#### JdbcDaoSupport - getJdbcTemplate
+##### annotation
+
+<pre>
+Les requêtes sont utilisées dans les composants Repository.
+@Repository donne accès à un objet JdbcTemplate
+</pre>
+
+```
+@Autowired
+private JdbcTemplate jdbcTemplate;
+```
+
+### injection DataSource Constructeur
+
+<pre>
+En injectant la <b>dataSource</b> par le constructeur, on a 
+plus besoin d'injecter le JdbcTemplate
+</pre>
+
+```
+		// injection par le constructeur
+    @Autowired
+    BdMovieRepositoryImpl(DataSource dataSource) {
+        setDataSource(dataSource);
+    }
+```
+
+### JdbcDaoSupport - getJdbcTemplate()
 
 <pre>
 * faire en sorte que les DAO étendent la classe JdbcDaoSupport
-* plus besoin de créer un bean JdbcTemplate
+* les daos peuvent alors utiliser la méthode : <b>getJdbcTemplate()</b>
 
 <b>Important :</b>
-* les daos peuvent alors utiliser la méthode : <b>getJdbcTemplate()</b>
+* il faut injecter la DataSource dans le constructeur
+	=> plus besoin alors de créer un bean JdbcTemplate.
 </pre>
 
 ```
@@ -182,11 +243,24 @@ protected PreparedStatement buildStatementForInsert(IOperationEntity pUneEntite,
 </bean>
 ```
 
-#### NamedParameterJdbcDaoSupport
+### NamedParameterJdbcDaoSupport
 
 <pre>
 * faire hériter les DAO de cette classe pour avoir la fonctionnalité qui permet 
 	d'utiliser des paramètres nommés dans un template JDBC
+</pre>
+
+## Jdbc-Template udpate
+
+<pre>
+jdbcTemplate.update( ... )
+Similaire au executeUpdate de Jdbc.
+
+<b>Permet de faire l'ajout / modification / suppression</b>
+
+- Permet d'exécuter une requête simple
+- si on veut créer l'id, il faut utiliser un PrepareStatementCreator
+
 </pre>
 
 ## Insert
@@ -532,13 +606,17 @@ return vehicule;
 * son rôle : créer une correspondance entre une seule ligne de l'ensemble du résultat
 	et un objet personnalisé
 * elle est plus générale que l'interface RawCallBackHandler
-* pour sa réutilisation, l'implémenter sous forme de classe plutôt
-	que sous forme de classe interne
-* dans la méthode mapRow():
-	* construction de l'objet qui représente une ligne et qui sera retourné
 </pre>
 
-##### Exemple
+##### impléméntation classe
+
+<pre>
+* pour sa réutilisation, l'implémenter sous forme de classe plutôt
+	que sous forme de classe interne
+
+* dans la méthode <b>mapRow()</b>:
+* construction de l'objet qui représente une ligne et qui sera retourné
+</pre>
 
 ```
 public class OperationJdbcMapper implements RowMapper<IOperationEntity> {
@@ -560,10 +638,31 @@ public class OperationJdbcMapper implements RowMapper<IOperationEntity> {
 		result.setDate(rs.getTimestamp("date"));
 		result.setCompteId(Integer.valueOf(rs.getInt("compteId")));
 		return result;
-
 	}
 
 }
+```
+
+##### implémentation interface fonctionnelle
+
+```
+rowMapper => interface avec une seule méthode
+	getJdbcTemplate().query(sql, new RowMapper<Movie>() {
+
+			@Override
+			public Movie mapRow(ResultSet resultSet, int i) throws SQLException {
+					return null;
+			}
+	});
+
+on peut l'implémenter avec une fonction lambda
+
+	return getJdbcTemplate().query(sql,(rs, rowNum) -> {
+		return new Movie(
+						rs.getLong("id"),
+						rs.getString("title"),
+						rs.getString("genre"));
+	});
 ```
 
 ### Requete avec une seule ligne

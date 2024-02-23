@@ -85,6 +85,35 @@ Pour utiliser une vue de ce répertoire, dans le controller, il faut
 retourner le nom de ce fichier sans l'extension.
 </pre>
 
+#### JSP: ViewResolver
+
+##### principe
+<pre>
+Le composant qui permet de configurer la vue est un ViewResolver
+</pre>
+
+
+##### exemple
+```
+@Configuration
+@ComponentScan(basePackageClasses = {LivreController.class, LivreRestController.class})
+@EnableWebMvc
+public class BiblioWebConfig implements WebMvcConfigurer {
+	
+	public BiblioWebConfig() {
+		System.out.println("**** BiblioWebConfig ****");
+	}
+	
+	@Override
+	public void configureViewResolvers(ViewResolverRegistry registry) {
+		// si vue logique = "adherents" --> "/WEB-INF/jsp/adherents.jsp"
+		InternalResourceViewResolver resolver = new InternalResourceViewResolver();
+			resolver.setPrefix("/WEB-INF/jsp/");
+			resolver.setSuffix(".jsp");
+			registry.viewResolver(resolver);
+	}
+```
+
 ### Modèle
 
 #### principe
@@ -328,6 +357,9 @@ String...
 L'annotation @Valid va collecter les erreurs dans un objet de type BindingResult.
 Il faut ajouter ce dernier dans les arguments de la méthode.
 Il doit être placé après le dernier ModelAttribute à valider.
+
+<a href="https://salithachathuranga94.medium.com/validation-and-exception-handling-in-spring-boot-51597b580ffd" targert="_blank">Validation and Exception Handling in Spring Boot</a>
+
 </pre>
 
 ```
@@ -343,6 +375,8 @@ public String createInvoice(@Valid @ModelAttribute InvoiceBean invoice,
 	...
 }
 ```
+
+
 
 #### spel: afficher les erreurs
 

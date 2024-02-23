@@ -182,10 +182,25 @@ Note:
 #### proxy
 
 <pre>
-@Transactionnal fonctionne ave les proxies, il faut donc faire attention où sont 
+@Transactionnal fonctionne avec les proxies, il faut donc faire attention où sont 
 positionnés les annotations
 * les services doivent être injecté par Spring ; ils sont ainsi proxifiés par Spring.
 * les services transactionnels doivent porter l'annotation.
+</pre>
+
+#### test
+<pre>
+<b>Important</b> :
+Cette annotation sur une classe de test à l'effet inverse que dans une classe en production.
+La transaction si elle va au bout finira par un <b>Rollback</b>.
+
+Pourquoi:
+Chaque méthode de tests donne lieu à une nouvelle instance de la classe de test ; en effet,
+pour chaque test, les données doivent pouvoir être réinitialiser pour le prochain test.
+Il convient de noter ici, que dans une classe de test, les tests se déroulent dans 
+n'importe quel ordre.
+Il ne faut pas de dépendance fonctionnelles entre les tests. Si les tests portent sur une 
+BDD, il faut réinitialiser les valeurs en base, d'où le RollBack.
 </pre>
 
 ## Configuration des tx

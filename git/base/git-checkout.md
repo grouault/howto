@@ -22,6 +22,9 @@ git checkout
 * Remplacer un fichier par sa révision dans le référentiel à instant t
 > *git checkhout [SHA] [filename]*
 
+# Récupérer les modifs de la branche optim
+git checkout -b optim origin/optim
+
 ## Réparer une erreur non committée
 * pour **annuler les changement** dans l'espace de travail, en manipulant un **fichier individuel**
 1. *git checkout [filename]* : restauration à partir de l'index (annulation [wd])

@@ -2,6 +2,9 @@
 
 [home](../index-java.md)
 
+### mise en place
+- [mise-en-place](./mise-en-place.md)
+
 ### Version
 
 - [junit-3](notes-junit3.md)

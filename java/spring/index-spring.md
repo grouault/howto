@@ -8,6 +8,8 @@
 - [spring-contexte](./spring-contexte/index.md)
 - [spring-boot](./spring-boot/spb-index.md)
 
+- [projet-biblio](./spring-project/project-biblio/projet-biblio.md)
+
 ### Spring-MVC
 
 - [spring-mvc](./spring-mvc/spring-mvc.md)

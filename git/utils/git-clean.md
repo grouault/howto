@@ -2,17 +2,17 @@ nettoyer espace travail
 =======================
 
 Au choix:
-* nettoyer tous les fichiers qui ne font pas partis du referentiel (ne font pas partis du .gitignore et pas indexé)
+* nettoyer tous les fichiers qui ne font pas partis du referentiel (ne font pas partis du .gitignore et pas indexï¿½)
 * nettoyer tous les fichiers qui font partis du .gitignore
 
 ## explique ce que la commande ferait
 > git clean -n
 
-## suppression de tous les fichiers/folder non référencés par Git
+## suppression de tous les fichiers/folder non rï¿½fï¿½rencï¿½s par Git
 > git clean -df
 
-## explique ce que la commande ferait à propos des fichiers paramétré dans le .gitignore
+## explique ce que la commande ferait ï¿½ propos des fichiers paramï¿½trï¿½ dans le .gitignore
 > git clean -xn
 
-## supprimer de l'espace de travail les fichiers paramétrés .gitignore
+## supprimer de l'espace de travail les fichiers paramï¿½trï¿½s .gitignore
 > git clean -xdf

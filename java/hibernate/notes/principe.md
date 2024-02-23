@@ -267,6 +267,35 @@ hibernat.unproxy(proxy)
   Attention : Hibernate met à jour toute l'entité même si un seul champ a été modifié.
 </pre>
 
+#### Inspect
+<pre>
+On peut inspecter la session : SessionImpl
+Exemple: mettre un point d'arrêt sur le code : entityManager.contains(<i>monEntité</i>)
+Ici, on a modifié le titre de l'entité:
+<i>
+    Movie movie = entityManager.find(Movie.class, id);
+    movie.setTitle(newTitle);
+    entityManager.contains(movie);
+</i>
+<b>EntityEntryContext</b> contient:
+* <b>entityInstance</b>: entité dans le contexte de persistence
+* <b>MutableEntityEntry</b>: entité dans le snapshot
+<img src="../img/dirty-checking.PNG" />
+</pre>
+
+#### hibernate-enhance-maven-plugin
+<pre>
+Plugin permet d'aider Hibernate dans le mécanisme de Dirty-Checking.
+Permet à la compilation de créer des proxies sur les setters des entités.
+Le proxy porte un attribut qui va indiquer si l'entité à été modifié
+Ce qui fait qu'à chaque modification d'une entité, le setter met à jour cet attribut.
+Hibernate n'a donc plus besoin de faire la comparaison entre le snaphot et la session.
+
+<b>Important </b>:
+* Cela ne réduit pas l'empreinte mémoire
+* Cela soulage le CPU car évite de faire la comparaison champ à champ.
+</pre>
+
 ### Cache
 
 #### Définition
@@ -466,7 +495,8 @@ return entityManager.createQuery("from Genre", Genre.class)
 <pre>
 - permet de synchroniser la session avec la base de données
 - force l'entity manager a envoyé ses modifications à la base de données
-- ATTENTION : en général, c'est une mauvaise pratique
+- ATTENTION : 
+* en général, c'est une mauvaise pratique
 </pre>
 
 #### Quand ? : FlushMode
@@ -481,6 +511,14 @@ return entityManager.createQuery("from Genre", Genre.class)
   * force le flush au moment du commit
   * et aussi avant chaque query
 - hibernate flush automatiquement à la fermeture de la session
+
+<b>IMPORTANT</b>:
+* il est important de noter, que la session en mémoire d'hibernate
+se synchronise avec la base avec ce flush.
+D'ou le flush avant chaque query. Cela permet de pousser les mofifications
+éventuelles faites.
+Si tel n'est pas le cas (avec un flushMode = COMMIT), une récupération des 
+datas ne prendra pas en compte les données non flushées. 
 </pre>
 
 ###### remarque

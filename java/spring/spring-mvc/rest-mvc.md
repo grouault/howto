@@ -13,7 +13,8 @@ Ce format est avec Spring-Boot par défaut, le format JSon.
 ## ResponseEntity
 
 <pre>
-<b>ResponseEntity</b> représente une <b>réponse HTTP</b> complète gérant:
+<b>ResponseEntity</b> représente une <b>réponse HTTP</b> complète. 
+Il s'agit d'une abstraction d'une réponse HTTP gérant:
  - les en-têtes
  - le corps
  - l’état (le status). 
@@ -96,6 +97,12 @@ exceptions de l'application avec l'annotation @ControllerAdvice
 Cela permet de catcher les exceptions de tous les endpoints des  contrôleurs.
 Il faut le voir comme un intercepteur d'exceptions lancées par les méthodes
 annotées avec @RequestMapping ou méthodes similaires Put, Post...
+
+
+<a href="https://salithachathuranga94.medium.com/validation-and-exception-handling-in-spring-boot-51597b580ffd" targert="_blank">Validation and Exception Handling in Spring Boot</a>
+
+<a href="https://www.baeldung.com/spring-webflux-404#4-throwing-an-exception">how to return 404 with Spring</a>
+
 </pre>
 
 ### Type d'erreurs
@@ -107,9 +114,10 @@ annotées avec @RequestMapping ou méthodes similaires Put, Post...
 <pre>
 Le but est de traiter les exceptions de type:
 MethodArgumentNotValidException
+WebExchangeBindException
 </pre>
 
-##### Code
+##### Code  
 
 <pre>
 @ControllerAdvice

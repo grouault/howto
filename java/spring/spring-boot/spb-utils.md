@@ -165,15 +165,17 @@ Pour les autres, il faut ajouter la clé suivante:
 <b>spring.jpa.defer-datasource-initialization=true</b>
 </pre>
 
-### @Sql
+### Spring-annotation
 
-#### prinicipe
+#### @Sql
+
+##### prinicipe
 
 <pre>
-Permet d'initialiser et populer les schémas de tests
+- Permet d'initialiser et populer les schémas de tests
 </pre>
 
-#### Configuration
+##### Configuration
 
 <pre>
 <b>Sur la classe </b>: 
@@ -192,9 +194,9 @@ public void testLoadDataForTestCase() {
 
 </pre>
 
-### @SqlConfig
+#### @SqlConfig
 
-#### principe
+##### principe
 
 <pre>
 permet de configurer la manière de parser et d'exécuter les scripts SQL
@@ -243,6 +245,12 @@ spring.h2.console.enabled=true
 server.port=8086
 ```
 
+##### console
+<pre>
+Pour accéder à la console, au niveau du <b>jar</b>:
+tools => console
+</pre>
+
 ##### Erreur affichage navigateur
 
 <pre>
@@ -264,6 +272,16 @@ http.headers().frameOptions().disable();
 ##### pom.xml
 
 ```
+	<dependency>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-jdbc</artifactId>
+	</dependency>
+
+	<dependency>
+		<groupId>com.mysql</groupId>
+		<artifactId>mysql-connector-j</artifactId>
+		<scope>runtime</scope>
+	</dependency>
 
 ```
 

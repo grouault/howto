@@ -2,16 +2,16 @@
 
 ### BRANCHE LOCAL 
 
-# Créer une branche à partir du master sur le repo local
+# Crï¿½er une branche ï¿½ partir du master sur le repo local
 >$ git branch v2.0
 
 # Passer sur une branch ==> je m'aligne sur la nouvelle branche
 >$ git checkout v2.0
 
-# Raccourci pour créer et se positionner sur la nouvelle branche
+# Raccourci pour crï¿½er et se positionner sur la nouvelle branche
 >$ git checkout v2.0 -b v2.1 
 
-# Créer la branche sur le repo distant
+# Crï¿½er la branche sur le repo distant
 >$ git push origin v2.O
  
 ### BRANCHE REMOTE
@@ -19,10 +19,10 @@
 #### Informations sur les branches
 >$ git remote show origin
 
-#### Récupérer une branche remote qui n'existe pas en local 
+#### Rï¿½cupï¿½rer une branche remote qui n'existe pas en local 
 <pre>
 La situation est alors la suivante: vous avez des branches distantes que vous souhaitez rapatrier en local. 
-Il suffit de connecter, ou track, cette branche remote à une branche locale
+Il suffit de connecter, ou track, cette branche remote ï¿½ une branche locale
 </pre>
 
 ```
@@ -39,12 +39,12 @@ $ git checkout -b dev origin/dev ==> reconstuire la branche localement : dev
 
 ## FUSION - merge
 <pre>
-Fusion pour intégrer des travaux aux historiques divergeants.
-Cette commande réalise une fusion à trois branches entre les deux derniers instantanés (snaphots)
-de chaque branche et l'ancêtre le plus récent, créant un nouvel instantané (et un commit).
+Fusion pour intï¿½grer des travaux aux historiques divergeants.
+Cette commande rï¿½alise une fusion ï¿½ trois branches entre les deux derniers instantanï¿½s (snaphots)
+de chaque branche et l'ancï¿½tre le plus rï¿½cent, crï¿½ant un nouvel instantanï¿½ (et un commit).
 </pre>
 
-# Fusionner deux branches : intégrer les données de la branche v2.0 dans master
+# Fusionner deux branches : intï¿½grer les donnï¿½es de la branche v2.0 dans master
 ==> se positionner dans master
 >$ git merge v2.0
 
@@ -64,10 +64,10 @@ de chaque branche et l'ancêtre le plus récent, créant un nouvel instantané (et u
 <pre>
 # filter les branches de la liste suivant que vous les avez : 
 
-1- fusionnées avec la branche courante
+1- fusionnï¿½es avec la branche courante
 $ git branch --merged
 
-2- pas encore fusionnées avec la branche courante
+2- pas encore fusionnï¿½es avec la branche courante
 $ git branch --no-merged
 
 # lister les derniers 'commit' sur chaque branche

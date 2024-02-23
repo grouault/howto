@@ -16,7 +16,7 @@ JPA définit alors un ensemble d'annoations de persistance qui définit un forma
 | --------- | ------------ | ------------------ | -------------------- | ---------------------------- |
 | Ressource | Connection   | Session            | EntityManager        | Session ou EntityManager     |
 | Fabrique  | DataSource   | SessionFactory     | EntityManagerFactory | Fabrique Spring de Ressource |
-| Exception | SQLException | HibernateException | PersistenceException | DataAccessExecption          |
+| Exception | SQLException | HibernateException | PersistenceException | DataAccessException          |
 
 ## JPA, Hibernate et stratégies de correpondance
 
@@ -108,11 +108,13 @@ SessionFactory sessionFactory = configurtion.buildSessionFactory();
 * inutile de les préciser explicitement dans le fichier de configuration
 </pre>
 
-#### initialisation fabrique
+#### EntityManagerFactory
 
 <pre>
 Pour utiliser JPA, il faut donc créer une fabrique de gestionnaire d'entité.
 Son rôle est de produire des gestionnaire d'entités pour pouvoir enregistrer les objets.
+L'<b>entityManagerFactory</b> est un objet mémoire qui contient toute la conf. JPA
+pour créer des <b>enityManager</b>.
 </pre>
 
 ##### Code
