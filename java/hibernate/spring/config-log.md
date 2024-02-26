@@ -37,6 +37,10 @@ Créer un fichier :
     * besoin d'afficher les valeurs des "?"
     < logger name="org.hibernate.type.descriptor.sql.BasicBinder" level="TRACE" / >
 
+	* ==> avec le nouveau package org.hibernate.orm
+	<!-- besoin d'afficher les valeus des "?" -->  
+	<logger name="org.hibernate.orm.jdbc.bind" level="TRACE" />
+
 </pre>
 
 ### logback.xml
@@ -87,7 +91,9 @@ Créer un fichier :
 
 ### analyse des logs de tests
 
-#### persist avec analyse de logs
+#### persist
+
+##### persist avec analyse de logs
 <pre>
 <b>1- Initialisation du contexte de persistance</b>
 * au lancement du test : hibernate tente de faire un drop de la structure et essaie de la recréer.

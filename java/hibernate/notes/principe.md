@@ -115,6 +115,8 @@
 
 #### persist
 
+##### [opération classique](../spring/config-log.md#persist) 
+
 ##### Pb: Faire un persist avec entité détachée.
 
 <pre>

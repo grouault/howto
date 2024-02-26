@@ -148,10 +148,15 @@
   },
   "active": "80b0f5de7e627386",
   "lastOpenFiles": [
-    "java/hibernate/index.md",
     "java/hibernate/notes/principe.md",
+    "java/hibernate/spring/config-hibernate.md",
+    "java/hibernate/notes/application-movie.md",
+    "java/hibernate/spring/config-log.md",
+    "java/hibernate/notes/mapping.md",
+    "java/hibernate/index.md",
     "java/index-java.md",
     "index-howto.md",
+    "javascript/index-js.md",
     "javascript/framework/react/formation/cours/hook.md",
     "javascript/framework/react/formation/orsys/notes.md",
     "javascript/framework/react/index-react.md",
@@ -173,11 +178,6 @@
     "java/Nouveau dossier",
     "html/cours/css/notes-css.md",
     "java/jse/java8features/streamApi/notes-stream.md",
-    "javascript/framework/react/formation/orsys/notes-jours2.md",
-    "javascript/framework/react/formation/cours/formulaire.md",
-    "javascript/langage/typescript/typescript.md",
-    "javascript/index-js.md",
-    "java/spring/spring-boot/spb-utils.md",
-    "java/spring/spring-boot/spb-index.md"
+    "javascript/framework/react/formation/orsys/notes-jours2.md"
   ]
 }

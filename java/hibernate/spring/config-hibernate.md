@@ -21,6 +21,15 @@
 #### Spring-ORM
 </pre>
 - gestion des transactions et de la persistence avec Spring
+- permet de mettre en place le contexte de persistence:
+	- couche JPA / DataSource / Transaction
+
+import org.springframework.jdbc.datasource.DriverManagerDataSource;  
+import org.springframework.orm.jpa.JpaTransactionManager;  
+import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;  
+import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;  
+import org.springframework.transaction.PlatformTransactionManager;  
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 </pre>
 
 #### code
@@ -30,6 +39,13 @@
     <groupId>org.hibernate</groupId>
     <artifactId>hibernate-core</artifactId>
 </dependency>
+
+<!-- attention nouveau repo pour hibernate -->
+dependency>  
+	<groupId>org.hibernate.orm</groupId>  
+	<artifactId>hibernate-core</artifactId>  
+</dependency>
+	
 <dependency>
     <groupId>org.springframework</groupId>
     <artifactId>spring-orm</artifactId>
