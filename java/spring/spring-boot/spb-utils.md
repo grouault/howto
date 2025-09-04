@@ -41,7 +41,7 @@ Cette dépendance est utile pour :
 lombok parcours les annotations pour ajouter les getters/setters.. dans le byte code.
 </pre>
 
-```
+```java
 @Entity
 @Data @AllArgsConstructor @NoArgsConstructor
 public class Produit {
@@ -57,7 +57,7 @@ public class Produit {
 
 #### maven
 
-```
+```xml
 <dependency>
 	<groupId>org.projectlombok</groupId>
 	<artifactId>lombok</artifactId>

@@ -42,3 +42,5 @@ et commencer à interagir avec.
 [css](./cours/css/notes-css.md)
 
 [bootstrap](./cours//bootstrap/notes-bootstrap.md)
+
+[tailwind](./cours/tailwind/tailwind.md)

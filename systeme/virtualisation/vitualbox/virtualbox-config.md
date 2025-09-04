@@ -40,41 +40,41 @@ C:\Windows\System32\drivers\etccvap
 ## Question
 <pre>
 install-docker?
-Ou est installé docker-host / docker-engine sur la VM?
+Ou est installï¿½ docker-host / docker-engine sur la VM?
 </pre>
 
-## Création d'adaptateur
+## Crï¿½ation d'adaptateur
 <pre>
-* pour créer une nouvelle carte réseau virtuelle.
+* pour crï¿½er une nouvelle carte rï¿½seau virtuelle.
 </pre>
 
-## Configuration Réseau 
+## Configuration Rï¿½seau 
 
-### configuration Réseau-Bridgé
+### configuration Rï¿½seau-Bridgï¿½
 
 ![reseau-nat](0-VB-reseau-bridge.PNG)
 
 ### configuration Acces-Pont
 <pre>
-* machine virtuelle va utiliser la même interface réseau que la machine physique
+* machine virtuelle va utiliser la mï¿½me interface rï¿½seau que la machine physique
 * exactement comme s'il s'agit d'une vraie machine physique
-* on peut pinger d'une machine à l'autre
+* on peut pinger d'une machine ï¿½ l'autre
 * <b>par contre pas d'internet</b>
 </pre>
 
 ![reseau-nat](3-VB-reseau-interne.PNG)
 
-### connexion à Internet en NAT
+### connexion ï¿½ Internet en NAT
 <pre>
-* Aucune configuration n'est à faire pour faire cela
+* Aucune configuration n'est ï¿½ faire pour faire cela
 	> test connexion internet
 	$ ping google.com
-* En NAT, c'est VB qui attribue une adresse IP dynamique à la machine virtuelle
-	* Addresse IP qui est fournit par défaut à la machine : 10.0.2.15
+* En NAT, c'est VB qui attribue une adresse IP dynamique ï¿½ la machine virtuelle
+	* Addresse IP qui est fournit par dï¿½faut ï¿½ la machine : 10.0.2.15
 	$ ip a => inet 10.0.2.15/24 brc
-* Avec cet IP, la machine peut se connecter à internet 
-	VB va faire la translation d'adresse (pour tous les paquets envoyés) 
-		de façon à utiliser la carte ethernet physique de la machine.
+* Avec cet IP, la machine peut se connecter ï¿½ internet 
+	VB va faire la translation d'adresse (pour tous les paquets envoyï¿½s) 
+		de faï¿½on ï¿½ utiliser la carte ethernet physique de la machine.
 </pre>
 
 ![reseau-nat](5-VB-ip-a.PNG)
@@ -85,30 +85,30 @@ Ou est installé docker-host / docker-engine sur la VM?
 
 ### Tester les applications en dehors de la machine virtuelle
 <pre>
-En NAT, il y a un pb. Ce n'est pas configuré par défaut.
+En NAT, il y a un pb. Ce n'est pas configurï¿½ par dï¿½faut.
 </pre>
 
-### configuration Réseau Privé
+### configuration Rï¿½seau Privï¿½
 <pre>
 Configuration avec <b>plusieurs interface</b>
 
-* interface 1 : <b>NAT</b> pour avoir accès Internet
+* interface 1 : <b>NAT</b> pour avoir accï¿½s Internet
 
-* interface 2 : Réseau privé hôté pour permettre à la VM de <b>contacter l'extérieur</b>
-	* création d'un réseau privé sur la machine virtuelle mais <b>connecté à la machine hôte</b>
-	* pour un réseau privé, il faut préciser l'adaptateur à utiliser : carte réseau
-		* carte pour pouvoir accèder au réseau
-	* pour cela, il est possible de créer un adaptateur
+* interface 2 : Rï¿½seau privï¿½ hï¿½tï¿½ pour permettre ï¿½ la VM de <b>contacter l'extï¿½rieur</b>
+	* crï¿½ation d'un rï¿½seau privï¿½ sur la machine virtuelle mais <b>connectï¿½ ï¿½ la machine hï¿½te</b>
+	* pour un rï¿½seau privï¿½, il faut prï¿½ciser l'adaptateur ï¿½ utiliser : carte rï¿½seau
+		* carte pour pouvoir accï¿½der au rï¿½seau
+	* pour cela, il est possible de crï¿½er un adaptateur
 	
 </pre>	
 
 ![reseau-nat](4-VB-reseau-prive.PNG)
 	
-## SSH : connection serveur à distance
+## SSH : connection serveur ï¿½ distance
 ```
 * sur la version Desktop, il faut installer OpenSsh
 * sudo apt-get install openssh-server
-* sur la version Server, OpenSsh est déjà installé
+* sur la version Server, OpenSsh est dï¿½jï¿½ installï¿½
 ```
 
 

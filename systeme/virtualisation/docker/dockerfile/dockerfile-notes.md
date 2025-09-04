@@ -11,35 +11,29 @@
 </pre>
 
 ### Définition
-<pre>
-* indique comment créer une image ou une nouvelle application
-* fichier dans lequel est décrit avec des commandes de base la manière avec laquelle
-	 on va construire l'image / le conteneur.
+Un fichier Dockerfile :
+*  C'est une sorte de recette qui indique à Docker ce qu'il doit faire étape par étape.
+* C'est fichier texte dans lequel sont décrit avec des commandes de base des **instructions** qui définissent les étapes nécessaires avec lesquelles on va construire l'image (qui sera instancier et exécuter par le conteneur).
 * une image se compose de plusieurs couches (layer)
 * il existe des paramètres obligatoires et des paramètres optionnels
-</pre>
 
-### Commandes
-<pre>
-* ADD : copier des fichers source dans le host du conteneur
+### 🧱 instructions
 
+* FROM : image de base (paramètre obligatoire) sur laquelle toutes les instructions suivantes seront appliquées.  
+❗Sans cette instruction, le processus de construction n'a pas de point de départ
+* RUN : pour exécuter des commandes shell dans l'image en cours de construction. Elles s'exécutent pendant le processus de construction et servent 
+	* à installer des dépendances
+	* mettre à jour le système
+	* ou effectuer des tâches d'installation
+* ADD : copier des fichiers source dans le host du conteneur
 * ENTRYPOINT: quel est l'application qui va s'exéctuer ; point d'entrée
-
 * ENV: paramètre optionnel permettant de définir des variables d'environnement
-
 * EXPOSE : 
 	- exposer le numéro de port
 	- permet d'ouvrir les ports au niveau du contenur
 
-* FROM : image de base / paramètre obligatoire
-
-* RUN : pour exécuter des commandes shell au niveau du conteneur qd
-	il se construit.
-
 * VOLUME : pour activer les volumes
-
 * WORKDIR : espace de travail
-
 * CMD : 
 	- paramètre obligatoire
 	- commande à exécuter lorsque le conteneur démarre

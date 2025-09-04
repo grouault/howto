@@ -97,6 +97,9 @@ permet d'extraire des données d'un tableau ou d'un objet pour obtenir des varia
 
 ## Opérateur Spread & Rest
 
+<a href="https://developer.mozilla.org/fr/docs/Web/JavaScript/Reference/Operators/Spread_syntax" target="_blank">spread</a>
+<a href="https://developer.mozilla.org/fr/docs/Web/JavaScript/Reference/Functions/rest_parameters" target="_blank">rest</a>
+
 <pre>
 * Spread: 
 

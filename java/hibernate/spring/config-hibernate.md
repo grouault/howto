@@ -19,18 +19,36 @@
 </pre>
 
 #### Spring-ORM
-</pre>
+<pre>
 - gestion des transactions et de la persistence avec Spring
-- permet de mettre en place le contexte de persistence:
-	- couche JPA / DataSource / Transaction
+- permet de mettre en place le contexte de persistence via JPA. 
+Les composants nécessaire pour mettre en place le contexte de persistence sont les suivants:
+	- EntityManagerFactory
+	- DataSource
+	- TransactionManager pour la gestion des transactions
 
+Pendans l'exécution d'un requête, spring se charge de créer :
+- la transaction
+- la session et l'attachement de la transaction à la session
+Attention : toute transaction @Transactional monopolise une connexion dans le pool
+côté Spring mais pas côté DataBase tant qu'une opération n'est pas déclenchée.
+
+Au niveau de la cinématique Spring:
+* Spring créer une transaction qui monopolise une connexion
+* Les opérations se passent dans le contexte la session sans qu'elles soient immédiatement poussées jusqu'en base.
+* au commit, la session est flush
+* Spring met fin à la session, à la transaction et libère la session.
+
+</pre>
+
+```
 import org.springframework.jdbc.datasource.DriverManagerDataSource;  
 import org.springframework.orm.jpa.JpaTransactionManager;  
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;  
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;  
 import org.springframework.transaction.PlatformTransactionManager;  
 import org.springframework.transaction.annotation.EnableTransactionManagement;
-</pre>
+```
 
 #### code
 

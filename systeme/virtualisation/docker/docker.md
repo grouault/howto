@@ -1,6 +1,3 @@
-## Docker
-
-[Virtual-Box](../virtualisation.md)
 
 ### Menu
 * [installation](installation-docker.md)
@@ -36,9 +33,8 @@ https://docs.docker.com/machine/get-started/
 </pre>
 
 ### Questions : 
-<pre>
 * où sont stockées les images docker physiquement ?
-</pre>
+
 
 ### docker-engine / docker-host
 <pre>
@@ -75,6 +71,7 @@ https://docs.docker.com/machine/get-started/
 #### definition
 <pre>
 * une image contient l'<b>ensemble des éléments</b> permettant de <b>packager</b> une <b>application</b>.
+
 * Une image est constitué:
 	* des fichiers binaires
 	* des librairies
@@ -91,7 +88,7 @@ de paramètres d'exécution correspondants, pour l'exécuter à l'interieur d'un
 
 * l'idée est de créer une image custom, où sont liés :
 	* fichier de configuration
-	* varaibles d'environnement
+	* variables d'environnement
 	* fichiers de données
 	*...
 * ainsi, l'image contient une configuration de base et pour utiliser l'application,
@@ -217,7 +214,7 @@ Méthode de virtualisation par conteneur:
 #### contrôleur
 <pre>
 Il gère un ensemble de fonctionnalité pour les conteneurs:
-* les interactions des conteneurs aves l'OC
+* les interactions des conteneurs aves l'OS
 * la sécurité avec la gestion de privilèges et de ressources
 * la scalabilité: ajout/suppression de conteneurs
 * accessibilité des conteneurs à travers la gestion des api et cli

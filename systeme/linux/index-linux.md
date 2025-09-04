@@ -4,4 +4,4 @@
 
 * [notes-linux](./notes-linux.md)
 
-* <a href="./editors/vi.html" target="_blanck">vi<a>
+* <a href="./editors/vi.md" target="_blanck">vi<a>

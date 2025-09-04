@@ -2,70 +2,50 @@
 
 [retour](../../index-react.md)
 
-### Formulaire Ref
+## Event => e
 
+### e.target / e.currentTarget
 <pre>
-L'idée est ici d'utiliser des refs pour accéder aux champs
-du formulaire.
-Il n'y a donc pas de gestion de state.
+* target:  c'est l'élement du DOM qui a lancé l'évènement qui va déclencher
+le traitement associé.
+
+* currentTarget: valeur donné à un instant t.
+L'event supprime le currentTarget dès que la fonction est terminé.
+<i>Dans le cas d'une hiérarchie d'élément DOM, la currentTarget peut être 
+différente de la target</i>
+
+<b>Bouton Submit vs Bouton onClick</b>:
+* Bouton Submit : trigger l'event submit du formulaire.
+   e.target/currentTarget vaut alors le FORM et non le bouton submit
+* Bouton onClick: trigger le traitement associé.
+	e.target/currentTarget vaut alors le bouton.
+
+<b>IMPORTANT</b>
+en REACT, la valeur du target dans le cas d'un Input est égale à
+la valeur future (du prochaine render).
+Composant contrôlé: setState(e.target.value)
+</pre>
+### e.type
+<pre>
+* vaut le type d'évènement déclencheur
 </pre>
 
-### Formulaire contrôlé
-
-#### Principe
-
+### e.preventDefault
 <pre>
-* Objectif :
->  placer les informations de chacun des champs dans des 'state' et les relier aux inputs.
-> Si le formulaire a 3 informations, chacune des infos aura une valeur dans les states (3 states)
-* Notion de <b>composant contrôlé</b> :
-> input: utilisation de la propriété 'value' pour référencer la valeur des state
-> onChange : pour mettre à jour le state quand on change la valeur de l'input
-> Le composant à utiliser devra être un composant de type 'Class'
-
-    < input 
-        type="text" 
-        className="form-control" 
-        id="nomPersonnage" 
-        placeholder="nom du personnage" 
-        value={this.state.personnage.nom} 
-        onChange={(e) => {this.setState((oldState) => {
-            const newPersonnage = oldState.personnage;
-            newPersonnage.nom = e.target.value;
-            return {personnage: newPersonnage};
-            })}
-        }   
-    / >
-
+* annule le comportement par défaut du formulaire qui par défaut est d'envoyer des données.
 </pre>
 
-### Soumission
-
-#### preventDefault
-
-<pre>
-> Attention, le comportement par défaut est d'envoyer des données.
-> Pour empêcher le comportement standard du bouton, il faut appeler 'preventDefault' sur l'event 
-  du bouton surlequel on a clické.
-
-    handleValidationForm = (event) => {
-        // eviter la validation du formulaire
-        event.preventDefault();
-        ...
-    }
-</pre>
-
-#### bouton de soumission
+## bouton de soumission
 
 <pre>
 * la soumission peut se faire via un bouton et un evènement click
 </pre>
-
-<pre>
+```jsx
     < Bouton
         cssClass="btn btn-primary"
         handleClick={this.handleValidationForm}
-
+```
+<pre>
 > Dans cet exemple, event est passé implicitement.
 > Même sans bouton submit, le comportment standard est actif, dû au formulaire
 </pre>
@@ -75,16 +55,243 @@ Il n'y a donc pas de gestion de state.
   la méthode onSumbit du formulaire
 </pre>
 
-```
+```jsx
 <form
     ref={formRef}
     className="sign-up-form"
     onSubmit={handleForm}
 >
-
 <input type="submit" className="btn btn-primary">Submit</input>
 <button className="btn btn-primary">Submit</button>
 ```
+## Formulaire classique
+<pre>
+* validation du fomulaire via un bouton de type submit
+* récupération des valeurs avec l'attribut <b>element</b> du current target 
+</pre>
+### e.target.elements
+
+<pre>
+* permet de récupérer les éléments du formulaire
+e.currentTarget.elements: Tableau bizarre dans lequel les éléments sont nommés
+</pre>
+```js
+	1. HTMLFormControlsCollection(3) [input#name, input#password, input, 
+	name: input#name, password: input#password]				
+```
+
+```jsx
+const onSubmitUser = (data) => {
+	console.log(JSON.stringify(data));
+}
+
+const UserForm = ({ onSubmitUser }) => {
+	const handleSubmit = (event) => {
+	    event.preventDefault();
+	    const name = event.currentTarget.elements.name.value;
+	    const passwd =event.currentTarget.elements.password.value;
+		onSubmitUser({name, password});
+	  }
+	  return (
+	    <form className="vertical-stack form" onSubmit={e => handleSubmit(e)} >
+	      <label htmlFor="name">
+	        Name
+	        <input id="name" type="text" name="name" />
+	      </label>
+	      <label htmlFor="password">
+	        Passwords
+	        <input id="password" type="password" name="password" />
+	      </label>
+	      <input type="submit" value="Submit" />
+	    </form>
+	  );
+};
+```
+
+
+
+
+## Formulaire avec useRef
+<pre>
+L'idée est ici d'utiliser des refs pour accéder aux champs
+du formulaire.
+Il n'y a donc pas de gestion de state.
+</pre>
+```jsx
+import { useState } from "react";
+import { useRef } from "react";
+
+const UserForm = ({ onSubmitUser }) => {
+
+  // gestion erreurs en STATE
+  const [isError, setIsError] = useState(false);
+  // gestion des elements du formulaire en REFs
+  const usernameRef = useRef(null);
+  const passwordRef = useRef(null);
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    const user = usernameRef.current.value;
+    const password = passwordRef.current.value;
+    if (!password.length || password.length < 8) {
+      setIsError(true);
+      return;
+    }
+    onSubmitUser({user, password})
+  }
+
+  const resetError = () => setIsError(false);
+
+  return (
+    <form className="vertical-stack form" onSubmit={e => handleSubmit(e)} >
+      <label htmlFor="name">
+        Name
+        <input ref={usernameRef} id="name" type="text" name="name" />
+      </label>
+      <label htmlFor="password">
+        Passwords
+        <input onChange={resetError} ref={passwordRef} id="password" 
+        type="password" name="password" />
+      </label>
+      {isError ? <div style={{color: 'red'}}>Password must be at least 8 characters</div>: null}
+      <input type="submit" value="Submit" />
+    </form>
+  );
+};
+
+const Form = () => {
+  const onSubmitUser = (data) => {
+    alert('Form submitted: ' + JSON.stringify(data));
+  };
+  return <UserForm onSubmitUser={onSubmitUser} />;
+};
+
+export default Form;
+```
+
+## Formulaire contrôlé
+<a href="https://react.dev/reference/react-dom/components/input#controlling-an-input-with-a-state-variable" target="_blank">à éviter</a>
+* il faut avoir besoin de modifier le state à chaque changement de l'input
+
+<pre>
+<b>Principe : </b>
+* placer les informations de chacun des champs dans des 'state' et les relier aux inputs.
+* Si le formulaire a 3 informations, chacune des infos aura une valeur dans les states (3 states)
+
+Notion de <b>composant contrôlé</b> :
+* input: utilisation de la propriété 'value' pour référencer la valeur des state
+* onChange : pour mettre à jour le state quand on change la valeur de l'input
+
+<b>Note</b>:
+useState et initialisation: Sans valeur par défaut, cela peut provoquer une erreur sur un Input.
+La valeur par défaut vaut undefined et React part sur le principe que c'est un
+uncontrolled Input
+
+
+</pre>
+```jsx
+import { useState } from "react";
+
+const UserForm = ({ onSubmitUser }) => {
+
+
+  const [name, setName] = useState('');
+  const [password, setPassword] = useState('');
+  const [isError, setIsError] = useState(false);
+
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    if (!password.length || password.length < 8) {
+      setIsError(true);
+      return;
+    }
+    onSubmitUser({name, password})
+  }
+
+  const resetError = () => setIsError(false);
+
+  return (
+    // ?? ajoute onSubmit en passant la fonction handleSubmit
+    <form className="vertical-stack form" onSubmit={e => handleSubmit(e)} >
+      <label htmlFor="name">
+        Name
+        <input id="name" type="text" name="name" 
+        value={name} 
+        onChange={e => setName(e.target.value)} />
+      </label>
+      <label htmlFor="password">
+        Passwords
+        <input id="password" type="password" name="password" 
+	        value={password} 
+	        onChange={e => {setPassword(e.target.value); resetError();}} />
+      </label>
+      {isError ? <div style={{color: 'red'}}>Password must be at least 8 characters</div>: null}
+      <input type="submit" value="Submit" />
+    </form>
+  );
+};
+
+const Form = () => {
+  const onSubmitUser = (data) => {
+    alert('Form submitted: ' + JSON.stringify(data));
+  };
+  return <UserForm onSubmitUser={onSubmitUser} />;
+};
+
+export default Form;
+```
+## FormData
+<a href="https://developer.mozilla.org/fr/docs/Web/API/FormData/append" target="_blank">FormData</a>
+
+<a href="https://react.dev/reference/react-dom/components/input#reading-the-input-values-when-submitting-a-form" target="_blank">utile pour lire les valeurs</a>
+
+```jsx
+export default function App() {
+  const onSubmit = e => {
+    e.preventDefault()
+    const formData = new FormData(e.target)
+
+    console.log(formData.get('name'))
+  }
+
+  return (
+    <form onSubmit={onSubmit}>
+      <input name="name" />
+      <button type="submit">Submit</button>
+    </form>
+  )
+}
+```
+
+## React Hook-Form
+
+### principe
+<pre>
+* Performant par le fait qu'il n'y ait pas de rendu
+* se brancher sur les évènement pour garder en mémoire les différentes valeurs 
+sans avoir besoin de faire un changement d'état.
+</pre>
+
+### formState
+<pre>
+ Permet de connaître l'état du formulaire à tout moment
+{isSubmitting} = formState
+</pre>
+
+## Cas d'utilisation
+<pre>
+Il faut privilégier les uncrontrolled input.
+
+Pourquoi aller vers les controlled input ?
+* pour des éléments où tu veux contrôler la valeur
+* utiliser un input contrôlé sur un texte qui dépend de la valeur 
+d'un autre input par exemple.
+</pre>
+
+## ---------------------------------------
+
+
 
 ### gestion des datas du formulaire
 
@@ -259,10 +466,6 @@ modifyIndex(3, { diet: diet });
 ```
 
 ### liste déroulante
-
-<pre>
-
-</pre>
 
 ```
 <select

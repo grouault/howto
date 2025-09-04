@@ -2,7 +2,7 @@
 
 [retour](../docker.md)
 
-* exercices corrigés
+* exercices corrigï¿½s
 
 [exo1](exo-1-initialisation/README.md)
 [exo2](exo-2-dockerFile/README.md)

@@ -2,6 +2,11 @@
 
 [retour](../../index-react.md)
 
+## installation
+```
+npm install --save react-router react-router-dom
+```
+
 ## principe
 
 <pre>
@@ -18,7 +23,7 @@ Cette initialisation permet :
 - naviguer entre les pages
 </pre>
 
-```
+```jsx
 import {BrowserRouter} from "react-router-dom"
 <BrowerRouter>
   <App />
@@ -35,7 +40,7 @@ Chaque route est un composant.
 Chaque page est un composant.
 </pre>
 
-```
+```jsx
 <Routes>
     <Route path="/" element={<Home />} />
     <Route path="/private" element={<Private />}>
@@ -70,7 +75,7 @@ Cela permet d'indiquer ou sera affiché le contenu de la route imbriquée
 ciblée par la route parente.
 </pre>
 
-```
+```jsx
   return (
     <div className="container">
       {console.log("render Private")}
@@ -88,7 +93,7 @@ ciblée par la route parente.
 * équivalent du < a href >
 </pre>
 
-```
+```jsx
 <Link to="/my-books">Mes livres</Link>
 ```
 
@@ -102,7 +107,7 @@ faire une redirection dans une route parente.
 Ne pas oublier de mettre le return.
 </pre>
 
-```
+```js
   if (!curentUser) {
     return <Navigate to="/" />;
   }
@@ -117,7 +122,7 @@ Ne pas oublier de mettre le return.
 * hook qui doit être instancier
 </pre>
 
-```
+```jsx
 const navigate = useNavigate();
 
 navigate("/private/private-home");
@@ -129,7 +134,7 @@ navigate("/private/private-home");
 permet de recuperer le paramètre d'une route
 </pre>
 
-```
+```jsx
 // route
 <Route path="/edit-book/:bookId" element={<EditBook />} />
 // composant

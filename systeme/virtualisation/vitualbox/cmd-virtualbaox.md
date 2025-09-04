@@ -3,13 +3,13 @@
 #####
 <pre>
 * $ cat /etc/*relesase*
-	* Permet de voir la version de l'OS installé
+	* Permet de voir la version de l'OS installï¿½
 </pre>
 
 #####
 <pre>
 * $ sudo shutdown -h 0
-	* Arrêter la machine
+	* Arrï¿½ter la machine
 </pre>
 
 
@@ -24,5 +24,5 @@ DOCKER_TOOLBOX_INSTALL_PATH=C:\Program Files\Docker Toolbox
 DOCKER_CERT_PATH=C:\Users\~user\.docker\machine\machines\default
 
 # Ports
-Connaître les ports ouverts
-netstat -ao²
+Connaï¿½tre les ports ouverts
+netstat -aoï¿½

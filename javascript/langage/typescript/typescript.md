@@ -2,6 +2,8 @@
 
 [retour](../../index-js.md)
 
+
+<a href="https://www.freecodecamp.org/news/build-strongly-typed-polymorphic-components-with-react-and-typescript/" target="_blank">Reat + typescript + polymorphisme</a>
 ### Compilation vs Transpilation
 <pre>
 Transpilation : Typescript ==> JavaScript
@@ -27,7 +29,8 @@ $ tsc main.ts --target es6 --watch
 
 #### tsconfig
 <pre>
-C'est le fichier de configuration du transpiler
+* C'est le fichier de configuration du transpiler
+* fichier qui explique à Typescript, comment il doit fonctionner
 <a href="https://www.typescriptlang.org/tsconfig#strictNullChecks" target="_blank">configuration de typescripts</a>
 </pre>
 
@@ -52,69 +55,12 @@ initialiser un projet (node: gestionnaire de paquets)
 
 ### Bases
 
-#### Typage
-<pre>
-* déclaration de type
-* casting
-* typage implicite / explicit
-* sans typage, le type est any.
-</pre>
-
-##### Types Primitifs
-<pre>
-* number
-* string
-* boolean
-* null : la valeur nulle
-* undefined: la valeur non définie
-* symbol: les symboles
-* bigint: les entiers de grandes tailles
-</pre>
-
-##### any
-<pre>
-* à éviter
-* eventuellment pour des tableaux ayant des valeurs de plusieurs types ???
-</pre>
-
-##### unknown et typeof
-<pre>
-* à utiliser en lieu et place de any quand on ne sait pas à quel type on a affaire.
-*  Permet de mieux coder et gérer les différents types en cas
-   d'affectation à une autre variable typé
-* utiliser sur une variable qui reçoit sa valeur d'une fonction qui peut 
-  retourner différents types.
-  On utilise alors le typeof pour savoir le type retourné.
-
-  typeguard: typeof
-</pre>
-
-##### never
-<pre>
-sert pour typer le retour des fonctions quand elles
-ne retournent rien même pas le vide.
-</pre>
-
-##### type optionel
-<pre>
-* ? : permet de définir une propriété comme optionnelle
-* reverseWord? boolean; boolean | undefined
-* reverseWord = false ==> valeur par défaut
-</pre>
-
-##### autres
-<pre>
-- ! : permet d'indiquer qu'un élément ne peut être null
-      on indique à TypeScript que la récupération de la valeur se fait bien.
-      sur les selecteurs HTMLs
-- ?? : vérifier si une valeur est null ou undefined
-</pre>
-
 #### Type
 <pre>
 Permet la définition de type
 Les types "Type" sont des variables comme const.
-Une fois définie, on ne peut pas les modifier
+Une fois définie, on ne peut pas les modifier.
+
 On peut assigner à un type:
 * des types primitifs (number / string)
 * des unions
@@ -122,10 +68,11 @@ On peut assigner à un type:
 * des objets
 * des tableaux => des tuples
 * des litterals : on assigne une valeur au tuple
+</pre>
 
+```js
 Exemple: 
-> type MajorityAge = 18 | 19 |20;
-> type TraffiLightColor = 'rouge' | 'vert' | 'orange';
+> type MajorityAge = 18 | 19 |20; // litteral, union
 > type Id = MajorityAge;
 > type GetByIdFn = (id:Id) => User;
 > type User = {
@@ -138,16 +85,119 @@ Exemple:
 const getById: GetByIdFn = (id) => {
   return {id: id, name: "toto", feu: "rouge"};
 }
+```
 
+#### Inférence
+##### Principe
+<pre>
+ à partir d'une valeur, typescript peut déterminer le type de la variable.
 </pre>
 
-#### Type littéral
+##### Constante
+<pre>
+Les constantes vont prendre un type litteral.
+Avec une constante, il est impossible de modifier le type.
+</pre>
+```js
+const name = 'John Doe';
+//  ?^ name est de type "John Doe"
+```
+
+##### inférence de  Fonction
+<pre>
+* les  types de paramètres ne sont pas inférés (sauf quand ils sont définis par défaut)
+* le retour de la fonction lui est inféré
+
+* déclaration de type
+* casting
+* typage implicite / explicit
+* sans typage, le type est any.
+</pre>
+
+```js
+const pow = (x: number, y = 2) => x ** y;
+// via l'inférence y est de type number
+```
+
+##### inférence des objets
+```js
+const dog = {
+  name: 'rex',
+  age: 3
+} 
+// name est de type string (inférence) car on peut le modifier
+```
+
+##### as const
+<pre>
+* permet de faire un type assertion ou cast en anglais et limite ainsi le type.
+* on indique au transpileur que le type est différent de celui qu'il a déduit
+* le cast doit être assignable à la valeur déjà définit.
+* transforme le type primitif en littéral
+	* typescript les rend Readonly
+	* on ne peut plus modifier le type, ce qui rend la variable immuable
+* sur un objet / tableau
+	* permet de bloquer tous les types des attributs.
+	* transforme les attributs en Readonly / littéral
+</pre>
+```js
+type DogName = "rex" | "rexy"; 
+let dogName = "rex" as DogName;
+// transforme le type dogName : string => litteral
+
+let dogName = "rex" as number;
+// => impossible le cast ne correspond pas
+
+// tableau
+const variants = ['primary','sceondary','tertiary'] as const;
+// sans le as const: le type est string[]
+// avec le as const: le type: tableau de litteral: readonly
+// => const variants: readonly ["primary", "sceondary", "tertiary"]
+type VARIANT = typeof variants[number];
+// => type VARIANT = "primary" | "sceondary" | "tertiary"
+```
+
+##### typeof
+```js
+const dog = {
+  name: 'rex',
+  age: 3
+};
+// typeof permet de passer du mon javascript au typescript
+// on récupère le type d'une variable javascript pour l'inclure dans 
+// un type typescript
+type DogType = typeof dog;
+```
+
+#### types
+
+##### <a href="https://developer.mozilla.org/en-US/docs/Glossary/Primitive" target="_blank">Types Primitifs</a>
+
+<pre>
+* number
+* string
+* boolean
+* null : la valeur nulle
+* undefined: la valeur non définie
+* symbol: les symboles
+* bigint: les entiers de grandes tailles
+</pre>
+
+##### <a href="https://www.typescriptlang.org/docs/handbook/2/everyday-types.html#literal-types" target="_blank">Type littéral</a>
 <pre>
 Type Littéral :
-Avec les "littéral", on vient limiter les valeurs possibles
+Avec les "littéral", on vient limiter les valeurs possibles.
 En combinant avec les unions, on limite les valeurs.
+On définit une sorte de constante.
 
 Revient à faire une sorte d'Enum:
+</pre>
+
+```JS
+> type TraffiLightColor = 'rouge' | 'vert' | 'orange'; // type litteral union
+> const a: TraffiLightColor = 'rouge';
+> const b: TraffiLightColor = 'foo' ; // Erreur typescript
+
 // 🦁 Utilise le bon type ici
 type PaymentCardType = "visa" | "mastercard";
 const payWithVisa = () => {};
@@ -163,12 +213,326 @@ const pay = (card: PaymentCardType) => {
       throw new Error('Invalid card');
   }
 };
+
+// les constantes vont prendre un type littéral
+const name = 'John Doe';
+//  ?^ name est de type "John Doe"
+
+```
+##### type objet / fonctions
+```js
+// les types primitifs
+type NumberOrString = number | string
+
+//les types d'objets
+type UserOrAdmin = User | Admin
+
+// les types de fonction
+type GetByIdFn = (id:Id) => User;
+```
+
+
+#### types speciaux
+
+<img src="./img/types-speciaux.png" width="500"/>
+
+##### <a href="https://www.typescriptlang.org/docs/handbook/2/everyday-types.html#any" target="_blank">any</a>
+<pre>
+* à éviter car désactive toutes les sécurités de type
+	* si une fonction prend en paramètre un type String, si on définit une variable de type
+	any qui contient un number , cette dernière pourra être passé à la fonction.
+* eventuellment pour des tableaux ayant des valeurs de plusieurs types ???
+</pre>
+```js
+const add = (a: number, b: number) => a + b;
+
+const catName: any = "Mittens";
+const catAge: any = 7;
+
+add(catName, catAge); // 7Mittens, pas d'erreur
+
+```
+
+##### unknown et typeof
+
+<pre>
+* à utiliser en lieu et place de any quand on ne sait pas à quel type on a affaire.
+* Je ne sais pas ce que c'est, c'est un type inconnu
+*  Permet de mieux coder et gérer les différents types en cas
+   d'affectation à une autre variable typé
+* utiliser sur une variable qui reçoit sa valeur d'une fonction qui peut 
+  retourner différents types.
+  On utilise alors le typeof pour savoir le type retourné.
+
+  typeguard: typeof
+</pre>
+```js
+
+const add = (a: number, b: number) => a + b;
+
+const catName: unknown = "Mittens";
+const catAge: unknown = 7;
+
+// Erreur : Type 'unknown' is not assignable to type 'number'.
+add(catName, catAge);
+
+// Ici la condition ne sera pas valide, car catName est de type string
+if (typeof catName === 'number' && typeof catAge === 'number') {
+  // ✅ OK pour TypeScript, mais ce code ne sera jamais appelé
+  add(catName, catAge);
+}
+```
+
+
+##### <a href="https://www.typescriptlang.org/docs/handbook/2/functions.html#unknown" target="_blank">never</a>
+<pre>
+* sert pour typer le retour des fonctions quand elles ne retournent aucune valeur même pas le vide.
+* permet de représenter un type qui ne devrait jamais se produire
 </pre>
 
+```js
+// NEVER
+const throwError = (message: string): never => {
+  throw new Error(message);
+};
+
+try {
+  throwError("test error");  
+} catch(error) {
+  console.log({error});
+}
+
+function infiniteLoop(): never {
+  while (true) {
+    console.log("Boucle infinie");
+    // Cette fonction ne se termine jamais, car elle entre dans une boucle infinie
+  }
+}
+```
+##### void
+<pre>
+Type de retour a preciser quand la fonction ne retourne rien.
+En javascript, une fonction retourne toujours undefined.
+</pre>
+
+#### type optionel
+<pre>
+* ? : permet de définir une propriété comme optionnelle
+* reverseWord? boolean; boolean | undefined
+* reverseWord = false ==> valeur par défaut
+</pre>
+
+#### Opérateurs
+
+##### keyof vs récupérer le type d'une clé
+<pre>
+Permet de récupérer le type d'un objet et produit une liste de littéral (string ou numeric) des clés.
+</pre>
+```js
+type User = {
+  name: string;
+  age: number;
+}
+// récupérer le type d'une clé
+type UserName = User["name"]; // string
+type UserAge = User['age']; // number
+
+// récupérer les clés sous forme de littéral
+type UserKeys = keyof User; // name, age
+
+// user[key] : key (string) => erreur
+// user[key as UserKeys]: key (name | age) => ok
+console.log(Object.keys(user));
+Object.keys(user).forEach(key => {
+  console.log(user[key as UserKeys]); // génère une erreur si pas de cast
+});
+```
+<a href="https://www.typescriptlang.org/docs/handbook/2/keyof-types.html" target="_blank">doc typescript</a>
+<a href="https://www.scaler.com/topics/typescript/typescript-keyof/" target="_blank">typescript</a>
+<a href="https://blog.logrocket.com/how-to-use-keyof-operator-typescript/" target="_blank">blog logrocket</a>
+
+##### |
+<pre>
+unions de string, number ou tout autre type
+(voir union de type et littéral)
+</pre>
+
+##### !
+<pre>
+- ! : permet d'indiquer qu'un élément ne peut être null
+      on indique à TypeScript que la récupération de la valeur se fait bien.
+      sur les selecteurs HTMLs
+</pre>
+
+##### ?
+<pre>
+Permet de merger les types
+</pre>
+```js
+type UserBase = {
+  name: string;
+  age: number;
+}
+
+type User = {
+  admin: false;
+} & UserBase; // On ajoute UserBase à User
+
+type UserAdmin = {
+  admin: true;
+  permissions: string[];
+} & UserBase; // On ajoute UserBase à UserAdmin
+```
+
+#####  [truthy](https://developer.mozilla.org/en-US/docs/Glossary/Truthy) or [falsy](https://developer.mozilla.org/en-US/docs/Glossary/Falsy):
+```
+Dans un contexte booleen certaines valeurs peuvent prendre la valeur true ou false
+false
+0 et -0
+0n
+NaN
+""
+null
+undefined
+```
+
+##### ?? <a target="_blank" href="https://mariusschulz.com/blog/nullish-coalescing-the-operator-in-typescript">nullish coalescing</a>				
+<pre>
+- ?? :  permet de donner une fallback value quand une autre valeur est null ou undefined
+value ?? fallbackValue;
+</pre>
+```ts
+null ?? "n/a"; // "n/a" 
+undefined ?? "n/a"; // "n/a"
+
+Otherwise, the `??` expression evaluates to the left operand:
+false ?? true; // false
+0 ?? 100; // 0
+"" ?? "n/a"; // ""
+NaN ?? 0; // NaN
+
+Notice that all left operands above are falsy values. 
+If we had used the `||` operator instead of the `??` operator,
+all of these expressions would've evaluated to their respective right
+operands:
+
+false || true; // true
+0 || 100; // 100
+"" || "n/a"; // "n/a"
+NaN || 0; // 0
+```
+				
+#### <a href="https://www.typescriptlang.org/docs/handbook/2/everyday-types.html#union-types" target="_blank">Union de type</a>
+<a href="https://camchenry.com/blog/typescript-union-type" target="_blank">union de type</a>
+<pre>
+Les unions sont un moyen de déclarer une variable qui peut appartenir à plusieurs types 
+différents.
+</pre>
+```js
+type TrafficLightColor = 'red' | 'orange' | 'green';
+==>Le type `TrafficLightColor` est égal à `red` OU `orange` OU `green`.
+
+type User = {
+  name: string;
+  age: number;
+  admin: false; // On définit false, soit un type littéral
+}
+
+type AdminUser = {
+  name: string;
+  age: number;
+  admin: true; // On définit true, soit un type littéral
+  permissions: string[]; // Si c'est true, alors il y a un tableau de string `permissions`
+}
+const isAuthorized = (user: User | AdminUser) => {
+  if (user.admin) {
+    // Ici on est sûr que user est un AdminUser
+    // On peut donc accéder à la propriété `permissions`
+    user.permissions
+  }
+
+  user.permissions // Erreur, car `permissions` n'existe pas sur User
+}
+
+```
+#### type générique
+<a href="https://www.typescriptlang.org/docs/handbook/2/generics.html" target="_blank">generics</a>
+<a href="https://www.typescriptlang.org/docs/handbook/type-inference.html" target="_blank">inférence</a>
+<pre>
+Les types génériques c'est un peu comme une boîte. 
+Tu peux mettre n'importe quel objet dans une boîte. 
+Quand tu passes un type générique en paramètre tu définis précisément l'objet que peut contenir la boîte.		
+<a href="https://benmcmahen.com/generics-in-typescript/" target="_blank">Beginning Generics</a>
+</pre>
+<pre>
+Les types génériques sont très utiles pour créer des fonctions qui peuvent être utilisées 
+avec n'importe quel type.
+Les types génériques sont des types qui peuvent prendre en paramètre un autre type. 
+Comme une fonction prend en paramètre une valeur.
+</pre>
+```ts
+type MyType<T> = T extends string ? "string" : "pas-string";
+type A = MyType<string>; // "string"
+type B = MyType<number>; // "pas-string"
+
+function useState<T>(initialValue: T): [T, (value: T) => void] {
+  let value = initialValue;
+  const setValue = (newValue: T) => {
+    value = newValue;
+  }
+  return [value, setValue];
+}
+```
+```js
+// definir un type Role qui override l'inférence
+type Role = 'admin' | 'user';
+const [role, setRole] = useState<Role | null>(null);
+// => les valeurs possible sont admin, user ou null
+```
+
+####  Dériver plutôt que Dupliquer		
+On préférera toujours "dériver" certains types d'autres types. Beaucoup d'utilitaires existent dans TypeScript, et aussi des librairies.
+
+- [utility types](https://www.typescriptlang.org/docs/handbook/utility-types.html), les types utilitaire intégrer dans TypeScript
+- [ts-toolbelt](https://millsp.github.io/ts-toolbelt/), une librairie de type utilitaire
+
+Pour t'entrainer à la création de custom types, tu peux faire les [type challenge](https://github.com/type-challenges/type-challenges)		
+
+```ts
+type UserNames = {
+  X? : string | null;
+  O? : string | null;
+}
+
+type DeepNonNullable<T> = {
+  [P in keyof T]: NonNullable<T[P]>
+}
+
+type UserNamesNoNullable = DeepNonNullable<UserNames>;
+```
+			
+##### <a href="https://www.typescriptlang.org/docs/handbook/utility-types.html" target="_blank">Utility Types</a>
+				
+<pre>
+Ils permettent de modifier et changer les types qui existent. 
+Imagine-toi qu'on veuille enlever le `id` d'un type `User` :
+</pre>
+
+```js
+type User = {
+  id: number;
+  name: string;
+  email: string;
+}
+
+type UserWithoutId = Omit<User, "id">
+```
+
 #### Fonctions
+<a href="https://www.youtube.com/watch?v=nwSe95uFN8E" target="_blank">should you use return types</a>
 
 ##### déclaration de fonction:
-<pre>
+```JS
 // mode ES5
 function ma_fonction(param1:type, param2:type) : returnType {
   ...
@@ -183,9 +547,7 @@ var ma_fonction = function(p1:type, p2:type) : returnType{
 const ma_fonction = (p1: type, p2: type) : returnType => {
   ...
 }
-</pre>
-
-
+```
 ##### fonction de rappel
 <pre>
 On peut déclarer une variable de type fonction, sans préciser la signature
@@ -198,11 +560,7 @@ let operation: (a:number, b:number) => number;
 </pre>
 
 
-#### Union de type
-<pre>
-Les unions sont un moyen de déclarer une variable qui peut appartenir à plusieurs types 
-différents.
-</pre>
+
 
 #### surcharge de fonction
 
@@ -216,7 +574,7 @@ const names:string[] = new Array< string >("Mary","Tom","Jack","Jill")
 </pre>
 ==> Comment déclarer un tableau
 
-#### type vs interface ==> Fait la même chose.
+#### <a href="https://codelynx.dev/posts/typescript-type-vs-interface" target="_blank">type vs interface</a> 
 
 #### union et objet :
 <pre>

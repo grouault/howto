@@ -141,11 +141,30 @@ Elle aura un id, et ensuite on fera un merge qui fera un
 * merge sur les entités détachées
 </pre>
 
+#### detach
+<pre>
+* permet de faire passer une entité d'un état MANAGED à un état DETACHED
+* pour faire un detach, l'entité doit être dans la session
+</pre>
+```
+@Transactional  
+public Movie getMovie(Long id) {  
+    Movie movie = entityManager.find(Movie.class, id);  
+    log.info("session contains MOVIE : " + entityManager.contains(movie));  
+    entityManager.detach(movie);  
+    log.info("session contains MOVIE: " + entityManager.contains(movie));  
+    return movie;  
+}
+```
+
 #### merge
 
 ##### principe
-
 <pre>
+* permet de passer une entité d'un DETACHED à un étant MANAGED
+* merge se traduit par une opération de sélection et de modification si l'entité a été modifié.
+* merge s'effectue donc un contexte transactionnel car c'est une opération d'écriture.
+
 * Il est possible d'utiliser merge sur les entités transientes mais cela n'est pas dans la norme.
 * Hibernate ne fera pas de Select sur les entités n'ayant pas d'id.
 * Quand on fait un merge sur une entité transiente:
@@ -159,6 +178,17 @@ Elle aura un id, et ensuite on fera un merge qui fera un
 1- ID
 - Il ne faut jamais déterminé l'id de manière programmatique. C'est hibernate qui s'en occupe.
 - On peut le faire pour tricher, pour simuler un merge.
+
+<i>
+@Transactional  
+public Movie merge(Movie movie) {  
+    Movie mergeMovie = entityManager.merge(movie);  
+    return mergeMovie;  
+}
+</i>
+Le merge se fait dans un contexte transactionnel car potentiellement, il y a 
+un update.
+
 </pre>
 
 <pre>
@@ -206,6 +236,22 @@ faire une méthode de DAO qui prend en paramètre
 </pre>
 
 <a href="https://vladmihalcea.com/merge-entity-collections-jpa-hibernate/" target="_blank">merger une collection</a>
+
+#### remove
+<pre>
+* Remove permet de mettre l'entité d'un état MANAGED à un état REMOVED
+* Cela suppose donc que l'entité doit être dans la Session avant de pouvoir être
+supprimé.
+* Comme c'est une opération d'écriture, l'opération doit s'effectuer dans un contexte
+transactionnel.
+</pre>
+```
+@Transactional  
+public void remove(Long id){  
+    Movie movie = entityManager.find(Movie.class, id);  
+    entityManager.remove(movie);  
+}
+```
 
 ### proxy
 

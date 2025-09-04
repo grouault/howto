@@ -14,9 +14,9 @@
 
 - [spring](spring/index-spring.md)
 
-### junit
+### tests
 
-- [junit](junit/index-junit.md)
+- [tests](./tests/test-index.md)
 
 ### Autres
 

@@ -393,6 +393,15 @@ $ docker container inspect --format '{{.NetworkSettings.IPAddress }}' < NAME/ID 
 	Permet de n'afficher que la ligne correspondante à l'adresse IP du conteneur
 </pre>
 
+##### voir les réseau du conteneur
+```yaml
+> docker inspect webserver_2004 --format '{{json .NetworkSettings.Networks}}' | python3 -m json.tool
+```
+##### voir le volume du conteneur
+```bash
+docker inspect mycontainer | jq '.[0].Mounts'
+```
+
 ##### docker container stats < NAME/ID >
 <pre>
 $ docker container stats nginx_webserver

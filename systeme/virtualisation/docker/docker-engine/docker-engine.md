@@ -13,7 +13,7 @@ docker-engine peut exposer ses services via une API Rest
 
 <pre>
 * 0.0.0.0:2375
-	* 0.0.0.0: C'est à dire on peut la consulter depuis n'importe quelle machine
+	* 0.0.0.0: C'est ï¿½ dire on peut la consulter depuis n'importe quelle machine
 	* 2375: port d'exposition de l'API Rest
 </pre>	
 	
@@ -25,15 +25,15 @@ docker-engine peut exposer ses services via une API Rest
 <pre>
 1-<b>choco</b>: Pour installer le client docker on utilise 'choco'
 	* outils comme npm, iptget
-	* installation : https://chocolatey.org/install#individual (suivre la procédure)
+	* installation : https://chocolatey.org/install#individual (suivre la procï¿½dure)
 
-2- une fois choco installé
-	* installé docker : <b>choco install docker-cli</b>
+2- une fois choco installï¿½
+	* installï¿½ docker : <b>choco install docker-cli</b>
 	* https://community.chocolatey.org/packages/docker-cli#individual
 
 </pre>
 
-### établir une connexion avec docker-engine
+### ï¿½tablir une connexion avec docker-engine
 <pre>
 * ajouter variable d'environnement: DOCKER_HOST
 </pre>

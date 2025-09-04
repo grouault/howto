@@ -6,14 +6,16 @@
 
 - [fondamentaux](formation/n0.react-fondamentaux.md)
 - [cours](formation/n1-react-cours.md)
+- [components](formation/components/components.md)
 - [hook](formation/cours/hook.md)
 - [Formulaire](formation/cours/formulaire.md)
+- [Pattern](formation/cours/patterns.md)
+- [React avec TypeScript](./formation/cours/react-typescript.md)
+	
+
+### Autres
 - [react-router](formation/cours/react-router.md)
-- [axios](formation/cours/axios.md)
-
-### Components
-
-- [components](formation/components/components.md)
+- [data-fetching](./formation/cours/data-fetching/index-datafetching.md)
 
 ### es6-es9
 
