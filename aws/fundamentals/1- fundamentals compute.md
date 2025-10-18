@@ -11,7 +11,7 @@ Dans un DataCenter : serveur qui a de la RAM et de la CPU
 AWS: différents services qui offrent des capacités de calculs.
 * EC2 : service en continu (millions d'instructions)
 * Lambda: (qqs millisecond pour exécuter du code)
-Le service a utilisé dépend du besoin de l'entreprise.
+Le service à utiliser dépend du besoin de l'entreprise.
 
 ### EC2 
 Service qui permet de déployer des serveurs virtuels au sein de l'environnement AWS
@@ -109,7 +109,7 @@ la sélection du stockage dépend du type d'instance choisi
 * est-ce que les données sont critiques ?
 ##### 📌persistent storage : Amazon Elastic Block Store (EBS)
  EBS Volume sont des appareils distincts de l'instance EC2, considérés comme des périphériques de stockage connectés au réseau
-* logiquement attachés à l'instance EC2 via le réseau AWS. Il faut voir la chose de la manière suivante : si le PC est EC2, un disque dure externe représente l'EBS
+* logiquement attachés à l'instance EC2 via le réseau AWS. Il faut voir la chose de la manière suivante : si le PC est EC2, un disque dur externe représente l'EBS
 * pour la résilience les données sont dupliquées  dans la même zone de disponibilité.
 * EBS peut être attachés à un autre EC2
 * il est possible de créer un instantané qui peut être mis sur Amazon S3
@@ -155,7 +155,7 @@ Principe
 3. **Connexion au serveur**
     - Quand vous tentez de vous connecter :
 ```bash
-ssh-keygen -t rsa -b 4096 -f ma_clef
+ssh -i ma_clef.pem ec2-user@<IP_INSTANCE>
 ```
 
 - Le serveur utilise la **clé publique** qu’il connaît pour vérifier que la **clé privée** que vous utilisez est valide (via un mécanisme de chiffrement asymétrique).    

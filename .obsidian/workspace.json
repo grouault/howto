@@ -1,57 +1,30 @@
 {
   "main": {
-    "id": "111d9084ff4350fc",
+    "id": "6c0cc0d807bbecc8",
     "type": "split",
     "children": [
       {
-        "id": "9c51f94ae24b6db1",
+        "id": "e46bc1abccb383d6",
         "type": "tabs",
-        "dimension": 78.92518440463645,
+        "dimension": 72.96954314720813,
         "children": [
           {
-            "id": "80b0f5de7e627386",
+            "id": "d64756b4bdb7aba5",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "javascript/framework/playwright/formation.md",
+                "file": "java/soa/soap/soap.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "formation"
-            }
+              "title": "soap"
+            },
+            "group": "ee58674007e75403"
           },
           {
-            "id": "33e9442cdbd4a4a3",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "systeme/virtualisation/docker/dockerfile/dockerfile-notes.md",
-                "mode": "preview",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "dockerfile-notes"
-            }
-          },
-          {
-            "id": "fd0d1eb72774ba04",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "java/spring/spring-boot/spb-environnement.md",
-                "mode": "preview",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "spb-environnement"
-            }
-          },
-          {
-            "id": "3dbdaa4f61e637ce",
+            "id": "699ba3285a29b3c4",
             "type": "leaf",
             "state": {
               "type": "markdown",
@@ -65,50 +38,41 @@
             }
           },
           {
-            "id": "6b2dc3e2fdff90d8",
+            "id": "776dd5703a2fd899",
             "type": "leaf",
             "state": {
-              "type": "pdf",
+              "type": "markdown",
               "state": {
-                "file": "systeme/virtualisation/docker/formation/assouline/Démarrer+avec+les+conteneurs.pdf"
+                "file": "aws/fundamentals/1- fundamentals compute.md",
+                "mode": "source",
+                "source": false
               },
-              "icon": "lucide-file-text",
-              "title": "Démarrer+avec+les+conteneurs"
-            }
-          },
-          {
-            "id": "60cf66db8e891bed",
-            "type": "leaf",
-            "state": {
-              "type": "image",
-              "state": {
-                "file": "java/spring/spring-boot/formation-guru/img/section-3/intellij-config-annotation-processor.png"
-              },
-              "icon": "lucide-image",
-              "title": "intellij-config-annotation-processor"
+              "icon": "lucide-file",
+              "title": "1- fundamentals compute"
             }
           }
         ]
       },
       {
-        "id": "e1f0de1d3388c51e",
+        "id": "62fefbc372512d84",
         "type": "tabs",
-        "dimension": 21.07481559536354,
+        "dimension": 27.030456852791875,
         "children": [
           {
-            "id": "0bea68d8ae9f0d5a",
+            "id": "ee3aff78352fbcd2",
             "type": "leaf",
             "state": {
               "type": "outline",
               "state": {
-                "file": "javascript/framework/playwright/formation.md",
+                "file": "java/soa/soap/soap.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Plan de formation"
-            }
+              "title": "Plan de soap"
+            },
+            "group": "ee58674007e75403"
           }
         ]
       }
@@ -116,33 +80,33 @@
     "direction": "vertical"
   },
   "left": {
-    "id": "78fc1f3d2bab7ece",
+    "id": "15cb52abe53f52ab",
     "type": "split",
     "children": [
       {
-        "id": "2bfcf94289a2bbee",
+        "id": "435dca738f0d4e24",
         "type": "tabs",
         "children": [
           {
-            "id": "a88f51cefb87ce7d",
+            "id": "e744da4675bef246",
             "type": "leaf",
             "state": {
               "type": "file-explorer",
               "state": {
                 "sortOrder": "alphabetical",
-                "autoReveal": true
+                "autoReveal": false
               },
               "icon": "lucide-folder-closed",
               "title": "Explorateur de fichiers"
             }
           },
           {
-            "id": "a0e157dbbb9313d2",
+            "id": "d35943731d89c31b",
             "type": "leaf",
             "state": {
               "type": "search",
               "state": {
-                "query": "lombok",
+                "query": "mongo",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -154,37 +118,37 @@
             }
           },
           {
-            "id": "1c3807b82c1eb1fb",
+            "id": "e6959d02603e0ac9",
             "type": "leaf",
             "state": {
               "type": "bookmarks",
               "state": {},
               "icon": "lucide-bookmark",
-              "title": "Signet"
+              "title": "Signets"
             }
           }
         ]
       }
     ],
     "direction": "horizontal",
-    "width": 343.5
+    "width": 330.5
   },
   "right": {
-    "id": "25649e30fdf7ebf7",
+    "id": "49ad10034f46f90c",
     "type": "split",
     "children": [
       {
-        "id": "445a3d0c96cb322b",
+        "id": "ea94e7f403cabaff",
         "type": "tabs",
         "children": [
           {
-            "id": "3f25bf28fe97ea1c",
+            "id": "453fef9fa75ec28b",
             "type": "leaf",
             "state": {
               "type": "backlink",
               "state": {
-                "file": "javascript/framework/playwright/formation.md",
-                "collapseAll": true,
+                "file": "aws/fundamentals/2-elb.md",
+                "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
                 "showSearch": false,
@@ -193,112 +157,118 @@
                 "unlinkedCollapsed": true
               },
               "icon": "links-coming-in",
-              "title": "Rétrolien pour formation"
+              "title": "Rétrolien pour 2-elb"
             }
           },
           {
-            "id": "fe37d4cb5ff76448",
+            "id": "ccfc04539ec6861c",
             "type": "leaf",
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "java/junit/mise-en-place.md",
+                "file": "aws/fundamentals/2-elb.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               },
               "icon": "links-going-out",
-              "title": "Liens sortants de mise-en-place"
+              "title": "Liens sortants de 2-elb"
             }
           },
           {
-            "id": "a1f4551d4444ac3b",
+            "id": "7269882ef2b5546c",
             "type": "leaf",
             "state": {
               "type": "tag",
               "state": {
                 "sortOrder": "frequency",
-                "useHierarchy": true
+                "useHierarchy": true,
+                "showSearch": false,
+                "searchQuery": ""
               },
               "icon": "lucide-tags",
               "title": "Mots-clés"
             }
           },
           {
-            "id": "c28eb3b596e1ebc3",
+            "id": "b299e220da0b21d7",
             "type": "leaf",
             "state": {
               "type": "outline",
               "state": {
-                "file": "java/junit/mise-en-place.md"
+                "file": "aws/fundamentals/2-elb.md",
+                "followCursor": false,
+                "showSearch": false,
+                "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Plan de mise-en-place"
+              "title": "Plan de 2-elb"
             }
           }
         ]
       }
     ],
     "direction": "horizontal",
-    "width": 200
+    "width": 300,
+    "collapsed": true
   },
   "left-ribbon": {
     "hiddenItems": {
-      "bases:Create new base": false,
       "switcher:Ouvrir le sélecteur rapide": false,
       "graph:Ouvrir la vue graphique": false,
       "canvas:Créer une nouvelle toile": false,
       "daily-notes:Ouvrir la note quotidienne": false,
       "templates:Insérer le modèle": false,
-      "command-palette:Ouvrir la palette de commandes": false
+      "command-palette:Ouvrir la palette de commandes": false,
+      "bases:Create new base": false
     }
   },
-  "active": "80b0f5de7e627386",
+  "active": "e744da4675bef246",
   "lastOpenFiles": [
-    "javascript/framework/react/formation/cours/hook.md",
-    "javascript/framework/playwright/formation.md",
-    "javascript/framework/playwright",
-    "systeme/virtualisation/docker/dockerfile/dockerfile-notes.md",
-    "java/spring/spring-boot/spb-environnement.md",
-    "aws/fundamentals/1- fundamentals compute.md",
-    "systeme/virtualisation/docker/formation/assouline/Démarrer+avec+les+conteneurs.pdf",
-    "java/spring/spring-boot/formation-guru/img/section-3/intellij-config-annotation-processor.png",
-    "java/spring/spring-boot/formation-guru/notes/Section-3 - Lombok - Record.md",
-    "java/soa/micro-service/demarrer-un-ms.md",
-    "systeme/linux/notes-linux.md",
-    "systeme/virtualisation/virtualisation.md",
-    "systeme/index-systeme.md",
-    "systeme/virtualisation/0-architecture-virtualiation.PNG",
-    "systeme/linux/index-linux.md",
-    "systeme/linux/editors/vi.md",
-    "systeme/virtualisation/docker/installation-docker.md",
-    "systeme/virtualisation/docker/docker.md",
-    "systeme/virtualisation/docker/docker.pdf",
+    "sgbd/elastic-search/p4 - Elasticsearch installation.pdf",
+    "sgbd/elastic-search/p3 - Elasticsearch architecture.pdf",
+    "sgbd/elastic-search/p2 - apache lucene.pdf",
+    "sgbd/elastic-search/p1 - moteur d'indexation.pdf",
+    "sgbd/elastic-search/exercice_devops.pdf",
+    "sgbd/elastic-search/books.zip",
+    "sgbd/elastic-search/03-ELK.pdf",
+    "sgbd/elastic-search/02-ELK.pdf",
+    "sgbd/elastic-search/01-ELK.pdf",
+    "sgbd/elastic-search",
+    "sgbd/Nouveau dossier",
+    "java/soa/index-soa.md",
+    "java/soa/micro-service/ms-notes.md",
     "systeme/virtualisation/docker/docker-cmd/docker-cmd.md",
-    "git/gitlab/Note Docker for DevOps.md",
-    "git/gitlab/img/dev-env.png",
-    "git/gitlab/img/architecture-2.png",
-    "git/gitlab/img/architecture.png",
-    "git/gitlab/img/tldraw/docker/docker-deamon.png",
-    "systeme/Unix/scp.md",
-    "systeme/Unix/hosts.md",
-    "systeme/Unix/curl.md",
+    "java/certificats/how-to-keytool.md",
+    "git/formation-udemy/note-formation-udemy.md",
     "systeme/bash/alias.md",
-    "aws/fundamentals/2-elb.md",
-    "aws/fundamentals/imgs/elb/cloudwatch-indispo-ServiceMsClient.png",
-    "aws/fundamentals/imgs/elb/terra-form.png",
-    "aws/fundamentals/imgs/elb/doc-cognito.png",
+    "aws/Capture d’écran 2025-07-30 141911.png",
+    "aws/Capture d’écran 2025-07-30 141830.png",
+    "aws/Capture d’écran 2025-07-30 141852.png",
     "aws/notes/sns-sqs.md",
-    "git/gitlab/img/excalidraw/gitlab/archi-gitlab 1.png",
+    "aws/fundamentals/4- storage.md",
+    "java/spring/spring-boot/spb-environnement.md",
+    "systeme/virtualisation/docker/exercices-formation/exo-3-dockerfile/node_modules/debug/README.md",
+    "python/notes-environnement.md",
     "git/gitlab/Note GitLab.md",
-    "systeme/virtualisation/docker/docker-engine/docker-engine.md",
-    "systeme/virtualisation/docker/exercices-formation/exo-2-dockerFile/README.md",
-    "systeme/virtualisation/docker/exercices-formation/exo-3-dockerfile/README.md",
-    "aws/notes/ecs",
-    "aws/Sans titre",
-    "aws/notes",
-    "java/spring/spring-boot/spb-environnement",
-    "java/spring/spring-boot/formation-guru/pdf/7-IntroTestingMockMVC.pdf",
-    "java/spring/spring-boot/formation-guru/pdf/5-SpringBeanLifecycle.pdf",
-    "java/spring/spring-boot/formation-guru/pdf/4-BasicsOfDepInjectionS6.pdf"
+    "javascript/framework/playwright/formation.md",
+    "systeme/virtualisation/docker/docker.md",
+    "aws/fundamentals/1- fundamentals compute.md",
+    "javascript/framework/angular/formation/0-synthese.md",
+    "git/gitlab/Netlify.md",
+    "git/gitlab/Note Pipeline.md",
+    "git/gitlab/Note Docker for DevOps.md",
+    "git/gitlab/gitlab-ci-yaml/learn-git-lab/gitlab-ci.md",
+    "systeme/cicd/notes-cicd.md",
+    "Pasted image 20250224222842.png",
+    "Pasted image 20250224222840.png",
+    "java/spring/spring-contexte/spring-configuration/properties.md",
+    "java/spring/spring-project/project-biblio/projet-biblio.md",
+    "java/hibernate/notes/principe.md",
+    "java/spring/spring-contexte/spring-configuration/index.md",
+    "aws/fundamentals/imgs/storage/s3-glaciers-synthese.png",
+    "aws/fundamentals/imgs/storage/s3-glacier-features.png",
+    "aws/fundamentals/imgs/storage/s3-glacier.png",
+    "aws/fundamentals/imgs/storage/S3-classe-INT.png",
+    "aws/fundamentals/imgs/storage/s3-standard.png"
   ]
 }

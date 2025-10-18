@@ -4,7 +4,7 @@
 
 ## Principe
 <pre>
-* application qui permet de gérer des produits
+* application qui permet de gï¿½rer des produits
 </pre>
 
 ![application](./img/synthese/0-application.PNG)
@@ -13,11 +13,11 @@
 <pre>
 * bootstrap
 * concurrently : 
-	* permet de lancer des applications de manière concurrente c'est à dire en parrallèle
-	* permet de lancer des commandes en parallèle (ligne de commande)
-* font-awesome: pour les icônes
+	* permet de lancer des applications de maniï¿½re concurrente c'est ï¿½ dire en parrallï¿½le
+	* permet de lancer des commandes en parallï¿½le (ligne de commande)
+* font-awesome: pour les icï¿½nes
 * jquery : templating
-* json-server : partie back-end (serveur node.js | création base de données au format json 'db.json')
+* json-server : partie back-end (serveur node.js | crï¿½ation base de donnï¿½es au format json 'db.json')
 </pre>
 
 ![application](./img/synthese/1-dependance.PNG)
@@ -28,7 +28,7 @@
 
 ### installation
 
-### Création
+### Crï¿½ation
 <pre>
 $ ng new web-cat-app
 </pre>
@@ -43,12 +43,12 @@ $ ng new web-cat-app
 
 </pre>
 
-#### base de données
+#### base de donnï¿½es
 
 ##### db.json
 <pre>
-* créer un fichier db.json à la racine du projet
-* permet de démarrer une API Rest
+* crï¿½er un fichier db.json ï¿½ la racine du projet
+* permet de dï¿½marrer une API Rest
 	* localhost:3000/products
 	* localhost:3000/products/2
 	* localhost:3000/products?selected=true
@@ -57,7 +57,7 @@ $ ng new web-cat-app
 </pre>
 
 <pre>
-* possible d'envoyer des requêtes avec Post | Put | Delete
+* possible d'envoyer des requï¿½tes avec Post | Put | Delete
 * POST: 
 	header: content-type : application/json
 	body : {
@@ -104,8 +104,8 @@ $ ng new web-cat-app
 ##### db.routes.json
 <pre>
 * Permet de faire une configuration sur les routes.
-* On veut faire une configuration pour préfixer toutes les routes par /api/
-* Prendre en compte ces nouvelles routes au démarrage du serveur
+* On veut faire une configuration pour prï¿½fixer toutes les routes par /api/
+* Prendre en compte ces nouvelles routes au dï¿½marrage du serveur
 </pre>
 ```
 {
@@ -124,21 +124,21 @@ $ ng new web-cat-app
 
 ### cors
 <pre>
-* Le serveur angular démarre sur : http://localhost:4200/
-* Le serveur back démarre sur : http://localhost:3000/
-<b>Cela provoque une erreur CORS car les deux serveurs travaillent sur des domoines et port différents.</b>
+* Le serveur angular dï¿½marre sur : http://localhost:4200/
+* Le serveur back dï¿½marre sur : http://localhost:3000/
+<b>Cela provoque une erreur CORS car les deux serveurs travaillent sur des domoines et port diffï¿½rents.</b>
 </pre>
 
 #### configuration Proxy
 <pre>
-* il faut dire au serveur angular de transmettre toutes les urls(<b>source</b>) que l'on veut réaiguiller vers une autre <b>cible</b>
+* il faut dire au serveur angular de transmettre toutes les urls(<b>source</b>) que l'on veut rï¿½aiguiller vers une autre <b>cible</b>
 * ainsi il faut configurer un proxy avec :
 	* source : http://localhost:4200/api
 	* cible: http://localhost:3000/api
 * <i>important:</i> c'est le <b>serveur angular</b> qui fait la <b>redirection</b>
 </pre>
 
-* générer un fichier src/proxy.conf.json
+* gï¿½nï¿½rer un fichier src/proxy.conf.json
 ```
 {
     "/api/*": {
@@ -149,7 +149,7 @@ $ ng new web-cat-app
 }
 ```
 
-* Définir le proxy dans le fichier angular.json
+* Dï¿½finir le proxy dans le fichier angular.json
 ```
 "architect": {
     "serve": {
@@ -167,15 +167,15 @@ $ ng new web-cat-app
 #### environnement
 <pre>
 * <b>envrionnement.ts</b>: ce fichier permet de faire des configuration par environnement
-	* à utiliser donc pour les variables d'environnement
-	* la variable <b>host</b> pour la confifuration du serveur backend a été défnit.
-		* pose un problème <b>cors</b>, du coup, il faut passer par un <b>proxy</b> sur le <b>serveur Angular</b>.
+	* ï¿½ utiliser donc pour les variables d'environnement
+	* la variable <b>host</b> pour la confifuration du serveur backend a ï¿½tï¿½ dï¿½fnit.
+		* pose un problï¿½me <b>cors</b>, du coup, il faut passer par un <b>proxy</b> sur le <b>serveur Angular</b>.
 		* <i>cf. plus haut</i>
 </pre>
 
 #### bootstrap | JQuery 
 <pre>
-* integration bootstrap | jquery ==> intégré dans package.json
+* integration bootstrap | jquery ==> intï¿½grï¿½ dans package.json
 </pre>
 
 <pre>
@@ -208,7 +208,7 @@ $ ng new web-cat-app
 
 #### font-awesome
 <pre>
-* font-awesome ==> intégré dans styles.css
+* font-awesome ==> intï¿½grï¿½ dans styles.css
 </pre>
 
 <pre>
@@ -217,7 +217,7 @@ ou
 @import "~font-awesome/css/font-awesome.min.css";
 </pre>
 
-#### Création des composants
+#### Crï¿½ation des composants
 <pre>
 $ ng g c components/products
 $ ng g c components/home
@@ -248,19 +248,19 @@ const routes: Routes = [
 </li>
 ```
 
-#### Création Modele, state, actions
+#### Crï¿½ation Modele, state, actions
 ![modele-state-actions](./img/synthese/3-enum-modele-state-action.PNG)
 
-#### Création des services
+#### Crï¿½ation des services
 
 ### Formulaire
 
-#### Réactive Forms
+#### Rï¿½active Forms
 <pre>
-Erreur à la mise en place :
+Erreur ï¿½ la mise en place :
 error TS2322: Type 'string | undefined' is not assignable to type 'string'.
   Type 'undefined' is not assignable to type 'string'.
-  Nécessite la correction suivante dans le fichier tslint.json
+  Nï¿½cessite la correction suivante dans le fichier tslint.json
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,
     "strictInjectionParameters": true,
